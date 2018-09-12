@@ -225,7 +225,7 @@
                     <ul class="nav navbar-nav ml-auto mx-auto">
                         <li class="nav-item mr-3" role="presentation"><a class="nav-link" href="${path}/spot/spotList.do">관광지</a></li>
                         <li class="nav-item mr-3" role="presentation"><a class="nav-link" href="#">숙소</a></li>
-                        <li class="nav-item mr-3" role="presentation"><a class="nav-link" href="#">여행 큐레이션</a></li>
+                        <li class="nav-item mr-3" role="presentation"><a class="nav-link" href="${path}/schedule/scheduleWrite">여행일정</a></li>
                         <li class="dropdown mr-3"><a class="dropdown-toggle nav-link dropdown-toggle" data-toggle="dropdown" aria-expanded="false" href="#">제주이야기 </a>
                             <div class="dropdown-menu" role="menu"><a class="dropdown-item" role="presentation" href="#">First Item</a><a class="dropdown-item" role="presentation" href="#">Second Item</a><a class="dropdown-item" role="presentation" href="#">Third Item</a></div>
                         </li>
