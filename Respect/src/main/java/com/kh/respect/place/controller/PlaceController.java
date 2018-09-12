@@ -43,8 +43,6 @@ public class PlaceController {
 		
 		List<Map<String,String>> list = service.selectSpotList(cPage, numPerPage);
 		
-		System.out.println("리스트 : "+list);
-		
 		int totalCount = service.selectTotalCount();
 		
 		mv.addObject("list", list);
