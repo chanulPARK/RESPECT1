@@ -181,12 +181,27 @@
                 </div>
             </div>
             <div class="row justify-content-between mr-3">
-                <div class="col-6">
-                    <a class="btn btn-outline-warning" href="#">회원가입</a>
-                </div>         
-                <div class="col-6">
-                    <a class="btn btn-outline-warning" href="#">로그인</a> 
-                </div>      
+                <c:if test="${userLoggedIn==null }">
+	                <div class="col-6">
+	                    <a class="btn btn-outline-warning" href="${path}/user/userEnroll.do">회원가입</a>
+	                </div>         
+	                <div class="col-6">
+	                    <a class="btn btn-outline-warning" href="${path}/user/userLogin.do">로그인</a> 
+	                </div>
+	                
+	                
+                </c:if>
+                <c:if test="${userLoggedIn!=null }">
+                	<div class="col-4">
+	                    <a class="btn btn-outline-warning" href="${path}/mySchedule/allMySchedule.do?userId=${userLoggedIn.userId}">나의 일정관리</a>
+	                </div>
+	                <div class="col-4">
+	                    <a class="btn btn-outline-warning" href="${path}/user/userUpdate.do">나의 정보관리</a>
+	                </div>
+	                <div class="col-4">
+	                    <a class="btn btn-outline-warning" href="${path }/user/userLogout.do">로그아웃</a>
+	                </div>
+                </c:if>   
             </div>
         </nav>
         </div>

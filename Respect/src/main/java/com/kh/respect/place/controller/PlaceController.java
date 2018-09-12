@@ -80,8 +80,6 @@ public class PlaceController {
 		place.setPhone(phone);
 		place.setContent(content);
 		
-		System.out.println(place);
-		
 		String saveDir = request.getSession().getServletContext().getRealPath("resources/upload/spot");
 		
 		File dir = new File(saveDir);

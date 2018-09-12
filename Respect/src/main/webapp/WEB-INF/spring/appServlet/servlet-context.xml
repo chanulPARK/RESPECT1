@@ -28,10 +28,20 @@
 		<beans:property name="maxUploadSize" value="10485760"></beans:property>
 	</beans:bean>
 	
+	<!-- viewResolver -->
 	<beans:bean id="viewResolver" class="org.springframework.web.servlet.view.BeanNameViewResolver">
 		<beans:property name="order" value="1"/> 
-		</beans:bean>
+	</beans:bean>
+	
 	<beans:bean id="jsonView" class="net.sf.json.spring.web.servlet.view.JsonView"/>
 	
+	<!-- 세션 업데이트 -->
+	<interceptors>
+		<interceptor>
+			<mapping path="/**"/>
+			<exclude-mapping path="/user/userLogout.do"/>
+			<beans:bean id="NewUser" class="com.kh.respect.common.interceptor.NewUser"></beans:bean>
+		</interceptor>
+	</interceptors>
 	
 </beans:beans>

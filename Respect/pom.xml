@@ -24,6 +24,27 @@
 	
 	<dependencies>
 	
+		<!-- mail -->
+		<dependency>
+			<groupId>javax.mail</groupId>
+			<artifactId>mail</artifactId>
+			<version>1.4.7</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context-support</artifactId>
+			<version>${org.springframework-version}</version>
+		</dependency>
+		
+		<!-- springloaded설정 -->
+		<!-- https://mvnrepository.com/artifact/org.springframework/springloaded -->
+		<dependency>
+		    <groupId>org.springframework</groupId>
+		    <artifactId>springloaded</artifactId>
+		    <version>1.2.8.RELEASE</version>
+		    <scope>provided</scope>
+		</dependency>
+	
 		<!-- https://mvnrepository.com/artifact/com.oracle/ojdbc6 -->
 	      <dependency>
 	         <groupId>com.oracle</groupId>
@@ -88,7 +109,41 @@
 		    <version>1.0.2</version>
 		</dependency>
 		
-	
+		<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
+       <dependency>
+           <groupId>com.fasterxml.jackson.core</groupId>
+           <artifactId>jackson-databind</artifactId>
+           <version>2.9.5</version>
+       </dependency>
+                
+      <!-- 스프링 시큐리티 -->
+      <!-- 5.0.6버전에서는 shaPsswordEncoder는 사용할 수 없음. BCrypatPasswordEncoder를 사용 하겠음-->
+      <!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-core -->
+      <dependency>
+          <groupId>org.springframework.security</groupId>
+          <artifactId>spring-security-core</artifactId>
+          <version>5.0.6.RELEASE</version>
+      </dependency>
+      
+      <!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-web -->
+      <dependency>
+          <groupId>org.springframework.security</groupId>
+          <artifactId>spring-security-web</artifactId>
+          <version>5.0.6.RELEASE</version>
+      </dependency>
+      <!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-config -->
+      <dependency>
+          <groupId>org.springframework.security</groupId>
+          <artifactId>spring-security-config</artifactId>
+          <version>5.0.6.RELEASE</version>
+      </dependency>
+       <!-- query와 resultSet을 logging할 수 있는 log4jdbc-remix 라이브러리추가 -->
+       <!-- https://mvnrepository.com/artifact/org.lazyluke/log4jdbc-remix/0.2.7 -->
+       <dependency>
+           <groupId>org.lazyluke</groupId>
+           <artifactId>log4jdbc-remix</artifactId>
+           <version>0.2.7</version>
+       </dependency>
 	
 	
 	
@@ -117,6 +172,13 @@
 			<artifactId>aspectjrt</artifactId>
 			<version>${org.aspectj-version}</version>
 		</dependency>	
+		
+		<!-- https://mvnrepository.com/artifact/org.aspectj/aspectjweaver -->
+      <dependency>
+          <groupId>org.aspectj</groupId>
+          <artifactId>aspectjweaver</artifactId>
+          <version>${org.aspectj-version}</version>
+      </dependency>
 		
 		<!-- Logging -->
 		<dependency>
