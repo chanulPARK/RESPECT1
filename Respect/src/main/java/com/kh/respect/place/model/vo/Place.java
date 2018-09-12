@@ -19,6 +19,13 @@ public class Place {
 	private String renamedFileName;
 	
 	public Place() {}
+	
+	public Place(int placeno, String title, String address) {
+		super();
+		this.placeno = placeno;
+		this.title = title;
+		this.address = address;
+	}
 
 	public Place(int placeno, String majorcategory, String minorcategory, String area, String userid, String title,
 			int gpa, String address, String phone, int goodcount, int bringcount, int replycount, int hitscount,
@@ -172,11 +179,7 @@ public class Place {
 
 	@Override
 	public String toString() {
-		return "Place [placeno=" + placeno + ", majorcategory=" + majorcategory + ", minorcategory=" + minorcategory
-				+ ", area=" + area + ", userid=" + userid + ", title=" + title + ", gpa=" + gpa + ", address=" + address
-				+ ", phone=" + phone + ", goodcount=" + goodcount + ", bringcount=" + bringcount + ", replycount="
-				+ replycount + ", hitscount=" + hitscount + ", content=" + content + ", originalFileName="
-				+ originalFileName + ", renamedFileName=" + renamedFileName + "]";
+		return placeno+","+title+","+address;
 	}
 	
 	
