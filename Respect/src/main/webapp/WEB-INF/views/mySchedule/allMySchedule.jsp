@@ -72,7 +72,7 @@
 <body>
     <div class="container p-0" >
     <div class="container p-0">
-        <div class="card card-register mx-auto mt-5" style="background: #f4f4f4; border: 1px solid #e5e5e5;">
+        <div class="card card-register mx-auto" style="background: #f4f4f4; border: 1px solid #e5e5e5; margin-top: 185px;">
                 
                 <div class="card-body">
                     <div class="form-group">

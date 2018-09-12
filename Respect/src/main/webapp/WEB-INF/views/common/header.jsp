@@ -25,18 +25,18 @@
 <link rel="stylesheet" href="${path }/resources/bootstrap/css/bootstrap.min.css">
 <link rel="stylesheet" href="${path }/resources/fonts/font-awesome.min.css">
 <link rel="stylesheet" href="${path }/resources/fonts/ionicons.min.css">
-
+<link href="https://fonts.googleapis.com/css?family=Do+Hyeon" rel="stylesheet">
 
 
 <style>
-    /* a{
+    #rank-list a{
         color: inherit; text-decoration: none;
     }
-    a:hover{
+    #rank-list a:hover{
         color: orange;
         text-decoration: none;
     }
-    p{
+    /* p{
         margin:0;
     }
     ul{
@@ -53,6 +53,19 @@
             padding: 0;
         }
     }
+    
+    #navcol-1 {
+    	font-size: 22px;
+    	font-family: 'Do Hyeon', sans-serif;
+    }
+    
+    .navbar-light .navbar-nav .nav-link {
+    	color: #000;
+	}
+	
+	.navbar-light .navbar-nav .nav-link:hover {
+    	color: #ffc107;
+	}
 
     #rank-list {
     overflow: hidden;
@@ -146,7 +159,7 @@
 
 </head>
 <body>
-	<div class="fixed-top" style="background: white;">
+	<div class="fixed-top" style="background: white; border-bottom: 1px solid #e5e5e5;">
         <div class="container mt-1">
         <nav class="navbar" style="overflow: hidden;">
             <div class="row ml-3">
@@ -210,12 +223,11 @@
         
         <div class="container">
         <nav class="navbar navbar-light navbar-expand-md">
-            <a class="navbar-brand" href="#">
-                    <img class="img-fluid" src="${path }/resources/img/main/if_viadeo_2308135.png" style="max-width: 70px; max-height: 70px;">
-                </a>
-                <div>
-                    <h5>니가가라<br> 
-                    제주도</h5>
+            <a class="navbar-brand" href="${path}">
+            	<img class="img-fluid" src="${path }/resources/img/main/logo2.png" style="max-width: 50px; max-height: 50px;">
+            </a>
+                <div class="dokdo">
+                    <h1>니가가라 제주도</h1>
                 </div>
                 <button class="navbar-toggler" data-toggle="collapse" data-target="#navcol-1">
                     <span class="sr-only">Toggle navigation</span>
@@ -225,11 +237,17 @@
                     <ul class="nav navbar-nav ml-auto mx-auto">
                         <li class="nav-item mr-3" role="presentation"><a class="nav-link" href="${path}/spot/spotList.do">관광지</a></li>
                         <li class="nav-item mr-3" role="presentation"><a class="nav-link" href="#">숙소</a></li>
-                        <li class="nav-item mr-3" role="presentation"><a class="nav-link" href="#">여행 큐레이션</a></li>
+                        <li class="nav-item mr-3" role="presentation"><a class="nav-link" href="#">음식점</a></li>
                         <li class="dropdown mr-3"><a class="dropdown-toggle nav-link dropdown-toggle" data-toggle="dropdown" aria-expanded="false" href="#">제주이야기 </a>
-                            <div class="dropdown-menu" role="menu"><a class="dropdown-item" role="presentation" href="#">First Item</a><a class="dropdown-item" role="presentation" href="#">Second Item</a><a class="dropdown-item" role="presentation" href="#">Third Item</a></div>
+                            <div class="dropdown-menu" role="menu">
+                            	<a class="dropdown-item" role="presentation" href="#">공지사항</a>
+                            	<a class="dropdown-item" role="presentation" href="#">축제</a>
+                            	<a class="dropdown-item" role="presentation" href="#">교통</a>
+                          	</div>
                         </li>
                         <li class="nav-item mr-3" role="presentation"><a class="nav-link" href="${path }/meet/meetList.do">모임</a></li>
+                        <li class="nav-item mr-3" role="presentation"><a class="nav-link" href="#">여행 일정</a></li>
+                        <li class="nav-item mr-3" role="presentation"><a class="nav-link" href="#">일정 만들기</a></li>
                     </ul>
                 </div>
             </nav>

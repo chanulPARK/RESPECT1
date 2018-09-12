@@ -15,14 +15,13 @@ public class Place {
 	private int replycount;
 	private int hitscount;
 	private String content;
-	private String originalFileName;
-	private String renamedFileName;
+	private String thumbnail;
 	
 	public Place() {}
 
 	public Place(int placeno, String majorcategory, String minorcategory, String area, String userid, String title,
 			int gpa, String address, String phone, int goodcount, int bringcount, int replycount, int hitscount,
-			String content, String originalFileName, String renamedFileName) {
+			String content, String thumbnail) {
 		super();
 		this.placeno = placeno;
 		this.majorcategory = majorcategory;
@@ -38,8 +37,7 @@ public class Place {
 		this.replycount = replycount;
 		this.hitscount = hitscount;
 		this.content = content;
-		this.originalFileName = originalFileName;
-		this.renamedFileName = renamedFileName;
+		this.thumbnail = thumbnail;
 	}
 
 	public int getPlaceno() {
@@ -154,20 +152,12 @@ public class Place {
 		this.content = content;
 	}
 
-	public String getOriginalFileName() {
-		return originalFileName;
+	public String getThumbnail() {
+		return thumbnail;
 	}
 
-	public void setOriginalFileName(String originalFileName) {
-		this.originalFileName = originalFileName;
-	}
-
-	public String getRenamedFileName() {
-		return renamedFileName;
-	}
-
-	public void setRenamedFileName(String renamedFileName) {
-		this.renamedFileName = renamedFileName;
+	public void setThumbnail(String thumbnail) {
+		this.thumbnail = thumbnail;
 	}
 
 	@Override
@@ -175,8 +165,7 @@ public class Place {
 		return "Place [placeno=" + placeno + ", majorcategory=" + majorcategory + ", minorcategory=" + minorcategory
 				+ ", area=" + area + ", userid=" + userid + ", title=" + title + ", gpa=" + gpa + ", address=" + address
 				+ ", phone=" + phone + ", goodcount=" + goodcount + ", bringcount=" + bringcount + ", replycount="
-				+ replycount + ", hitscount=" + hitscount + ", content=" + content + ", originalFileName="
-				+ originalFileName + ", renamedFileName=" + renamedFileName + "]";
+				+ replycount + ", hitscount=" + hitscount + ", content=" + content + ", thumbnail=" + thumbnail + "]";
 	}
 	
 	

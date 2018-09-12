@@ -6,7 +6,7 @@
 
 <%-- <%@ include file="/WEB-INF/views/spot/spotList.jsp"%> --%>
 
-<%-- <%@ include file="/WEB-INF/views/spot/spotEnroll.jsp"%> --%>
+<%-- <%@ include file="/WEdB-INF/views/spot/spotEnroll.jsp"%> --%>
 <%-- <%@ include file="/WEB-INF/views/home.jsp"%> --%>
 
 <%-- <a href="${pageContext.request.contextPath }/spot/spotList.do" style="margin-top: 185px;">이동</a> --%>
