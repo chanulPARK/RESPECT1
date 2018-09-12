@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="meet">
+	
+	<resultMap type="map" id="meetMap"></resultMap>
+	
+	<select id="selectMeetList" resultMap="meetMap">
+		<!-- select *,A.nickname from meet B join rp_user A on(B.userid=A.userid) -->
+		select * from meet
+	</select>
+	
+	<select id="searchMeetList" resultMap="meetMap" parameterType="map">
+		select * from meet where meetdate between #{start} and #{end} 
+	</select>
+	
+	
+	<select id="selectTotalCount" resultType="_int">
+		select count(*) from meet
+	</select>
+	
+	
+	<insert id="insertMeet" parameterType="meet">
+		insert into meet(meetno, userid, area, title, content, meetdate, time, address, hitscount, replycount, writedate) 
+		values(seq_meet.nextval, #{userId}, #{area}, #{title}, #{content}, #{meetdate}, #{meetTime}, #{address}, default, default, sysdate)
+		<selectKey keyProperty="meetNo" resultType="_int" order="AFTER">
+			select seq_meet from dual
+		</selectKey>
+	</insert>
+	
+	
+</mapper>

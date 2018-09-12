@@ -29,7 +29,7 @@
 
 
 <style>
-    a{
+    /* a{
         color: inherit; text-decoration: none;
     }
     a:hover{
@@ -44,7 +44,7 @@
     }
     ul>li{
         float: left;
-    }
+    } */
 
     @media (max-width: 350px) {
         .fixed-top {
@@ -214,6 +214,7 @@
                         <li class="dropdown mr-3"><a class="dropdown-toggle nav-link dropdown-toggle" data-toggle="dropdown" aria-expanded="false" href="#">제주이야기 </a>
                             <div class="dropdown-menu" role="menu"><a class="dropdown-item" role="presentation" href="#">First Item</a><a class="dropdown-item" role="presentation" href="#">Second Item</a><a class="dropdown-item" role="presentation" href="#">Third Item</a></div>
                         </li>
+                        <li class="nav-item mr-3" role="presentation"><a class="nav-link" href="${path }/meet/meetList.do">모임</a></li>
                     </ul>
                 </div>
             </nav>

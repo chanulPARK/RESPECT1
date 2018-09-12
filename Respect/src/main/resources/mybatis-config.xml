@@ -3,6 +3,7 @@
 <configuration>
 	<typeAliases>
 		<typeAlias type="com.kh.respect.place.model.vo.Place" alias="place"/>
+		<typeAlias type="com.kh.respect.meet.model.vo.Meet" alias="meet"/>
 	</typeAliases>
 
 </configuration>
