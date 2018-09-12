@@ -108,8 +108,6 @@ public class MeetController {
 	@RequestMapping(value="/imageUpload.do", method = RequestMethod.POST)
 	public ModelAndView imageUpload(MultipartFile[] uploadFile, HttpServletRequest request) throws IOException
 	{
-		System.out.println(uploadFile[0]);
-		System.out.println(uploadFile[1]);
 		
 		ModelAndView mv = new ModelAndView();
 		

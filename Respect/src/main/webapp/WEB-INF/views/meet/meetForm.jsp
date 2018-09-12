@@ -116,13 +116,13 @@
 	                <div class="form-group row">
 	                    <label for="inputPassword3" class="col-sm-2 col-form-label">작성자</label>
 	                    <div class="col-sm-3">
-	                        <input type="text" class="form-control" id="writer" name="userId" placeholder="작성자" readonly="readonly">
+	                        <input type="text" class="form-control" id="writer" name="userId" value="${userLoggedIn.nickName }" readonly="readonly">
 	                    </div>
 	                </div>
 					<div class="form-group row">
 					   	<label for="gender" class="col-sm-2 col-form-label">성별</label>
 					   	<div class="col-sm-3">
-					       	<input type="text" class="form-control" name="gender" placeholder="남/여" value="" readonly="readonly"> 
+					       	<input type="text" class="form-control" name="gender" placeholder="남/여" value="${userLoggedIn.gender=='M'?'남':'여' }" readonly="readonly"> 
 					    </div>
 					</div>
 	              	
@@ -130,8 +130,7 @@
 	                <div class="form-group row">
 	                	<label for="date" class="col-sm-2 col-form-label">날짜</label>
 	                	<div class="col-sm-3">
-	                		<input type='text' class='form-control datepicker-here' data-language='en' 
-	                		name="meetDate"/>
+	                		<input type='text' class='form-control datepicker-here' data-language='en' name="meetDate"/>
 	                	</div>
 	                </div>
 	                <div class="form-group row">
@@ -149,14 +148,20 @@
 				        <div class="card-footer bg-white" style="align-content:center;">
 				            <button type="submit" class="btn btn-primary">확인</button>
 				            &nbsp;&nbsp;
-				            <button type="reset" class="btn">취소</button>
+				            <button type="button" onclick="fn_cancel()" class="btn">취소</button>
 				        </div>
 			        </div>
 	            </form>
 	        </div>
 	    </div>
 	</div>
-	
+	<script>
+		/* 취소버튼 */
+		function fn_cancel()
+		{
+			
+		}
+	</script>
 	
 	
 </section>
