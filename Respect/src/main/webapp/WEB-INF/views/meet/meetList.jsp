@@ -39,8 +39,9 @@
 		<div id="map-container" style="width: 100%; height: auto;">
 			<div id="map" style="width: 100%; height: 300px; min-height: 150px;"></div>
 		</div>
-		<script type="text/javascript"
-			src="//dapi.kakao.com/v2/maps/sdk.js?appkey=8ff31fd960290fc8b23e2c371566d7a6&libraries=services"></script>
+		
+		<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=8ff31fd960290fc8b23e2c371566d7a6&libraries=services"></script>
+		
 		<script>
 	        var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
 	            mapOption = {
@@ -54,6 +55,8 @@
 	        // 주소-좌표 변환 객체를 생성합니다
 	        var geocoder = new daum.maps.services.Geocoder();
 	        
+	        
+	       	
 	        // 주소로 좌표를 검색합니다
 	        geocoder.addressSearch('경기도 시흥시 은행로149번길 3', function(result, status) {
 	        
@@ -160,24 +163,22 @@
 				<div class="row" style="margin-left:-45px;">
 		            <div class="col-lg-7 col-md-7">
 		                <br>
-		                <a href="#" onclick="location.href='${path}/meet/meetView.do?meetNo=${meet.meetNo }'">
+		                <a href="#" onclick="location.href='${path}/meet/meetView.do?meetNo=${meet.MEETNO }'">
 		                    <img class="img-thumbnail" src="http://placehold.it/500x300" alt="" style="margin-top:30px;">
 		                </a>
 		            </div>
 		            <div class="col-lg-5 col-md-5" class="justify-content-center" align='center'>
 		            	<br>
-						제목 : <input type="text" readonly="readonly" value="${meet.title }"><br /><br />
-						위치 : <input type="text" readonly="readonly" value="${meet.area }"><br /><br /> 
-						닉네임 : <input type="text" readonly="readonly" value="${meet.userId }"><br /><br /> 
-						성별 : <input type="text" readonly="readonly" value="${meet.gender }"><br /><br /> 
-						나이 : <input type="text" readonly="readonly" value=""><br /><br /> 
-						기간 : <input type="text" readonly="readonly" value=""><br /><br />
-		                <a class="btn btn-primary" href="#" onclick="location.href='${path}/meet/meetView.do?meetNo=${meet.meetNo }'">
+						제목 : <input type="text" readonly="readonly" value="${meet.TITLE }"><br /><br />
+						위치 : <input type="text" readonly="readonly" value="${meet.ADDRESS }"><br /><br /> 
+						닉네임 : <input type="text" readonly="readonly" value="${meet.NICKNAME }"><br /><br /> 
+						성별 : <input type="text" readonly="readonly" value="${meet.GENDER=='M'?'남':'여' }"><br /><br />
+						<%-- 나이 : <input type="text" readonly="readonly" value="${meet.USERID.BIRTH }"><br /><br /> --%> 
+						날짜 : <input type="text" readonly="readonly" value="${meet.MEETDATE }"><br /><br />
+		                <a class="btn btn-primary" href="#" onclick="location.href='${path}/meet/meetView.do?meetNo=${meet.MEETNO }'">
 		                	<span class="glyphicon glyphicon-chevron-right">상세보기</span>
 	                	</a>
-	                	
 		                <br>
-		                
 		            </div>
 	        	</div>
 				<hr>

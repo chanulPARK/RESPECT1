@@ -44,6 +44,12 @@ public class MeetServiceImpl implements MeetService {
 	public List<Map<String, String>> searchMeetList(int cPage, int numPerPage, String start, String end, String area) {
 		return dao.searchMeetList(sqlSession, cPage, numPerPage, start, end, area);
 	}
+
+
+	@Override
+	public Meet selectOne(int meetNo) {
+		return dao.selectOne(sqlSession, meetNo);
+	}
 	
 	
 

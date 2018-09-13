@@ -6,7 +6,7 @@
 	
 	<select id="selectMeetList" resultMap="meetMap">
 		<!-- select *,A.nickname from meet B join rp_user A on(B.userid=A.userid) -->
-		select * from meet
+		select * from meet  A left join rp_user B on A.userid=b.userid
 	</select>
 	
 	<select id="searchMeetList" resultMap="meetMap" parameterType="map">
@@ -26,6 +26,11 @@
 			select seq_meet.currval from dual
 		</selectKey>
 	</insert>
+	
+	<select id="selectOne" parameterType="_int" resultType="meet">
+		<!-- select * from meet, rp_user where meetno=#{meetNo} -->
+		select * from meet A left join rp_user B on A.userid=b.userid where meetno=#{meetNo}
+	</select>
 	
 	
 </mapper>

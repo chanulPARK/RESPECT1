@@ -15,4 +15,7 @@ public interface MeetDao {
 	int insertMeet(SqlSessionTemplate sqlSession, Meet meet);
 	
 	List<Map<String,String>> searchMeetList(SqlSessionTemplate sqlSession, int cPage, int numPerPage, String start, String end, String area);
+	
+	Meet selectOne(SqlSessionTemplate sqlSession, int meetNo);
+	
 }

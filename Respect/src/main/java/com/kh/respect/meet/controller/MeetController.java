@@ -94,7 +94,7 @@ public class MeetController {
 	{
 		ModelAndView mv = new ModelAndView();
 		
-		Meet meet = new Meet(0, userId, area, title, content, meetDate, meetTime, address, 0, 0, null);
+		Meet meet = new Meet(0, userId, null, null, area, title, content, meetDate, meetTime, address, 0, 0, null);
 		
 		int result = service.insertMeet(meet);
 		System.out.println(result);
@@ -105,11 +105,15 @@ public class MeetController {
 	}
 	
 	@RequestMapping(value="/meet/meetView.do", method = RequestMethod.POST)
-	public ModelAndView selectOne()
+	public ModelAndView selectOne(int meetNo)
 	{
 		ModelAndView mv = new ModelAndView();
 		
+		Meet meet = service.selectOne(meetNo);
 		
+		
+		mv.addObject("meet", meet);
+		mv.setViewName("meet/meetView");
 		
 		return mv;
 	}
@@ -140,6 +144,7 @@ public class MeetController {
 				SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_HHmmssSS");
 				int rndNum = (int)(Math.random()*1000);
 				String renamed = sdf.format(new Date(System.currentTimeMillis()));
+				
 				renamed += "_" + rndNum + "." + ext;
 				try {
 					// 서버 경로에 파일을 저장
@@ -153,8 +158,9 @@ public class MeetController {
 			}
 		}
 		mv.addObject("list",attList);
+		System.out.println("list :: "+attList);
 		mv.setViewName("jsonView");
 		
-		return mv;      
+		return mv;
 	}
 }

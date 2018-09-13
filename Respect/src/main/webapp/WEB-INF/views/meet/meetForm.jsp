@@ -68,13 +68,17 @@
 	       contentType:false,
 	       processData:false,
 	       success:function(data){
+	    	  alert(data.list);
 	          console.log(data.list);
-	          console.log(url);
 	          for(var i=0;i<data.list.length;i++)
 	          {
 	             //$('#test').append('<img src=/resources/uploadImg/'+data.list[i]+'>');
-	             $('#summernote').summernote('insertImage', "../resources/uploadImg/"+data.list[i],data.list[i]);
+	             //$('#summernote').summernote('insertImage', "${path}/resources/uploadImg"+data.list[i],data.list[i]);
 	          }
+	       },
+	       error:function(obj,a,b){
+	    	   console.log(obj);
+	    	   console.log(b);
 	       }
 	    });
 	}
