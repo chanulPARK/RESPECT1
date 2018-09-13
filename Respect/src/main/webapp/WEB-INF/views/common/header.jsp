@@ -16,9 +16,11 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script> -->
 
 
+
+
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <%-- <script src="${path }/resources/js/jquery.min.js"></script> --%>
-<script src="${path }/resources/bootstrap/js/bootstrap.min.js"></script>
+<%-- <script src="${path }/resources/bootstrap/js/bootstrap.min.js"></script> --%>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.10.0/baguetteBox.min.js"></script>
 <link rel="stylesheet" href="${path }/resources/css/Footer-Dark.css">
 <link rel="stylesheet" href="${path }/resources/css/style.css">
@@ -146,7 +148,7 @@
 
 </head>
 <body>
-	<div class="fixed-top" style="background: white;">
+	<div class="sticky-top" style="background: white;">
         <div class="container mt-1">
         <nav class="navbar" style="overflow: hidden;">
             <div class="row ml-3">
