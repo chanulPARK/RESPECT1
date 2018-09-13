@@ -22,6 +22,6 @@
 	
 	<!-- 어노테이션 및 pointcou의 표현식을 확인하여 aop적용 -->
 	<aop:aspectj-autoproxy/>
-	<bean id="UserRenew" class="com.kh.respect.common.aop.UserRenew"/>
+	<!-- <bean id="UserRenew" class="com.kh.respect.common.aop.UserRenew"/> -->
 
 </beans>
