@@ -75,7 +75,7 @@
 	                        <div class="col-xl-2"><label class="col-form-label">카테고리</label></div>
 	                        <div class="col">
                                 <select class="form-control" name="minorcategory" required>
-                                    <option selected>카테고리를 선택하세요</option>
+                                    <option value="" selected>카테고리를 선택하세요</option>
                                     <option value="자연">자연</option>
                                     <option value="문화관광">문화관광</option>
                                     <option value="레저/체험">레저/체험</option>
@@ -83,7 +83,7 @@
                                     <option value="섬속의섬">섬속의 섬</option>
                                     <option value="도보">도보</option>
                                     <option value="포토스팟">포토스팟</option>
-                                    <option value="70주년">4.3 70주년</option>
+                                    <option value="4.3 70주년">4.3 70주년</option>
                                     <option value="템플스테이">템플스테이</option>
                                 </select>
 	                        </div>
@@ -111,7 +111,7 @@
 	                        <div class="col-xl-2"><label class="col-form-label">지역</label></div>
 	                        <div class="col">
                                 <select class="form-control" name="area" required>
-                                    <option selected>지역을 선택하세요</option>
+                                    <option value="" selected>지역을 선택하세요</option>
                                     <optgroup label="제주시">
                                     <option value="제주시내">제주시내</option>
                                     <option value="조천읍">조천읍</option>
@@ -146,12 +146,12 @@
 	                            <input class="form-control" type="text" id="cellPhone" name="phone" placeholder="-없이 입력하세요">
 	                        </div>
 	                    </div>
-	                    <div class="row m-1">
+	                    <!-- <div class="row m-1">
 	                        <div class="col-xl-2"><label class="col-form-label">홈페이지</label></div>
 	                        <div class="col">
 	                            <input class="form-control" type="text" name="">
 	                        </div>
-	                    </div>
+	                    </div> -->
 	                    <div class="row m-1">
 	                        <div class="col-xl-2"><label class="col-form-label">대표이미지</label></div>
 	                        <div class="col">
