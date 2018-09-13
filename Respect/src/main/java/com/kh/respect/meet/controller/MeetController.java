@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -14,6 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -104,13 +104,13 @@ public class MeetController {
 		return mv;
 	}
 	
-	@RequestMapping(value="/meet/meetView.do", method = RequestMethod.POST)
+	@RequestMapping(value="/meet/meetView.do")
 	public ModelAndView selectOne(int meetNo)
 	{
 		ModelAndView mv = new ModelAndView();
 		
 		Meet meet = service.selectOne(meetNo);
-		
+		System.out.println("meetTime :: "+meet.getMeetTime());
 		
 		mv.addObject("meet", meet);
 		mv.setViewName("meet/meetView");
@@ -142,9 +142,9 @@ public class MeetController {
 				String originName = f.getOriginalFilename();
 				String ext = originName.substring(originName.lastIndexOf(".")+1);
 				SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_HHmmssSS");
-				int rndNum = (int)(Math.random()*1000);
-				String renamed = sdf.format(new Date(System.currentTimeMillis()));
-				
+				int rndNum = (int)(Math.random()*10000);
+				//String renamed = sdf.format(new Date(System.currentTimeMillis()));
+				String renamed = "meet";
 				renamed += "_" + rndNum + "." + ext;
 				try {
 					// 서버 경로에 파일을 저장

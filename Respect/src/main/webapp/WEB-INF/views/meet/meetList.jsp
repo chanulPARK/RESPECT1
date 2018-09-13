@@ -6,8 +6,8 @@
 
 <c:set value="${pageContext.request.contextPath}" var="path"/>
 
-<jsp:include page="/WEB-INF/views/common/header.jsp"></jsp:include>
-
+<%-- <jsp:include page="/WEB-INF/views/common/header.jsp"></jsp:include> --%>
+<%@ include file="/WEB-INF/views/common/header.jsp" %>
 
 <head>
 
@@ -33,7 +33,7 @@
 </head>
 
 
-<body>
+<section>
 	<div class="container">
 		<br><br><br><br><br><br><br><br>
 		<div id="map-container" style="width: 100%; height: auto;">
@@ -55,10 +55,10 @@
 	        // 주소-좌표 변환 객체를 생성합니다
 	        var geocoder = new daum.maps.services.Geocoder();
 	        
-	        
+	        var addr = $('#address').val();
 	       	
 	        // 주소로 좌표를 검색합니다
-	        geocoder.addressSearch('경기도 시흥시 은행로149번길 3', function(result, status) {
+	        geocoder.addressSearch(addr, function(result, status) {
 	        
 	            // 정상적으로 검색이 완료됐으면 
 	             if (status === daum.maps.services.Status.OK) {
@@ -117,7 +117,7 @@
 						</h4>
 					</li>
 					<li>
-						<form action="${path }/meet/searchMeet.do" accept-charset="UTF-8">
+						<form action="${path }/meet/searchMeet.do">
 							<ul>
 								<li>
 									<h5>기간</h5>
@@ -163,31 +163,34 @@
 				<div class="row" style="margin-left:-45px;">
 		            <div class="col-lg-7 col-md-7">
 		                <br>
-		                <a href="#" onclick="location.href='${path}/meet/meetView.do?meetNo=${meet.MEETNO }'">
-		                    <img class="img-thumbnail" src="http://placehold.it/500x300" alt="" style="margin-top:30px;">
+		                <a href="#" onclick="location.href='${path}/meet/meetView.do?meetNo=${meet.MEETNO }'" style="margin-top:10px;">
+		                    <img class="img-thumbnail" src="http://placehold.it/500x300" alt="">
 		                </a>
 		            </div>
 		            <div class="col-lg-5 col-md-5" class="justify-content-center" align='center'>
 		            	<br>
 						제목 : <input type="text" readonly="readonly" value="${meet.TITLE }"><br /><br />
-						위치 : <input type="text" readonly="readonly" value="${meet.ADDRESS }"><br /><br /> 
+						위치 : <input type="text" id="address" readonly="readonly" value="${meet.ADDRESS }"><br /><br /> 
 						닉네임 : <input type="text" readonly="readonly" value="${meet.NICKNAME }"><br /><br /> 
 						성별 : <input type="text" readonly="readonly" value="${meet.GENDER=='M'?'남':'여' }"><br /><br />
 						<%-- 나이 : <input type="text" readonly="readonly" value="${meet.USERID.BIRTH }"><br /><br /> --%> 
 						날짜 : <input type="text" readonly="readonly" value="${meet.MEETDATE }"><br /><br />
-		                <a class="btn btn-primary" href="#" onclick="location.href='${path}/meet/meetView.do?meetNo=${meet.MEETNO }'">
-		                	<span class="glyphicon glyphicon-chevron-right">상세보기</span>
-	                	</a>
+		                
+	                	<button class="btn btn-primary" onclick="location.href='${path}/meet/meetView.do?meetNo=${meet.MEETNO }'">상세보기</button>
 		                <br>
 		            </div>
 	        	</div>
 				<hr>
 			</c:forEach>
+			<br>
+			<div id="pagebar">
+				${pagebar }
+			</div>
 			
 		</div>
 		
 	</div>
-	${pagebar }
+	
 	<!-- /#wrapper -->
 	<!-- Menu Toggle Script -->
 <script>
@@ -217,12 +220,9 @@
 		}
 		//location.href='${path}/meet/meetForm.do';
 	}
-	
-	
-	
 </script>
 	
 	
-</body>
-
-<jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
+</section>
+<%@ include file="/WEB-INF/views/common/footer.jsp" %>
+<%-- <jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include> --%>

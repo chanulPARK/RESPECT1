@@ -73,7 +73,7 @@
 	          for(var i=0;i<data.list.length;i++)
 	          {
 	             //$('#test').append('<img src=/resources/uploadImg/'+data.list[i]+'>');
-	             //$('#summernote').summernote('insertImage', "${path}/resources/uploadImg"+data.list[i],data.list[i]);
+	             $('#summernote').summernote('insertImage', "${path}/resources/uploadImg"+data.list[i],data.list[i]);
 	          }
 	       },
 	       error:function(obj,a,b){
@@ -172,7 +172,8 @@
 </section>
 
 
-<jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
+<%-- <jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include> --%>
+<%@ include file="/WEB-INF/views/common/footer.jsp" %>
 
 
 

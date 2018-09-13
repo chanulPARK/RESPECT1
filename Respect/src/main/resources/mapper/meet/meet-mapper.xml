@@ -27,8 +27,7 @@
 		</selectKey>
 	</insert>
 	
-	<select id="selectOne" parameterType="_int" resultType="meet">
-		<!-- select * from meet, rp_user where meetno=#{meetNo} -->
+	<select id="selectOne" resultType="meet">
 		select * from meet A left join rp_user B on A.userid=b.userid where meetno=#{meetNo}
 	</select>
 	
