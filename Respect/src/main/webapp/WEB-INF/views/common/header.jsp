@@ -246,7 +246,7 @@
                           	</div>
                         </li>
                         <li class="nav-item mr-3" role="presentation"><a class="nav-link" href="${path }/meet/meetList.do">모임</a></li>
-                        <li class="nav-item mr-3" role="presentation"><a class="nav-link" href="#">여행 일정</a></li>
+                        <li class="nav-item mr-3" role="presentation"><a class="nav-link" href="${path}/schedule/scheduleWrite">여행일정</a></li>
                         <li class="nav-item mr-3" role="presentation"><a class="nav-link" href="#">일정 만들기</a></li>
                     </ul>
                 </div>
