@@ -3,16 +3,22 @@ package com.kh.respect.schedule.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.respect.place.model.vo.Place;
+import com.kh.respect.schedule.model.service.ScheduleService;
+import com.kh.respect.schedule.model.vo.Schedule;
 
 @Controller
 public class ScheduleController {
 
+	@Autowired 
+	private ScheduleService service;
+	
 	@RequestMapping("/schedule/scheduleWrite")
 	public ModelAndView ScheduleWrite(ModelAndView mv)
 	{
@@ -30,12 +36,14 @@ public class ScheduleController {
 	@RequestMapping("/schedule/scheduleWriteEnd")
 	public void ScheduleWriteEnd(String title2, String startDate2, String endDate2, String people2, String travelTheme2, String openflag2, @RequestParam(value="timevalue", required=false) String[] timevalue, @RequestParam(value="placevalue",required=false) String[] placevalue)
 	{
-		System.out.println("제목: "+title2);
-		System.out.println("시작일: "+startDate2);
-		System.out.println("종료일: "+endDate2);
-		System.out.println("테마: "+travelTheme2);
-		System.out.println("인원: "+people2);
-		System.out.println("공개여부: "+openflag2);
+		Schedule sc=new Schedule();
+		sc.setTitle(title2);
+		sc.setStartDate(startDate2);
+		sc.setEndDate(endDate2);
+		sc.setPeopleNum(Integer.parseInt(people2));
+		sc.setTravelTheme(travelTheme2);
+		sc.setPublicFlag(Integer.parseInt(openflag2));
+		
 		if(timevalue!=null)
 		{
 			if(timevalue[0].length()==1)
