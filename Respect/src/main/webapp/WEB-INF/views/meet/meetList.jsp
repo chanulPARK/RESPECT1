@@ -56,18 +56,18 @@
 	        
 	        // 주소로 좌표를 검색합니다
 	        geocoder.addressSearch('경기도 시흥시 은행로149번길 3', function(result, status) {
-	        
+	        	
 	            // 정상적으로 검색이 완료됐으면 
 	             if (status === daum.maps.services.Status.OK) {
-	        
+	        		
 	                var coords = new daum.maps.LatLng(result[0].y, result[0].x);
-	        
+	        		
 	                // 결과값으로 받은 위치를 마커로 표시합니다
 	                var marker = new daum.maps.Marker({
 	                    map: map,
 	                    position: coords
 	                });
-	        
+	        		
 	                // 인포윈도우로 장소에 대한 설명을 표시합니다
 	                var infowindow = new daum.maps.InfoWindow({
 	                    content: '<div style="width:150px;text-align:center;padding:6px 0;">[지역명]</div>'
