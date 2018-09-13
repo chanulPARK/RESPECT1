@@ -21,9 +21,9 @@
 	
 	<insert id="insertMeet" parameterType="meet">
 		insert into meet(meetno, userid, area, title, content, meetdate, time, address, hitscount, replycount, writedate) 
-		values(seq_meet.nextval, #{userId}, #{area}, #{title}, #{content}, #{meetdate}, #{meetTime}, #{address}, default, default, sysdate)
+		values(seq_meet.nextval, #{userId}, #{area}, #{title}, #{content}, #{meetDate}, #{meetTime}, #{address}, default, default, sysdate)
 		<selectKey keyProperty="meetNo" resultType="_int" order="AFTER">
-			select seq_meet from dual
+			select seq_meet.currval from dual
 		</selectKey>
 	</insert>
 	

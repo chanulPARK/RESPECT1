@@ -9,7 +9,7 @@ public class Meet {
 	private String area;
 	private String title;
 	private String content;
-	private Date meetDate;
+	private String meetDate;
 	private String meetTime;
 	private String address;
 	private int hitsCount;
@@ -18,7 +18,7 @@ public class Meet {
 	
 	public Meet() {}
 
-	public Meet(int meetNo, String userId, String area, String title, String content, Date meetDate, String meetTime,
+	public Meet(int meetNo, String userId, String area, String title, String content, String meetDate, String meetTime,
 			String address, int hitsCount, int replyCount, Date writeDate) {
 		super();
 		this.meetNo = meetNo;
@@ -74,11 +74,11 @@ public class Meet {
 		this.content = content;
 	}
 
-	public Date getMeetDate() {
+	public String getMeetDate() {
 		return meetDate;
 	}
 
-	public void setMeetDate(Date meetDate) {
+	public void setMeetDate(String meetDate) {
 		this.meetDate = meetDate;
 	}
 
@@ -129,10 +129,6 @@ public class Meet {
 				+ ", hitsCount=" + hitsCount + ", replyCount=" + replyCount + ", writeDate=" + writeDate + "]";
 	}
 
-	
-	
-	
-	
 	
 	
 }

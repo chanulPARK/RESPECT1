@@ -29,11 +29,23 @@
 <script src="${path }/resources/js/datepicker.min.js"></script>
 
 </head>
-
+<script>
+	function sendMessage(){
+		if(${userLoggedIn==null})
+		{
+			alert("로그인 후 이용 가능합니다.");
+			e.preventDefault();
+			return;
+		}else{
+			location.href="${path}/user/userLogin.do";
+		}
+	}
+</script>
 
 <section>
 	<div class="container">
-	
+	<br><br><br><br><br><br><br><br><br>
+	<c:forEach items="" var="meet">
 		<div id="bung-img" align="center">
 			<img alt="" src="http://placehold.it/800x300">
 		</div>
@@ -46,7 +58,7 @@
 				       	<input type="text" class="form-control">
 				    </div>
 				    <div class="col-sm-3">
-				       	<button class="btn btn-outline-success" onclick="">쪽지보내기</button>
+				       	<button class="btn btn-outline-success" onclick="sendMessage()">쪽지보내기</button>
 				    </div>
 				</div>
 			</div>
@@ -68,13 +80,9 @@
 			</div>
 			<div class="card-body">
 				<div class="form-group row">
-				   	<label for="gender" class="col-sm-2 col-form-label">기간</label>
+				   	<label for="gender" class="col-sm-2 col-form-label">날짜</label>
 				   	<div class="col-sm-3">
-				       	<input type="text"
-							    data-range="true"
-							    data-multiple-dates-separator=" - "
-							    data-language="en"
-							    class="datepicker-here form-control"/>
+				       	<input type="text" class="form-control" readonly="readonly" value=""/>
 				    </div>
 				</div>
 			</div>
@@ -98,7 +106,7 @@
 		
 		<!-- 댓글영역 -->
 		
-		
+		</c:forEach>
 	</div>
 	<br><br><br>
 	

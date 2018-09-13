@@ -84,11 +84,11 @@ public class MeetController {
 	}
 	
 	@RequestMapping(value="/meet/meetFormEnd.do", method = RequestMethod.POST)
-	public ModelAndView selectOne(@RequestParam(value="title") String title,
+	public ModelAndView insertMeet(@RequestParam(value="title") String title,
 								  @RequestParam(value="area") String area,
 								  @RequestParam(value="address") String address,
 								  @RequestParam(value="userId") String userId,
-								  @RequestParam(value="meetDate") Date meetDate,
+								  @RequestParam(value="meetDate") String meetDate,
 								  @RequestParam(value="meetTime") String meetTime,
 								  @RequestParam(value="content") String content)
 	{
@@ -104,11 +104,20 @@ public class MeetController {
 		return mv;
 	}
 	
+	@RequestMapping(value="/meet/meetView.do", method = RequestMethod.POST)
+	public ModelAndView selectOne()
+	{
+		ModelAndView mv = new ModelAndView();
+		
+		
+		
+		return mv;
+	}
 	
 	@RequestMapping(value="/imageUpload.do", method = RequestMethod.POST)
 	public ModelAndView imageUpload(MultipartFile[] uploadFile, HttpServletRequest request) throws IOException
 	{
-		
+		System.out.println("uploadFile :: "+uploadFile[0]);
 		ModelAndView mv = new ModelAndView();
 		
 		String saveDir = request.getSession().getServletContext().getRealPath("/resources/uploadImg");

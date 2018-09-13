@@ -156,29 +156,33 @@
 				<a href="#menu-toggle" class="btn btn-primary" id="menu-toggle">필터설정</a>
 			</div>
 			<br>
+			<c:forEach items="${list }" var="meet">
+				<div class="row" style="margin-left:-45px;">
+		            <div class="col-lg-7 col-md-7">
+		                <br>
+		                <a href="#" onclick="location.href='${path}/meet/meetView.do?meetNo=${meet.meetNo }'">
+		                    <img class="img-thumbnail" src="http://placehold.it/500x300" alt="" style="margin-top:30px;">
+		                </a>
+		            </div>
+		            <div class="col-lg-5 col-md-5" class="justify-content-center" align='center'>
+		            	<br>
+						제목 : <input type="text" readonly="readonly" value="${meet.title }"><br /><br />
+						위치 : <input type="text" readonly="readonly" value="${meet.area }"><br /><br /> 
+						닉네임 : <input type="text" readonly="readonly" value="${meet.userId }"><br /><br /> 
+						성별 : <input type="text" readonly="readonly" value="${meet.gender }"><br /><br /> 
+						나이 : <input type="text" readonly="readonly" value=""><br /><br /> 
+						기간 : <input type="text" readonly="readonly" value=""><br /><br />
+		                <a class="btn btn-primary" href="#" onclick="location.href='${path}/meet/meetView.do?meetNo=${meet.meetNo }'">
+		                	<span class="glyphicon glyphicon-chevron-right">상세보기</span>
+	                	</a>
+	                	
+		                <br>
+		                
+		            </div>
+	        	</div>
+				<hr>
+			</c:forEach>
 			
-			<div class="row" style="margin-left:-45px;">
-	            <div class="col-lg-7 col-md-7">
-	                <br>
-	                <a href="#" onclick="location.href='${path}/meet/meetView.do?meetNo=${meet.meetNo }'">
-	                    <img class="img-thumbnail" src="http://placehold.it/500x300" alt="" style="margin-top:30px;">
-	                </a>
-	            </div>
-	            <div class="col-lg-5 col-md-5" class="justify-content-center" align='center'>
-	            	<br>
-					제목 : <input type="text" readonly="readonly"><br /><br />
-					위치 : <input type="text" readonly="readonly"><br /><br /> 
-					닉네임 : <input type="text" readonly="readonly"><br /><br /> 
-					성별 : <input type="text" readonly="readonly"><br /><br /> 
-					나이 : <input type="text" readonly="readonly"><br /><br /> 
-					기간 : <input type="text" readonly="readonly"><br /><br />
-	                <a class="btn btn-primary" href="#" onclick="location.href='${path}/meet/meetView.do?meetNo=${meet.meetNo }'">
-	                	<span class="glyphicon glyphicon-chevron-right">상세보기</span>
-                	</a>
-	                <br>
-	            </div>
-        	</div>
-			<hr>
 		</div>
 		
 	</div>
@@ -202,12 +206,15 @@
 	
 	function writeMeet()
 	{
-		/* if(${userLoggedIn}!=null){
+		if(${userLoggedIn.userId==null}){
 			alert("로그인 후 이용 가능합니다.");
+			//e.preventDefault();
+			location.href="${path}/user/userLogin.do";
+			return;
 		}else{
 			location.href='${path}/meet/meetForm.do';
-		} */
-		location.href='${path}/meet/meetForm.do';
+		}
+		//location.href='${path}/meet/meetForm.do';
 	}
 	
 	

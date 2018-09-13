@@ -31,7 +31,6 @@
 <script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script> 
 
 <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.css" rel="stylesheet">
-
 <script src="${path }/resources/js/summernote.js"></script>
 <script src="${path }/resources/js/summernote.min.js"></script>
 <script src="${path }/resources/js/summernote-ko-KR.js"></script>
@@ -70,7 +69,7 @@
 	       processData:false,
 	       success:function(data){
 	          console.log(data.list);
-	          //console.log($image);
+	          console.log(url);
 	          for(var i=0;i<data.list.length;i++)
 	          {
 	             //$('#test').append('<img src=/resources/uploadImg/'+data.list[i]+'>');
@@ -94,7 +93,7 @@
 		<div class="card mb-4">
 	        <div class="card-header bg-white font-weight-bold">번개모집</div>
 	        <div class="card-body">
-	            <form action="${path }/meetFormEnd.do" enctype="multipart/form-data" method="POST" accept-charset="UTF-8">
+	            <form action="${path }/meet/meetFormEnd.do" enctype="multipart/form-data" method="POST" accept-charset="UTF-8">
 	                <div class="form-group row">
 	                    <label for="제목" class="col-sm-2 col-form-label">제목</label>
 	                    <div class="col-sm-8">
@@ -116,7 +115,8 @@
 	                <div class="form-group row">
 	                    <label for="inputPassword3" class="col-sm-2 col-form-label">작성자</label>
 	                    <div class="col-sm-3">
-	                        <input type="text" class="form-control" id="writer" name="userId" value="${userLoggedIn.nickName }" readonly="readonly">
+	                        <input type="text" class="form-control" id="writer"  value="${userLoggedIn.nickName }" readonly="readonly">
+	                        <input type="hidden" name="userId" value="${userLoggedIn.userId }">
 	                    </div>
 	                </div>
 					<div class="form-group row">
@@ -136,7 +136,7 @@
 	                <div class="form-group row">
 	                	<label for="date" class="col-sm-2 col-form-label">시간</label>
 	                	<div class="col-sm-3">
-	                		<input type="time" class="form-control" name="time">
+	                		<input type="time" class="form-control" name="meetTime">
 	                	</div>
 	                </div>
 	                <!-- 썸머노트 에디터 사용 -->
@@ -159,7 +159,8 @@
 		/* 취소버튼 */
 		function fn_cancel()
 		{
-			
+			alert("취소되었습니다.");
+			location.href="${path}/meet/meetList.do";
 		}
 	</script>
 	

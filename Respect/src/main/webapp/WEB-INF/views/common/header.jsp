@@ -72,7 +72,7 @@
 </style>
 
 <script type="text/javascript">
-    $(function(){
+    /* $(function(){
         var latitude="";
         var longitude="";
         
@@ -104,7 +104,7 @@
                 //온도
                 /* alert(data.weather.minutely[0].temperature.tc); */
                 
-                var skyName=data.weather.minutely[0].sky.name;
+               /* var skyName=data.weather.minutely[0].sky.name;
                 var temp=data.weather.minutely[0].temperature.tc;
                 
                 
@@ -140,7 +140,7 @@
             }
             });
         
-    });
+    }); */
     
 </script>
 
