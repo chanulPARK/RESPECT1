@@ -239,7 +239,7 @@
                                                
                                                <br><p>${uPlace.title }</p>
                                                <div class='row justify-content-center'>
-                                               <button class="btn mb-2" value="${uPlace }" onclick="fn_addUPlace(event)">일정등록</button>
+                                               <button class="btn mb-2 mr-1" value="${uPlace }" onclick="fn_addUPlace(event)">일정등록</button>
                                                <button class="btn mb-2" value="${uPlace }" onclick="fn_deleteUPlace(event)">장소삭제</button>
                                                </div>
                                            </div>
