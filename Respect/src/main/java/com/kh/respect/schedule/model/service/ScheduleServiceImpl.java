@@ -1,6 +1,8 @@
 package com.kh.respect.schedule.model.service;
 
+
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.kh.respect.schedule.model.dao.ScheduleDao;
 import com.kh.respect.schedule.model.vo.Schedule;
 import com.kh.respect.schedule.model.vo.TimeTable;
+
 
 @Service
 public class ScheduleServiceImpl implements ScheduleService {
@@ -49,5 +52,18 @@ public class ScheduleServiceImpl implements ScheduleService {
 		return result;
 	}
 
+	@Override
+	public List<Map<String, String>> selectScheduleList(int cPage, int numPerPage) {
+		
+		return dao.selectScheduleList(session,cPage,numPerPage);
+	}
+
+	@Override
+	public int selectTotalCount() {
+		return dao.selectTotalCount(session);
+	}
+	
+	
+	
 	
 }
