@@ -15,11 +15,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-<<<<<<< HEAD
+
 import com.kh.respect.common.Page;
-=======
+
 import com.kh.respect.place.model.service.PlaceService;
->>>>>>> master
+
 import com.kh.respect.place.model.vo.Place;
 import com.kh.respect.schedule.model.service.ScheduleService;
 import com.kh.respect.schedule.model.vo.Schedule;
