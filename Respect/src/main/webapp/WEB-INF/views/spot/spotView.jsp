@@ -21,7 +21,7 @@
 </style>
 
 <main class="page landing-page">
-    <section id="detail-header" style="padding:0;margin:181px 0 50px;">
+    <section id="detail-header" style="padding:0; margin:0 0 50px;">
         <div class="info">
             <h2>${place.title }<br><br></h2>
             <div style="font-size:22px;margin-bottom:5px;">
@@ -33,6 +33,7 @@
            	</div>
             <p>${place.minorcategory }</p>
             
+            <input type="hidden" id="placeno" value="${place.placeno }">
             <input type="hidden" id="addr" value="${place.address }">
             
             <div class="table-responsive info-table">
@@ -60,9 +61,9 @@
                 <button class="btn btn-outline-warning btn-lg" type="button" data-toggle="button" style="margin-left:10px;"><i class="fa fa-heart"></i>찜하기</button>
             </div> -->
         </div>
-        <div class="mx-auto" style="width: 1920px">
-	        <img src="${path }/resources/upload/spot/mainimage/${place.mainimage}" style="width:1520px;">
-	        
+        <div class="mx-auto" style="width: 1902px">
+	        <img src="${path }/resources/upload/spot/mainimage/${place.mainimage}" style="width:1902px; height:560px;">
+	        <%-- <img src="${path }/resources/img/spot/${place.title}.jpg" style="width: 1902px; height:560px;"> --%>
         </div>
         </section>
     <section id="detail-body">
@@ -216,6 +217,21 @@
             }
         });
     });
+</script>
+<script type="text/javascript">
+	function fn_like() {
+		var placeNo = $("#placeno").val();
+		
+		$.ajax({
+			url: "${path }/spot/like.do",
+			type: "GET",
+			datetype: "json",
+			data: "placeno="+placeNO,
+			success: function(data) {
+				var msg = "좋아요하였습니다.";
+			}
+		})
+	}
 </script>
 
 <%@ include file="/WEB-INF/views/common/footer.jsp"%>

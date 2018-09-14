@@ -31,5 +31,11 @@ public class PlaceDaoImpl implements PlaceDao {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne("spot.selectSpot", spotno);
 	}
+	
+	@Override
+	public void updateSpotCnt(SqlSessionTemplate sqlSession, int spotno) {
+		sqlSession.update("spot.updateSpotCnt", spotno);
+	}
+
 
 }

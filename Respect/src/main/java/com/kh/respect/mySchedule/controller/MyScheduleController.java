@@ -128,7 +128,7 @@ public class MyScheduleController {
 	@RequestMapping("/mySchedule/putPlaceList.do")
 	public ModelAndView putPlaceList(@RequestParam(value="cPage", required=false, defaultValue="1") int cPage,String userId) {
 		ModelAndView mv = new ModelAndView();
-		int numPerPage=10;
+		int numPerPage=8;
 		List<Map<String, String>> putPlaceList =service.putPlaceList(userId,cPage,numPerPage);
 		
 		mv.addObject("putPlaceList",putPlaceList);
