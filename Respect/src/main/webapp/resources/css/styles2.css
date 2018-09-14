@@ -66,7 +66,7 @@
     
 
 
-    a, a:focus , a:hover{ 
+    /* a, a:focus , a:hover{ 
         text-decoration: none;
         color: inherit;
       }
@@ -74,12 +74,12 @@
           outline:none!important;
       }
       
-      /*ROUNDED CORNER*/
+      ROUNDED CORNER
       *{
         -webkit-border-radius: 0 !important;
            -moz-border-radius: 0 !important;
                 border-radius: 0 !important;
-      }
+      } */
       /*CATEGORIES BADGE*/
       .badge {
           font-weight: 600;
@@ -126,8 +126,8 @@
         background-repeat: no-repeat;
       }
       
-   *{
-      /* font-family: '나눔고딕' !important; */
+   /* *{
+      font-family: '나눔고딕' !important;
       margin: 0;
       padding: 0;
         
@@ -147,7 +147,7 @@
     }
     ul>li{
         float: left;
-    }
+    } */
     
     /* @media (max-width: 350px) {
         .fixed-top {
@@ -171,7 +171,7 @@
         list-style-type: none;
     }
     
-    i{font-size:30px; color: #808080;}
+    /*i{font-size:30px; color: #808080;}*/
     
     
     

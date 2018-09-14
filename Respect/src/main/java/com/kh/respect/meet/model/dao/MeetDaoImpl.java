@@ -39,6 +39,11 @@ public class MeetDaoImpl implements MeetDao {
 		return sqlSession.selectList("meet.searchMeetList", map, new RowBounds((cPage-1)*numPerPage, numPerPage));
 		
 	}
+
+	@Override
+	public Meet selectOne(SqlSessionTemplate sqlSession, int meetNo) {
+		return sqlSession.selectOne("meet.selectOne", meetNo);
+	}
 	
 	
 	

@@ -118,7 +118,8 @@ $(function(){
 	
 });
 
-</script> -->
+
+</script>
 
 
 </head>
