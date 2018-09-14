@@ -6,6 +6,9 @@
 <c:set var="path" value="<%=request.getContextPath()%>"/>
 <jsp:include page="/WEB-INF/views/common/header.jsp"/>
 
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
 <style>
     #user_name{
     font-size: 25px;
