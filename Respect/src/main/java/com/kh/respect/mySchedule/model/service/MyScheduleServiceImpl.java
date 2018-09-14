@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.kh.respect.mySchedule.model.dao.MyScheduleDao;
 import com.kh.respect.mySchedule.model.vo.Delete;
+import com.kh.respect.place.model.vo.Place;
 
 @Service
 public class MyScheduleServiceImpl implements MyScheduleService {
@@ -104,7 +105,7 @@ public class MyScheduleServiceImpl implements MyScheduleService {
 	}
 
 	@Override
-	public List<Map<String, String>> putPlaceList(String userId, int cPage, int numPerPage) {
+	public List<Place> putPlaceList(String userId, int cPage, int numPerPage) {
 		// TODO Auto-generated method stub
 		return dao.putPlaceList(sqlSession,userId,cPage,numPerPage);
 	}

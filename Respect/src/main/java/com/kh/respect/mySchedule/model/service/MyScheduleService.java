@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.kh.respect.mySchedule.model.vo.Delete;
-import com.kh.respect.user.model.vo.User;
+import com.kh.respect.place.model.vo.Place;
 
 public interface MyScheduleService {
 
@@ -36,7 +36,7 @@ public interface MyScheduleService {
 
 	List<Map<String, String>> putScheduleList(String userId);
 
-	List<Map<String, String>> putPlaceList(String userId,int cPage, int numPerPage);
+	List<Place> putPlaceList(String userId,int cPage, int numPerPage);
 
 	int putPlaceListTotalCount(String userId);
 

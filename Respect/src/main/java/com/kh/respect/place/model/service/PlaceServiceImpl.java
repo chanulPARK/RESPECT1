@@ -44,5 +44,10 @@ public class PlaceServiceImpl implements PlaceService {
 	public void updateSpotCnt(int spotno) {
 		dao.updateSpotCnt(sqlSession, spotno);
 	}
+
+	@Override
+	public List<Place> selectUserSpotList(String userId, int cPage, int numPerPage) {
+		return dao.selectUserSpotList(sqlSession,userId,cPage,numPerPage);
+	}
 	
 }

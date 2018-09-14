@@ -5,9 +5,11 @@
 	</resultMap>
 	
 	<select id="selectSpotList" resultType="place">
-		SELECT * FROM PLACE
+		SELECT * FROM PLACE WHERE USERID IS NULL
 	</select>
-	
+	<select id="selectUserSpotList" resultType="place" parameterType="string">
+		SELECT * FROM PLACE WHERE USERID=#{userId}
+	</select>
 	<select id="selectTotalCount" resultType="_int"> SELECT COUNT(*) FROM PLACE </select>
 	
 	<insert id="insertPlace" parameterType="place">

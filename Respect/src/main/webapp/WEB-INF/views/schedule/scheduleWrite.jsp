@@ -163,7 +163,7 @@
                                    <a href="#">음식점</a>
                                        
                                        <c:forEach var="place" items="${list }" >
-                                       		<c:if test="${place.majorcategory!='사용자등록'}">
+                                       		
                                            <div class=" col-md-13 mt-3 justify-content-center" >
                                    			
                                                <img class="mb-2" src="${path }/resources/upload/spot/thumbnail/${place.thumbnail}" style="width:85px;" height="60px;">
@@ -172,7 +172,7 @@
                                            </div>
                                            
                                            <hr>
-                                           </c:if>
+                                           
                                       </c:forEach>
                                            <br>
                                        <nav aria-label="Page navigation example">
@@ -201,16 +201,38 @@
                                </div>
                             </div>
                              <div class="container tab-pane fade"  align='center' id="myAdd">
-                    	<br>         
-                           	<div class="justify-content-center" align='center'>
-                           	<div class="form-group" align='center'>
-                            	<button class="btn" style="width:80px; height:30px;" onclick="fn_myPlace()">일정추가</button>&nbsp;&nbsp;<button  class="btn" style="width:80px; height:30px;" onclick="fn_myPlaceDelete()">장소삭제</button>
-                           	
-                           	</div>
-	                            <div class="form-group">
-									<h6>타이틀</h6><p style="color:rgb(174, 166, 166);">주소</p>
-	                            </div>
-                            </div>
+                    	<div class='mt-1 col-md-12'>  
+                                   <a href="#">관광지</a>|
+                                   <a href="#">숙소</a>|
+                                   <a href="#">음식점</a>
+                                       
+                                       <c:forEach var="uPlace" items="${userList }" >
+                                       		
+                                           <div class=" col-md-13 mt-3 justify-content-center" >
+                                   			
+                                               
+                                               <br><p>${uPlace.title }</p>
+                                               <button class="btn mb-2" value="${uPlace }" onclick="fn_addUPlace(event)">일정등록</button>
+                                           </div>
+                                           
+                                          <hr>
+                                           
+                                      </c:forEach>
+                                           <br>
+                                       <nav aria-label="Page navigation example">
+                                               <ul class="pagination justify-content-center">
+                                                   <li class="page-item disabled">
+                                                   <a class="page-link btn-sm" href="#" tabindex="-1"><</a>
+                                                   </li>
+                                                   <li class="page-item"><a class="page-link text-muted btn-sm" href="#">1</a></li>
+                                                   <li class="page-item"><a class="page-link text-muted btn-sm" href="#">2</a></li>
+                                                   <li class="page-item"><a class="page-link text-muted btn-sm" href="#">3</a></li>
+                                                   <li class="page-item">
+                                                   <a class="page-link text-muted btn-sm" href="#">></a>
+                                                   </li>
+                                               </ul>
+                                       </nav>
+                               </div>
                              <hr>
                             <br>
                             <nav aria-label="Page navigation example">
@@ -474,7 +496,7 @@ $("#start_date").on("click",function()
 	        active[0].classList.add("disable");
 	      	tableday=active[0].parentElement.parentElement.parentElement.id;
 	      	
-	        var html="<div id='data"+seq_no+"' ><input type='radio' name='represent' value='"+place2[0]+"'>"+place2[1]+seq_no+"/"+place2[0]+"<input type='hidden' name='timevalue' value='"+tableday+","+active[0].id+"'><input type='hidden' name='placevalue' value='"+place1+","+seq_no+"' class='placelist'><span class='float-right' class='drag' id='drag"+seq_no+"' draggable='true' ondragstart='drag(event)'> <img src='${path}/resources/img/arrow.png' style='width:50px; height:30px;'></span><button class='float-right delbtn' onclick='fn_delete("+seq_no+")'>X</button></div>";
+	        var html="<div id='data"+seq_no+"' ><input class='mr-2' type='radio' name='represent' value='"+place2[0]+"'>"+place2[1]+"<input type='hidden' name='timevalue' value='"+tableday+","+active[0].id+"'><input type='hidden' name='placevalue' value='"+place1+","+seq_no+"' class='placelist'><span class='float-right' class='drag' id='drag"+seq_no+"' draggable='true' ondragstart='drag(event)'> <img src='${path}/resources/img/arrow.png' style='width:50px; height:30px;'></span><button class='float-right delbtn' onclick='fn_delete("+seq_no+")'>X</button></div>";
 	        
 	        active.append(html);
 	        var loc=place2[2];
@@ -484,6 +506,26 @@ $("#start_date").on("click",function()
 	        
 	}
 	
+	function fn_addUPlace(event)
+	{
+		var place1=event.target.value;
+	    
+	    var place2=place1.split(",");
+	    
+	    var seq_no=seq();
+	    seq_num=seq_no
+	    var active=$(".active TD[class='place']:first");
+        active[0].classList.add("disable");
+      	tableday=active[0].parentElement.parentElement.parentElement.id;
+      	
+        var html="<div id='data"+seq_no+"' >"+place2[1]+"<input type='hidden' name='timevalue' value='"+tableday+","+active[0].id+"'><input type='hidden' name='placevalue' value='"+place1+","+seq_no+"' class='placelist'><span class='float-right' class='drag' id='drag"+seq_no+"' draggable='true' ondragstart='drag(event)'> <img src='${path}/resources/img/arrow.png' style='width:50px; height:30px;'></span><button class='float-right delbtn' onclick='fn_delete("+seq_no+")'>X</button></div>";
+        
+        active.append(html);
+        var loc=place2[2];
+        title=seq_no;
+        placename=place2[1];
+        ps.addressSearch(loc,placesSearchCB);
+	}
 	//장소 검색 완료시 호출되는 콜백 함수
 	function placesSearchCB (data, status, pagination)
 	{

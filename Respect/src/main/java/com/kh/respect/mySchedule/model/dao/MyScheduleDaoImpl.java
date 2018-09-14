@@ -8,6 +8,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.kh.respect.mySchedule.model.vo.Delete;
+import com.kh.respect.place.model.vo.Place;
 
 @Repository
 public class MyScheduleDaoImpl implements MyScheduleDao {
@@ -97,7 +98,7 @@ public class MyScheduleDaoImpl implements MyScheduleDao {
 	}
 
 	@Override
-	public List<Map<String, String>> putPlaceList(SqlSessionTemplate sqlSession, String userId, int cPage, int numPerPage) {
+	public List<Place> putPlaceList(SqlSessionTemplate sqlSession, String userId, int cPage, int numPerPage) {
 		// TODO Auto-generated method stub
 		return sqlSession.selectList("mySchedule.putPlaceList", userId,new RowBounds((cPage-1)*numPerPage, numPerPage));
 	}
