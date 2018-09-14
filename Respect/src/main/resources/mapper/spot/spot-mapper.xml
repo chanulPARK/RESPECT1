@@ -5,14 +5,16 @@
 	</resultMap>
 	
 	<select id="selectSpotList" resultType="place">
-		SELECT * FROM PLACE
+		SELECT * FROM PLACE WHERE USERID IS NULL
 	</select>
-	
+	<select id="selectUserSpotList" resultType="place" parameterType="string">
+		SELECT * FROM PLACE WHERE USERID=#{userId}
+	</select>
 	<select id="selectTotalCount" resultType="_int"> SELECT COUNT(*) FROM PLACE </select>
 	
 	<insert id="insertPlace" parameterType="place">
 		INSERT INTO PLACE(PLACENO, MAJORCATEGORY, MINORCATEGORY, AREA, USERID, TITLE, ADDRESS, PHONE, CONTENT, THUMBNAIL, MAINIMAGE)
-		VALUES(SEQ_PLACE.NEXTVAL, #{majorcategory}, #{minorcategory}, #{area}, #{userid}, #{title}, #{address}, #{phone}, #{content}, #{thumbnail},#{mainimage})
+		VALUES(SEQ_PLACE.NEXTVAL, #{majorcategory}, #{minorcategory}, #{area}, #{userid}, #{title}, #{address}, #{phone}, #{content}, #{thumbnail}, #{mainimage})
 		<selectKey keyProperty="placeno" resultType="_int" order="AFTER">
 			SELECT SEQ_PLACE.CURRVAL FROM DUAL
 		</selectKey>
@@ -21,4 +23,11 @@
 	<select id="selectSpot" parameterType="_int" resultType="place">
 		SELECT * FROM PLACE WHERE PLACENO = #{spotno}
 	</select>
+	
+	<update id="updateSpotCnt">
+	    UPDATE PLACE
+	    SET HITSCOUNT = HITSCOUNT + 1
+	    WHERE PLACENO = #{spotno}
+	</update>
+	
 </mapper>

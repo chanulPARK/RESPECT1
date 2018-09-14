@@ -431,7 +431,7 @@
 				              </div>
 				              <div id="card_line" style="height: auto;">
 				              
-				                  <img src="${path }/resources/upload/profile/${ppl.THUMBNAIL}" alt="" width="100%" height="130px">
+				                  <img src="${path }/resources/upload/spot/thumbnail/${ppl.THUMBNAIL}" alt="" width="100%" height="130px">
 				                  <span id="where" class="p-2"><c:if test="${ppl.MAJORCATEGORY=='관광지'}">관광지</c:if><c:if test="${ppl.MAJORCATEGORY=='숙박'}">숙박</c:if><c:if test="${ppl.MAJORCATEGORY=='음식점'}">음식점</c:if></span>
 				                  <!--관광지 제목,장소??(관광지리스트확인)-->
 				                  <p id="p_title" class="p-2">${ppl.TITLE }<br> <span id="span_info" >${ppl.AREA }</span></p>
@@ -463,7 +463,7 @@
 				              </div>
 				              <div id="card_line" style="height: auto;">
 				              
-				                  <img src="${path }/resources/upload/profile/${ppl.THUMBNAIL}" alt="" width="100%" height="130px">
+				                  <img src="${path }/resources/upload/spot/thumbnail/${ppl.THUMBNAIL}" alt="" width="100%" height="130px">
 				                  
 				                  <!--관광지 제목,장소??(관광지리스트확인)-->
 				                  <p id="p_title" class="p-2">${ppl.TITLE }<br> <span id="span_info" >${ppl.AREA }</span></p>
