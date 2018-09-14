@@ -40,6 +40,15 @@
 		<interceptor>
 			<mapping path="/**"/>
 			<exclude-mapping path="/user/userLogout.do"/>
+			<exclude-mapping path="/user/userEnroll.do"/>
+			<exclude-mapping path="/user/checkId.do"/>
+			<exclude-mapping path="/user/checkNick.do"/>
+			<exclude-mapping path="/user/checkEmail.do"/>
+			<exclude-mapping path="/user/registerEnd"/>
+			<exclude-mapping path="/user/emailConfirm"/>
+			<exclude-mapping path="/user/userLogin.do"/>
+			<exclude-mapping path="/user/loginEnd"/>
+			
 			<beans:bean id="NewUser" class="com.kh.respect.common.interceptor.NewUser"></beans:bean>
 		</interceptor>
 		<interceptor>

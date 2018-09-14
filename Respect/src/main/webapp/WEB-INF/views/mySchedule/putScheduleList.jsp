@@ -201,7 +201,7 @@
                 <a class="portfolio-link"  href="#portfolioModal1" style="text-decoration:none !important">
                     <div class="portfolio-hover mt-3">
                       <div class="portfolio-hover-content">
-                        <i class="fas fa-plus fa-3x"></i>
+                        
                       </div>
                     </div>
                     <div id="card_line" style="height: auto;">
