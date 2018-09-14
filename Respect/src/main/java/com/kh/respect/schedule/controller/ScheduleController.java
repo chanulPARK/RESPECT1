@@ -2,6 +2,7 @@ package com.kh.respect.schedule.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.StringTokenizer;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.kh.respect.common.Page;
 import com.kh.respect.mySchedule.model.service.MyScheduleService;
 import com.kh.respect.place.model.service.PlaceService;
 import com.kh.respect.place.model.vo.Place;
@@ -30,6 +32,34 @@ public class ScheduleController {
 	private PlaceService pservice;
 	@Autowired 
 	private MyScheduleService myservice;
+	
+	
+	
+	@RequestMapping("/schedule/scheduleList")
+	public ModelAndView ScheduleList(@RequestParam(value="cPage",required=false,defaultValue="1") int cPage)
+	{
+		ModelAndView mv=new ModelAndView();
+		System.out.println("스케줄 컨트롤러 스케줄 리스트 첫페이지 : "+cPage);
+		int numPerPage=9;
+		List<Map<String,String>> list=service.selectScheduleList(cPage,numPerPage);
+		System.out.println("스케줄 컨트롤러 게시물 리스트: "+list);
+		
+		int totalCount=service.selectTotalCount();
+		System.out.println("스케줄 컨트롤러 게시물 갯수: "+totalCount);
+		mv.addObject("list",list);
+		mv.addObject("totalContent",totalCount);
+		mv.addObject("pageBar",Page.getPage(cPage, numPerPage, totalCount,"scheduleList"));
+		mv.setViewName("schedule/scheduleList");
+		return mv;
+
+	}
+	
+	@RequestMapping("/schedule/scheduleFilter")
+	public ModelAndView ScheduleListFilter(String theme, int tripstate, String order)
+	{
+		ModelAndView mv=new ModelAndView();
+		return mv;
+	}
 	
 	@RequestMapping("/schedule/scheduleWrite")
 	public ModelAndView ScheduleWrite(HttpSession session, ModelAndView mv)
