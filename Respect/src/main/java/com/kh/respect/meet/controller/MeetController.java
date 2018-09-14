@@ -113,65 +113,33 @@ public class MeetController {
 		ModelAndView mv = new ModelAndView();
 		
 		Meet meet = service.selectOne(meetNo);
-		System.out.println("meetTime :: "+meet.getMeetTime());
+		
+		String meetTime = meet.getMeetTime();
+		System.out.println(meetTime);
+		
+		String meetDate = meet.getMeetDate().substring(0, 10);
+		System.out.println(meetDate);
 		
 		mv.addObject("meet", meet);
+		mv.addObject("meetDate", meetDate);
 		mv.setViewName("meet/meetView");
 		
 		return mv;
 	}
 	
-	/*@RequestMapping(value="/imageUpload.do", method = RequestMethod.POST)
-	@ResponseBody
-	public String imageUpload(MultipartFile[] uploadFile, HttpServletRequest request) throws IOException
+	@RequestMapping("/meet/meetUpdate.do")
+	public String meetUpdate(int meetNo)
 	{
-		System.out.println("uploadFile :: "+uploadFile[0]);
-		ModelAndView mv = new ModelAndView();
-		ObjectMapper mapper = new ObjectMapper();
-		Map<String, Object> map = new HashMap();
 		
-		String saveDir = request.getSession().getServletContext().getRealPath("/resources/uploadImg");
+		return "";
+	}
+	
+	@RequestMapping("/meet/meetDelete.do")
+	public String meetDelete(int meetNo)
+	{
 		
-		List<String> attList = new ArrayList();
-		
-		File dir = new File(saveDir);
-		// 폴더가 없을경우 생성
-		if(dir.exists()==false)
-		{
-			dir.mkdirs();
-		}
-		
-		for(MultipartFile f : uploadFile)
-		{
-			if(!f.isEmpty())
-			{
-				String originName = f.getOriginalFilename();
-				String ext = originName.substring(originName.lastIndexOf(".")+1);
-				SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_HHmmssSS");
-				int rndNum = (int)(Math.random()*10000);
-				//String renamed = sdf.format(new Date(System.currentTimeMillis()));
-				String renamed = "meet";
-				renamed += "_" + rndNum + "." + ext;
-				try {
-					// 서버 경로에 파일을 저장
-					f.transferTo(new File(saveDir+"/"+renamed));
-				}
-				catch(Exception e)
-				{
-					e.printStackTrace();
-				}
-				attList.add(renamed);
-			}
-		}
-		mv.addObject("list",attList);
-		System.out.println("list :: "+attList);
-		mv.setViewName("jsonView");
-		
-		String jsonStr = mapper.writeValueAsString(attList);
-		System.out.println("jsonStr :: "+jsonStr);
-		
-		return jsonStr;
-	}*/
+		return "";
+	}
 	
    @RequestMapping(value="/imageUpload.do", method = RequestMethod.POST)
    @ResponseBody

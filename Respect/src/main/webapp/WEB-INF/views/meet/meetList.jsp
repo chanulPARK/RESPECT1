@@ -54,41 +54,47 @@
 	        
 	        // 주소-좌표 변환 객체를 생성합니다
 	        var geocoder = new daum.maps.services.Geocoder();
-	        
-	        var addr = "${list}";
-	        console.log(addr);
-	        
-	        /* for(var i = 0; addr.length > i; i++)
-	        {
+				        
+	        <c:forEach items="${list }" var="meet">
+	        	
+	        	var addr = new Array();
+	        	addr.push("${meet.ADDRESS}");
+	        	console.log(addr);
+	        	
 	        	// 주소로 좌표를 검색합니다
-		        geocoder.addressSearch(addr[i], function(result, status) {
-		        
-		            // 정상적으로 검색이 완료됐으면 
-		             if (status === daum.maps.services.Status.OK) {
-		        
-		                var coords = new daum.maps.LatLng(result[i].y, result[i].x);
-		        
-		                // 결과값으로 받은 위치를 마커로 표시합니다
-		                var marker = new daum.maps.Marker({
-		                    map: map,
-		                    position: coords
-		                });
-		        
-		                // 인포윈도우로 장소에 대한 설명을 표시합니다
-		                var infowindow = new daum.maps.InfoWindow({
-		                    content: '<div style="width:150px;text-align:center;padding:6px 0;">[지역명]</div>'
-		                });
-		                infowindow.open(map, marker);
-		        
-		                // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
-		                map.setCenter(coords);
-		            }
-	        	});
-	        } */
+	        	for(var i=0;addr.length>i;i++)
+        		{
+	        		(function(i){
+			        geocoder.addressSearch(addr[i], function(result, status) {
+			        
+			            // 정상적으로 검색이 완료됐으면 
+			             if (status === daum.maps.services.Status.OK) {
+			        
+			                var coords = new daum.maps.LatLng(result[i].y, result[i].x);
+			        
+			                // 결과값으로 받은 위치를 마커로 표시합니다
+			                var marker = new daum.maps.Marker({
+			                    map: map,
+			                    position: coords
+			                });
+			        
+			                // 인포윈도우로 장소에 대한 설명을 표시합니다
+			                var infowindow = new daum.maps.InfoWindow({
+			                    content: '<div style="width:150px;text-align:center;padding:6px 0;">${meet.TITLE}</div>'
+			                });
+			                infowindow.open(map, marker);
+			        
+			                // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+			                map.setCenter(coords);
+			            }
+		        	});
+	        		})(i);
+        		}
+	        </c:forEach>
 	       	
 	        // 주소로 좌표를 검색합니다
 
-	        geocoder.addressSearch(addr, function(result, status) {
+	        /* geocoder.addressSearch(addr, function(result, status) {
 	        
 
 	            // 정상적으로 검색이 완료됐으면 
@@ -111,7 +117,7 @@
 	                // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
 	                map.setCenter(coords);
 	            }
-        	});
+        	}); */
 		</script>
 		<br>
 		<div id="wrapper">

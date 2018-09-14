@@ -48,8 +48,8 @@
 				   	<div class="col-sm-3">
 				       	${meet.nickName }
 				    </div>
-				    <div class="col-sm-3">
-				       	<button class="btn btn-outline-success" onclick="sendMessage()">쪽지보내기</button>
+				    <div class="col-sm-3" style="float:right;">
+				       	
 				    </div>
 				</div>
 			</div>
@@ -73,7 +73,7 @@
 				<div class="form-group row">
 				   	<label for="gender" class="col-sm-2 col-form-label">날짜</label>
 				   	<div class="col-sm-3">
-				       	${meet.meetDate }
+				       	${meetDate }
 				    </div>
 				</div>
 			</div>
@@ -90,7 +90,11 @@
 		<div id="bung-content">
 			${meet.content }
 		</div>
-		
+		<hr>
+		<c:if test="${userLoggedIn.userId==meet.userId }">
+			<button class="btn btn-primary" onclick="meetUpdate(${meet.meetNo})">수정</button>
+			<button class="btn btn-danger" onclick="meetDelete(${meet.meetNo})">삭제</button>
+		</c:if>
 		<!-- 댓글영역 -->
 		
 		
@@ -107,6 +111,31 @@
 				location.href="${path}/user/userLogin.do";
 			}
 		}
+		
+		function meetUpdate(data)
+		{
+			var bool = confirm("정말 수정하시겠습니가?");
+			if(bool)
+			{
+				location.href="${path}/meet/meetUpdate.do";
+			}else{
+				alert("취소되었습니다.");
+				e.preventDefault();
+			}
+		}
+		
+		function meetDelete(data)
+		{
+			var bool = confirm("정말 삭제하시겠습니가?");
+			if(bool)
+			{
+				location.href="${path}/meet/meetDelete.do";
+			}else{
+				alert("취소되었습니다.");
+				e.preventDefault();
+			}
+		}
+		
 	</script>
 	
 </section>
