@@ -6,6 +6,7 @@ import com.kh.respect.place.model.vo.Place;
 
 public interface PlaceService {
 	List<Place> selectSpotList(int cPage, int numPerPage);
+	List<Place> selectUserSpotList(String userId, int cPage, int numPerPage);
 	int selectTotalCount();
 	int insertSpot(Place p);
 	Place selectSpot(int spotno);

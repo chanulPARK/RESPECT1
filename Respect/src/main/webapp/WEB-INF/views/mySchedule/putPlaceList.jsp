@@ -104,10 +104,10 @@
                               <div class="form-label-group">
                                   <!--사진 (경로를 잘 찾아라!!)-->
                                 <c:if test="${userLoggedIn.picture ne null }">
-                                  <img src="${path }/resources/upload/profile/${userLoggedIn.picture}" alt="프로필사진" width="100%"  height= "157px" style="max-height: 100%" class="rounded-circle" >
+                                  <img src="${path }/resources/upload/spot/thumbnail/${userLoggedIn.picture}" alt="프로필사진" width="100%"  height= "157px" style="max-height: 100%" class="rounded-circle" >
                               </c:if>
                               <c:if test="${userLoggedIn.picture eq null }">
-                                  <img src="${path }/resources/upload/profile/basicprofile.jpg" alt="프로필사진" width="100%"  height= "157px" style="max-height: 100%" class="rounded-circle" >
+                                  <img src="${path }/resources/upload/spot/thumbnail/basicprofile.jpg" alt="프로필사진" width="100%"  height= "157px" style="max-height: 100%" class="rounded-circle" >
                               </c:if>
                               </div>
                             </div>
@@ -200,11 +200,11 @@
                       </div>
                       <div id="card_line" style="height: auto;">
               
-                        <img src="${path }/resources/upload/profile/${ppl.THUMBNAIL}" alt="" width="100%" height="130px">
-                        <a href="${path }/mySchedule/putPlaceDelete.do?cPage=${cPage }&placeNo=${ppl.PLACENO }&userId=${userLoggedIn.userId}" style="text-decoration:none !important" onclick="return check()"><img src="${path }/resources/upload/profile/xButton.png" alt="" width="20px" style="position: absolute; top: 25px; right: 25px;"></a>
-                        <span id="where" class="p-2"><c:if test="${ppl.MAJORCATEGORY=='관광지'}">관광지</c:if><c:if test="${ppl.MAJORCATEGORY=='숙박'}">숙박</c:if><c:if test="${ppl.MAJORCATEGORY=='음식점'}">음식점</c:if></span>
+                        <img src="${path }/resources/upload/spot/thumbnail/${ppl.thumbnail}" alt="" width="100%" height="130px">
+                        <a href="${path }/mySchedule/putPlaceDelete.do?cPage=${cPage }&placeNo=${ppl.placeno }&userId=${userLoggedIn.userId}" style="text-decoration:none !important" onclick="return check()"><img src="${path }/resources/upload/spot/thumbnail/xButton.png" alt="" width="20px" style="position: absolute; top: 25px; right: 25px;"></a>
+                        <span id="where" class="p-2"><c:if test="${ppl.majorcategory=='관광지'}">관광지</c:if><c:if test="${ppl.majorcategory=='숙박'}">숙박</c:if><c:if test="${ppl.majorcategory=='음식점'}">음식점</c:if></span>
                         <!--관광지 제목,장소??(관광지리스트확인)-->
-                        <p id="p_title" class="p-2">${ppl.TITLE }<br> <span id="span_info" >${ppl.AREA }</span></p>
+                        <p id="p_title" class="p-2">${ppl.title }<br> <span id="span_info" >${ppl.area }</span></p>
                         
                     </div>
                     </a>
@@ -265,7 +265,7 @@
            });
 
         // 마커를 클릭했을 때 마커 위에 표시할 인포윈도우를 생성합니다
-           var iwContent = '<div style="padding:5px; display:inline; border: 1px solid black; float:left; width: 300px;"><div style=" padding:10px; display:inline; float:left;"><a href="http://www.naver.com"><img src="${path }/resources/upload/profile/${putPlaceList[0].THUMBNAIL}" width=100px height=100px></a></div><div class="mt-2"><div style="display:inline;float:left; "><span style="font-weight:bold;">${putPlaceList[0].TITLE}</span></div><br><div><span style="color: #676767; font-size: 13px">${putPlaceList[0].ADDRESS}</span></div><div><span style="color: #ef8321; font-size: 12px"> 추천 ${putPlaceList[0].GOODCOUNT} </span><span style="font-size: 12px">ㅣ</span> <span style="color: #ef8321; font-size: 12px"> 리뷰 ${putPlaceList[0].REPLYCOUNT} </span></div></div></div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+           var iwContent = '<div style="padding:5px; display:inline; border: 1px solid black; float:left; width: 300px;"><div style=" padding:10px; display:inline; float:left;"><a href="http://www.naver.com"><img src="${path }/resources/upload/spot/thumbnail/${putPlaceList[0].thumbnail}" width=100px height=100px></a></div><div class="mt-2"><div style="display:inline;float:left; "><span style="font-weight:bold;">${putPlaceList[0].title}</span></div><br><div><span style="color: #676767; font-size: 13px">${putPlaceList[0].address}</span></div><div><span style="color: #ef8321; font-size: 12px"> 추천 ${putPlaceList[0].goodcount} </span><span style="font-size: 12px">ㅣ</span> <span style="color: #ef8321; font-size: 12px"> 리뷰 ${putPlaceList[0].replycount} </span></div></div></div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
                iwRemoveable = true; // removeable 속성을 ture 로 설정하면 인포윈도우를 닫을 수 있는 x버튼이 표시됩니다
 
            // 인포윈도우를 생성합니다
@@ -304,7 +304,7 @@
               });
 
            // 마커를 클릭했을 때 마커 위에 표시할 인포윈도우를 생성합니다
-              var iwContent = '<div style="padding:5px; display:inline; border: 1px solid black; float:left; width: 300px;"><div style=" padding:10px; display:inline; float:left;"><a href="http://www.naver.com"><img src="${path }/resources/upload/profile/${putPlaceList[1].THUMBNAIL}" width=100px height=100px></a></div><div class="mt-2"><div style="display:inline;float:left; "><span style="font-weight:bold;">${putPlaceList[1].TITLE}</span></div><br><div><span style="color: #676767; font-size: 13px">${putPlaceList[1].ADDRESS}</span></div><div><span style="color: #ef8321; font-size: 12px"> 추천 ${putPlaceList[1].GOODCOUNT} </span><span style="font-size: 12px">ㅣ</span> <span style="color: #ef8321; font-size: 12px"> 리뷰 ${putPlaceList[1].REPLYCOUNT} </span></div></div></div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+              var iwContent = '<div style="padding:5px; display:inline; border: 1px solid black; float:left; width: 300px;"><div style=" padding:10px; display:inline; float:left;"><a href="http://www.naver.com"><img src="${path }/resources/upload/spot/thumbnail/${putPlaceList[1].thumbnail}" width=100px height=100px></a></div><div class="mt-2"><div style="display:inline;float:left; "><span style="font-weight:bold;">${putPlaceList[1].title}</span></div><br><div><span style="color: #676767; font-size: 13px">${putPlaceList[1].address}</span></div><div><span style="color: #ef8321; font-size: 12px"> 추천 ${putPlaceList[1].goodcount} </span><span style="font-size: 12px">ㅣ</span> <span style="color: #ef8321; font-size: 12px"> 리뷰 ${putPlaceList[1].replycount} </span></div></div></div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
                   iwRemoveable = true; // removeable 속성을 ture 로 설정하면 인포윈도우를 닫을 수 있는 x버튼이 표시됩니다
 
               // 인포윈도우를 생성합니다
@@ -342,7 +342,7 @@
               });
 
            // 마커를 클릭했을 때 마커 위에 표시할 인포윈도우를 생성합니다
-              var iwContent = '<div style="padding:5px; display:inline; border: 1px solid black; float:left; width: 300px;"><div style=" padding:10px; display:inline; float:left;"><a href="http://www.naver.com"><img src="${path }/resources/upload/profile/${putPlaceList[2].THUMBNAIL}" width=100px height=100px></a></div><div class="mt-2"><div style="display:inline;float:left; "><span style="font-weight:bold;">${putPlaceList[2].TITLE}</span></div><br><div><span style="color: #676767; font-size: 13px">${putPlaceList[2].ADDRESS}</span></div><div><span style="color: #ef8321; font-size: 12px"> 추천 ${putPlaceList[2].GOODCOUNT} </span><span style="font-size: 12px">ㅣ</span> <span style="color: #ef8321; font-size: 12px"> 리뷰 ${putPlaceList[2].REPLYCOUNT} </span></div></div></div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+              var iwContent = '<div style="padding:5px; display:inline; border: 1px solid black; float:left; width: 300px;"><div style=" padding:10px; display:inline; float:left;"><a href="http://www.naver.com"><img src="${path }/resources/upload/spot/thumbnail/${putPlaceList[2].thumbnail}" width=100px height=100px></a></div><div class="mt-2"><div style="display:inline;float:left; "><span style="font-weight:bold;">${putPlaceList[2].title}</span></div><br><div><span style="color: #676767; font-size: 13px">${putPlaceList[2].address}</span></div><div><span style="color: #ef8321; font-size: 12px"> 추천 ${putPlaceList[2].goodcount} </span><span style="font-size: 12px">ㅣ</span> <span style="color: #ef8321; font-size: 12px"> 리뷰 ${putPlaceList[2].replycount} </span></div></div></div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
                   iwRemoveable = true; // removeable 속성을 ture 로 설정하면 인포윈도우를 닫을 수 있는 x버튼이 표시됩니다
 
               // 인포윈도우를 생성합니다
@@ -380,7 +380,7 @@
               });
 
            // 마커를 클릭했을 때 마커 위에 표시할 인포윈도우를 생성합니다
-              var iwContent = '<div style="padding:5px; display:inline; border: 1px solid black; float:left; width: 300px;"><div style=" padding:10px; display:inline; float:left;"><a href="http://www.naver.com"><img src="${path }/resources/upload/profile/${putPlaceList[3].THUMBNAIL}" width=100px height=100px></a></div><div class="mt-2"><div style="display:inline;float:left; "><span style="font-weight:bold;">${putPlaceList[3].TITLE}</span></div><br><div><span style="color: #676767; font-size: 13px">${putPlaceList[3].ADDRESS}</span></div><div><span style="color: #ef8321; font-size: 12px"> 추천 ${putPlaceList[3].GOODCOUNT} </span><span style="font-size: 12px">ㅣ</span> <span style="color: #ef8321; font-size: 12px"> 리뷰 ${putPlaceList[3].REPLYCOUNT} </span></div></div></div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+              var iwContent = '<div style="padding:5px; display:inline; border: 1px solid black; float:left; width: 300px;"><div style=" padding:10px; display:inline; float:left;"><a href="http://www.naver.com"><img src="${path }/resources/upload/spot/thumbnail/${putPlaceList[3].thumbnail}" width=100px height=100px></a></div><div class="mt-2"><div style="display:inline;float:left; "><span style="font-weight:bold;">${putPlaceList[3].title}</span></div><br><div><span style="color: #676767; font-size: 13px">${putPlaceList[3].address}</span></div><div><span style="color: #ef8321; font-size: 12px"> 추천 ${putPlaceList[3].goodcount} </span><span style="font-size: 12px">ㅣ</span> <span style="color: #ef8321; font-size: 12px"> 리뷰 ${putPlaceList[3].replycount} </span></div></div></div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
                   iwRemoveable = true; // removeable 속성을 ture 로 설정하면 인포윈도우를 닫을 수 있는 x버튼이 표시됩니다
 
               // 인포윈도우를 생성합니다
@@ -418,7 +418,7 @@
               });
 
            // 마커를 클릭했을 때 마커 위에 표시할 인포윈도우를 생성합니다
-              var iwContent = '<div style="padding:5px; display:inline; border: 1px solid black; float:left; width: 300px;"><div style=" padding:10px; display:inline; float:left;"><a href="http://www.naver.com"><img src="${path }/resources/upload/profile/${putPlaceList[4].THUMBNAIL}" width=100px height=100px></a></div><div class="mt-2"><div style="display:inline;float:left; "><span style="font-weight:bold;">${putPlaceList[4].TITLE}</span></div><br><div><span style="color: #676767; font-size: 13px">${putPlaceList[4].ADDRESS}</span></div><div><span style="color: #ef8321; font-size: 12px"> 추천 ${putPlaceList[4].GOODCOUNT} </span><span style="font-size: 12px">ㅣ</span> <span style="color: #ef8321; font-size: 12px"> 리뷰 ${putPlaceList[4].REPLYCOUNT} </span></div></div></div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+              var iwContent = '<div style="padding:5px; display:inline; border: 1px solid black; float:left; width: 300px;"><div style=" padding:10px; display:inline; float:left;"><a href="http://www.naver.com"><img src="${path }/resources/upload/spot/thumbnail/${putPlaceList[4].thumbnail}" width=100px height=100px></a></div><div class="mt-2"><div style="display:inline;float:left; "><span style="font-weight:bold;">${putPlaceList[4].title}</span></div><br><div><span style="color: #676767; font-size: 13px">${putPlaceList[4].address}</span></div><div><span style="color: #ef8321; font-size: 12px"> 추천 ${putPlaceList[4].goodcount} </span><span style="font-size: 12px">ㅣ</span> <span style="color: #ef8321; font-size: 12px"> 리뷰 ${putPlaceList[4].replycount} </span></div></div></div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
                   iwRemoveable = true; // removeable 속성을 ture 로 설정하면 인포윈도우를 닫을 수 있는 x버튼이 표시됩니다
 
               // 인포윈도우를 생성합니다
@@ -456,7 +456,7 @@
               });
 
            // 마커를 클릭했을 때 마커 위에 표시할 인포윈도우를 생성합니다
-              var iwContent = '<div style="padding:5px; display:inline; border: 1px solid black; float:left; width: 300px;"><div style=" padding:10px; display:inline; float:left;"><a href="http://www.naver.com"><img src="${path }/resources/upload/profile/${putPlaceList[5].THUMBNAIL}" width=100px height=100px></a></div><div class="mt-2"><div style="display:inline;float:left; "><span style="font-weight:bold;">${putPlaceList[5].TITLE}</span></div><br><div><span style="color: #676767; font-size: 13px">${putPlaceList[5].ADDRESS}</span></div><div><span style="color: #ef8321; font-size: 12px"> 추천 ${putPlaceList[5].GOODCOUNT} </span><span style="font-size: 12px">ㅣ</span> <span style="color: #ef8321; font-size: 12px"> 리뷰 ${putPlaceList[5].REPLYCOUNT} </span></div></div></div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+              var iwContent = '<div style="padding:5px; display:inline; border: 1px solid black; float:left; width: 300px;"><div style=" padding:10px; display:inline; float:left;"><a href="http://www.naver.com"><img src="${path }/resources/upload/spot/thumbnail/${putPlaceList[5].thumbnail}" width=100px height=100px></a></div><div class="mt-2"><div style="display:inline;float:left; "><span style="font-weight:bold;">${putPlaceList[5].title}</span></div><br><div><span style="color: #676767; font-size: 13px">${putPlaceList[5].address}</span></div><div><span style="color: #ef8321; font-size: 12px"> 추천 ${putPlaceList[5].goodcount} </span><span style="font-size: 12px">ㅣ</span> <span style="color: #ef8321; font-size: 12px"> 리뷰 ${putPlaceList[5].replycount} </span></div></div></div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
                   iwRemoveable = true; // removeable 속성을 ture 로 설정하면 인포윈도우를 닫을 수 있는 x버튼이 표시됩니다
 
               // 인포윈도우를 생성합니다
@@ -494,7 +494,7 @@
               });
 
            // 마커를 클릭했을 때 마커 위에 표시할 인포윈도우를 생성합니다
-              var iwContent = '<div style="padding:5px; display:inline; border: 1px solid black; float:left; width: 300px;"><div style=" padding:10px; display:inline; float:left;"><a href="http://www.naver.com"><img src="${path }/resources/upload/profile/${putPlaceList[6].THUMBNAIL}" width=100px height=100px></a></div><div class="mt-2"><div style="display:inline;float:left; "><span style="font-weight:bold;">${putPlaceList[6].TITLE}</span></div><br><div><span style="color: #676767; font-size: 13px">${putPlaceList[6].ADDRESS}</span></div><div><span style="color: #ef8321; font-size: 12px"> 추천 ${putPlaceList[6].GOODCOUNT} </span><span style="font-size: 12px">ㅣ</span> <span style="color: #ef8321; font-size: 12px"> 리뷰 ${putPlaceList[6].REPLYCOUNT} </span></div></div></div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+              var iwContent = '<div style="padding:5px; display:inline; border: 1px solid black; float:left; width: 300px;"><div style=" padding:10px; display:inline; float:left;"><a href="http://www.naver.com"><img src="${path }/resources/upload/spot/thumbnail/${putPlaceList[6].thumbnail}" width=100px height=100px></a></div><div class="mt-2"><div style="display:inline;float:left; "><span style="font-weight:bold;">${putPlaceList[6].title}</span></div><br><div><span style="color: #676767; font-size: 13px">${putPlaceList[6].address}</span></div><div><span style="color: #ef8321; font-size: 12px"> 추천 ${putPlaceList[6].goodcount} </span><span style="font-size: 12px">ㅣ</span> <span style="color: #ef8321; font-size: 12px"> 리뷰 ${putPlaceList[6].replycount} </span></div></div></div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
                   iwRemoveable = true; // removeable 속성을 ture 로 설정하면 인포윈도우를 닫을 수 있는 x버튼이 표시됩니다
 
               // 인포윈도우를 생성합니다
@@ -532,7 +532,7 @@
               });
 
            // 마커를 클릭했을 때 마커 위에 표시할 인포윈도우를 생성합니다
-              var iwContent = '<div style="padding:5px; display:inline; border: 1px solid black; float:left; width: 300px;"><div style=" padding:10px; display:inline; float:left;"><a href="http://www.naver.com"><img src="${path }/resources/upload/profile/${putPlaceList[7].THUMBNAIL}" width=100px height=100px></a></div><div class="mt-2"><div style="display:inline;float:left; "><span style="font-weight:bold;">${putPlaceList[7].TITLE}</span></div><br><div><span style="color: #676767; font-size: 13px">${putPlaceList[7].ADDRESS}</span></div><div><span style="color: #ef8321; font-size: 12px"> 추천 ${putPlaceList[7].GOODCOUNT} </span><span style="font-size: 12px">ㅣ</span> <span style="color: #ef8321; font-size: 12px"> 리뷰 ${putPlaceList[7].REPLYCOUNT} </span></div></div></div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+              var iwContent = '<div style="padding:5px; display:inline; border: 1px solid black; float:left; width: 300px;"><div style=" padding:10px; display:inline; float:left;"><a href="http://www.naver.com"><img src="${path }/resources/upload/spot/thumbnail/${putPlaceList[7].thumbnail}" width=100px height=100px></a></div><div class="mt-2"><div style="display:inline;float:left; "><span style="font-weight:bold;">${putPlaceList[7].title}</span></div><br><div><span style="color: #676767; font-size: 13px">${putPlaceList[7].address}</span></div><div><span style="color: #ef8321; font-size: 12px"> 추천 ${putPlaceList[7].goodcount} </span><span style="font-size: 12px">ㅣ</span> <span style="color: #ef8321; font-size: 12px"> 리뷰 ${putPlaceList[7].replycount} </span></div></div></div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
                   iwRemoveable = true; // removeable 속성을 ture 로 설정하면 인포윈도우를 닫을 수 있는 x버튼이 표시됩니다
 
               // 인포윈도우를 생성합니다
@@ -570,7 +570,7 @@
               });
 
            // 마커를 클릭했을 때 마커 위에 표시할 인포윈도우를 생성합니다
-              var iwContent = '<div style="padding:5px; display:inline; border: 1px solid black; float:left;"><div style=" padding:10px; display:inline; float:left;"><a href="http://www.naver.com"><img src="${path }/resources/upload/profile/${putPlaceList[8].THUMBNAIL}" width=100px height=100px></a></div><div class="mt-2"><div style="display:inline;float:left; "><span style="font-weight:bold;">${putPlaceList[8].TITLE}</span></div><br><div><span style="color: #676767; font-size: 13px">${putPlaceList[8].ADDRESS}</span></div><div><span style="color: #ef8321; font-size: 12px"> 추천 ${putPlaceList[8].GOODCOUNT} </span><span style="font-size: 12px">ㅣ</span> <span style="color: #ef8321; font-size: 12px"> 리뷰 ${putPlaceList[8].REPLYCOUNT} </span></div></div></div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+              var iwContent = '<div style="padding:5px; display:inline; border: 1px solid black; float:left;"><div style=" padding:10px; display:inline; float:left;"><a href="http://www.naver.com"><img src="${path }/resources/upload/spot/thumbnail/${putPlaceList[8].thumbnail}" width=100px height=100px></a></div><div class="mt-2"><div style="display:inline;float:left; "><span style="font-weight:bold;">${putPlaceList[8].title}</span></div><br><div><span style="color: #676767; font-size: 13px">${putPlaceList[8].address}</span></div><div><span style="color: #ef8321; font-size: 12px"> 추천 ${putPlaceList[8].goodcount} </span><span style="font-size: 12px">ㅣ</span> <span style="color: #ef8321; font-size: 12px"> 리뷰 ${putPlaceList[8].replycount} </span></div></div></div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
                   iwRemoveable = true; // removeable 속성을 ture 로 설정하면 인포윈도우를 닫을 수 있는 x버튼이 표시됩니다
 
               // 인포윈도우를 생성합니다
@@ -608,7 +608,7 @@
               });
 
            // 마커를 클릭했을 때 마커 위에 표시할 인포윈도우를 생성합니다
-              var iwContent = '<div style="padding:5px; display:inline; border: 1px solid black; float:left; width: 300px;"><div style=" padding:10px; display:inline; float:left;"><a href="http://www.naver.com"><img src="${path }/resources/upload/profile/${putPlaceList[9].THUMBNAIL}" width=100px height=100px></a></div><div class="mt-2"><div style="display:inline;float:left; "><span style="font-weight:bold;">${putPlaceList[9].TITLE}</span></div><br><div><span style="color: #676767; font-size: 13px">${putPlaceList[9].ADDRESS}</span></div><div><span style="color: #ef8321; font-size: 12px"> 추천 ${putPlaceList[9].GOODCOUNT} </span><span style="font-size: 12px">ㅣ</span> <span style="color: #ef8321; font-size: 12px"> 리뷰 ${putPlaceList[9].REPLYCOUNT} </span></div></div></div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+              var iwContent = '<div style="padding:5px; display:inline; border: 1px solid black; float:left; width: 300px;"><div style=" padding:10px; display:inline; float:left;"><a href="http://www.naver.com"><img src="${path }/resources/upload/spot/thumbnail/${putPlaceList[9].thumbnail}" width=100px height=100px></a></div><div class="mt-2"><div style="display:inline;float:left; "><span style="font-weight:bold;">${putPlaceList[9].title}</span></div><br><div><span style="color: #676767; font-size: 13px">${putPlaceList[9].address}</span></div><div><span style="color: #ef8321; font-size: 12px"> 추천 ${putPlaceList[9].goodcount} </span><span style="font-size: 12px">ㅣ</span> <span style="color: #ef8321; font-size: 12px"> 리뷰 ${putPlaceList[9].replycount} </span></div></div></div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
                   iwRemoveable = true; // removeable 속성을 ture 로 설정하면 인포윈도우를 닫을 수 있는 x버튼이 표시됩니다
 
               // 인포윈도우를 생성합니다

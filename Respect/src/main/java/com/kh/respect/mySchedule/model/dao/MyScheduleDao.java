@@ -6,6 +6,7 @@ import java.util.Map;
 import org.mybatis.spring.SqlSessionTemplate;
 
 import com.kh.respect.mySchedule.model.vo.Delete;
+import com.kh.respect.place.model.vo.Place;
 
 public interface MyScheduleDao {
 
@@ -37,7 +38,7 @@ public interface MyScheduleDao {
 
 	List<Map<String, String>> putScheduleList(SqlSessionTemplate sqlSession, String userId);
 
-	List<Map<String, String>> putPlaceList(SqlSessionTemplate sqlSession, String userId, int cPage, int numPerPage);
+	List<Place> putPlaceList(SqlSessionTemplate sqlSession, String userId, int cPage, int numPerPage);
 
 	int putPlaceListTotalCount(SqlSessionTemplate sqlSession, String userId);
 

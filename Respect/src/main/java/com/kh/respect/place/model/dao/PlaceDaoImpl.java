@@ -37,5 +37,11 @@ public class PlaceDaoImpl implements PlaceDao {
 		sqlSession.update("spot.updateSpotCnt", spotno);
 	}
 
+	@Override
+	public List<Place> selectUserSpotList(SqlSessionTemplate sqlSession, String userId, int cPage, int numPerPage) {
+		return sqlSession.selectList("spot.selectUserSpotList", userId, new RowBounds((cPage-1)*numPerPage, numPerPage));
+		
+	}
+
 
 }
