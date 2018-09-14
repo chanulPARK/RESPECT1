@@ -85,7 +85,7 @@
         
 </style>
 
-<script type="text/javascript">
+<!-- <script type="text/javascript">
     $(function(){
         var latitude="";
         var longitude="";
@@ -156,7 +156,7 @@
         
     });
     
-</script>
+</script> -->
 
 </head>
 <body>
