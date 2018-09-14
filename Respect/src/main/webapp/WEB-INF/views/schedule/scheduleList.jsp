@@ -32,9 +32,9 @@
                         <div data-toggle="buttons">
                             <h6>여행 구분</h6>
                             <div class="btn-group-toggle col-md-12">
-                                    <label class="btn btn-outline-secondary mt-1 ml-1" style="width:99%;  border-radius:0;">
-										<input type="radio" name="tripAll" id="tripAll" autocomplete="off" > 전체
-									</label>
+                                   <label for='seoul' class="btn btn-dark ">
+					                  <input type="checkbox" name="addr" id='seoul' value="서울"> 서울
+					                </label>
                             </div>
                             
                             <div class="btn-group btn-group-toggle col-md-12">
@@ -48,7 +48,7 @@
                         </div>
 						<br>
 						
-                        <div data-toggle="buttons">
+                        <div >
 							<h6>여행 테마</h6>
 							<div class="btn-group-toggle col-md-12">
 								<label class="btn btn-outline-secondary mt-1 ml-1" style="width:99%;  border-radius:0;">
@@ -84,44 +84,38 @@
 
 
 				<div class="p-0 ml-0 row col-md-9 ">
+					<c:forEach items="${list }" var="sc">
 						<div class="col-lg-6 col-sm-6 mt-4">
 								<div class="card pp" align='center' style="box-shadow: 3px 4px 5px 0 rgba(2,2,2,.2); border-radius:0;">
 								<!-- Card image -->
-									<img class="card-img-top" src="${schedule.schedule }" style="border-radius:0;" height="220px;">
+									<img class="card-img-top" src="${path }/resources/upload/spot/thumbnail/${sc.THUMBNAIL}" style="border-radius:0;" height="220px;">
 								<!-- Card content -->
 								<div class="card-body">
 								
 									<!-- Title -->
-									<a href="${path}/schedule/scheduleView?scheduleNo=${schedule.scheduleNo}"><h4 class="card-title">일정제목</h4></a>
+									<a href="${path}/schedule/scheduleView?scheduleNo=${sc.SCHEDULENO}"><h4 class="card-title">${sc.TITLE}</h4></a>
 									<!-- text -->
 									
-									<p class="card-text btn-outline-secondary">
-										2박 3일 ㆍ 나홀로 여행 ㆍ 여행전 
-									</p>
+									<fmt:parseDate value="${sc.STARTDATE }" var="startDate" pattern="yyyy-MM-dd"/>
+									<fmt:parseNumber value="${startDate.time / (1000/60/60/24)}" integerOnly="true" var="startDay"></fmt:parseNumber>
+									<fmt:parseDate value="${sc.ENDDATE }" var="endDate" pattern="yyyy-MM-dd"/>
+									<fmt:parseNumber value="${endDate.time / (1000/60/60/24)}" integerOnly="true" var="endDay"></fmt:parseNumber>
+									<p class="mt-1 card-text btn-outline-secondary">
+										${endDay-strDay}박 ${endDay-strDay+1}일 ㆍ ${sc.TRAVELTHEME} ㆍ ${sc.REPORTFLAG==0?"여행 전":"여행 후"} 
+									</p><br>
 										<div class="row" align='center'style="width:250px">
-											<i class="ml-4 far fa-thumbs-up fa-1x"></i><h6 class="ml-1">${schedule.goodCount }</h6>
-											<i class="ml-5 far fa-heart fa-1x"></i><h6 class="ml-1">${schedule.bringCount }</h6>
-											<i class="ml-5 far fa-eye fa-1x"></i><h6 class="ml-1">${schedule.hitsCount }</h6>
+											<i class="ml-4 far fa-thumbs-up fa-1x"></i><h6 class="ml-1">${sc.GOODCOUNT }</h6>
+											<i class="ml-5 far fa-heart fa-1x"></i><h6 class="ml-1">${sc.BRINGCOUNT }</h6>
+											<i class="ml-5 far fa-eye fa-1x"></i><h6 class="ml-1">${sc.HITSCOUNT }</h6>
 										</div>
 									</div>
 								</div>
 							  </div>
+						  </c:forEach>
 					</div>
 		</div>
 		<br><br>
-			<nav aria-label="Page navigation example">
-					<ul class="pagination justify-content-center">
-					  <li class="page-item disabled">
-						<a class="page-link" href="#" tabindex="-1">&lt;</a>
-					  </li>
-					  <li class="page-item"><a class="page-link text-muted" href="#">1</a></li>
-					  <li class="page-item"><a class="page-link text-muted" href="#">2</a></li>
-					  <li class="page-item"><a class="page-link text-muted" href="#">3</a></li>
-					  <li class="page-item">
-						<a class="page-link text-muted" href="#">&gt;</a>
-					  </li>
-					</ul>
-				  </nav>
+			${pageBar}
 		</div>
 		
 

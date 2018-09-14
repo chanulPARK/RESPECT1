@@ -2,6 +2,7 @@ package com.kh.respect.schedule.model.service;
 
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,5 +52,18 @@ public class ScheduleServiceImpl implements ScheduleService {
 		return result;
 	}
 
+	@Override
+	public List<Map<String, String>> selectScheduleList(int cPage, int numPerPage) {
+		
+		return dao.selectScheduleList(session,cPage,numPerPage);
+	}
+
+	@Override
+	public int selectTotalCount() {
+		return dao.selectTotalCount(session);
+	}
+	
+	
+	
 	
 }

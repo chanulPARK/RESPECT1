@@ -21,11 +21,6 @@
         }
     }
 
-    
-        
-        
-        
-    
         
     .schedule_wrap{display: block;}
 	.left-view{border:2px solid orange; padding-left: 0;}
@@ -559,7 +554,6 @@ $("#start_date").on("click",function()
 						markers[i].marks.setMap(null);
 						markers[i].iw.close();
 						markers[i]=null;
-						
 					}
 				}
 			}

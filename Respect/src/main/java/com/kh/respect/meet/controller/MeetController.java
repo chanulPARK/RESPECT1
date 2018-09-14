@@ -41,7 +41,6 @@ public class MeetController {
 		int numPerPage = 10;
 		
 		List<Map<String,String>> list = service.selectMeetList(cPage, numPerPage);
-		
 		int totalCount=service.selectTotalCount();
 		
 		mv.addObject("list", list);
