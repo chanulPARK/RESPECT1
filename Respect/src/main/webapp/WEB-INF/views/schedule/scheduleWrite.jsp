@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="com.kh.respect.user.model.vo.User"%>
 <%@ include file="/WEB-INF/views/common/header.jsp" %>
 
 <html>
@@ -83,14 +83,14 @@
                         <br>          
                             <h6>제목</h6>
                             <div class="input-group ">
-                                <input style="margin-left: 3%; margin-right: 3%; border-radius:0; " name="title" type="text" class="form-control" placeholder="일정의 제목을 입력하세요." aria-label="Username" aria-describedby="basic-addon1">
+                                <input style="margin-left: 3%; margin-right: 3%; border-radius:0; " name="title" type="text" class="form-control" placeholder="일정의 제목을 입력하세요." aria-label="Username" aria-describedby="basic-addon1" required>
                             </div>
                                                         
                             <br>
                             <h6>기간</h6>
                             <div class="input-group row" >
-                                    <input style="margin-left: 1%; margin-right: 1%; border-radius:0;" type="text" class="form-control" name="startDate" id="start_date"> <p>~</p>
-                                    <input style="margin-left: 1%; margin-right: 1%; border-radius:0;" type="text" class="form-control" name="endDate" id="end_date">
+                                    <input style="margin-left: 1%; margin-right: 1%; border-radius:0;" type="text" class="form-control" name="startDate" id="start_date" required> <p>~</p>
+                                    <input style="margin-left: 1%; margin-right: 1%; border-radius:0;" type="text" class="form-control" name="endDate" id="end_date" required>
                                     
                             </div>
                             <br>
@@ -100,11 +100,24 @@
                             </div>
                             <div class="input-group row" >
                                     <input style="margin-left: 3%; width:25%; border-radius:5%;"  name="people" type="number" class="form-control" min="1" max="1000" required >&nbsp;&nbsp;&nbsp;&nbsp;
-                                    <select style="margin-right: 3%; width:30%; border-radius:0;" name='travelTheme' id="travelTheme" class="form-control" required>
-                                            <option value="alone">나홀로여행</option>
-                                            <option value="friend">친구와함께</option>
-                                            <option value="couple">커플</option>
-                                            <option value="together">단체여행</option>
+                                    <select style="margin-right: 3%; width:30%; border-radius:0;" name='partyName'  class="form-control" required>
+                                            <option value="혼자">나홀로여행</option>
+                                            <option value="친구">친구와함께</option>
+                                            <option value="커플">커플</option>
+                                            <option value="단체">단체여행</option>
+                                    </select>   
+                            </div>
+                            <br>
+                            <h6 style="float:none;">&nbsp;&nbsp;여행테마</h6>
+                            <div class="input-group row" >
+                                    
+                                    <select style="margin-right: 3%; width:30%; border-radius:0;" name='travelTheme'  class="form-control" required>
+                                            <option value="휴식">휴식과 치유 여행</option>
+                                            <option value="걷기">천천히 걷기</option>
+                                            <option value="식도락">식도락 여행</option>
+                                            <option value="유산">제주의 문화유산</option>
+                                            <option value="행사">전시와 행사</option>
+                                        
                                     </select>   
                             </div>
                             
@@ -114,6 +127,8 @@
                                 <input type="radio" id="open" name="openflag" value='1'>&nbsp;공개
                                 <input type="radio" id="private" name="openflag" class="ml-2" value="0">&nbsp;비공개
                             </div>
+                         
+                         
                             <br><br>
                             
                             
@@ -344,7 +359,7 @@ $("#start_date").on("click",function()
         
         var printHTML="<div id='demo' class='carousel slide' data-ride='carousel' data-interval='false'><div class='carousel-inner'>"
         				+ "<form id='timetableForm' action='${path}/schedule/scheduleWriteEnd' method='post'>"
-        				+ "<input type='hidden' name='title2'><input type='hidden' name='startDate2'><input type='hidden' name='endDate2'><input type='hidden' name='people2'><input type='hidden' name='travelTheme2'><input type='hidden' name='openflag2'>";
+        				+ "<input type='hidden' name='partyName2'><input type='hidden' name='title2'><input type='hidden' name='startDate2'><input type='hidden' name='endDate2'><input type='hidden' name='people2'><input type='hidden' name='travelTheme2'><input type='hidden' name='openflag2'>";
         for(i=0; i<=days; i++)
       	{
         	
@@ -458,7 +473,7 @@ $("#start_date").on("click",function()
 	        active[0].classList.add("disable");
 	      	tableday=active[0].parentElement.parentElement.parentElement.id;
 	      	
-	        var html="<div id='data"+seq_no+"' >"+place2[1]+seq_no+"/"+place2[0]+"<input type='hidden' name='timevalue' value='"+tableday+","+active[0].id+"'><input type='hidden' name='placevalue' value='"+place1+","+seq_no+"' class='placelist'><span class='float-right' class='drag' id='drag"+seq_no+"' draggable='true' ondragstart='drag(event)'> <img src='${path}/resources/img/arrow.png' style='width:50px; height:30px;'></span><button class='float-right delbtn' onclick='fn_delete("+seq_no+")'>X</button></div>";
+	        var html="<div id='data"+seq_no+"' ><input type='radio' name='represent' value='"+place2[0]+"'>"+place2[1]+seq_no+"/"+place2[0]+"<input type='hidden' name='timevalue' value='"+tableday+","+active[0].id+"'><input type='hidden' name='placevalue' value='"+place1+","+seq_no+"' class='placelist'><span class='float-right' class='drag' id='drag"+seq_no+"' draggable='true' ondragstart='drag(event)'> <img src='${path}/resources/img/arrow.png' style='width:50px; height:30px;'></span><button class='float-right delbtn' onclick='fn_delete("+seq_no+")'>X</button></div>";
 	        
 	        active.append(html);
 	        var loc=place2[2];
@@ -611,14 +626,28 @@ $("#start_date").on("click",function()
 		var travelTheme=$("select[name='travelTheme']").val();
 		console.log(travelTheme);
 		var openflag=$("input[name='openflag']:checked").val();
+		
+		var partyName=$("select[name='partyName']").val();
+		if(openflag==null){
+			alert("공개여부를 체크해주세요");
+			return;
+		}
+		if($("#timetableForm input[name='represent']:checked").val()==null)
+		{
+			alert("대표장소를 선택해주세요");
+			return;
+		}
 		$("#timetableForm input[name='title2']").val(title);
 		$("#timetableForm input[name='startDate2']").val(startDate);
 		$("#timetableForm input[name='endDate2']").val(endDate);
 		$("#timetableForm input[name='travelTheme2']").val(travelTheme);
 		$("#timetableForm input[name='openflag2']").val(openflag);
 		$("#timetableForm input[name='people2']").val(people);
+		
+		$("#timetableForm input[name='partyName2']").val(partyName);
 		$("#timetableForm").submit();
 	} 
+
 	var custommarker = new daum.maps.Marker({
         map:map,
         clickable: true 
@@ -698,8 +727,6 @@ $("#start_date").on("click",function()
 	       ps.coord2Address(coords.getLng(), coords.getLat(), callback);
 	   }
 	   
-	   
-	  
 
 </script>
 
