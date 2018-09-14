@@ -220,7 +220,17 @@
 </script>
 <script type="text/javascript">
 	function fn_like() {
-		var placeNo 
+		var placeNo = $("#placeno").val();
+		
+		$.ajax({
+			url: "${path }/spot/like.do",
+			type: "GET",
+			datetype: "json",
+			data: "placeno="+placeNO,
+			success: function(data) {
+				var msg = "좋아요하였습니다.";
+			}
+		})
 	}
 </script>
 
