@@ -6,24 +6,22 @@ import java.util.Map;
 import java.util.StringTokenizer;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-<<<<<<< HEAD
 import com.kh.respect.common.Page;
-=======
+import com.kh.respect.mySchedule.model.service.MyScheduleService;
 import com.kh.respect.place.model.service.PlaceService;
->>>>>>> master
 import com.kh.respect.place.model.vo.Place;
 import com.kh.respect.schedule.model.service.ScheduleService;
 import com.kh.respect.schedule.model.vo.Schedule;
 import com.kh.respect.schedule.model.vo.TimeTable;
+import com.kh.respect.user.model.vo.User;
 
 @Controller
 public class ScheduleController {
@@ -32,6 +30,8 @@ public class ScheduleController {
 	private ScheduleService service;
 	@Autowired
 	private PlaceService pservice;
+	@Autowired 
+	private MyScheduleService myservice;
 	
 	
 	
@@ -71,6 +71,8 @@ public class ScheduleController {
 		User user=(User)session.getAttribute("userLoggedIn");
 		String userId=user.getUserId();
 		userList=pservice.selectUserSpotList(userId,1,5);
+		List<Place> putList=myservice.putPlaceList(userId, 1, 5);
+		mv.addObject("putList",putList);
 		mv.addObject("list",list);
 		mv.addObject("userList",userList);
 		mv.setViewName("schedule/scheduleWrite");
