@@ -1,6 +1,5 @@
 .accordian {
-    max-width: 805px; 
-    max-height: 320px;
+    width: 805px; height: 320px;
     overflow: hidden;
     
     /*Time for some styling*/
@@ -53,8 +52,7 @@
         background: rgba(0, 0, 0, 0.5);
         position: absolute;
         left: 0; bottom: 0;	
-        width: 640px;	
-
+    	width: 640px;
     }
     .image_title a {
         display: block;
@@ -118,16 +116,61 @@
     }
 
     .carousel-control-prev-icon{
-        background-image: url("C:/Users/com/Desktop/파이널화면/image/next.png");
+        background-image: url("${path}/resources/img/main/next.png");
         background-repeat: no-repeat;
       }
       
       .carousel-control-prev-icon{
       
-        background-image: url("C:/Users/com/Desktop/파이널화면/image/prev.png");
+        background-image: url("${path}/resources/img/main/prev.png");
         background-repeat: no-repeat;
       }
       
-      #ta-header {
-        border-top:2px solid black;
-      }
+   *{
+      /* font-family: '나눔고딕' !important; */
+      margin: 0;
+      padding: 0;
+        
+    }
+    a{
+        color: inherit; text-decoration: none;
+    }
+    a:hover{
+        color: orange;
+        text-decoration: none;
+    }
+    p{
+        margin:0;
+    }
+    ul{
+        list-style: none;
+    }
+    ul>li{
+        float: left;
+    }
+    
+    /* @media (max-width: 350px) {
+        .fixed-top {
+            max-width: 340px;
+            margin:0;
+            padding: 0;
+        }
+    } */
+    
+    #rank-list {
+    overflow: hidden;
+    margin: 0;
+    }
+
+    #rank-list ol {
+        position: absolute;
+        top: 0;
+        left: 0;
+        margin: 0;
+        padding: 0;
+        list-style-type: none;
+    }
+    
+    i{font-size:30px; color: #808080;}
+    
+     
