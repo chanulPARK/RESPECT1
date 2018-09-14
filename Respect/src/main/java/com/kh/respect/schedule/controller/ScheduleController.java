@@ -15,7 +15,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+<<<<<<< HEAD
 import com.kh.respect.common.Page;
+=======
+import com.kh.respect.place.model.service.PlaceService;
+>>>>>>> master
 import com.kh.respect.place.model.vo.Place;
 import com.kh.respect.schedule.model.service.ScheduleService;
 import com.kh.respect.schedule.model.vo.Schedule;
@@ -26,6 +30,8 @@ public class ScheduleController {
 
 	@Autowired 
 	private ScheduleService service;
+	@Autowired
+	private PlaceService pservice;
 	
 	
 	
@@ -56,16 +62,17 @@ public class ScheduleController {
 	}
 	
 	@RequestMapping("/schedule/scheduleWrite")
-	public ModelAndView ScheduleWrite(ModelAndView mv)
+	public ModelAndView ScheduleWrite(HttpSession session, ModelAndView mv)
 	{
 		
 		List<Place> list=new ArrayList<Place>();
-		list.add(new Place(1,"중구네 카페","제주시 연동 680-7"));
-		list.add(new Place(2,"중구네 음식점","애월읍 광령리 2698"));
-		list.add(new Place(3,"중구네 관광지","이호동 1600-1"));
-		list.add(new Place(4,"중구네 공항","서귀포시 효돈순환로 441"));
-		list.add(new Place(5,"중구네 휴게소","제주시"));
+		list=pservice.selectSpotList(1, 5);
+		List<Place> userList=new ArrayList<Place>();
+		User user=(User)session.getAttribute("userLoggedIn");
+		String userId=user.getUserId();
+		userList=pservice.selectUserSpotList(userId,1,5);
 		mv.addObject("list",list);
+		mv.addObject("userList",userList);
 		mv.setViewName("schedule/scheduleWrite");
 		return mv;
 	}

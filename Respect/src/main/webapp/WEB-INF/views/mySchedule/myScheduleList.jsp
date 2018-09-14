@@ -6,17 +6,8 @@
 <c:set var="path" value="<%=request.getContextPath()%>"/>
 <jsp:include page="/WEB-INF/views/common/header.jsp"/>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+  
+
     <script>
       // 더보기버튼구현
     $(function(){
@@ -256,7 +247,7 @@
               
                   <div class="portfolio-hover mt-3 ">
                     <div class="portfolio-hover-content">
-                      <i class="fas fa-plus fa-3x"></i>
+                      
                     </div>
                   </div>
                   <div id="card_line" style=" border: 1px solid #ef8321; text-align: center;" >
@@ -276,7 +267,7 @@
 	                	<a class="portfolio-link" href="#portfolioModal1" style="text-decoration:none !important">
 		                    <div class="portfolio-hover mt-3">
 		                      <div class="portfolio-hover-content">
-		                        <i class="fas fa-plus fa-3x"></i>
+		                        
 		                      </div>
 		                    </div>
 		                    <div id="card_line" style="height: auto;">

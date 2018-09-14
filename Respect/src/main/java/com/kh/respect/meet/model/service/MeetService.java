@@ -15,4 +15,6 @@ public interface MeetService {
 	
 	List<Map<String, String>> searchMeetList(int cPage, int numPerPage, String start, String end, String area);
 	
+	Meet selectOne(int meetNo);
+	
 }

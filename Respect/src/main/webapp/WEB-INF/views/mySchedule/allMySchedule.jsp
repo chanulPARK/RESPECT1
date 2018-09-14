@@ -6,6 +6,9 @@
 <c:set var="path" value="<%=request.getContextPath()%>"/>
 <jsp:include page="/WEB-INF/views/common/header.jsp"/>
 
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
 <style>
     #user_name{
     font-size: 25px;
@@ -153,7 +156,7 @@
             
               <div class="portfolio-hover">
                 <div class="portfolio-hover-content" >
-                  <i class="fas fa-plus fa-3x"></i>
+                  
                 </div>
               </div>
               <div id="div_title" class="text-center">
@@ -167,7 +170,7 @@
             	<c:if test="${fn:length(myScheduleList)==0}">
             		<div class="portfolio-hover mt-3">
 		                <div class="portfolio-hover-content">
-		                  <i class="fas fa-plus fa-3x"></i>
+		                  
 		                </div>
 		              </div>
 		              <div id="card_line_noshadow" style="height: auto;">
@@ -178,7 +181,7 @@
 		            
 		            <div class="portfolio-hover mt-3">
 		                <div class="portfolio-hover-content">
-		                  <i class="fas fa-plus fa-3x"></i>
+		                  
 		                </div>
 		              </div>
 		              <div id="card_line_noshadow" style="height: auto;">
@@ -192,7 +195,7 @@
             			<a class="portfolio-link" href="#portfolioModal1" style="text-decoration:none !important">
 			              <div class="portfolio-hover mt-3 ">
 			                <div class="portfolio-hover-content">
-			                  <i class="fas fa-plus fa-3x"></i>
+			                  
 			                </div>
 			              </div>
 			              <div id="card_line" style="height: auto;" >
@@ -212,7 +215,7 @@
 		            
 		            <div class="portfolio-hover mt-3">
 		                <div class="portfolio-hover-content">
-		                  <i class="fas fa-plus fa-3x"></i>
+		                  
 		                </div>
 		              </div>
 		              <div id="card_line_noshadow" style="height: auto;">
@@ -226,7 +229,7 @@
             			<a class="portfolio-link" href="#portfolioModal1" style="text-decoration:none !important">
 			              <div class="portfolio-hover mt-3 ">
 			                <div class="portfolio-hover-content">
-			                  <i class="fas fa-plus fa-3x"></i>
+			                  
 			                </div>
 			              </div>
 			              <div id="card_line" style="height: auto;" >
@@ -249,7 +252,7 @@
               
               <div class="portfolio-hover mt-3" >
                 <div class="portfolio-hover-content">
-                  <i class="fas fa-plus fa-3x"></i>
+                  
                 </div>
               </div>
 
@@ -268,7 +271,7 @@
             
               <div class="portfolio-hover">
                 <div class="portfolio-hover-content">
-                  <i class="fas fa-plus fa-3x"></i>
+                  
                 </div>
               </div>
               <div id="div_title" class="text-center">
@@ -283,7 +286,7 @@
               <c:if test="${fn:length(putScheduleList)==0}">
             		<div class="portfolio-hover mt-3">
 		                <div class="portfolio-hover-content">
-		                  <i class="fas fa-plus fa-3x"></i>
+		                  
 		                </div>
 		              </div>
 		              <div id="card_line_noshadow" style="height: auto;">
@@ -294,7 +297,7 @@
 		            
 		            <div class="portfolio-hover mt-3">
 		                <div class="portfolio-hover-content">
-		                  <i class="fas fa-plus fa-3x"></i>
+		                  
 		                </div>
 		              </div>
 		              <div id="card_line_noshadow" style="height: auto;">
@@ -309,7 +312,7 @@
             			<a class="portfolio-link" href="#portfolioModal1" style="text-decoration:none !important">
 			              <div class="portfolio-hover mt-3 ">
 			                <div class="portfolio-hover-content">
-			                  <i class="fas fa-plus fa-3x"></i>
+			                  
 			                </div>
 			              </div>
 			              <div id="card_line" style="height: auto;" >
@@ -328,7 +331,7 @@
 		            
 		            <div class="portfolio-hover mt-3">
 		                <div class="portfolio-hover-content">
-		                  <i class="fas fa-plus fa-3x"></i>
+		                  
 		                </div>
 		              </div>
 		              <div id="card_line_noshadow" style="height: auto;">
@@ -342,7 +345,7 @@
             			<a class="portfolio-link" href="#portfolioModal1" style="text-decoration:none !important">
 			              <div class="portfolio-hover mt-3 ">
 			                <div class="portfolio-hover-content">
-			                  <i class="fas fa-plus fa-3x"></i>
+			                  
 			                </div>
 			              </div>
 			              <div id="card_line" style="height: auto;" >
@@ -365,7 +368,7 @@
                 
                     <div class="portfolio-hover mt-3">
                       <div class="portfolio-hover-content">
-                        <i class="fas fa-plus fa-3x"></i>
+                        
                       </div>
                     </div>
                     <div id="card_line" style=" border: 1px solid #ef8321; text-align: center;" >
@@ -383,7 +386,7 @@
             
               <div class="portfolio-hover">
                 <div class="portfolio-hover-content">
-                  <i class="fas fa-plus fa-3x"></i>
+                  
                 </div>
               </div>
               <div id="div_title" class="text-center">
@@ -397,7 +400,7 @@
               <c:if test="${fn:length(putPlaceList)==0}">
             		<div class="portfolio-hover mt-3">
 		                <div class="portfolio-hover-content">
-		                  <i class="fas fa-plus fa-3x"></i>
+		                  
 		                </div>
 		              </div>
 		              <div id="card_line_noshadow" style="height: auto;">
@@ -408,7 +411,7 @@
 		            
 		            <div class="portfolio-hover mt-3">
 		                <div class="portfolio-hover-content">
-		                  <i class="fas fa-plus fa-3x"></i>
+		                  
 		                </div>
 		              </div>
 		              <div id="card_line_noshadow" style="height: auto;">
@@ -423,12 +426,12 @@
             			<a class="portfolio-link" href="#portfolioModal2" style="text-decoration:none !important">
 				              <div class="portfolio-hover mt-3">
 				                <div class="portfolio-hover-content">
-				                  <i class="fas fa-plus fa-3x"></i>
+				                  
 				                </div>
 				              </div>
 				              <div id="card_line" style="height: auto;">
 				              
-				                  <img src="${path }/resources/upload/profile/${ppl.THUMBNAIL}" alt="" width="100%" height="130px">
+				                  <img src="${path }/resources/upload/spot/thumbnail/${ppl.THUMBNAIL}" alt="" width="100%" height="130px">
 				                  <span id="where" class="p-2"><c:if test="${ppl.MAJORCATEGORY=='관광지'}">관광지</c:if><c:if test="${ppl.MAJORCATEGORY=='숙박'}">숙박</c:if><c:if test="${ppl.MAJORCATEGORY=='음식점'}">음식점</c:if></span>
 				                  <!--관광지 제목,장소??(관광지리스트확인)-->
 				                  <p id="p_title" class="p-2">${ppl.TITLE }<br> <span id="span_info" >${ppl.AREA }</span></p>
@@ -439,7 +442,7 @@
 		            
 		            <div class="portfolio-hover mt-3">
 		                <div class="portfolio-hover-content">
-		                  <i class="fas fa-plus fa-3x"></i>
+		                  
 		                </div>
 		              </div>
 		              <div id="card_line_noshadow" style="height: auto;">
@@ -455,12 +458,12 @@
             			<a class="portfolio-link" href="#portfolioModal2" style="text-decoration:none !important">
 				              <div class="portfolio-hover mt-3">
 				                <div class="portfolio-hover-content">
-				                  <i class="fas fa-plus fa-3x"></i>
+				                  
 				                </div>
 				              </div>
 				              <div id="card_line" style="height: auto;">
 				              
-				                  <img src="${path }/resources/upload/profile/${ppl.THUMBNAIL}" alt="" width="100%" height="130px">
+				                  <img src="${path }/resources/upload/spot/thumbnail/${ppl.THUMBNAIL}" alt="" width="100%" height="130px">
 				                  
 				                  <!--관광지 제목,장소??(관광지리스트확인)-->
 				                  <p id="p_title" class="p-2">${ppl.TITLE }<br> <span id="span_info" >${ppl.AREA }</span></p>
@@ -476,7 +479,7 @@
                 
                     <div class="portfolio-hover mt-3">
                       <div class="portfolio-hover-content">
-                        <i class="fas fa-plus fa-3x"></i>
+                        
                       </div>
                     </div>
                     <div id="card_line" style=" border: 1px solid #ef8321; text-align: center;" >
@@ -495,7 +498,7 @@
               
                 <div class="portfolio-hover">
                   <div class="portfolio-hover-content">
-                    <i class="fas fa-plus fa-3x"></i>
+                    
                   </div>
                 </div>
                 <div id="div_title" class="text-center">
@@ -508,7 +511,7 @@
                 <c:if test="${fn:length(myScheduleReportList)==0}">
             		<div class="portfolio-hover mt-3">
 		                <div class="portfolio-hover-content">
-		                  <i class="fas fa-plus fa-3x"></i>
+		                  
 		                </div>
 		              </div>
 		              <div id="card_line_noshadow" style="height: auto;">
@@ -519,7 +522,7 @@
 		            
 		            <div class="portfolio-hover mt-3">
 		                <div class="portfolio-hover-content">
-		                  <i class="fas fa-plus fa-3x"></i>
+		                  
 		                </div>
 		              </div>
 		              <div id="card_line_noshadow" style="height: auto;">
@@ -534,7 +537,7 @@
             			<a class="portfolio-link" href="#portfolioModal2" style="text-decoration:none !important">
 			              <div class="portfolio-hover mt-3">
 			                <div class="portfolio-hover-content">
-			                  <i class="fas fa-plus fa-3x"></i>
+			                  
 			                </div>
 			              </div>
 			              <div id="card_line" style="height: auto;">
@@ -555,7 +558,7 @@
             	
             		<div class="portfolio-hover mt-3">
 		                <div class="portfolio-hover-content">
-		                  <i class="fas fa-plus fa-3x"></i>
+		                  
 		                </div>
 		              </div>
 		              <div id="card_line_noshadow" style="height: auto;">
@@ -570,7 +573,7 @@
             			<a class="portfolio-link" href="#portfolioModal2" style="text-decoration:none !important">
 			              <div class="portfolio-hover mt-3">
 			                <div class="portfolio-hover-content">
-			                  <i class="fas fa-plus fa-3x"></i>
+			                  
 			                </div>
 			              </div>
 			              <div id="card_line" style="height: auto;">
@@ -594,7 +597,7 @@
 
                       <div class="portfolio-hover mt-3">
                         <div class="portfolio-hover-content">
-                          <i class="fas fa-plus fa-3x"></i>
+                          
                         </div>
                       </div>
                       <div id="card_line" style=" border: 1px solid #ef8321; text-align: center;" >

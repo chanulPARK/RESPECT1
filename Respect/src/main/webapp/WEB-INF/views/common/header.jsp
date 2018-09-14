@@ -7,17 +7,22 @@
 <!DOCTYPE html>
 <html>
 <head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
 <meta charset="UTF-8">
 <title>Hello Spring</title>
-    
 
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+
+<!-- jQuery library -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
 
 <!-- Popper JS -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 
 
 <%-- <script src="${path }/resources/js/jquery.min.js"></script> --%>
@@ -35,12 +40,11 @@
 <link rel="stylesheet" href="${path}/resources/css/weather-icons-master/css/weather-icons.min.css">
 <script src="${path}/resources/js/Simple-Slider.js"></script>
 <link rel="stylesheet" href="${path}/resources/css/styles2.css">
-
 <link href="https://fonts.googleapis.com/css?family=Do+Hyeon" rel="stylesheet">
 
 
 
-<script>
+<!-- <script>
 $(function(){
 	
 	var latitude="";
@@ -117,7 +121,8 @@ $(function(){
 });
 
 
-</script>
+</script> -->
+
 
 
 </head>
@@ -133,26 +138,26 @@ $(function(){
             <div id="rank-list">
                 <ol>
                     <li>
-                        <div class="row ml-3 mt-1">
+                        <div class="row ml-3 mt-1 pt-2">
                             <div id="weather-temp1" class="mr-4">
                                 <a href="#">
                                     <p>제주시</p>
                                 </a>
                             </div>
-                            <div class="weather-picture" style="padding-top: 23px;">
+                            <div class="weather-picture" style="padding-top: 10px;">
                             	<br>
                             	<br>
                             </div>
                         </div>
                     </li>
                     <li>
-                        <div class="row ml-3 mt-1">
+                        <div class="row ml-3 mt-1 pt-3">
                             <div id="weather-temp2" class="mr-2">
                                 <a href="#">
                                     <p>서귀포시</p>
                                 </a>
                             </div>
-                            <div class="weather-picture" style="padding-top: 15px;">
+                            <div class="weather-picture" style="padding-top: 10px;">
                            		
                             </div>
                         </div>
@@ -196,7 +201,7 @@ $(function(){
             <a class="navbar-brand" href="${path}">
             	<img class="img-fluid" src="${path }/resources/img/main/KakaoTalk_20180913_202949683.png" style="max-width: 50px; max-height: 50px;">
             </a>
-                <div class="dokdo">
+                <div class="jejuhallasan">
                     <h1>니가가라 제주도</h1>
                 </div>
                 <button class="navbar-toggler" data-toggle="collapse" data-target="#navcol-1">
@@ -212,7 +217,7 @@ $(function(){
                             <div class="dropdown-menu" role="menu">
                             	<a class="dropdown-item" role="presentation" href="${path}/notice/notice-board.do">공지사항</a>
                             	<a class="dropdown-item" role="presentation" href="#">축제</a>
-                            	<a class="dropdown-item" role="presentation" href="#">교통</a>
+                            	<a class="dropdown-item" role="presentation" href="${path}/notice/traffic-board.do">교통</a>
                           	</div>
                         </li>
                         <li class="nav-item mr-3" role="presentation"><a class="nav-link" href="${path }/meet/meetList.do">모임</a></li>
