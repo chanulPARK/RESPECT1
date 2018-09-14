@@ -161,7 +161,7 @@
                                    <a href="#">관광지</a>|
                                    <a href="#">숙소</a>|
                                    <a href="#">음식점</a>
-                                       
+                                       <hr>
                                        <c:forEach var="place" items="${list }" >
                                        		
                                            <div class=" col-md-13 mt-3 justify-content-center" >
@@ -195,24 +195,53 @@
                         <div class="container tab-pane fade" id="zzim">
                                <div class="mt-2 col-md-13">
                                    <a href="#">관광지</a>|
-                                   <a href="#">게스트하우스</a>|
+                                   <a href="#">숙소</a>|
                                    <a href="#">음식점</a>
-                                   
+                                   <hr>
+                                   <c:forEach var="pPlace" items="${putList }" >
+                                       		
+                                           <div class=" col-md-13 mt-3 justify-content-center" >
+                                   			
+                                               <img class="mb-2" src="${path }/resources/upload/spot/thumbnail/${pPlace.thumbnail}" style="width:85px;" height="60px;">
+                                               <br><p>${pPlace.title }</p>
+                                               <button class="btn mb-2" value="${pPlace }" onclick="fn_add(event)">일정등록</button>
+                                           </div>
+                                           
+                                          <hr>
+                                           
+                                      </c:forEach>
+                                           <br>
+                                       <nav aria-label="Page navigation example">
+                                               <ul class="pagination justify-content-center">
+                                                   <li class="page-item disabled">
+                                                   <a class="page-link btn-sm" href="#" tabindex="-1"><</a>
+                                                   </li>
+                                                   <li class="page-item"><a class="page-link text-muted btn-sm" href="#">1</a></li>
+                                                   <li class="page-item"><a class="page-link text-muted btn-sm" href="#">2</a></li>
+                                                   <li class="page-item"><a class="page-link text-muted btn-sm" href="#">3</a></li>
+                                                   <li class="page-item">
+                                                   <a class="page-link text-muted btn-sm" href="#">></a>
+                                                   </li>
+                                               </ul>
+                                       </nav>
                                </div>
                             </div>
                              <div class="container tab-pane fade"  align='center' id="myAdd">
-                    	<div class='mt-1 col-md-12'>  
+                    	<div class='mt-1 col-md-13'>  
                                    <a href="#">관광지</a>|
                                    <a href="#">숙소</a>|
                                    <a href="#">음식점</a>
-                                       
+                                       <hr>
                                        <c:forEach var="uPlace" items="${userList }" >
                                        		
                                            <div class=" col-md-13 mt-3 justify-content-center" >
                                    			
                                                
                                                <br><p>${uPlace.title }</p>
+                                               <div class='row justify-content-center'>
                                                <button class="btn mb-2" value="${uPlace }" onclick="fn_addUPlace(event)">일정등록</button>
+                                               <button class="btn mb-2" value="${uPlace }" onclick="fn_deleteUPlace(event)">장소삭제</button>
+                                               </div>
                                            </div>
                                            
                                           <hr>

@@ -9,11 +9,11 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.kh.respect.mySchedule.model.service.MyScheduleService;
 import com.kh.respect.place.model.service.PlaceService;
 import com.kh.respect.place.model.vo.Place;
 import com.kh.respect.schedule.model.service.ScheduleService;
@@ -28,6 +28,8 @@ public class ScheduleController {
 	private ScheduleService service;
 	@Autowired
 	private PlaceService pservice;
+	@Autowired 
+	private MyScheduleService myservice;
 	
 	@RequestMapping("/schedule/scheduleWrite")
 	public ModelAndView ScheduleWrite(HttpSession session, ModelAndView mv)
@@ -39,6 +41,8 @@ public class ScheduleController {
 		User user=(User)session.getAttribute("userLoggedIn");
 		String userId=user.getUserId();
 		userList=pservice.selectUserSpotList(userId,1,5);
+		List<Place> putList=myservice.putPlaceList(userId, 1, 5);
+		mv.addObject("putList",putList);
 		mv.addObject("list",list);
 		mv.addObject("userList",userList);
 		mv.setViewName("schedule/scheduleWrite");
