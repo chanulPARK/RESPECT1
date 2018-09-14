@@ -19,20 +19,21 @@ public class NewUser extends HandlerInterceptorAdapter{
 	@Override
 	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
 			ModelAndView modelAndView) throws Exception {
-		
-		HttpSession session = request.getSession();
-
-		Object obj = session.getAttribute("userLoggedIn");
 		System.out.println("------------------------------");
+		System.out.println("1번");
+		HttpSession session = request.getSession();
+		System.out.println("2번");
+		Object obj = session.getAttribute("userLoggedIn");
 		System.out.println("인터셉터에서 obj: " + obj);
 		
 		System.out.println("modelAndView : " + modelAndView );
 		System.out.println("response : " + response);
 		
-		if(obj!=null) {
+		if(obj!=null && modelAndView!=null) {
 			User u = (User)obj;
 			System.out.println("인터셉터에서 아이디 : " + u.getUserId());
 			User newUser = service.idSelectOne(u.getUserId());
+			
 			modelAndView.addObject("userLoggedIn",newUser);
 		}
 		
