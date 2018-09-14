@@ -67,13 +67,14 @@
 	       cache:false,
 	       contentType:false,
 	       processData:false,
+	       dataType:"json",
 	       success:function(data){
-	    	  alert(data.list);
-	          console.log(data.list);
-	          for(var i=0;i<data.list.length;i++)
+	    	  alert(data);
+	          console.log(data);
+	          for(var i=0;i<data.length;i++)
 	          {
 	             //$('#test').append('<img src=/resources/uploadImg/'+data.list[i]+'>');
-	             $('#summernote').summernote('insertImage', "${path}/resources/uploadImg"+data.list[i],data.list[i]);
+	             $('#summernote').summernote('insertImage', "${path}/resources/uploadImg/"+data[i],data[i]);
 	          }
 	       },
 	       error:function(obj,a,b){
