@@ -180,15 +180,6 @@ public class Place {
 		this.mainimage = mainimage;
 	}
 
-	
-	public String getMainimage() {
-		return mainimage;
-	}
-
-	public void setMainimage(String mainimage) {
-		this.mainimage = mainimage;
-	}
-
 	@Override
 	public String toString() {
         return placeno+","+title+","+address;
