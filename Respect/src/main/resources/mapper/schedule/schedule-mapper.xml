@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="schedule">
+	<insert id="insertSchedule" parameterType="schedule">
+		insert into schedule values(seq_schedule.nextval,#{travelTheme},#{partyName},#{userId},#{title},#{startDate},#{endDate},#{peopleNum},#{publicFlag},default,default,default,default,default,sysdate,#{placeNo})
+		<selectKey keyProperty="scheduleNo" resultType="_int" order="AFTER">
+			select seq_schedule.currval from dual
+		</selectKey>
+	</insert>
+  	<insert id="insertTimeTable" parameterType="timetable">
+  		insert into timetable values(#{scheduleNo}, #{placeNo}, #{day}, #{time})
+  	</insert>
+</mapper>
