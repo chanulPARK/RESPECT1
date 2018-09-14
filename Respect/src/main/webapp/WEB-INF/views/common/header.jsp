@@ -40,7 +40,7 @@
 
 
 
-<script>
+<!-- <script>
 $(function(){
 	
 	var latitude="";
@@ -118,7 +118,7 @@ $(function(){
 
 
 </script>
-
+ -->
 
 </head>
 <body>

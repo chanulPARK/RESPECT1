@@ -61,8 +61,8 @@
             </div> -->
         </div>
         <div class="mx-auto" style="width: 1920px">
-	        <%-- <img src="${path }/resources/upload/spot/thumbnail/${place.thumbnail}" style="width:1520px;"> --%>
-	        <img src="${path }/resources/img/spot/${place.title}.jpg" style="width: 1900px; height:560px;">
+	        <img src="${path }/resources/upload/spot/mainimage/${place.mainimage}" style="width:1520px;">
+	        
         </div>
         </section>
     <section id="detail-body">
