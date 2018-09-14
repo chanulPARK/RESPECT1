@@ -6,7 +6,7 @@ import java.util.Map;
 import com.kh.respect.place.model.vo.Place;
 
 public interface PlaceService {
-	List<Map<String, String>> selectSpotList(int cPage, int numPerPage);
+	List<Place> selectSpotList(int cPage, int numPerPage);
 	int selectTotalCount();
 	int insertSpot(Place p);
 	Place selectSpot(int spotno);

@@ -4,7 +4,7 @@
 	<resultMap type="map" id="spotMap">
 	</resultMap>
 	
-	<select id="selectSpotList" resultMap="spotMap">
+	<select id="selectSpotList" resultType="place">
 		SELECT * FROM PLACE
 	</select>
 	

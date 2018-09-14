@@ -1,7 +1,6 @@
 package com.kh.respect.place.model.dao;
 
 import java.util.List;
-import java.util.Map;
 
 import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -18,7 +17,7 @@ public class PlaceDaoImpl implements PlaceDao {
 	}
 
 	@Override
-	public List<Map<String, String>> selectSpotList(SqlSessionTemplate sqlSession, int cPage, int numPerPage) {
+	public List<Place> selectSpotList(SqlSessionTemplate sqlSession, int cPage, int numPerPage) {
 		return sqlSession.selectList("spot.selectSpotList", null, new RowBounds((cPage-1)*numPerPage, numPerPage));
 	}
 
