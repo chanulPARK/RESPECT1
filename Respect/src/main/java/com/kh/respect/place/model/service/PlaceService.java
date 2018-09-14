@@ -1,7 +1,6 @@
 package com.kh.respect.place.model.service;
 
 import java.util.List;
-import java.util.Map;
 
 import com.kh.respect.place.model.vo.Place;
 

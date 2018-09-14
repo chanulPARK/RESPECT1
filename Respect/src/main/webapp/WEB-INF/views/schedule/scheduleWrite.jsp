@@ -163,7 +163,7 @@
                                    <a href="#">음식점</a>
                                        
                                        <c:forEach var="place" items="${list }" >
-                                       		<c:if test="${place.majorcategory!='사용자등록'}">
+                                       		
                                            <div class=" col-md-13 mt-3 justify-content-center" >
                                    			
                                                <img class="mb-2" src="${path }/resources/upload/spot/thumbnail/${place.thumbnail}" style="width:85px;" height="60px;">
@@ -172,7 +172,7 @@
                                            </div>
                                            
                                            <hr>
-                                           </c:if>
+                                           
                                       </c:forEach>
                                            <br>
                                        <nav aria-label="Page navigation example">
