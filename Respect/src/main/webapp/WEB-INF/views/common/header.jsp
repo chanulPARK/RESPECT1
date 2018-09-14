@@ -210,7 +210,7 @@ $(function(){
             <a class="navbar-brand" href="${path}">
             	<img class="img-fluid" src="${path }/resources/img/main/KakaoTalk_20180913_202949683.png" style="max-width: 50px; max-height: 50px;">
             </a>
-                <div class="dokdo">
+                <div class="jejuhallasan">
                     <h1>니가가라 제주도</h1>
                 </div>
                 <button class="navbar-toggler" data-toggle="collapse" data-target="#navcol-1">
