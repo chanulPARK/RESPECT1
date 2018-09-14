@@ -3,79 +3,8 @@
 <%@ include file="/WEB-INF/views/common/header.jsp"%>
 
 <script>
-    $(function(){
-        
-        var latitude="";
-        var longitude="";
-        
-        //제주시청기준
-        if($("#weather-temp1").children().text().trim()=="제주시"){
-            
-            latitude="33.4996015";
-            longitude="126.5290653";
-        }
-        
-        //서귀포시청기준
-        if($("#weather-temp2").children().text().trim()=="서귀포시"){
-            
-            latitude="33.2541658";
-            longitude="126.5597051";
-        }
-        
-        
-        $.ajax({
-            type : "get",
-            crossDomain:true,
-            url : "https://api2.sktelecom.com/weather/current/minutely",
-            dataType: "json",
-            async : false,
-            data : {lat:latitude,lon:longitude,version:"1"},
-            headers	: { appkey:"2e648883-2070-4bfe-aa3d-9b4c67e97171" },
-            beforeSend: function(){
-            },
-            success : function(data){
-                //날씨
-                /* alert(data.weather.minutely[0].sky.name);*/
-                //온도
-                /* alert(data.weather.minutely[0].temperature.tc); */
-                
-                var skyName=data.weather.minutely[0].sky.name;
-                var temp=data.weather.minutely[0].temperature.tc;
-                
-                
-                switch (skyName) {
-                    case '맑음': $(".weather-picture").html("<i class='wi wi-day-sunny'></i>"); break;
-                    case '구름조금': $(".weather-picture").html("<i class='wi wi-day-cloudy'></i>"); break;
-                    case '구름많음': $(".weather-picture").html("<i class='wi wi-day-cloudy-high'></i>"); break;
-                    case '구름많고 비': $(".weather-picture").html("<i class='wi wi-day-rain'></i>"); break;
-                    case '구름많고 눈': $(".weather-picture").html("<i class='wi wi-day-snow'></i>"); break;
-                    case '구름많고 비 또는 눈': $(".weather-picture").html("<i class='wi wi-day-rain-mix'></i>"); break;
-                    case '흐림': $(".weather-picture").html("<i class='wi wi-day-fog'></i>"); break;
-                    case '흐리고 비': $(".weather-picture").html("<i class='wi wi-rain'></i>"); break;
-                    case '흐리고 눈': $(".weather-picture").html("<i class='wi wi-snow'></i>"); break;
-                    case '흐리고 비 또는 눈': $(".weather-picture").html("<i class='wi wi-rain-mix'></i>"); break;
-                    case '흐리고 낙뢰': $(".weather-picture").html("<i class='wi wi-lightning'></i>"); break;
-                    case '뇌우/비': $(".weather-picture").html("<i class='wi wi-thunderstorm'></i>"); break;
-                    case '뇌우/눈': $(".weather-picture").html("<i class='wi wi-storm-showers'></i>"); break;
-                    default: $(".weather-picture").html("<i class='wi wi-storm-showers'></i>"); break;
-                }
-                
-                $("#weather-temp1").children().children().after("<sub>"+temp+" ℃"+"</sub>");
-                $("#weather-temp2").children().children().after("<sub>"+temp+" ℃"+"</sub>");
-                
-            },
-            complete: function(){
-            },
-            error	: function(xhr, status, error){
-                
-                console.log("ajax실패!");
-                console.log(jxhr);
-                console.log(textStatus);
-                console.log(error);
-            }
-            });
 
-
+$(function(){
         // 교통내용
         $(".tmenu>a").click(function(){
 

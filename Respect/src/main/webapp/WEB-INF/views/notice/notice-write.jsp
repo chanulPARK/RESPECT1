@@ -17,12 +17,8 @@
             </div>
 
             <div class="input-group mt-5" style="padding:0px;">
-                <div class="input-group-prepend" style="padding:0px;">
-                     <span class="input-group-text">첨부파일</span>
-                 </div>
                  <div class="custom-file">
-                     <input type="file"  name="upFile" id="upFile"/>
-                     <label class="custom-file-label" for="upFile">파일을 선택하세요</label>
+                     <input class="form-control-file border" type="file"  name="upFile" id="upFile"/>
                  </div>
              </div>
 

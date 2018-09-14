@@ -6,7 +6,7 @@
 	
 	<select id="selectMeetList" resultMap="meetMap">
 		<!-- select *,A.nickname from meet B join rp_user A on(B.userid=A.userid) -->
-		select * from meet
+		select * from meet  A left join rp_user B on A.userid=b.userid
 	</select>
 	
 	<select id="searchMeetList" resultMap="meetMap" parameterType="map">
@@ -20,12 +20,16 @@
 	
 	
 	<insert id="insertMeet" parameterType="meet">
-		insert into meet(meetno, userid, area, title, content, meetdate, time, address, hitscount, replycount, writedate) 
-		values(seq_meet.nextval, #{userId}, #{area}, #{title}, #{content}, #{meetdate}, #{meetTime}, #{address}, default, default, sysdate)
+		insert into meet(meetno, userid, area, title, content, meetdate, meettime, address, hitscount, replycount, writedate) 
+		values(seq_meet.nextval, #{userId}, #{area}, #{title}, #{content}, #{meetDate}, #{meetTime}, #{address}, default, default, sysdate)
 		<selectKey keyProperty="meetNo" resultType="_int" order="AFTER">
-			select seq_meet from dual
+			select seq_meet.currval from dual
 		</selectKey>
 	</insert>
+	
+	<select id="selectOne" resultType="meet">
+		select * from meet A left join rp_user B on A.userid=b.userid where meetno=#{meetNo}
+	</select>
 	
 	
 </mapper>
