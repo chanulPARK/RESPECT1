@@ -80,7 +80,9 @@ public class PlaceController {
 		place.setPhone(phone);
 		place.setContent(content);
 		
-		String saveDir = request.getSession().getServletContext().getRealPath("resources/upload/spot");
+		String saveDir = request.getSession().getServletContext().getRealPath("/resources/upload/spot/thumbnail");
+		
+		System.out.println(saveDir);
 		
 		File dir = new File(saveDir);
 		
@@ -105,8 +107,7 @@ public class PlaceController {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			place.setOriginalFileName(originalFileName);
-			place.setRenamedFileName(renamedFileName);
+			place.setThumbnail(renamedFileName);
 		}
 		
 		int result = service.insertSpot(place);
@@ -136,9 +137,12 @@ public class PlaceController {
 	public String selectSpot(int spotno, Model model) {
 		
 		Place place = service.selectSpot(spotno);
+		place.setHitscount(place.getHitscount()+1);
 		
 		model.addAttribute("place", place);
 		
 		return "spot/spotView";
 	}
+	
+	
 }

@@ -29,7 +29,9 @@ public class NewUser extends HandlerInterceptorAdapter{
 		System.out.println("modelAndView : " + modelAndView );
 		System.out.println("response : " + response);
 		
-		if(obj!=null && modelAndView!=null) {
+
+		if(obj!=null&&modelAndView!=null) {
+
 			User u = (User)obj;
 			System.out.println("인터셉터에서 아이디 : " + u.getUserId());
 			User newUser = service.idSelectOne(u.getUserId());

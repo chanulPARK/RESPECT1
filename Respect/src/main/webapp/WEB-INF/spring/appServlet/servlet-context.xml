@@ -51,6 +51,11 @@
 			
 			<beans:bean id="NewUser" class="com.kh.respect.common.interceptor.NewUser"></beans:bean>
 		</interceptor>
+		<interceptor>
+			<mapping path="/schedule/scheduleWrite"/>
+			
+			<beans:bean id="sessionInterceptor" class="com.kh.respect.common.interceptor.SessionInterceptor"/>
+		</interceptor>
 	</interceptors>
 	
 </beans:beans>
