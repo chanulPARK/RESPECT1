@@ -136,25 +136,7 @@ $(function(){
 
 </head>
 <body>
-<<<<<<< HEAD
-	<div class="stiky-top" style="background: white;">
-        <div class="container mt-1">
-        <nav class="navbar" style="overflow: hidden;">
-            <div class="row ml-3">
-                <div id="rank-list">
-                    <ol>
-                        <li>
-                            <div class="row ml-3">
-                                <div id="weather-temp1" class="mr-4">
-                                    <a href="#">
-                                        <p>제주시</p>
-                                    </a>
-                                </div>
-                                <div class="weather-picture" style="padding-top: 5px;">
-                                    <br>
-                                    <br>
-                                </div>
-=======
+
 <div class="sticky-top" style="background: white; border-bottom: 1px solid #e5e5e5;">
 
 
@@ -171,7 +153,6 @@ $(function(){
                                 <a href="#">
                                     <p>제주시</p>
                                 </a>
->>>>>>> master
                             </div>
                             <div class="weather-picture" style="padding-top: 23px;">
                             	<br>
