@@ -41,7 +41,7 @@ public class PlaceController {
 		ModelAndView mv = new ModelAndView();
 		int numPerPage = 6;
 		
-		List<Map<String,String>> list = service.selectSpotList(cPage, numPerPage);
+		List<Place> list = service.selectSpotList(cPage, numPerPage);
 		
 		int totalCount = service.selectTotalCount();
 		

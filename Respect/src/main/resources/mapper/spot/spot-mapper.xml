@@ -4,15 +4,15 @@
 	<resultMap type="map" id="spotMap">
 	</resultMap>
 	
-	<select id="selectSpotList" resultMap="spotMap">
+	<select id="selectSpotList" resultType="place">
 		SELECT * FROM PLACE
 	</select>
 	
 	<select id="selectTotalCount" resultType="_int"> SELECT COUNT(*) FROM PLACE </select>
 	
 	<insert id="insertPlace" parameterType="place">
-		INSERT INTO PLACE(PLACENO, MAJORCATEGORY, MINORCATEGORY, AREA, USERID, TITLE, ADDRESS, PHONE, CONTENT, THUMBNAIL)
-		VALUES(SEQ_PLACE.NEXTVAL, #{majorcategory}, #{minorcategory}, #{area}, #{userid}, #{title}, #{address}, #{phone}, #{content}, #{thumbnail})
+		INSERT INTO PLACE(PLACENO, MAJORCATEGORY, MINORCATEGORY, AREA, USERID, TITLE, ADDRESS, PHONE, CONTENT, THUMBNAIL, MAINIMAGE)
+		VALUES(SEQ_PLACE.NEXTVAL, #{majorcategory}, #{minorcategory}, #{area}, #{userid}, #{title}, #{address}, #{phone}, #{content}, #{thumbnail},#{mainimage})
 		<selectKey keyProperty="placeno" resultType="_int" order="AFTER">
 			SELECT SEQ_PLACE.CURRVAL FROM DUAL
 		</selectKey>
