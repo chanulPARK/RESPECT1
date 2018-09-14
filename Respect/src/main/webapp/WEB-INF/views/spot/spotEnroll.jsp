@@ -42,7 +42,7 @@
 </style>
 
 <main class="page landing-page">
-        <section class="clean-block slider dark" style="padding:0;margin:185px 0 100px;"><img src="${path }/resources/img/spot/성산일출봉.gif" style="width:1905x;"></section>
+        <section class="clean-block slider dark" style="padding:0;margin:0 0 100px;"><img src="${path }/resources/img/spot/성산일출봉.gif" style="width:1902px;"></section>
         <section>
             <div class="container">
                 <h2>명소 등록</h2>
@@ -154,6 +154,15 @@
 	                    </div> -->
 	                    <div class="row m-1">
 	                        <div class="col-xl-2"><label class="col-form-label">대표이미지</label></div>
+	                        <div class="col">
+	                            <label class="custom-file">
+	                                <input type="file" name="mainimage" class="custom-file-input" accept="image/*">
+	                                <span class="custom-file-control" id="file-name">이미지를 선택하세요</span>
+	                            </label>
+	                        </div>
+	                    </div>
+	                    <div class="row m-1">
+	                        <div class="col-xl-2"><label class="col-form-label">썸네일이미지</label></div>
 	                        <div class="col">
 	                            <label class="custom-file">
 	                                <input type="file" name="thumbnail" class="custom-file-input" accept="image/*">

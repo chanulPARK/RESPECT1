@@ -1,7 +1,13 @@
 @import url('https://fonts.googleapis.com/css?family=Dokdo');
+@import url(//fonts.googleapis.com/earlyaccess/jejuhallasan.css);
 
 .dokdo * {
  font-family: 'Dokdo', cursive;
+}
+
+.jejuhallasan * {
+ font-family: 'Jeju Hallasan', cursive;
+ font-size: 40px;
 }
 
 #map-index {
@@ -26,9 +32,6 @@
 #map-index .map-btn {
   display:block;
   margin:0 auto;
-  border-color:#ffb53c;
-  color:#ffb53c;
-  background:#fff;
 }
 
 #map-tag .tag-all {
@@ -94,7 +97,7 @@ h5, .h5 {
   height:560px;
   position:absolute;
   top:180px;
-  left:150px;
+  left:400px;
   background:#fff;
   padding:30px;
   background-color:rgba(0,0,0,0.55);

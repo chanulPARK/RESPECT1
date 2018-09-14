@@ -17,6 +17,7 @@ public class Place {
 	private String content;
 	private String thumbnail;
 	private String mainimage;
+	
 	public Place() {}
     
     public Place(int placeno, String title, String address) {
@@ -47,6 +48,7 @@ public class Place {
 		this.hitscount = hitscount;
 		this.content = content;
 		this.thumbnail = thumbnail;
+		this.mainimage  = mainimage;
 		this.mainimage = mainimage;
 	}
 
@@ -169,7 +171,6 @@ public class Place {
 	public void setThumbnail(String thumbnail) {
 		this.thumbnail = thumbnail;
 	}
-
 	
 	public String getMainimage() {
 		return mainimage;

@@ -19,6 +19,20 @@
 <!-- Popper JS -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
 
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<!-- Popper JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+
+<!-- <script src="http://code.jquery.com/jquery-latest.min.js"></script> -->
 
 <%-- <script src="${path }/resources/js/jquery.min.js"></script> --%>
 <%-- <script src="${path }/resources/bootstrap/js/bootstrap.min.js"></script> --%>
@@ -117,8 +131,8 @@ $(function(){
 });
 
 
-</script>
- -->
+</script> -->
+
 
 </head>
 <body>
@@ -133,26 +147,26 @@ $(function(){
             <div id="rank-list">
                 <ol>
                     <li>
-                        <div class="row ml-3 mt-1">
+                        <div class="row ml-3 mt-1 pt-2">
                             <div id="weather-temp1" class="mr-4">
                                 <a href="#">
                                     <p>제주시</p>
                                 </a>
                             </div>
-                            <div class="weather-picture" style="padding-top: 23px;">
+                            <div class="weather-picture" style="padding-top: 10px;">
                             	<br>
                             	<br>
                             </div>
                         </div>
                     </li>
                     <li>
-                        <div class="row ml-3 mt-1">
+                        <div class="row ml-3 mt-1 pt-3">
                             <div id="weather-temp2" class="mr-2">
                                 <a href="#">
                                     <p>서귀포시</p>
                                 </a>
                             </div>
-                            <div class="weather-picture" style="padding-top: 15px;">
+                            <div class="weather-picture" style="padding-top: 10px;">
                            		
                             </div>
                         </div>
@@ -212,7 +226,7 @@ $(function(){
                             <div class="dropdown-menu" role="menu">
                             	<a class="dropdown-item" role="presentation" href="${path}/notice/notice-board.do">공지사항</a>
                             	<a class="dropdown-item" role="presentation" href="#">축제</a>
-                            	<a class="dropdown-item" role="presentation" href="#">교통</a>
+                            	<a class="dropdown-item" role="presentation" href="${path}/notice/traffic-board.do">교통</a>
                           	</div>
                         </li>
                         <li class="nav-item mr-3" role="presentation"><a class="nav-link" href="${path }/meet/meetList.do">모임</a></li>

@@ -256,7 +256,7 @@
               
                   <div class="portfolio-hover mt-3 ">
                     <div class="portfolio-hover-content">
-                      <i class="fas fa-plus fa-3x"></i>
+                      
                     </div>
                   </div>
                   <div id="card_line" style=" border: 1px solid #ef8321; text-align: center;" >
@@ -276,7 +276,7 @@
 	                	<a class="portfolio-link" href="#portfolioModal1" style="text-decoration:none !important">
 		                    <div class="portfolio-hover mt-3">
 		                      <div class="portfolio-hover-content">
-		                        <i class="fas fa-plus fa-3x"></i>
+		                        
 		                      </div>
 		                    </div>
 		                    <div id="card_line" style="height: auto;">
