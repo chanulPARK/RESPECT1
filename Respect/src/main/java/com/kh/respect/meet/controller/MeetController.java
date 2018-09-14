@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -17,9 +18,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kh.respect.common.Page;
 import com.kh.respect.meet.model.service.MeetService;
 import com.kh.respect.meet.model.vo.Meet;
@@ -84,17 +87,17 @@ public class MeetController {
 	}
 	
 	@RequestMapping(value="/meet/meetFormEnd.do", method = RequestMethod.POST)
-	public ModelAndView selectOne(@RequestParam(value="title") String title,
+	public ModelAndView insertMeet(@RequestParam(value="title") String title,
 								  @RequestParam(value="area") String area,
 								  @RequestParam(value="address") String address,
 								  @RequestParam(value="userId") String userId,
-								  @RequestParam(value="meetDate") Date meetDate,
+								  @RequestParam(value="meetDate") String meetDate,
 								  @RequestParam(value="meetTime") String meetTime,
 								  @RequestParam(value="content") String content)
 	{
 		ModelAndView mv = new ModelAndView();
 		
-		Meet meet = new Meet(0, userId, area, title, content, meetDate, meetTime, address, 0, 0, null);
+		Meet meet = new Meet(0, userId, null, null, area, title, content, meetDate, meetTime, address, 0, 0, null);
 		
 		int result = service.insertMeet(meet);
 		System.out.println(result);
@@ -104,48 +107,91 @@ public class MeetController {
 		return mv;
 	}
 	
-	
-	@RequestMapping(value="/imageUpload.do", method = RequestMethod.POST)
-	public ModelAndView imageUpload(MultipartFile[] uploadFile, HttpServletRequest request) throws IOException
+	@RequestMapping(value="/meet/meetView.do")
+	public ModelAndView selectOne(int meetNo)
 	{
-		
 		ModelAndView mv = new ModelAndView();
 		
-		String saveDir = request.getSession().getServletContext().getRealPath("/resources/uploadImg");
+		Meet meet = service.selectOne(meetNo);
 		
-		List<String> attList = new ArrayList();
+		String meetTime = meet.getMeetTime();
+		System.out.println(meetTime);
 		
-		File dir = new File(saveDir);
-		// 폴더가 없을경우 생성
-		if(dir.exists()==false)
-		{
-			dir.mkdirs();
-		}
+		String meetDate = meet.getMeetDate().substring(0, 10);
+		System.out.println(meetDate);
 		
-		for(MultipartFile f : uploadFile)
-		{
-			if(!f.isEmpty())
-			{
-				String originName = f.getOriginalFilename();
-				String ext = originName.substring(originName.lastIndexOf(".")+1);
-				SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_HHmmssSS");
-				int rndNum = (int)(Math.random()*1000);
-				String renamed = sdf.format(new Date(System.currentTimeMillis()));
-				renamed += "_" + rndNum + "." + ext;
-				try {
-					// 서버 경로에 파일을 저장
-					f.transferTo(new File(saveDir+"/"+renamed));
-				}
-				catch(Exception e)
-				{
-					e.printStackTrace();
-				}
-				attList.add(renamed);
-			}
-		}
-		mv.addObject("list",attList);
-		mv.setViewName("jsonView");
+		mv.addObject("meet", meet);
+		mv.addObject("meetDate", meetDate);
+		mv.setViewName("meet/meetView");
 		
-		return mv;      
+		return mv;
 	}
+	
+	@RequestMapping("/meet/meetUpdate.do")
+	public String meetUpdate(int meetNo)
+	{
+		
+		return "";
+	}
+	
+	@RequestMapping("/meet/meetDelete.do")
+	public String meetDelete(int meetNo)
+	{
+		
+		return "";
+	}
+	
+   @RequestMapping(value="/imageUpload.do", method = RequestMethod.POST)
+   @ResponseBody
+   public String imageUpload(MultipartFile[] uploadFile, HttpServletRequest request) throws IOException
+   {
+      System.out.println("uploadFile :: "+uploadFile[0]);
+      ModelAndView mv = new ModelAndView();
+      ObjectMapper mapper=new ObjectMapper();
+      Map<String,Object> map=new HashMap();
+      
+      
+      String saveDir = request.getSession().getServletContext().getRealPath("/resources/uploadImg");
+      
+      List<String> attList = new ArrayList();
+      
+      File dir = new File(saveDir);
+      // 폴더가 없을경우 생성
+      if(dir.exists()==false)
+      {
+         dir.mkdirs();
+      }
+      
+      for(MultipartFile f : uploadFile)
+      {
+         if(!f.isEmpty())
+         {
+            String originName = f.getOriginalFilename();
+            String ext = originName.substring(originName.lastIndexOf(".")+1);
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_HHmmssSS");
+            int rndNum = (int)(Math.random()*10000);
+            String renamed = sdf.format(new Date(System.currentTimeMillis()));
+            //String renamed = "meet";
+            renamed += "_" + rndNum + "." + ext;
+            try {
+               // 서버 경로에 파일을 저장
+               f.transferTo(new File(saveDir+"/"+renamed));
+            }
+            catch(Exception e)
+            {
+               e.printStackTrace();
+            }
+            attList.add(renamed);
+         }
+      }
+      
+      //map.put("list",attList);
+      String jsonStr=mapper.writeValueAsString(attList);
+      
+      return jsonStr;
+   }
 }
+	
+	
+	
+
