@@ -42,7 +42,7 @@
 </style>
 
 <main class="page landing-page">
-        <section class="clean-block slider dark" style="padding:0;margin:0 0 100px;"><img src="${path }/resources/img/spot/성산일출봉.gif" style="width:1902px;"></section>
+        <section class="clean-block slider dark" style="padding:0;margin:0 0 100px;"><img src="${path }/resources/img/spot/성산일출봉.gif" style="width:100%;"></section>
         <section>
             <div class="container">
                 <h2>명소 등록</h2>
