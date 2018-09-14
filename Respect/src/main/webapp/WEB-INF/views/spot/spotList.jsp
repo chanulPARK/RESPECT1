@@ -1,14 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-<c:set var="path" value="{pageContext.request.contextPath}"/>
 
 <%@ include file="/WEB-INF/views/common/header.jsp"%>
 
 <main class="page landing-page">
-	<section class="clean-block slider dark" style="padding:0;margin:180px 0 100px;">
+	<section class="clean-block slider dark" style="padding:0;margin:0 0 100px;">
+
 		<img src="${path }/resources/img/spot/성산일출봉.gif" style="width:1902px;">
 		</section>
 	<section id="map-index">
@@ -16,7 +13,7 @@
 	        <h2>제주도 모든 여행지를 한 눈에…<br></h2>
 	        <h5>내가 가본 제주는 어디까지일까? 수많은 제주의 아름다운 여행지를 취향에 맞게 선택해보자. 368개의 크고 작은 오름을 비롯하여 눈 돌리면 어디에서나 마주치는 한라산 그리고 푸른 바다…. 제주의 보석 같은 여행지가 여러분의 선택을 기다린다.<br></h5>
 	        	<img src="${path }/resources/img/spot/지도.JPG" class="map">
-	        	<button class="btn btn-light map-btn" type="button">전체지역</button>
+	        	<button class="btn btn-light map-btn btn-warning" type="button">전체지역</button>
        	</div>
 	</section>
 	<section id="map-tag">
@@ -123,24 +120,24 @@
 	        	
 	        	<div class="card m-0">
 	        		<%-- <img class="card-img-top" src="${path }/resources/upload/spot/thumbnail/${p.THUMBNAIL}"> --%>
-	        		<img class="card-img-top" src="${path }/resources/upload/spot/thumbnail/${p.THUMBNAIL}" style="height: 200px">
+	        		<img class="card-img-top" src="${path }/resources/upload/spot/thumbnail/${p.thumbnail}" style="height: 200px">
 	                <div class="card-body">
-	                    <h4 class="text-center card-title"><a href="${path }/spot/spotView.do?spotno=${p.PLACENO}">${p.TITLE}</a></h4>
-	                    <p class="text-center card-text" style="margin:0;">${p.AREA}</p>
-	                    <p class="text-center" style="color:#ffb53c;">#${p.MINORCATEGORY}</p>
+	                    <h4 class="text-center card-title"><a href="${path }/spot/spotView.do?spotno=${p.placeno}">${p.title}</a></h4>
+	                    <p class="text-center card-text" style="margin:0;">${p.area}</p>
+	                    <p class="text-center" style="color:#ffb53c;">#${p.minorcategory}</p>
 	                    <div class="row row-icon">
 	                        <div class="col"><i class="fa fa-thumbs-o-up icon" style="font-size: 20px;"></i>
 	                            <p>좋아요</p>
-	                            <p>${p.GOODCOUNT}</p>
+	                            <p>${p.goodcount}</p>
 	                            
 	                        </div>
 	                        <div class="col"><i class="fa fa-heart icon" style="font-size: 20px;"></i>
 	                            <p>찜하기</p>
-	                            <p>${p.BRINGCOUNT}</p>
+	                            <p>${p.bringcount}</p>
 	                        </div>
 	                        <div class="col"><i class="fa fa-commenting-o icon" style="font-size: 20px;"></i>
 	                            <p>리뷰</p>
-	                            <p>${p.REPLYCOUNT}</p>
+	                            <p>${p.replycount}</p>
 	                        </div>
 	                    </div>
 	                </div>

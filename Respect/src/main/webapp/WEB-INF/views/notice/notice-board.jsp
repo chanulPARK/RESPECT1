@@ -35,12 +35,12 @@
                     <tr>
                         <td>${nb.NOTICENO}</td>
                         <td><a href="${pageContext.request.contextPath}/notice/notice-view.do?noticeNo=${nb.NOTICENO}">${nb.TITLE}</a></td>
-                        <td>${nb.WRITEDATE}</td>
+                        <td><fmt:formatDate value="${nb.WRITEDATE}" pattern="yyyy년MM월dd일 E요일"/></td>
                         <td>${nb.HITSCOUNT}</td>
                         
                         <td align="center">
 				            <c:if test="${nb.FILECOUNT>0}">
-				                <img alt="첨부파일" src="${pageContext.request.contextPath}/resources/image/if_files-folders-48_808600.png">
+				                <img alt="첨부파일" src="${pageContext.request.contextPath}/resources/img/main/if_files-folders-48_808600.png">
 				            </c:if>
 				        </td>
                     </tr>
