@@ -46,15 +46,15 @@
 
     <div class="container">
             <div class="row">
-                    <h2 class="pt-4 ml-2">나의 여행 일정</h2>
-                    <div class='row ml-2' style="margin-top:35px;">
-                        <h6>작성자</h6><h6 class="ml-2" style="color:rgb(208, 203, 203);">광주오상현</h6>
+                    <h2 class="pt-4 ml-2">일정제목</h2>
+                    <div class='row ml-5' style="margin-top:35px;">
+                        <h6>조회</h6><h6 class="ml-2" style="color:rgb(208, 203, 203);">1234</h6>&nbsp;&nbsp;<h6>|</h6>&nbsp;&nbsp;<h6>찜하기</h6><h6 class="ml-2" style="color:rgb(208, 203, 203);">12</h6>&nbsp;&nbsp;<h6>|</h6>&nbsp;&nbsp;<h6>좋아요</h6><h6 class="ml-2" style="color:rgb(208, 203, 203);">100</h6>
                     </div>
                 </div> 
             <div class="row">
                 <!-- side bar -->
                 <div class="col-md-3 mt-4 ml-1" style="border:solid 1px rgb(208, 203, 203); height:100%" align='center'>
-           		 <form action="test.html" method="get">
+           		 <form action="${path }" method="post">
                     <br>          
                         <h4>OOO의 여행일정</h4>
                         <hr>

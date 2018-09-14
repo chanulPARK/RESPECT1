@@ -19,6 +19,12 @@ public class ScheduleController {
 	@Autowired 
 	private ScheduleService service;
 	
+	@RequestMapping("/schedule/scheduleList")
+	public String ScheduleList()
+	{
+		return "schedule/scheduleList";
+	}
+	
 	@RequestMapping("/schedule/scheduleWrite")
 	public ModelAndView ScheduleWrite(ModelAndView mv)
 	{

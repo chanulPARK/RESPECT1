@@ -60,7 +60,6 @@
 <title>Insert title here</title>
 </head>
 <body>
- <hr>
 
     <div class="container">
     
@@ -159,13 +158,13 @@
                                        <nav aria-label="Page navigation example">
                                                <ul class="pagination justify-content-center">
                                                    <li class="page-item disabled">
-                                                   <a class="page-link btn-sm" href="#" tabindex="-1"><</a>
+                                                   <a class="page-link btn-sm" href="#" tabindex="-1">&lt;</a>
                                                    </li>
                                                    <li class="page-item"><a class="page-link text-muted btn-sm" href="#">1</a></li>
                                                    <li class="page-item"><a class="page-link text-muted btn-sm" href="#">2</a></li>
                                                    <li class="page-item"><a class="page-link text-muted btn-sm" href="#">3</a></li>
                                                    <li class="page-item">
-                                                   <a class="page-link text-muted btn-sm" href="#">></a>
+                                                   <a class="page-link text-muted btn-sm" href="#">&gt;</a>
                                                    </li>
                                                </ul>
                                        </nav>
@@ -434,7 +433,7 @@ $("#start_date").on("click",function()
 	var ps= new daum.maps.services.Geocoder();
 	
 	//지도상에 마커를 클릭하면 장소명을 표출할 인포윈도우
-	var infowindow=new daum.maps.InfoWindow({zIndex:1});
+	var infowindow2=new daum.maps.InfoWindow({zIndex:1,removable:true});
 
 	//지도를 담을 영역의 DOM (지도표기)
 	var container = document.getElementById('map');
@@ -624,45 +623,48 @@ $("#start_date").on("click",function()
         map:map,
         clickable: true 
     });
+	var detailAddr;
+	 function test3()
+	 	  {
+	       // 빈페이지는 주소값을 안주고 선언한다
+	       // 변수에 담으면 리턴값으로 컨트롤을 하기위한 id값을 리턴으로 변수에 담을 수 있다
+	       var w1=window.open("",'popup','width=300,height=350, resizable=no');
+	       // 변수로 선언해서도 가능하다
+	       var html='<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8">';
+	    	   html+='<META HTTP-EQUIV="Content-type" CONTENT="text/html;charset=UTF-8">';
+	       	   html+='<meta http-equiv="X-UA-Compatible" content="ie=edge">'
+	       	   html+='<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">';
+	           html+='<title>내 장소 추가</title></head><body>';
+	           html+='<form action="${path}//schedule/scheduleTest" method="get">';
+	           html+='<div class="container"><div class="form-group">';
+	           html+='<label for="recipient-name" class="form-control-label">제목</label>';
+	           html+='<input type="text" name="mTitle" class="form-control" id="recipient-name"></div>';
+	           html+='<div class="form-group">';
+	           html+='<label for="recipient-name" class="form-control-label">주소</label>';
+	           html+='<input type="text" name="addr" class="form-control" id="recipient-name" value="'+detailAddr+'" readonly></div>';
+	           html+='<div class="form-group"><label for="message-text" class="form-control-label">상세설명</label>';
+	           html+='<textarea name="text1" class="form-control" id="message-text" style="resize: none;"></textarea></div>';
+	           html+='<div><button type="submit" class="btn btn-warning">등록</button>';
+	           html+='</div></div></form>';
+	           html+='</body></html>';
+	               
+	           console.log(html);
+
+	       w1.document.write(html);
+	   }
 	   /* 추가 */
 	// 지도를 클릭했을 때 클릭 위치 좌표에 대한 주소정보를 표시하도록 이벤트를 등록합니다
 	   daum.maps.event.addListener(map, 'click', function(mouseEvent) {
 	       searchDetailAddrFromCoords(mouseEvent.latLng, function(result, status) {
 	           if (status === daum.maps.services.Status.OK) {
-	               var detailAddr = result[0].address.address_name;
+	               detailAddr = result[0].address.address_name;
 	               
-	               var Xbtn="this.parentNode.parentNode.style.display = 'none';";
-	               console.log(Xbtn);
-	               var content = '<div class="ml-3 justify-content-center" style="width:115px; height:70px" align="center">'+ 
-	               				 '<div class="row">'+
-	            	   			 '<button type="button" class="btn justify-content-center" data-toggle="modal" data-target="#exampleModal">내 장소 추가</button>'+
-	               				 '<span class="ml-2" id="close" onclick="'+Xbtn+'"><b>&times;</b></span>'+
-	               				 '</div></div>'+
-	               				 '<div class="modal fade pop" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">'+
-	               				 '<div class="modal-dialog" role="document">'+
-	               				 '<div class="modal-content col-lg-8">'+
-	               				 '<div class="modal-header">'+
-	               				 '<h5 class="modal-title" id="exampleModalLabel">내 장소 추가하기</h5>'+
-	               				 '<button type="button" class="close" data-dismiss="modal" aria-label="Close">'+
-	               				 '<span aria-hidden="true">&times;</span>'+
-	               				 '</button></div>'+
-	               				 '<div class="modal-body">'+
-	               				 '<div class="form-group">'+
-	               				 '<label for="recipient-name" class="form-control-label">제목</label>'+
-	               				 '<input type="text" class="form-control" id="recipient-name"></div>'+
-	               				 '<div class="form-group">'+
-	               				 '<label for="recipient-name" class="form-control-label">주소</label>'+
-	               				 '<input type="text" class="form-control" id="recipient-name" value="'+detailAddr+'" readonly>'+
-	               				 '</div><div class="form-group">'+
-	               				 '<label for="message-text" class="form-control-label">상세설명</label>'+
-	               				 '<textarea class="form-control" id="message-text" style="resize: none;"></textarea>'+
-	               				 '</div></div>'+
-	               				 '<div class="modal-footer">'+
-	               				 '<button type="button" class="btn btn-warning" onclick="#">등록</button>'+
-	               				 '<button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>'+
-	               				 '</div></div>'+
-	               				 '</div></div>';
+	              
+	               var content = '<div class="ml-3 justify-content-center" style="width:110px; height:50px" align="center"><div class="row mt-2 justify-content-center" align="center" >'+
+     				 '<button type="button" class="btn justify-content-center" onclick = "test3()">내 장소 추가</button>'+
+       				 '</div>';
 	               				 
+       				
 	               				 
 	                              console.log(content);
 	                              console.log(mouseEvent.latLng);
@@ -674,9 +676,9 @@ $("#start_date").on("click",function()
 	               custommarker.setMap(map);
 
 	               // 인포윈도우에 클릭한 위치에 대한 법정동 상세 주소정보를 표시합니다
-	               infowindow.setContent(content);
-	               $(".pop").append(content);
-	               infowindow.open(map, custommarker);
+	               infowindow2.setContent(content);
+	              
+	               infowindow2.open(map, custommarker);
 	           }   
 	       });
 	   });
@@ -695,9 +697,12 @@ $("#start_date").on("click",function()
 	       // 좌표로 법정동 상세 주소 정보를 요청합니다
 	       ps.coord2Address(coords.getLng(), coords.getLat(), callback);
 	   }
+	   
+	   
+	  
+
 </script>
 
-</html>
 	
 	
 <%@ include file="/WEB-INF/views/common/footer.jsp" %>
