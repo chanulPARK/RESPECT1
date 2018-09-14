@@ -13,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.kh.respect.common.PageS;
 import com.kh.respect.mySchedule.model.service.MyScheduleService;
 import com.kh.respect.mySchedule.model.vo.Delete;
+import com.kh.respect.place.model.vo.Place;
 
 @Controller
 public class MyScheduleController {
@@ -129,7 +130,7 @@ public class MyScheduleController {
 	public ModelAndView putPlaceList(@RequestParam(value="cPage", required=false, defaultValue="1") int cPage,String userId) {
 		ModelAndView mv = new ModelAndView();
 		int numPerPage=8;
-		List<Map<String, String>> putPlaceList =service.putPlaceList(userId,cPage,numPerPage);
+		List<Place> putPlaceList =service.putPlaceList(userId,cPage,numPerPage);
 		
 		mv.addObject("putPlaceList",putPlaceList);
 		int totalCount = service.putPlaceListTotalCount(userId);
@@ -144,9 +145,9 @@ public class MyScheduleController {
 		int myScheduleReportNum = service.myScheduleReportNum(userId);
 		
 		//주소를 담을 배열
-		List addList = new ArrayList();
+		List<String> addList = new ArrayList<String>();
 		for(int i = 0; i<putPlaceList.size(); i++) {
-			String address = putPlaceList.get(i).get("ADDRESS");
+			String address = putPlaceList.get(i).getAddress();
 			addList.add(address);
 		}
 		

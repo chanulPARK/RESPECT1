@@ -5,9 +5,11 @@ import java.util.List;
 import java.util.StringTokenizer;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
@@ -17,6 +19,7 @@ import com.kh.respect.place.model.vo.Place;
 import com.kh.respect.schedule.model.service.ScheduleService;
 import com.kh.respect.schedule.model.vo.Schedule;
 import com.kh.respect.schedule.model.vo.TimeTable;
+import com.kh.respect.user.model.vo.User;
 
 @Controller
 public class ScheduleController {
@@ -27,12 +30,17 @@ public class ScheduleController {
 	private PlaceService pservice;
 	
 	@RequestMapping("/schedule/scheduleWrite")
-	public ModelAndView ScheduleWrite(ModelAndView mv)
+	public ModelAndView ScheduleWrite(HttpSession session, ModelAndView mv)
 	{
 		
 		List<Place> list=new ArrayList<Place>();
 		list=pservice.selectSpotList(1, 5);
+		List<Place> userList=new ArrayList<Place>();
+		User user=(User)session.getAttribute("userLoggedIn");
+		String userId=user.getUserId();
+		userList=pservice.selectUserSpotList(userId,1,5);
 		mv.addObject("list",list);
+		mv.addObject("userList",userList);
 		mv.setViewName("schedule/scheduleWrite");
 		return mv;
 	}
