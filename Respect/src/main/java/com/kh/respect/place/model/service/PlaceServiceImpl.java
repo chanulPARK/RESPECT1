@@ -40,5 +40,10 @@ public class PlaceServiceImpl implements PlaceService {
 	public Place selectSpot(int spotno) {
 		return dao.selectSpot(sqlSession, spotno);
 	}
-
+	
+	@Override
+	public void updateSpotCnt(int spotno) {
+		dao.updateSpotCnt(sqlSession, spotno);
+	}
+	
 }

@@ -10,4 +10,5 @@ public interface PlaceService {
 	int selectTotalCount();
 	int insertSpot(Place p);
 	Place selectSpot(int spotno);
+	void updateSpotCnt(int spotno);
 }
