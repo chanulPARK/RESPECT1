@@ -16,6 +16,7 @@ public class Place {
 	private int hitscount;
 	private String content;
 	private String thumbnail;
+	private String mainimage;
 	
 	public Place() {}
     
@@ -26,9 +27,11 @@ public class Place {
         this.address = address;
     }
 	
+	
+
 	public Place(int placeno, String majorcategory, String minorcategory, String area, String userid, String title,
 			int gpa, String address, String phone, int goodcount, int bringcount, int replycount, int hitscount,
-			String content, String thumbnail) {
+			String content, String thumbnail, String mainimage) {
 		super();
 		this.placeno = placeno;
 		this.majorcategory = majorcategory;
@@ -45,6 +48,8 @@ public class Place {
 		this.hitscount = hitscount;
 		this.content = content;
 		this.thumbnail = thumbnail;
+		this.mainimage  = mainimage;
+		this.mainimage = mainimage;
 	}
 
 	public int getPlaceno() {
@@ -165,6 +170,23 @@ public class Place {
 
 	public void setThumbnail(String thumbnail) {
 		this.thumbnail = thumbnail;
+	}
+	
+	public String getMainimage() {
+		return mainimage;
+	}
+
+	public void setMainimage(String mainimage) {
+		this.mainimage = mainimage;
+	}
+
+	
+	public String getMainimage() {
+		return mainimage;
+	}
+
+	public void setMainimage(String mainimage) {
+		this.mainimage = mainimage;
 	}
 
 	@Override

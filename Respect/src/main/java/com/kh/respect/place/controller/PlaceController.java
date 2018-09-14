@@ -41,7 +41,7 @@ public class PlaceController {
 		ModelAndView mv = new ModelAndView();
 		int numPerPage = 6;
 		
-		List<Map<String,String>> list = service.selectSpotList(cPage, numPerPage);
+		List<Place> list = service.selectSpotList(cPage, numPerPage);
 		
 		int totalCount = service.selectTotalCount();
 		
@@ -59,7 +59,7 @@ public class PlaceController {
 	}
 	
 	@RequestMapping(value="/spot/spotEnrollEnd.do", method=RequestMethod.POST)
-	public ModelAndView spotEnrollEnd(MultipartFile thumbnail, HttpServletRequest request) {
+	public ModelAndView spotEnrollEnd(MultipartFile thumbnail, MultipartFile mainimage, HttpServletRequest request) {
 		
 		String title = request.getParameter("title");
 		String userid = request.getParameter("userid");
@@ -81,6 +81,7 @@ public class PlaceController {
 		place.setContent(content);
 		
 		String saveDir = request.getSession().getServletContext().getRealPath("/resources/upload/spot/thumbnail");
+		String saveDir2 = request.getSession().getServletContext().getRealPath("/resources/upload/spot/mainimage");
 		
 		System.out.println(saveDir);
 		
@@ -110,6 +111,28 @@ public class PlaceController {
 			place.setThumbnail(renamedFileName);
 		}
 		
+		if(!mainimage.isEmpty()) {
+			String originalFileName = mainimage.getOriginalFilename();
+			String ext = originalFileName.substring(originalFileName.lastIndexOf(".")+1);
+			// 확장자를 구분해냄
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_HHmmssSS");
+			int rndNum = (int)(Math.random()*1000);
+			String renamedFileName = sdf.format(new Date(System.currentTimeMillis()));
+			renamedFileName+="_"+rndNum+"."+ext;
+			
+			try {
+				// 서버에 해당경로에 파일을 저장하는 명령
+				mainimage.transferTo(new File(saveDir2+"/"+renamedFileName));
+			} catch (IllegalStateException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			place.setMainimage(renamedFileName);
+		}
+		
 		int result = service.insertSpot(place);
 		
 		String msg = "";
@@ -136,8 +159,10 @@ public class PlaceController {
 	@RequestMapping("/spot/spotView.do")
 	public String selectSpot(int spotno, Model model) {
 		
+		// 조회수 증가, 중복 증가
+		service.updateSpotCnt(spotno);
+		
 		Place place = service.selectSpot(spotno);
-		place.setHitscount(place.getHitscount()+1);
 		
 		model.addAttribute("place", place);
 		

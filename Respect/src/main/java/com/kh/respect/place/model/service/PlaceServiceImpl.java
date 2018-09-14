@@ -1,7 +1,6 @@
 package com.kh.respect.place.model.service;
 
 import java.util.List;
-import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +19,7 @@ public class PlaceServiceImpl implements PlaceService {
 	SqlSessionTemplate sqlSession;
 
 	@Override
-	public List<Map<String, String>> selectSpotList(int cPage, int numPerPage) {
+	public List<Place> selectSpotList(int cPage, int numPerPage) {
 		return dao.selectSpotList(sqlSession, cPage, numPerPage);
 	}
 
@@ -40,5 +39,10 @@ public class PlaceServiceImpl implements PlaceService {
 	public Place selectSpot(int spotno) {
 		return dao.selectSpot(sqlSession, spotno);
 	}
-
+	
+	@Override
+	public void updateSpotCnt(int spotno) {
+		dao.updateSpotCnt(sqlSession, spotno);
+	}
+	
 }
