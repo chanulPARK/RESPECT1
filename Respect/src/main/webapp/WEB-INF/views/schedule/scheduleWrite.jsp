@@ -60,7 +60,7 @@
 <title>Insert title here</title>
 </head>
 <body>
- <hr>
+ 
 
     <div class="container">
     
@@ -159,16 +159,20 @@
                                <br>
                                <div class='mt-1 col-md-12'>  
                                    <a href="#">관광지</a>|
-                                   <a href="#">게스트하우스</a>|
+                                   <a href="#">숙소</a>|
                                    <a href="#">음식점</a>
                                        
                                        <c:forEach var="place" items="${list }" >
-                                           <div class="row col-md-13 mt-3 justify-content-center">
-                                   
-                                               <img src="https://t1.daumcdn.net/cfile/tistory/99E83A335A0A9B7510" style="width:85px;" height="60px;">
-                                               <p>${place.title }<br> &nbsp;&nbsp;${place.address }</p>
-                                               <button class="btn" value="${place }" onclick="fn_add(event)">일정등록</button>
+                                       		<c:if test="${place.majorcategory!='사용자등록'}">
+                                           <div class=" col-md-13 mt-3 justify-content-center" >
+                                   			
+                                               <img class="mb-2" src="${path }/resources/upload/spot/thumbnail/${place.thumbnail}" style="width:85px;" height="60px;">
+                                               <br><p>${place.title }</p>
+                                               <button class="btn mb-2" value="${place }" onclick="fn_add(event)">일정등록</button>
                                            </div>
+                                           
+                                           <hr>
+                                           </c:if>
                                       </c:forEach>
                                            <br>
                                        <nav aria-label="Page navigation example">
@@ -193,10 +197,6 @@
                                    <a href="#">관광지</a>|
                                    <a href="#">게스트하우스</a>|
                                    <a href="#">음식점</a>
-                                   <div class="row col-md-12 mt-3 justify-content-center">
-                                           <img src="https://t1.daumcdn.net/cfile/tistory/99E83A335A0A9B7510" style="width:85px;" height="60px;">
-                                           <p>중구네 카페<br> &nbsp;&nbsp;제주시 / 성산</p>
-                                       </div>
                                    
                                </div>
                             </div>
