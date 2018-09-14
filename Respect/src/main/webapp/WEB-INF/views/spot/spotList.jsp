@@ -6,14 +6,14 @@
 <main class="page landing-page">
 	<section class="clean-block slider dark" style="padding:0;margin:0 0 100px;">
 
-		<img src="${path }/resources/img/spot/성산일출봉.gif" style="width:1902px;">
+		<img src="${path }/resources/img/spot/성산일출봉.gif" style="width:100%;">
 		</section>
 	<section id="map-index">
 	    <div class="container">
 	        <h2>제주도 모든 여행지를 한 눈에…<br></h2>
 	        <h5>내가 가본 제주는 어디까지일까? 수많은 제주의 아름다운 여행지를 취향에 맞게 선택해보자. 368개의 크고 작은 오름을 비롯하여 눈 돌리면 어디에서나 마주치는 한라산 그리고 푸른 바다…. 제주의 보석 같은 여행지가 여러분의 선택을 기다린다.<br></h5>
 	        	<img src="${path }/resources/img/spot/지도.JPG" class="map">
-	        	<button class="btn btn-light map-btn btn-warning" type="button">전체지역</button>
+	        	<button class="btn map-btn btn-warning" type="button">전체지역</button>
        	</div>
 	</section>
 	<section id="map-tag">
