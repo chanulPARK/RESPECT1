@@ -67,7 +67,7 @@
                     		<c:forEach items="${attachmentList}" var="a" varStatus="vs">
 				                <button type="button" class="btn btn-outline-warning btn-block"
 				                    onclick="fileDownload('${a.originalFileName}','${a.renamedFileName }');">
-				                   	 첨부파일${vs.count} - ${a.originalFileName }</button>
+				                   	 첨부파일 - ${a.originalFileName }</button>
 				            </c:forEach>
                     	</td>
                     </tr>

@@ -35,7 +35,7 @@
                     <tr>
                         <td>${nb.NOTICENO}</td>
                         <td><a href="${pageContext.request.contextPath}/notice/notice-view.do?noticeNo=${nb.NOTICENO}">${nb.TITLE}</a></td>
-                        <td>${nb.WRITEDATE}</td>
+                        <td><fmt:formatDate value="${nb.WRITEDATE}" pattern="yyyy년MM월dd일 E요일"/></td>
                         <td>${nb.HITSCOUNT}</td>
                         
                         <td align="center">
