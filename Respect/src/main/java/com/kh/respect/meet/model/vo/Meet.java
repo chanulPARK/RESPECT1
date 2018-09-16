@@ -19,7 +19,7 @@ public class Meet {
 	private Date writeDate;
 	
 	public Meet() {}
-
+	
 	public Meet(int meetNo, String userId, String nickName, String gender, String area, String title, String content,
 			String meetDate, String meetTime, String address, int hitsCount, int replyCount, Date writeDate) {
 		super();

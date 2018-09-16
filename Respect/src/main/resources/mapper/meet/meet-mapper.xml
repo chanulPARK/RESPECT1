@@ -31,5 +31,14 @@
 		select * from meet A left join rp_user B on A.userid=b.userid where meetno=#{meetNo}
 	</select>
 	
+	<delete id="meetDelete" parameterType="_int">
+		delete from meet where meetno=#{meetNo}
+	</delete>
+	
+	<update id="meetUpdate" parameterType="meet">
+		update meet set userid=#{userId}, area=#{area}, title=#{title}, content=#{content}, meetdate=#{meetDate}, meettime=#{meetTime}, address=#{address} where meetno=#{meetNo}
+	</update>
+	
+	
 	
 </mapper>

@@ -50,6 +50,20 @@ public class MeetServiceImpl implements MeetService {
 	public Meet selectOne(int meetNo) {
 		return dao.selectOne(sqlSession, meetNo);
 	}
+
+
+	@Override
+	public int meetDelete(int meetNo) {
+		return dao.meetDelete(sqlSession, meetNo);
+	}
+
+
+	@Override
+	public int meetUpdate(Meet meet) {
+		return dao.meetUpdate(sqlSession, meet);
+	}
+	
+	
 	
 	
 

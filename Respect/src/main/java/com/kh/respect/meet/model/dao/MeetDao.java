@@ -18,4 +18,8 @@ public interface MeetDao {
 	
 	Meet selectOne(SqlSessionTemplate sqlSession, int meetNo);
 	
+	int meetDelete(SqlSessionTemplate sqlSession, int meetNo);
+	
+	int meetUpdate(SqlSessionTemplate sqlSession, Meet meet);
+	
 }

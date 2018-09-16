@@ -35,8 +35,6 @@
 	<div class="container">
 	<br><br><br><br><br><br><br><br><br>
 	
-	
-		
 		<div id="bung-img" align="center">
 			<img alt="" src="http://placehold.it/800x300">
 		</div>
@@ -92,8 +90,8 @@
 		</div>
 		<hr>
 		<c:if test="${userLoggedIn.userId==meet.userId }">
-			<button class="btn btn-primary" onclick="meetUpdate(${meet.meetNo})">수정</button>
-			<button class="btn btn-danger" onclick="meetDelete(${meet.meetNo})">삭제</button>
+			<button class="btn btn-primary" onclick="meetUpdate(${meet.meetNo})" value="${meet.meetNo }">수정</button>
+			<button class="btn btn-danger" onclick="meetDelete(${meet.meetNo})" value="${meet.meetNo }">삭제</button>
 		</c:if>
 		<!-- 댓글영역 -->
 		
@@ -106,31 +104,39 @@
 			{
 				alert("로그인 후 이용 가능합니다.");
 				e.preventDefault();
+				location.href="${path}/user/userLogin.do";
 				return;
 			}else{
-				location.href="${path}/user/userLogin.do";
+				
 			}
 		}
 		
-		function meetUpdate(data)
+		function meetUpdate(meetNo)
 		{
+			
 			var bool = confirm("정말 수정하시겠습니가?");
+			
 			if(bool)
 			{
-				location.href="${path}/meet/meetUpdate.do";
-			}else{
+				location.href="${path}/meet/meetUpdate.do?meetNo="+meetNo;
+			}
+			else
+			{
 				alert("취소되었습니다.");
 				e.preventDefault();
 			}
 		}
 		
-		function meetDelete(data)
+		function meetDelete(meetNo)
 		{
+			console.log(meetNo);
 			var bool = confirm("정말 삭제하시겠습니가?");
 			if(bool)
 			{
-				location.href="${path}/meet/meetDelete.do";
-			}else{
+				location.href="${path}/meet/meetDelete.do?meetNo="+meetNo;
+			}
+			else
+			{
 				alert("취소되었습니다.");
 				e.preventDefault();
 			}
