@@ -28,8 +28,6 @@
 <!-- Include English language -->
 <script src="${path }/resources/js/i18n/datepicker.en.js" type="text/javascript"></script>
 
-
-
 </head>
 
 
@@ -54,7 +52,7 @@
 	        
 	        // 주소-좌표 변환 객체를 생성합니다
 	        var geocoder = new daum.maps.services.Geocoder();
-				        
+	        
 	        <c:forEach items="${list }" var="meet">
 	        	
 	        	var addr = new Array();
@@ -159,7 +157,6 @@
 							
 						</form>
 					</li>
-					
 				</ul>
 			</div>
 		</div>
@@ -184,7 +181,7 @@
 						위치 : ${meet.ADDRESS }<br /><br /> 
 						닉네임 : ${meet.NICKNAME }<br /><br /> 
 						성별 : ${meet.GENDER=='M'?'남':'여' }<br /><br />
-						<%-- 나이 : <input type="text" readonly="readonly" value="${meet.USERID.BIRTH }"><br /><br /> --%> 
+						<%-- 나이 : <input type="text" readonly="readonly" value="${meet.USERID.BIRTH }"><br /><br /> --%>
 						날짜 : ${meet.MEETDATE }<br /><br />
 		                
 	                	<button class="btn btn-primary" onclick="location.href='${path}/meet/meetView.do?meetNo=${meet.MEETNO }'">상세보기</button>
@@ -229,7 +226,6 @@
 		}else{
 			location.href='${path}/meet/meetForm.do';
 		}
-		//location.href='${path}/meet/meetForm.do';
 	}
 </script>
 	

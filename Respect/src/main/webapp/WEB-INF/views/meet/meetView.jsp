@@ -39,15 +39,16 @@
 			<img alt="" src="http://placehold.it/800x300">
 		</div>
 		<hr>
+		
 		<div class="card mb-4">
 	        <div class="card-body">
+	        	<div class="col-sm-3" style="float:right;">
+					<button class="btn btn-success" onclick="sendMessage()">쪽지보내기</button>
+			    </div>
 				<div class="form-group row">
 				   	<label for="gender" class="col-sm-2 col-form-label">닉네임</label>
 				   	<div class="col-sm-3">
 				       	${meet.nickName }
-				    </div>
-				    <div class="col-sm-3" style="float:right;">
-				       	
 				    </div>
 				</div>
 			</div>
@@ -136,6 +137,20 @@
 				location.href="${path}/meet/meetDelete.do?meetNo="+meetNo;
 			}
 			else
+			{
+				alert("취소되었습니다.");
+				e.preventDefault();
+			}
+		}
+		
+		function sendMessage()
+		{
+			
+			var bool = confirm("쪽지를 보내시겠습니까?");
+			if(bool)
+			{
+				location.href="${path}/message/sendMessage.do";
+			}else
 			{
 				alert("취소되었습니다.");
 				e.preventDefault();

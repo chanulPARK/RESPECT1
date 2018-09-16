@@ -10,7 +10,7 @@
 	</select>
 	
 	<select id="searchMeetList" resultMap="meetMap" parameterType="map">
-		select * from meet where meetdate between #{start} and #{end} 
+		select * from meet where meetdate between #{start} and #{end} and like '%#{area}%'
 	</select>
 	
 	
