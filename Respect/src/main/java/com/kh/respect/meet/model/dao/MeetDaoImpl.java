@@ -54,6 +54,11 @@ public class MeetDaoImpl implements MeetDao {
 	public int meetUpdate(SqlSessionTemplate sqlSession, Meet meet) {
 		return sqlSession.update("meet.meetUpdate", meet);
 	}
+
+	@Override
+	public void updateMeetCnt(SqlSessionTemplate sqlSession, int meetNo) {
+		sqlSession.update("meet.updateMeetCnt", meetNo);
+	}
 	
 	
 	

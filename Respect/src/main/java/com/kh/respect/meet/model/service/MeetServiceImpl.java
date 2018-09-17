@@ -62,6 +62,12 @@ public class MeetServiceImpl implements MeetService {
 	public int meetUpdate(Meet meet) {
 		return dao.meetUpdate(sqlSession, meet);
 	}
+
+
+	@Override
+	public void updateMeetCnt(int meetNo) {
+		dao.updateMeetCnt(sqlSession, meetNo);
+	}
 	
 	
 	

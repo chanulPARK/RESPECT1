@@ -21,6 +21,6 @@ public interface MeetService {
 	
 	int meetUpdate(Meet meet);
 	
-	
+	void updateMeetCnt(int meetNo);
 	
 }

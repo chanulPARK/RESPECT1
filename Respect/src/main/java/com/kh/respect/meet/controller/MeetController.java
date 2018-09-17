@@ -64,7 +64,7 @@ public class MeetController {
 	{
 		ModelAndView mv = new ModelAndView();
 		System.out.println(range);
-		
+		System.out.println("area == "+area);
 		String start = range.substring(0, 10);
 		System.out.println(start);
 		String end = range.substring(13);
@@ -99,7 +99,7 @@ public class MeetController {
 	{
 		ModelAndView mv = new ModelAndView();
 		
-		Meet meet = new Meet(0, userId, null, null, area, title, content, meetDate, meetTime, address, 0, 0, null);
+		Meet meet = new Meet(0, userId, null, null, 0, area, title, content, meetDate, null, meetTime, address, 0, 0, null);
 		
 		int result = service.insertMeet(meet);
 		System.out.println(result);
@@ -111,7 +111,9 @@ public class MeetController {
 		{
 			msg = "모임 등록에 성공하였습니다.";
 			loc = "/meet/meetList.do";
-		}else {
+		}
+		else 
+		{
 			msg = "모임 등록에 실패하였습니다.";
 			loc = "/meet/meetList.do";
 		}
@@ -133,6 +135,8 @@ public class MeetController {
 		String meetTime = meet.getMeetTime();
 		
 		String meetDate = meet.getMeetDate().substring(0, 10);
+		
+		service.updateMeetCnt(meetNo);
 		
 		mv.addObject("meet", meet);
 		mv.addObject("meetDate", meetDate);
@@ -167,7 +171,7 @@ public class MeetController {
 									  @RequestParam(value="content") String content)
 	{
 		ModelAndView mv = new ModelAndView();
-		Meet meet = new Meet(meetNo, userId, null, null, area, title, content, meetDate, meetTime, address, 0, 0, null);
+		Meet meet = new Meet(meetNo, userId, null, null, 0, area, title, content, meetDate, null, meetTime, address, 0, 0, null);
 		
 		int result = service.meetUpdate(meet);
 		System.out.println("result :: "+result);

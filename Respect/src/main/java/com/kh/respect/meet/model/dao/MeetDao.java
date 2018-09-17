@@ -22,4 +22,6 @@ public interface MeetDao {
 	
 	int meetUpdate(SqlSessionTemplate sqlSession, Meet meet);
 	
+	void updateMeetCnt(SqlSessionTemplate sqlSession, int meetNo);
+	
 }

@@ -8,10 +8,12 @@ public class Meet {
 	private String userId;
 	private String nickName;
 	private String gender;
+	private int age;
 	private String area;
 	private String title;
 	private String content;
 	private String meetDate;
+	private String meetDay;
 	private String meetTime;
 	private String address;
 	private int hitsCount;
@@ -19,18 +21,21 @@ public class Meet {
 	private Date writeDate;
 	
 	public Meet() {}
-	
-	public Meet(int meetNo, String userId, String nickName, String gender, String area, String title, String content,
-			String meetDate, String meetTime, String address, int hitsCount, int replyCount, Date writeDate) {
+
+	public Meet(int meetNo, String userId, String nickName, String gender, int age, String area, String title,
+			String content, String meetDate, String meetDay, String meetTime, String address, int hitsCount,
+			int replyCount, Date writeDate) {
 		super();
 		this.meetNo = meetNo;
 		this.userId = userId;
 		this.nickName = nickName;
 		this.gender = gender;
+		this.age = age;
 		this.area = area;
 		this.title = title;
 		this.content = content;
 		this.meetDate = meetDate;
+		this.meetDay = meetDay;
 		this.meetTime = meetTime;
 		this.address = address;
 		this.hitsCount = hitsCount;
@@ -70,6 +75,14 @@ public class Meet {
 		this.gender = gender;
 	}
 
+	public int getAge() {
+		return age;
+	}
+
+	public void setAge(int age) {
+		this.age = age;
+	}
+
 	public String getArea() {
 		return area;
 	}
@@ -100,6 +113,14 @@ public class Meet {
 
 	public void setMeetDate(String meetDate) {
 		this.meetDate = meetDate;
+	}
+
+	public String getMeetDay() {
+		return meetDay;
+	}
+
+	public void setMeetDay(String meetDay) {
+		this.meetDay = meetDay;
 	}
 
 	public String getMeetTime() {
@@ -145,10 +166,14 @@ public class Meet {
 	@Override
 	public String toString() {
 		return "Meet [meetNo=" + meetNo + ", userId=" + userId + ", nickName=" + nickName + ", gender=" + gender
-				+ ", area=" + area + ", title=" + title + ", content=" + content + ", meetDate=" + meetDate
-				+ ", meetTime=" + meetTime + ", address=" + address + ", hitsCount=" + hitsCount + ", replyCount="
-				+ replyCount + ", writeDate=" + writeDate + "]";
+				+ ", age=" + age + ", area=" + area + ", title=" + title + ", content=" + content + ", meetDate="
+				+ meetDate + ", meetDay=" + meetDay + ", meetTime=" + meetTime + ", address=" + address + ", hitsCount="
+				+ hitsCount + ", replyCount=" + replyCount + ", writeDate=" + writeDate + "]";
 	}
+
+	
+	
+	
 
 	
 

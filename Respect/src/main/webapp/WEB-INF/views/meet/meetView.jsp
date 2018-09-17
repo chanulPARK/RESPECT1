@@ -33,17 +33,16 @@
 
 <section>
 	<div class="container">
-	<br><br><br><br><br><br><br><br><br>
 	
 		<div id="bung-img" align="center">
 			<img alt="" src="http://placehold.it/800x300">
 		</div>
-		<hr>
+		<br>
 		
 		<div class="card mb-4">
 	        <div class="card-body">
 	        	<div class="col-sm-3" style="float:right;">
-					<button class="btn btn-success" onclick="sendMessage()">쪽지보내기</button>
+					<button class="btn btn-success" onclick="sendM()">쪽지보내기</button>
 			    </div>
 				<div class="form-group row">
 				   	<label for="gender" class="col-sm-2 col-form-label">닉네임</label>
@@ -91,8 +90,10 @@
 		</div>
 		<hr>
 		<c:if test="${userLoggedIn.userId==meet.userId }">
-			<button class="btn btn-primary" onclick="meetUpdate(${meet.meetNo})" value="${meet.meetNo }">수정</button>
-			<button class="btn btn-danger" onclick="meetDelete(${meet.meetNo})" value="${meet.meetNo }">삭제</button>
+			<div class="justify-content-center">
+				<button class="btn btn-primary" onclick="meetUpdate(${meet.meetNo})" value="${meet.meetNo }">수정</button>
+				<button class="btn btn-danger" onclick="meetDelete(${meet.meetNo})" value="${meet.meetNo }">삭제</button>
+			</div>
 		</c:if>
 		<!-- 댓글영역 -->
 		
@@ -100,15 +101,25 @@
 	</div>
 	<br><br><br>
 	<script>
-		function sendMessage(){
+		function sendM(){
 			if(${userLoggedIn==null})
 			{
 				alert("로그인 후 이용 가능합니다.");
-				e.preventDefault();
 				location.href="${path}/user/userLogin.do";
 				return;
 			}else{
 				
+				var bool = confirm("쪽지를 보내시겠습니까?");
+				
+				if(bool)
+				{
+					location.href="${path}/message/sendMessage.do";
+				}
+				else
+				{
+					alert("취소되었습니다.");
+					e.preventDefault();
+				}
 			}
 		}
 		
@@ -143,19 +154,7 @@
 			}
 		}
 		
-		function sendMessage()
-		{
-			
-			var bool = confirm("쪽지를 보내시겠습니까?");
-			if(bool)
-			{
-				location.href="${path}/message/sendMessage.do";
-			}else
-			{
-				alert("취소되었습니다.");
-				e.preventDefault();
-			}
-		}
+		
 		
 	</script>
 	
