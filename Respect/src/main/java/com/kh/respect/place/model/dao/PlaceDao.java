@@ -6,6 +6,7 @@ import java.util.Map;
 import org.mybatis.spring.SqlSessionTemplate;
 
 import com.kh.respect.place.model.vo.Place;
+import com.kh.respect.place.model.vo.PlaceSpring;
 
 public interface PlaceDao {
 	List<Place> selectSpotList(SqlSessionTemplate sqlSession, int cPage, int numPerPage);
@@ -14,4 +15,6 @@ public interface PlaceDao {
 	int insertSpot(SqlSessionTemplate sqlSession, Place p);
 	Place selectSpot(SqlSessionTemplate sqlSession, int spotno);
 	void updateSpotCnt(SqlSessionTemplate sqlSession, int spotno);
+	List<PlaceSpring> spotSearchList(PlaceSpring p) throws Exception;
+	Integer spotSearchListTotal(PlaceSpring p) throws Exception;
 }

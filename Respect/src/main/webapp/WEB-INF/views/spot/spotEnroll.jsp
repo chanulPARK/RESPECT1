@@ -7,6 +7,11 @@
 
 <%@ include file="/WEB-INF/views/common/header.jsp"%>
 
+<link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.css" rel="stylesheet">
+<script src="${path }/resources/js/summernote.js"></script>
+<script src="${path }/resources/js/summernote.min.js"></script>
+<script src="${path }/resources/js/summernote-ko-KR.js"></script>
+
 <style>
     .custom-file-input {
         min-width: 14rem;
@@ -48,8 +53,8 @@
                 <h2>명소 등록</h2>
                 <div class="form-group">
                 	<form action="${pageContext.request.contextPath}/spot/spotEnrollEnd.do" method="post" enctype="multipart/form-data">
-                		<input type="hidden" name="userid" value="admin">
-                		<!-- <input type="hidden" name="placeno" value="1">
+                		<!-- <input type="hidden" name="userid" value="admin">
+                		<input type="hidden" name="placeno" value="1">
                 		<input type="hidden" name="gpa" value="0">
                 		<input type="hidden" name="goodcount" value="0">
                 		<input type="hidden" name="bringcount" value="0">
@@ -166,7 +171,7 @@
 	                        <div class="col">
 	                            <label class="custom-file">
 	                                <input type="file" name="thumbnail" class="custom-file-input" accept="image/*">
-	                                <span class="custom-file-control" id="file-name">이미지를 선택하세요</span>
+	                                <span class="custom-file-control" id="file-name2">이미지를 선택하세요</span>
 	                            </label>
 	                        </div>
 	                    </div>
@@ -178,7 +183,7 @@
 	                    <div class="row m-1">
 	                        <div class="col">
 	                            <div class="form-group">
-	                                <textarea class="form-control" name="content" style="min-height:500px;"></textarea>
+	                            	<textarea id="summernote" name="content" style="min-height:500px; resize: none;"></textarea>
 	                            </div>
 	                            <input type="submit" class="btn btn-warning btn-block" value="등록">
 	                        </div>
@@ -191,6 +196,11 @@
 
 <script type="text/javascript">
 	$("input[name=thumbnail]").change(function(){
+	    var file = $(this).val().split('/').pop().split('\\').pop();
+	    $("#file-name2").text(file);
+	});
+	
+	$("input[name=mainimage]").change(function(){
 	    var file = $(this).val().split('/').pop().split('\\').pop();
 	    $("#file-name").text(file);
 	});
@@ -298,85 +308,50 @@
         }).open();
     }
 </script>
-<!-- <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=8ff31fd960290fc8b23e2c371566d7a6&libraries=services"></script>
 <script>
-	var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
-	    mapOption = {
-	        center: new daum.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
-	        level: 3 // 지도의 확대 레벨
-	    };  
-	
-	// 지도를 생성합니다    
-	var map = new daum.maps.Map(mapContainer, mapOption); 
-	
-	// 주소-좌표 변환 객체를 생성합니다
-	var geocoder = new daum.maps.services.Geocoder();
-	
-	// 주소로 좌표를 검색합니다
-	geocoder.addressSearch('제주특별자치도 제주시 첨단로 242', function(result, status) {
-	
-	    // 정상적으로 검색이 완료됐으면 
-	     if (status === daum.maps.services.Status.OK) {
-	
-	        var coords = new daum.maps.LatLng(result[0].y, result[0].x);
-	
-	        // 결과값으로 받은 위치를 마커로 표시합니다
-	        var marker = new daum.maps.Marker({
-	            map: map,
-	            position: coords
-	        });
-	
-	        // 인포윈도우로 장소에 대한 설명을 표시합니다
-	        var infowindow = new daum.maps.InfoWindow({
-	            content: '<div style="width:150px;text-align:center;padding:6px 0;">우리회사</div>'
-	        });
-	        infowindow.open(map, marker);
-	
-	        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
-	        map.setCenter(coords);
-	    } 
-	});
-	
-	function go_map() {
-		var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
-	    mapOption = {
-	        center: new daum.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
-	        level: 3 // 지도의 확대 레벨
-	    };  
-	
-		// 지도를 생성합니다    
-		var map = new daum.maps.Map(mapContainer, mapOption); 
-		
-		// 주소-좌표 변환 객체를 생성합니다
-		var geocoder = new daum.maps.services.Geocoder();
-	
-		var addr = $("input[name=address]").val();
-		
-		geocoder.addressSearch(addr, function(result, status) {
-			
-		    // 정상적으로 검색이 완료됐으면 
-		     if (status === daum.maps.services.Status.OK) {
-		
-		        var coords = new daum.maps.LatLng(result[0].y, result[0].x);
-		
-		        // 결과값으로 받은 위치를 마커로 표시합니다
-		        var marker = new daum.maps.Marker({
-		            map: map,
-		            position: coords
-		        });
-		
-		        // 인포윈도우로 장소에 대한 설명을 표시합니다
-		        var infowindow = new daum.maps.InfoWindow({
-		            content: '<div style="width:150px;text-align:center;padding:6px 0;">'+$("input[name=title]").val()+'</div>'
-		        });
-		        infowindow.open(map, marker);
-		
-		        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
-		        map.setCenter(coords);
-		    } 
+	//summernote
+	$(document).ready(function() {
+		    $('#summernote').summernote({
+	        height : 300,   // set editor height
+	        lang : 'ko-KR', // default: 'en-US'
+	  		callbacks : {
+	  			onImageUpload : function(files, editor, welEditable){
+	  				sendFile(files, editor, welEditable);
+	  			}
+	  		}
+		    });
 		});
+	
+	function sendFile(file, editor, welEditable){
+	    data = new FormData();
+	    console.log(file);
+	    for(var i=0;i<file.length;i++){
+	       data.append("uploadFile", file[i]);
+	    }
+	    console.log(data.getAll('uploadFile'));
+	    $.ajax({
+	       data:data,
+	       url:"${path}/spotUpload.do",
+	       type:"POST",
+	       cache:false,
+	       contentType:false,
+	       processData:false,
+	       dataType:"json",
+	       success:function(data){
+	    	  alert(data);
+	          console.log(data);
+	          for(var i=0;i<data.length;i++)
+	          {
+	             $('#summernote').summernote('insertImage', "${path}/resources/upload/spot/spotUpload/"+data[i],data[i]);
+	          }
+	       },
+	       error:function(obj,a,b){
+	    	   console.log(obj);
+	    	   console.log(b);
+	       }
+	    });
 	}
-</script> -->
+</script>
 	
 	
 <%@ include file="/WEB-INF/views/common/footer.jsp"%>

@@ -30,4 +30,27 @@
 	    WHERE PLACENO = #{spotno}
 	</update>
 	
+	<select id="spotSearchList" resultType="placespring" parameterType="string">
+		SELECT * FROM (
+			SELECT ROWNUM AS RNUM, B.* FROM (
+				SELECT *
+				FROM PLACE A
+				WHERE 1 = 1 
+				
+				AND MINORCATEGORY = #{minorcategory}
+				
+				ORDER BY NUM DESC
+			) B
+		) WHERE RNUM BETWEEN #{first} AND #{last}
+	</select>
+	
+    <select id="spotSearchListTotal" resultType="_int" parameterType="string">
+		SELECT COUNT(*) AS CNT
+		FROM PLACE
+		WHERE 1 = 1
+           
+           AND MINORCATEGORY = #{minorcategory}
+           
+    </select>
+	
 </mapper>

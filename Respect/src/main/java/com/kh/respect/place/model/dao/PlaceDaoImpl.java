@@ -7,9 +7,12 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.kh.respect.place.model.vo.Place;
+import com.kh.respect.place.model.vo.PlaceSpring;
 
 @Repository
 public class PlaceDaoImpl implements PlaceDao {
+	
+	SqlSessionTemplate sqlSession;
 
 	@Override
 	public int insertSpot(SqlSessionTemplate sqlSession, Place p) {
@@ -41,6 +44,18 @@ public class PlaceDaoImpl implements PlaceDao {
 	public List<Place> selectUserSpotList(SqlSessionTemplate sqlSession, String userId, int cPage, int numPerPage) {
 		return sqlSession.selectList("spot.selectUserSpotList", userId, new RowBounds((cPage-1)*numPerPage, numPerPage));
 		
+	}
+
+	@Override
+	public List<PlaceSpring> spotSearchList(PlaceSpring p) throws Exception {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("spot.spotSearchList", p.getMinorcategory());
+	}
+
+	@Override
+	public Integer spotSearchListTotal(PlaceSpring p) throws Exception {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("spot.spotSearchListTotal", p.getMinorcategory());
 	}
 
 

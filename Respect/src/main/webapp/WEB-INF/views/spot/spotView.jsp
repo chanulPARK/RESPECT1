@@ -34,6 +34,7 @@
             <p>${place.minorcategory }</p>
             
             <input type="hidden" id="placeno" value="${place.placeno }">
+            <input type="hidden" id="title" value="${place.title }">
             <input type="hidden" id="addr" value="${place.address }">
             
             <div class="table-responsive info-table">
@@ -107,15 +108,15 @@
         </div>
     </section>
     <section id="detail_info">
-        <div class="detail-content container"><img src="${path }/resources/img/spot/1.jpg" style="width:100%">
+        <div class="detail-content container">
             <h5 style="line-height: 3.5;">${place.content }</h5>
         </div>
     </section>
     <section id="map" class="hide">
         <div class="container">
             <div class="detail-content">
-                <div id="map-container" style="width:100%;margin: 0 0 auto; background: grey;">
-                    <div id="map" style="width:100%;height:300px;"></div>
+                <div id="map-container" style="width:100%; margin: 0 0 auto;">
+                    <div id="map-d" style="width:100%; height:300px;"></div>
                 </div>
             </div>
         </div>
@@ -145,11 +146,18 @@
             </div>
         </div>
     </section>
+    <button class="btn btn-warning btn-block" type="button" onclick="fn_spotUpdatego()">장소 수정</button>
 </main>
+
+<script>
+	function fn_spotUpdatego() {
+		location.href="${pageContext.request.contextPath}/spot/spotUpdate.do";
+	}
+</script>
 
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=8ff31fd960290fc8b23e2c371566d7a6&libraries=services"></script>
 <script>
-    var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+    var mapContainer = document.getElementById('map-d'), // 지도를 표시할 div 
         mapOption = {
             center: new daum.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
             level: 3 // 지도의 확대 레벨
@@ -164,7 +172,7 @@
     var addr = $("input[id=addr]").val();
     
     // 주소로 좌표를 검색합니다
-    geocoder.addressSearch('제주특별자치도 서귀포시 안덕면 상창리 271', function(result, status) {
+    geocoder.addressSearch(addr , function(result, status) {
     
         // 정상적으로 검색이 완료됐으면 
          if (status === daum.maps.services.Status.OK) {
@@ -176,18 +184,19 @@
                 map: map,
                 position: coords
             });
-    
-            // 인포윈도우로 장소에 대한 설명을 표시합니다
+            
+         	// 인포윈도우로 장소에 대한 설명을 표시합니다
             var infowindow = new daum.maps.InfoWindow({
-                content: '<div style="width:150px;text-align:center;padding:6px 0;">[장소]</div>'
+                content: '<div style="width:150px;text-align:center;">${place.title }</div>'
             });
             infowindow.open(map, marker);
-    
+            
             // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
             map.setCenter(coords);
         } 
     });
 </script>
+
 <script>
     $(document).ready(function(){
         $('#btn_info').click(function(){
@@ -196,6 +205,10 @@
                 $('#detail_info').show();
                 $('#map').hide();
                 $('#review').hide();
+                
+                $('#btn_info').addClass('active');                
+                $('#btn_map').removeClass('active');
+                $('#btn_review').removeClass('active');
             }
         });
 
@@ -205,6 +218,10 @@
                 $('#detail_info').hide();
                 $('#map').show();
                 $('#review').hide();
+                
+                $('#btn_info').removeClass('active');                
+                $('#btn_map').addClass('active');
+                $('#btn_review').removeClass('active');
             }
         });
 
@@ -214,6 +231,10 @@
                 $('#detail_info').hide();
                 $('#map').hide();
                 $('#review').show();
+                
+                $('#btn_info').removeClass('active');                
+                $('#btn_map').removeClass('active');
+                $('#btn_review').addClass('active');
             }
         });
     });
