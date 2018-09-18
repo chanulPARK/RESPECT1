@@ -316,7 +316,7 @@
 			                </div>
 			              </div>
 			              <div id="card_line" style="height: auto;" >
-			                  <img src="${path }/resources/upload/profile/${psl.THUMBNAIL}" alt="" width="100%" height="130px">
+			                  <img src="${path }/resources/upload/spot/thumbnail/${psl.THUMBNAIL}" alt="" width="100%" height="130px">
 			                  <!--여행일정의 제목, 끝날짜-시작날짜(몇박며칠), 누구와함께?, 성향-->
 			                  <fmt:parseDate value="${psl.STARTDATE }" var="strPlanDate" pattern="yyyy-MM-dd"/>
 								<fmt:parseNumber value="${strPlanDate.time / (1000*60*60*24)}" integerOnly="true" var="strDate"></fmt:parseNumber>
@@ -349,7 +349,7 @@
 			                </div>
 			              </div>
 			              <div id="card_line" style="height: auto;" >
-			                  <img src="${path }/resources/upload/profile/${psl.THUMBNAIL}" alt="" width="100%" height="130px">
+			                  <img src="${path }/resources/upload/spot/thumbnail/${psl.THUMBNAIL}" alt="" width="100%" height="130px">
 			                  <!--여행일정의 제목, 끝날짜-시작날짜(몇박며칠), 누구와함께?, 성향-->
 			                  <fmt:parseDate value="${psl.STARTDATE }" var="strPlanDate" pattern="yyyy-MM-dd"/>
 								<fmt:parseNumber value="${strPlanDate.time / (1000*60*60*24)}" integerOnly="true" var="strDate"></fmt:parseNumber>
@@ -542,7 +542,7 @@
 			              </div>
 			              <div id="card_line" style="height: auto;">
 			              
-			                  <img src="${path }/resources/upload/profile/${msrl.THUMBNAIL}" alt="" width="100%" height="130px">
+			                  <img src="${path }/resources/upload/spot/thumbnail/${msrl.THUMBNAIL}" alt="" width="100%" height="130px">
 			                  <!--여행일정의 제목, 끝날짜-시작날짜(몇박며칠), 누구와함께?, 성향-->
 			                  <fmt:parseDate value="${msrl.STARTDATE }" var="strPlanDate" pattern="yyyy-MM-dd"/>
 								<fmt:parseNumber value="${strPlanDate.time / (1000*60*60*24)}" integerOnly="true" var="strDate"></fmt:parseNumber>
@@ -578,7 +578,7 @@
 			              </div>
 			              <div id="card_line" style="height: auto;">
 			              
-			                  <img src="${path }/resources/upload/profile/${msrl.THUMBNAIL}" alt="" width="100%" height="130px">
+			                  <img src="${path }/resources/upload/spot/thumbnail/${msrl.THUMBNAIL}" alt="" width="100%" height="130px">
 			                  <!--여행일정의 제목, 끝날짜-시작날짜(몇박며칠), 누구와함께?, 성향-->
 			                  <fmt:parseDate value="${msrl.STARTDATE }" var="strPlanDate" pattern="yyyy-MM-dd"/>
 								<fmt:parseNumber value="${strPlanDate.time / (1000*60*60*24)}" integerOnly="true" var="strDate"></fmt:parseNumber>

@@ -14,6 +14,20 @@ public interface ScheduleDao {
 
 	int insertSchedule(SqlSessionTemplate session, Schedule sc);
 	int insertTimeTable(SqlSessionTemplate session, TimeTable tt);
+
+	//추천수정수정
+		int goodCountCheck(SqlSessionTemplate session, Schedule schedule);
+		void insertScheduleGoodCount(SqlSessionTemplate session, Schedule schedule);
+		int goodCountUp(SqlSessionTemplate session, Schedule schedule);
+		void deleteScheduleDownCount(SqlSessionTemplate session, Schedule schedule);
+		int goodCountDown(SqlSessionTemplate session, Schedule schedule);
+		//찜하기 수정수정
+		int bringCountCheck(SqlSessionTemplate session, Schedule schedule);
+		void insertSchedulebringCount(SqlSessionTemplate session, Schedule schedule);
+		int bringCountUp(SqlSessionTemplate session, Schedule schedule);
+		void deleteBringDownCount(SqlSessionTemplate session, Schedule schedule);
+		int bringCountDown(SqlSessionTemplate session, Schedule schedule);
+
 	List<Map<String, String>> selectScheduleList(SqlSessionTemplate session, int cPage, int numPerPage);
 	int selectTotalCount(SqlSessionTemplate session);
 
@@ -43,4 +57,5 @@ public interface ScheduleDao {
 	int updateSchedule(SqlSessionTemplate session, Schedule sc);
 	int deleteTimeTable(SqlSessionTemplate session, int scheduleNo);
 //	int deleteSchedule(SqlSessionTemplate session, int scheduleNo);
+
 }

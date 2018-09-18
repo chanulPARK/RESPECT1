@@ -1,9 +1,11 @@
 package com.kh.respect.schedule.controller;
 
+
+
 import java.io.File;
-import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -619,6 +621,79 @@ public class ScheduleController {
 		
 	}
 	
+
+	
+	//좋아요 증가및 감소
+		// 뷰 호출할때 int goodCheck를 넘겨 0인지 1인지 구분하고 jsp에서 구분 (0은 추천안함, 1은이미 추천함) 
+		@RequestMapping("/schedul/goodCountUpdate")
+		public ModelAndView goodCountUpdate(Schedule schedule) {
+			ModelAndView mv = new ModelAndView();
+			int goodCheck = service.goodCountCheck(schedule);
+			String msg = "";
+			String loc = "";
+			if(goodCheck==0) {
+				int result2 = service.goodCountUp(schedule);
+				if(result2>0) {
+					msg = "추천이 완료되었습니다.";
+					loc="/schedule/scheduleView?scheduleNo="+schedule.getScheduleNo();
+				}else {
+					msg = "추천에 실패했습니다.";
+					loc="/schedule/scheduleView?scheduleNo="+schedule.getScheduleNo();
+				}
+			}else {
+				int result = service.goodCountDown(schedule);
+				if(result >0) {
+					msg = "추천이 취소되었습니다.";
+					loc="/schedule/scheduleView?scheduleNo="+schedule.getScheduleNo();
+				}else {
+					msg = "추천이 취소에 실패했습니다.";
+					loc="/schedule/scheduleView?scheduleNo="+schedule.getScheduleNo();
+				}
+			}
+			mv.addObject("msg",msg);
+			mv.addObject("loc", loc);
+			mv.setViewName("common/msg");
+			return mv;
+		}
+		
+		//찜하기 증가및 감소
+		// 뷰 호출할때 int bringCheck를 넘겨 0인지 1인지 구분하고 jsp에서 구분 (0은 찜안함, 1은이미 찜함) 
+		@RequestMapping("/schedul/bringCountUpdate")
+		public ModelAndView bringCountUpdate(Schedule schedule) {
+			ModelAndView mv = new ModelAndView();
+			int bringCheck = service.bringCountCheck(schedule);
+			String msg = "";
+			String loc = "";
+			
+			if(bringCheck==0) {
+				int result = service.bringCountUp(schedule)	;
+				if(result>0) {
+					msg="찜한 목록에 추가되었습니다.";
+					loc="/schedule/scheduleView?scheduleNo="+schedule.getScheduleNo();
+				}else {
+					msg="찜하기에 실패했습니다.";
+					loc="/schedule/scheduleView?scheduleNo="+schedule.getScheduleNo();
+				}
+			}else {
+				int result2 = service.bringCountDown(schedule);
+				if(result2>0) {
+					msg="찜하기가 취소되었습니다.";
+					loc="/schedule/scheduleView?scheduleNo="+schedule.getScheduleNo();
+				}else {
+					msg="찜하기취소에 실패했습니다.";
+					loc="/schedule/scheduleView?scheduleNo="+schedule.getScheduleNo();
+				}
+			}
+			
+			mv.addObject("msg",msg);
+			mv.addObject("loc", loc);
+			mv.setViewName("common/msg");
+			return mv;
+		}
+	
+	
+	
+
 //	@RequestMapping("/schedule/deleteSchedule")
 //	public ModelAndView deleteSchedule(int scheduleNo,ModelAndView mv)
 //	{
@@ -642,4 +717,5 @@ public class ScheduleController {
 //		
 //		return mv;
 //	}
+
 }

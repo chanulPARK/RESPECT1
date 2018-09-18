@@ -207,4 +207,50 @@ public class ScheduleServiceImpl implements ScheduleService {
 	
 	
 	
+	
+	//추천수정수정
+
+		@Override
+		public int goodCountCheck(Schedule schedule) {
+			
+			return dao.goodCountCheck(session,schedule);
+		}
+
+		@Override
+		public int goodCountUp(Schedule schedule) {
+			dao.insertScheduleGoodCount(session,schedule);
+			return dao.goodCountUp(session,schedule);
+		}
+
+		@Override
+		public int goodCountDown(Schedule schedule) {
+			dao.deleteScheduleDownCount(session,schedule);
+			return dao.goodCountDown(session,schedule);
+		}
+		
+		//찜하기수정수정
+
+		@Override
+		public int bringCountCheck(Schedule schedule) {
+			
+			return dao.bringCountCheck(session,schedule);
+		}
+
+		@Override
+		public int bringCountUp(Schedule schedule) {
+			
+			dao.insertSchedulebringCount(session,schedule);
+			return dao.bringCountUp(session,schedule);
+		}
+
+		@Override
+		public int bringCountDown(Schedule schedule) {
+			dao.deleteBringDownCount(session,schedule);
+			return dao.bringCountDown(session,schedule);
+		}
+	
+	
+	
+
+	
 }

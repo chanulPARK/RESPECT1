@@ -12,6 +12,21 @@ public interface ScheduleService {
 
 	int insertSchedule(Schedule sc, List<TimeTable> list);
 
+
+	//좋아요증가부터
+
+	int goodCountCheck(Schedule schedule);
+
+	int goodCountUp(Schedule schedule);
+
+	int goodCountDown(Schedule schedule);
+
+	int bringCountCheck(Schedule schedule);
+
+	int bringCountUp(Schedule schedule);
+
+	int bringCountDown(Schedule schedule);
+
 	List<Map<String, String>> selectScheduleList(int cPage, int numPerPage);
 
 	int selectTotalCount();
@@ -51,4 +66,5 @@ public interface ScheduleService {
 //	int deleteSchedule(int scheduleNo);
 
 	
+
 }

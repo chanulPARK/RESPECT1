@@ -2,8 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="schedule">
 
+
 	<resultMap type="map" id="ScheduleMap"></resultMap>
 	
+
 	<insert id="insertSchedule" parameterType="schedule">
 		insert into schedule values(seq_schedule.nextval,#{travelTheme},#{partyName},#{userId},#{title},#{startDate},#{endDate},#{peopleNum},#{publicFlag},default,default,default,default,default,sysdate,#{placeNo})
 		<selectKey keyProperty="scheduleNo" resultType="_int" order="AFTER">
@@ -14,6 +16,51 @@
   		insert into timetable values(#{scheduleNo}, #{placeNo}, #{day}, #{time})
   	</insert>
   	
+
+  		<!-- 추천추천 -->
+  	
+  	<select id="goodCountCheck" parameterType="schedule" resultType="_int">
+  		SELECT COUNT(*) FROM SCHEDULE_GOOD WHERE SCHEDULENO=#{scheduleNo} AND USERID=#{userId}
+  	</select>
+  	
+  	<insert id="insertScheduleGoodCount" parameterType="schedule">
+  		INSERT INTO SCHEDULE_GOOD VALUES(#{scheduleNo},#{userId})
+  	</insert>
+  	
+  	<update id="goodCountUp" parameterType="schedule">
+  		UPDATE SCHEDULE SET GOODCOUNT = GOODCOUNT+1 WHERE SCHEDULENO=#{scheduleNo}
+  	</update>
+  	
+  	<delete id="deleteScheduleDownCount" parameterType="schedule">
+  		DELETE FROM SCHEDULE_GOOD WHERE SCHEDULENO=#{scheduleNo} AND USERID=#{userId}
+  	</delete>
+  	
+  	<update id="goodCountDown" parameterType="schedule">
+  		UPDATE SCHEDULE SET GOODCOUNT = GOODCOUNT-1 WHERE SCHEDULENO=#{scheduleNo}
+  	</update>
+  	
+  	<!-- 찜찜 -->
+  	
+  	<select id="bringCountCheck" parameterType="schedule" resultType="_int">
+  		SELECT COUNT(*) FROM PUT_SCHEDULE WHERE USERID=#{userId} AND SCHEDULENO=#{scheduleNo}
+  	</select>
+  	
+  	<insert id="insertSchedulebringCount" parameterType="schedule">
+  		INSERT INTO PUT_SCHEDULE VALUES(#{userId},#{scheduleNo},SYSDATE)
+  	</insert>
+  	
+  	<update id="bringCountUp" parameterType="schedule">
+  		UPDATE SCHEDULE SET BRINGCOUNT = BRINGCOUNT+1 WHERE SCHEDULENO=#{scheduleNo}
+  	</update>
+  	
+  	<delete id="deleteBringDownCount" parameterType="schedule">
+  		DELETE FROM PUT_SCHEDULE WHERE USERID=#{userId} AND SCHEDULENO=#{scheduleNo}
+  	</delete>
+  	
+  	<update id="bringCountDown" parameterType="schedule">
+  		UPDATE SCHEDULE SET BRINGCOUNT = BRINGCOUNT-1 WHERE SCHEDULENO=#{scheduleNo}
+  	</update>
+
   	<select id="selectOneScheduleView" resultType="map" parameterType="_int">
   		select S.*,R.nickname as nickname,to_char(startdate,'yyyy-mm-dd') as startdate1,to_char(enddate,'yyyy-mm-dd') as enddate1 from schedule S join rp_user R on(R.userid=S.userid) where scheduleno = #{scheduleNo} 
   	</select>
@@ -235,5 +282,6 @@
 	<!-- <delete id="scheduleDelete" parameterMap="_int">
 		delete from schedule where scheduleno=#{scheduleNo}
 	</delete> -->
+
 
 </mapper>

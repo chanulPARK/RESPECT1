@@ -15,7 +15,7 @@
 	</select>
 	
 	<insert id = "insertUser">
-		INSERT INTO RP_USER VALUES(#{userId},#{password},#{nickName},#{birth},#{gender},#{email},0,NULL,SYSDATE,NULL,0,0)
+		INSERT INTO RP_USER VALUES(#{userId},#{password},#{nickName},#{birth},#{gender},#{email},0,NULL,SYSDATE,'basicprofile.jpg',0,0)
 	</insert>
 	
 	<update id="createAuthKey">
@@ -47,7 +47,7 @@
 	</update>
 	
 	<update id="userProfileDelete" parameterType="string">
-		UPDATE RP_USER SET PICTURE = NULL WHERE USERID = #{userId}
+		UPDATE RP_USER SET PICTURE = 'basicprofile.jpg' WHERE USERID = #{userId}
 	</update>
 	
 	
