@@ -14,5 +14,10 @@ public interface ScheduleDao {
 	int insertTimeTable(SqlSessionTemplate session, TimeTable tt);
 	List<Map<String, String>> selectScheduleList(SqlSessionTemplate session, int cPage, int numPerPage);
 	int selectTotalCount(SqlSessionTemplate session);
+	Map selectSchedule(SqlSessionTemplate session,int scheduleNo);
 	
+	List<Map> selectTimeTableList(SqlSessionTemplate session,int scheduleNo);
+	int updateSchedule(SqlSessionTemplate session, Schedule sc);
+	int deleteTimeTable(SqlSessionTemplate session, int scheduleNo);
+//	int deleteSchedule(SqlSessionTemplate session, int scheduleNo);
 }

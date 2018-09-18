@@ -28,22 +28,22 @@ public class ScheduleServiceImpl implements ScheduleService {
 	@Override
 	
 	public int insertSchedule(Schedule sc, List<TimeTable> list) {
-		System.out.println("서비스들어오나?");
+		
 		int result=0;
 		int scheduleNo=0;
 		result=dao.insertSchedule(session,sc);
 		
 		scheduleNo=sc.getScheduleNo();
-		System.out.println("스케줄인서트 후 : "+scheduleNo);
+		
 		if(result>0)
 		{
-			System.out.println("타임테이블 조건문");
+			
 			if(list.size()>0)
 			{
 				
 				for(TimeTable tt: list)
 				{
-					System.out.println("타임테이블 for문");
+					
 					tt.setScheduleNo(scheduleNo);
 					result=dao.insertTimeTable(session,tt);
 				}
@@ -62,6 +62,48 @@ public class ScheduleServiceImpl implements ScheduleService {
 	public int selectTotalCount() {
 		return dao.selectTotalCount(session);
 	}
+
+	@Override
+	public Map selectSchedule(int scheduleNo) {
+		return dao.selectSchedule(session, scheduleNo);
+	}
+
+	@Override
+	public List<Map> selectTimeTableList(int scheduleNo) {
+		return dao.selectTimeTableList(session,scheduleNo);
+	}
+
+	@Override
+	public int updateSchedule(Schedule sc, List<TimeTable> list) {
+		int result=0;
+		int scheduleNo=0;
+		result=dao.updateSchedule(session,sc);
+		System.out.println("업데이트 후 "+ result);
+		scheduleNo=sc.getScheduleNo();
+		result=dao.deleteTimeTable(session,scheduleNo);
+		System.out.println("딜리트 후"+ result);
+		if(result>0)
+		{
+			
+			if(list.size()>0)
+			{
+				
+				for(TimeTable tt: list)
+				{
+					
+					
+					result=dao.insertTimeTable(session,tt);
+					System.out.println("인서트중");
+				}
+			}
+		}
+		return result;
+	}
+
+//	@Override
+//	public int deleteSchedule(int scheduleNo) {
+//		return dao.deleteSchedule(session, scheduleNo);
+//	}
 	
 	
 	
