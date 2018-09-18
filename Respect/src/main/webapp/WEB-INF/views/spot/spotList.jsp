@@ -6,7 +6,7 @@
 <main class="page landing-page">
 	<section class="clean-block slider dark" style="padding:0;margin:0 0 100px;">
 
-		<img src="${path }/resources/img/spot/성산일출봉.gif" style="width:100%;">
+		<img src="${path}/resources/img/spot/성산일출봉.gif" style="width:100%;">
 		</section>
 	<section id="map-index">
 	    <div class="container">
@@ -112,15 +112,16 @@
             </div>
             
             
-	        <div class="card-deck row" style="display: flex;flex-wrap: wrap;">
+	        <div class="card-deck row" style="display: flex; flex-wrap: wrap;">
 	        	
-	        	<c:forEach items="${list }" var="p">
+	        	
+	        	<c:forEach items="${list}" var="p">
 	        	
 	        	<div class="col-4 mt-4 px-3">
 	        	
 	        	<div class="card m-0">
 	        		<%-- <img class="card-img-top" src="${path }/resources/upload/spot/thumbnail/${p.THUMBNAIL}"> --%>
-	        		<img class="card-img-top" src="${path }/resources/upload/spot/thumbnail/${p.thumbnail}" style="height: 200px">
+	        		<img class="card-img-top" src="${path}/resources/upload/spot/thumbnail/${p.thumbnail}" style="height: 200px;">
 	                <div class="card-body">
 	                    <h4 class="text-center card-title"><a href="${path }/spot/spotView.do?spotno=${p.placeno}">${p.title}</a></h4>
 	                    <p class="text-center card-text" style="margin:0;">${p.area}</p>
