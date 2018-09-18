@@ -11,4 +11,5 @@ public interface PlaceService {
 	int insertSpot(Place p);
 	Place selectSpot(int spotno);
 	void updateSpotCnt(int spotno);
+	int insertMySpot(Place place);
 }

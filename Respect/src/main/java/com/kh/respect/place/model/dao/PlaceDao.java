@@ -14,4 +14,5 @@ public interface PlaceDao {
 	int insertSpot(SqlSessionTemplate sqlSession, Place p);
 	Place selectSpot(SqlSessionTemplate sqlSession, int spotno);
 	void updateSpotCnt(SqlSessionTemplate sqlSession, int spotno);
+	int insertMySpot(SqlSessionTemplate sqlSession, Place place);
 }

@@ -692,10 +692,10 @@ $("#start_date").on("click",function()
 	var detailAddr;
 	 function test3()
 	 	  {
-	       // 빈페이지는 주소값을 안주고 선언한다
-	       // 변수에 담으면 리턴값으로 컨트롤을 하기위한 id값을 리턴으로 변수에 담을 수 있다
-	       var w1=window.open("",'popup','width=300,height=350, resizable=no');
-	       // 변수로 선언해서도 가능하다
+			 var url="${path}/schedule/myPlaceAddView?detailAddr="+detailAddr;
+		     var w1=window.open(url,'popup','width=300,height=350, resizable=no');
+	       
+/* 	       var w1=window.open("",'popup','width=300,height=350, resizable=no');
 	       var html='<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8">';
 	    	   html+='<META HTTP-EQUIV="Content-type" CONTENT="text/html;charset=UTF-8">';
 	       	   html+='<meta http-equiv="X-UA-Compatible" content="ie=edge">'
@@ -716,7 +716,7 @@ $("#start_date").on("click",function()
 	               
 	           console.log(html);
 
-	       w1.document.write(html);
+	       w1.document.write(html); */
 	   }
 	   /* 추가 */
 	// 지도를 클릭했을 때 클릭 위치 좌표에 대한 주소정보를 표시하도록 이벤트를 등록합니다

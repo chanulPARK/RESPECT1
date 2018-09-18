@@ -43,5 +43,12 @@ public class PlaceDaoImpl implements PlaceDao {
 		
 	}
 
+	@Override
+	public int insertMySpot(SqlSessionTemplate sqlSession, Place place) {
+		return sqlSession.insert("spot.insertMyPlace", place);
+	}
+	
+	
+
 
 }

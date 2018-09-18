@@ -2,6 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="schedule">
 
+	<resultMap type="map" id="ScheduleMap"></resultMap>
+	
 	<insert id="insertSchedule" parameterType="schedule">
 		insert into schedule values(seq_schedule.nextval,#{travelTheme},#{partyName},#{userId},#{title},#{startDate},#{endDate},#{peopleNum},#{publicFlag},default,default,default,default,default,sysdate,#{placeNo})
 		<selectKey keyProperty="scheduleNo" resultType="_int" order="AFTER">
@@ -12,6 +14,14 @@
   		insert into timetable values(#{scheduleNo}, #{placeNo}, #{day}, #{time})
   	</insert>
   	
+  	<select id="selectOneScheduleView" resultType="map" parameterType="_int">
+  		select S.*,R.nickname as nickname,to_char(startdate,'yyyy-mm-dd') as startdate1,to_char(enddate,'yyyy-mm-dd') as enddate1 from schedule S join rp_user R on(R.userid=S.userid) where scheduleno = #{scheduleNo} 
+  	</select>
+  	
+  	<select id="selectOneTimetableView" resultType="map" parameterType="_int">
+  		select T.*,P.title,P.address from timetable T join place P on(P.placeNo=T.placeno) where scheduleNo = #{scheduleNo} 
+  	</select>
+  	
   	<select id="selectScheduleList" resultType="map">
 		SELECT * FROM(SELECT S.*,P.THUMBNAIL FROM SCHEDULE S INNER JOIN PLACE P ON(S.PLACENO=P.PLACENO) ORDER BY ROWNUM DESC)
   	</select>
@@ -19,4 +29,192 @@
   	<select id="selectTotalCount" resultType="_int">
 		select count(*) from schedule
 	</select>
+	
+	<select id="selectScheduleFilter" parameterType="map" resultMap="ScheduleMap">
+		SELECT * FROM(SELECT S.*,P.THUMBNAIL FROM SCHEDULE S INNER JOIN PLACE P ON(S.PLACENO=P.PLACENO) ORDER BY ROWNUM DESC)
+		<!-- 최신,인기순만 눌렀을때 -->
+		<if test="partyName == null and tripType ==null">
+			<choose>
+				<when test="sort eq 'on'">
+					order by writedate desc
+				</when>
+				<when test="sort eq 'off'">
+					order by hitscount desc
+				</when>
+			</choose>
+		</if>
+		
+		<!-- 여행 일행만 눌렀을때 -->
+		<if test="tripType == null and sort == null">
+				<choose>
+				<when test="partyName eq '전체'">	</when>
+				<when test="partyName != '전체'">
+					where partyname = #{partyName}
+				</when>
+			</choose>
+		</if>
+		
+		<!-- 여행 전 후만 눌렀을때 -->
+		<if test="partyName == null and sort == null">
+			<choose>
+				<when test="tripType == 0">
+					where reportflag=0
+				</when>
+				<when test="tripType == 1">
+					where reportflag=1
+				</when>
+				<when test="tripType == 2"></when>
+			</choose>
+		</if>
+		<!-- 모든 검색이 선택됐을때 -->
+		<if test="partyName!=null and sort!=null and tripType!=null">
+			<choose>
+			<!-- 검색범위 최신기준 경우의 수-->
+				<when test="sort == 'on' and tripType == 0">
+					where partyname = #{partyName} and reportflag=0 order by writedate desc
+				</when>
+				<when test="sort == 'on' and tripType == 1">
+					where partyname = #{partyName} and reportflag=1 order by writedate desc
+				</when>
+				<when test="sort == 'on' and tripType == 2">
+					where partyname = #{partyName} order by writedate desc
+				</when>
+				<when test="sort == 'on' and tripType == 2 and partyName eq '전체'">
+					order by writedate desc
+				</when>
+			<!-- 검색범위 인기기준 경우의 수-->
+				<when test="sort eq 'off' and tripType == 0">
+					where partyname = #{partyName} and reportflag=0 order by hitscount desc
+				</when>
+				<when test="sort eq 'off' and tripType == 1">
+					where partyname = #{partyName} and reportflag=1 order by hitscount desc
+				</when>
+				<when test="sort eq 'off' and tripType == 2">
+					where partyname = #{partyName} and reportflag=2 order by hitscount desc
+				</when>
+				<when test="sort == 'off' and tripType == 2 and partyName eq '전체'">
+					order by hitscount desc
+				</when>
+			</choose>
+		</if>
+		<!-- 1,2 -->
+		<if test="sort!=null and tripType!=null and partyName==null">
+			<choose>
+			<!-- 검색범위 최신기준 경우의 수-->
+				<when test="sort == 'on' and tripType == 0">
+					where partyname = #{partyName} and reportflag=0 order by writedate desc
+				</when>
+				<when test="sort == 'on' and tripType == 1">
+					where partyname = #{partyName} and reportflag=1 order by writedate desc
+				</when>
+				<when test="sort == 'on' and tripType == 2">
+					where partyname = #{partyName} order by writedate desc
+				</when>
+			<!-- 검색범위 인기기준 경우의 수-->
+				<when test="sort eq 'off' and tripType == 0">
+					where partyname = #{partyName} and reportflag=0 order by hitscount desc
+				</when>
+				<when test="sort eq 'off' and tripType == 1">
+					where partyname = #{partyName} and reportflag=1 order by hitscount desc
+				</when>
+				<when test="sort eq 'off' and tripType == 2">
+					where partyname = #{partyName} order by hitscount desc
+				</when>
+			</choose>
+		</if>
+		
+		<!-- 2,3 -->
+		<if test="sort==null and tripType!=null and partyName!=null">
+			<choose>
+				<when test="tripType == 0">
+					where partyname = #{partyName} and reportflag=0
+				</when>
+				<when test="tripType == 1">
+					where partyname = #{partyName} and reportflag=1
+				</when>
+				<when test="tripType == 2">
+					where partyname = #{partyName}
+				</when>
+			</choose>
+		</if>
+		<!-- 1,3 -->
+		<if test="sort!=null and tripType==null and partyName!=null">
+			<choose>
+				<when test="sort == 'on'">
+					where partyname = #{partyName} order by writedate desc
+				</when>
+				<when test="sort == 'on'">
+					where partyname = #{partyName} order by writedate desc
+				</when>
+				<when test="sort == 'on'">
+					order by writedate desc
+				</when>
+			</choose>
+			<choose>
+				<when test="sort == 'off'">
+					where partyname = #{partyName} order by hitscount desc
+				</when>
+				<when test="sort == 'off'">
+					where partyname = #{partyName} order by hitscount desc
+				</when>
+				<when test="sort == 'off'">
+					order by hitscount desc
+				</when>
+			</choose>
+		</if>
+		
+	</select>
+	
+	
+	
+	
+	
+	<!-- 댓글 -->
+	<insert id="scheduleReplyWrite" parameterType="com.kh.respect.schedule.model.vo.ScheduleReply">
+        INSERT INTO SCHEDULE_REPLY VALUES(SEQ_SCHEDULE_REPLY.NEXTVAL,#{scheduleNo},NULL,#{userId},SYSDATE,#{content},0,#{scheduleReplyLevel},0)
+        <selectKey keyProperty="replyNo" resultType="_int" order="AFTER">
+         SELECT SEQ_SCHEDULE_REPLY.CURRVAL FROM DUAL
+      </selectKey>
+     </insert>
+     
+     <update id="scheduleReplyCountUpdate" parameterType="_int">
+        UPDATE SCHEDULE SET REPLYCOUNT = REPLYCOUNT+1 WHERE SCHEDULENO = #{scheduleNo}
+     </update>
+     
+     <insert id="insertScheduleReplyAttach" parameterType="com.kh.respect.schedule.model.vo.ScheduleReplyAttachment">
+        INSERT INTO SCHEDULE_REPLY_ATTACHMENT VALUES(SEQ_SCHEDULE_REPLY_ATTACHMENT.NEXTVAL,#{replyNo},#{originName},#{reNamed})
+     </insert>
+     
+     <insert id="scheduleReplyWrite2" parameterType="com.kh.respect.schedule.model.vo.ScheduleReply">
+        INSERT INTO SCHEDULE_REPLY VALUES(SEQ_SCHEDULE_REPLY.NEXTVAL,#{scheduleNo},#{replyRef},#{userId},SYSDATE,#{content},0,#{scheduleReplyLevel},0)
+     </insert>
+     
+     <update id="scheduleReplyReplyCountUpdate" parameterType="_int">
+        UPDATE SCHEDULE_REPLY SET REPLYCOUNT = REPLYCOUNT+1 WHERE REPLYNO=#{replyRefNo}
+     </update>
+     
+     
+     <delete id="scheduleReplyDelete" parameterType="_int">
+        DELETE FROM SCHEDULE_REPLY WHERE REPLYNO=#{replyNo}
+     </delete>
+     
+     <update id="scheduleReplyGood" parameterType="_int">
+        UPDATE SCHEDULE_REPLY SET GOODCOUNT = GOODCOUNT+1 WHERE REPLYNO=#{replyNo}
+     </update>
+     
+     <select id="scheduleReplyGoodCheck" parameterType="com.kh.respect.schedule.model.vo.ScheduleReply" resultType="_int">
+        SELECT COUNT(*) FROM SCHEDULE_REPLY_GOOD WHERE REPLYNO=#{replyNo} AND USERID=#{userId}
+     </select>
+     
+     <insert id="insertscheduleReplyGood" parameterType="com.kh.respect.schedule.model.vo.ScheduleReply">
+        INSERT INTO SCHEDULE_REPLY_GOOD VALUES(#{replyNo},#{userId})
+     </insert>
+     
+     <select id="scheduleReplyList" parameterType="_int" resultType="map">
+        select A.*,P.PICTURE,P.NICKNAME from SCHEDULE_REPLY A INNER JOIN RP_USER P ON(A.USERID = P.USERID) where SCHEDULENO=#{scheduleNo} start with SCHEDULEREPLYLEVEL=1 connect by prior REPLYNO=REPLYREF order siblings by WRITEDATE asc
+     </select>
+     
+     <select id="scheduleAttList" resultType="map">
+        select * from SCHEDULE_REPLY_ATTACHMENT
+     </select>
 </mapper>

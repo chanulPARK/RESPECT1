@@ -6,6 +6,8 @@ import java.util.Map;
 import org.mybatis.spring.SqlSessionTemplate;
 
 import com.kh.respect.schedule.model.vo.Schedule;
+import com.kh.respect.schedule.model.vo.ScheduleReply;
+import com.kh.respect.schedule.model.vo.ScheduleReplyAttachment;
 import com.kh.respect.schedule.model.vo.TimeTable;
 
 public interface ScheduleDao {
@@ -14,5 +16,23 @@ public interface ScheduleDao {
 	int insertTimeTable(SqlSessionTemplate session, TimeTable tt);
 	List<Map<String, String>> selectScheduleList(SqlSessionTemplate session, int cPage, int numPerPage);
 	int selectTotalCount(SqlSessionTemplate session);
+	Map<String, String> selectOneScheduleView(SqlSessionTemplate session, int scheduleNo);
+	List<Map<String, String>> selectScheduleFilter(SqlSessionTemplate session, Map<String, String> map, int numPerPage,
+			int cPage);
+	List<TimeTable> selectOneTimetableView(SqlSessionTemplate session, int scheduleNo);
+	
+	//댓글
+	
+   int scheduleReplyWrite(SqlSessionTemplate session, ScheduleReply schedulyReply);
+   void scheduleReplyCountUpdate(SqlSessionTemplate session, int scheduleNo);
+   int insertScheduleReplyAttach(SqlSessionTemplate session, ScheduleReplyAttachment a);
+   int scheduleReplyWrite2(SqlSessionTemplate session, ScheduleReply schedulyReply);
+   void scheduleReplyReplyCountUpdate(SqlSessionTemplate session, int replyRefNo);
+   int scheduleReplyDelete(SqlSessionTemplate session, int replyNo);
+   int scheduleReplyGood(SqlSessionTemplate session, int replyNo);
+   int scheduleReplyGoodCheck(SqlSessionTemplate session, ScheduleReply schedulyReply);
+   void insertscheduleReplyGood(SqlSessionTemplate session, ScheduleReply schedulyReply);
+   List<Map<String, String>> scheduleReplyList(SqlSessionTemplate session, int scheduleNo);
+   List<Map<String, String>> scheduleAttList(SqlSessionTemplate session);
 	
 }
