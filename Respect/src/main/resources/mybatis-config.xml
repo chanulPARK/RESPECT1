@@ -4,6 +4,7 @@
 	<typeAliases>
 		<typeAlias type="com.kh.respect.place.model.vo.Place" alias="place"/>
 		<typeAlias type="com.kh.respect.place.model.vo.PlaceSpring" alias="placespring"/>
+		<typeAlias type="com.kh.respect.place.model.vo.PlaceGood" alias="placegood"/>
 		<typeAlias type="com.kh.respect.meet.model.vo.Meet" alias="meet"/>
 		<typeAlias type="com.kh.respect.user.model.vo.User" alias="user"/>
 		<typeAlias type="com.kh.respect.message.model.vo.Message" alias="message"/>

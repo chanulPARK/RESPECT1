@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.kh.respect.place.model.dao.PlaceDao;
 import com.kh.respect.place.model.vo.Place;
+import com.kh.respect.place.model.vo.PlaceGood;
 import com.kh.respect.place.model.vo.PlaceSpring;
 
 @Service
@@ -55,27 +56,47 @@ public class PlaceServiceImpl implements PlaceService {
 	}
 
 	@Override
-	@Transactional
-	public Map<String, Object> spotSearchList(PlaceSpring palce) throws Exception {
-		Map<String, Object> map = new HashMap<String, Object>();
-		
-		final int dataPerPage = 10;
-		int page = palce.getPage();
-		
-		int first = page * dataPerPage + 1;
-		int last = first + dataPerPage - 1;
-		
-		palce.setFirst(first);
-		palce.setLast(last);
-		
-		Integer total = dao.spotSearchListTotal(palce);
-		Integer totalPages = (int)Math.ceil(total / dataPerPage);
-		
-		map.put("total", total);
-		map.put("totalPages", totalPages);
-		map.put("list", dao.spotSearchList(palce));
-		
-		return map;
+	public int insertLike(PlaceGood pg) {
+		// TODO Auto-generated method stub
+		return dao.insertLike(sqlSession, pg);
 	}
+	
+	@Override
+	public int deleteLike(PlaceGood pg) {
+		// TODO Auto-generated method stub
+		return dao.deleteLike(sqlSession, pg);
+	}
+	
+	@Override
+	public PlaceGood selectLike(PlaceGood pg) {
+		// TODO Auto-generated method stub
+		return dao.selectLike(sqlSession, pg);
+	}
+	
+	
+
+//	@Override
+//	@Transactional
+//	public Map<String, Object> spotSearchList(PlaceSpring palce) throws Exception {
+//		Map<String, Object> map = new HashMap<String, Object>();
+//		
+//		final int dataPerPage = 10;
+//		int page = palce.getPage();
+//		
+//		int first = page * dataPerPage + 1;
+//		int last = first + dataPerPage - 1;
+//		
+//		palce.setFirst(first);
+//		palce.setLast(last);
+//		
+//		Integer total = dao.spotSearchListTotal(palce);
+//		Integer totalPages = (int)Math.ceil(total / dataPerPage);
+//		
+//		map.put("total", total);
+//		map.put("totalPages", totalPages);
+//		map.put("list", dao.spotSearchList(palce));
+//		
+//		return map;
+//	}
 	
 }

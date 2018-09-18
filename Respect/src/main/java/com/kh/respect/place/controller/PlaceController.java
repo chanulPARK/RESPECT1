@@ -26,7 +26,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.respect.place.model.service.PlaceService;
 import com.kh.respect.place.model.vo.Place;
+import com.kh.respect.place.model.vo.PlaceGood;
 import com.kh.respect.place.model.vo.PlaceSpring;
+
+import net.sf.json.JSONObject;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kh.respect.common.Page;
 
@@ -221,13 +225,48 @@ public class PlaceController {
       return jsonStr;
 	}
 	
-	@RequestMapping(value = "/spot/spotSearchList.do", method = RequestMethod.POST)
-	public @ResponseBody Map<String, Object> spotSearchList(@RequestBody PlaceSpring place) throws Exception  {
+//	@RequestMapping(value = "/spot/spotSearchList.do", method = RequestMethod.POST)
+//	public @ResponseBody Map<String, Object> spotSearchList(@RequestBody PlaceSpring place) throws Exception  {
+//		
+//		System.out.println("목록페이지(cPage) : "+place);
+//		
+//		return service.spotSearchList(place);
+//	}
+	
+	
+	@RequestMapping(value="/spot/like.do", method=RequestMethod.POST)
+	public @ResponseBody String like(@RequestBody PlaceGood pg) throws Exception {
 		
-		System.out.println("목록페이지(cPage) : "+place);
+		String userid = pg.getUserid();
+		int placeno = pg.getPlaceno(); 
 		
-		return service.spotSearchList(place);
-	}
+		logger.info("uuu"+userid+placeno);
+		
+		int result = 0;
+		String msg = "";
+		
+		if(service.selectLike(pg)==null) {
+			result = service.insertLike(pg);
+			msg = "좋아요하였습니다.";
+		}
+		
+		else {
+			result = service.deleteLike(pg);
+			msg = "좋아요를 취소하였습니다.";
+		}
+		
+		JSONObject obj = new JSONObject();
+		
+//	    obj.put("placeNo", pg.getPlaceno());
+//	    obj.put("like_check", like_check);
+//	    obj.put("like_cnt", like_cnt);
+	    obj.put("msg", msg);
+	    
+	    return obj.toString();
+//	    return msg;
+	  }
+
+
 	
 	
 }

@@ -52,5 +52,21 @@
            AND MINORCATEGORY = #{minorcategory}
            
     </select>
+    
+    <select id="selectLike" parameterType="placegood" resultType="placegood">
+    	SELECT * FROM PLACE_GOOD
+    	WHERE PLACENO=#{placeno} AND USERID=#{userid}
+    </select>
+    
+    <insert id="insertLike" parameterType="placegood">
+		INSERT INTO PLACE_GOOD(PLACENO, USERID)
+		VALUES(#{placeno}, #{userid})
+	</insert>
+	
+	<delete id="deleteLike" parameterType="placegood">
+		DELETE FROM PLACE_GOOD
+		WHERE PLACENO=#{placeno} AND USERID=#{userid}
+	</delete>
+    
 	
 </mapper>

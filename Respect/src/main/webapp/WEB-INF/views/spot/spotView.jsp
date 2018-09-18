@@ -36,6 +36,8 @@
             <input type="hidden" id="placeno" value="${place.placeno }">
             <input type="hidden" id="title" value="${place.title }">
             <input type="hidden" id="addr" value="${place.address }">
+            <input type="hidden" id="userid" value="${userLoggedIn.userId}">
+            
             
             <div class="table-responsive info-table">
                 <table class="table">
@@ -71,14 +73,24 @@
         <div class="container">
             <div class="row" style="text-align:center;">
                 <div class="col">
-                    <button class="btn btn-outline-warning btn-lg" type="button" data-toggle="button" style="border: 0">
-                        <i class="fa fa-thumbs-o-up m-0" style="font-size: 50px;"></i>
-                    </button>
+                    <c:choose>
+						<c:when test="${userLoggedIn ne null}">
+		                    <a href='javascript: fn_like();'>
+		                        <i class="fa fa-thumbs-o-up detail-icon" id="like_a" style="padding: 8px 16px;"></i>
+		                    </a>
+						</c:when>
+						<c:otherwise>
+						    <a href='javascript: login_need();'>
+		                        <i class="fa fa-thumbs-o-up detail-icon" style="padding: 8px 16px;"></i>
+		                    </a>
+						</c:otherwise>
+					</c:choose>
+                    
                     <h5 style="color:rgb(150,150,150);">좋아요</h5>
                     <h5 style="color:#ffb53c;">${place.goodcount }</h5>
                 </div>
                 <div class="col" style="border-left:1px solid #e5e5e5">
-                    <button class="btn btn-outline-warning btn-lg" type="button" data-toggle="button" style="border: 0; padding: 8px 12px">
+                    <button class="btn btn-outline-warning btn-lg" type="button" id="bring_btn" style="border: 0; padding: 8px 12px">
                         <i class="fa fa-heart m-0" style="font-size: 50px;"></i>
                     </button>
                     <h5 style="color:rgb(150,150,150);">찜하기</h5>
@@ -240,19 +252,40 @@
     });
 </script>
 <script type="text/javascript">
+	function login_need() {
+		alert("로그인이 필요합니다.")
+	}
+
+
 	function fn_like() {
 		var placeNo = $("#placeno").val();
+		var userId = $("#userid").val();
+		
+		var sendData = {"placeno":$('#placeno').val(), "userid":$('#userid').val()};
+		
+		console.log("boardno, userid : " + placeNo +","+ userId);
 		
 		$.ajax({
-			url: "${path }/spot/like.do",
-			type: "GET",
-			datetype: "json",
-			data: "placeno="+placeNO,
-			success: function(data) {
-				var msg = "좋아요하였습니다.";
-			}
-		})
-	}
+		    url: "${path}/spot/like.do",
+		    type: "POST",
+		    cache: false,
+		    dataType: "json",
+		    data: sendData,
+		    success: function(data) {
+		    	var msg = '';
+		    	msg += data.msg;
+		    	alert(msg);
+		       
+				$('#like_a').attr('style', 'color:#ffc107;');
+		    },
+		    error: function(request, status, error){
+		      alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+		    }
+		});
+		
+		
+		}
+
 </script>
 
 <%@ include file="/WEB-INF/views/common/footer.jsp"%>

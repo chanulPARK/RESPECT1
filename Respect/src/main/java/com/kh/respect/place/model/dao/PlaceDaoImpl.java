@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.kh.respect.place.model.vo.Place;
+import com.kh.respect.place.model.vo.PlaceGood;
 import com.kh.respect.place.model.vo.PlaceSpring;
 
 @Repository
@@ -47,16 +48,38 @@ public class PlaceDaoImpl implements PlaceDao {
 	}
 
 	@Override
-	public List<PlaceSpring> spotSearchList(PlaceSpring p) throws Exception {
+	public int insertLike(SqlSessionTemplate sqlSession, PlaceGood pg) {
 		// TODO Auto-generated method stub
-		return sqlSession.selectList("spot.spotSearchList", p.getMinorcategory());
+		return sqlSession.insert("spot.insertLike", pg);
 	}
-
+	
 	@Override
-	public Integer spotSearchListTotal(PlaceSpring p) throws Exception {
+	public int deleteLike(SqlSessionTemplate sqlSession, PlaceGood pg) {
 		// TODO Auto-generated method stub
-		return sqlSession.selectOne("spot.spotSearchListTotal", p.getMinorcategory());
+		return sqlSession.delete("spot.deleteLike", pg);
 	}
+	
+	@Override
+	public PlaceGood selectLike(SqlSessionTemplate sqlSession, PlaceGood pg) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("spot.selectLike", pg);
+	}
+	
+	
+
+//	@Override
+//	public List<PlaceSpring> spotSearchList(PlaceSpring p) throws Exception {
+//		// TODO Auto-generated method stub
+//		return sqlSession.selectList("spot.spotSearchList", p.getMinorcategory());
+//	}
+//
+//	@Override
+//	public Integer spotSearchListTotal(PlaceSpring p) throws Exception {
+//		// TODO Auto-generated method stub
+//		return sqlSession.selectOne("spot.spotSearchListTotal", p.getMinorcategory());
+//	}
+	
+	
 
 
 }
