@@ -197,7 +197,7 @@
                       </div>
                     </div>
                     <div id="card_line" style="height: auto;">
-                      <img src="${path }/resources/upload/profile/${msr.THUMBNAIL}" alt="" width="100%" height="130px">
+                      <img src="${path }/resources/upload/spot/thumbnail/${msr.THUMBNAIL}" alt="" width="100%" height="130px">
                       <a href="${path }/mySchedule/myScheduleReportDelete.do?reportNo=${msr.REPORTNO }&userId=${userLoggedIn.userId}" style="text-decoration:none !important" onclick="return check()"><img src="${path }/resources/upload/profile/xButton.png" alt="" width="20px" style="position: absolute; top: 25px; right: 25px;"></a>
                       
                       
