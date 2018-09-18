@@ -13,4 +13,13 @@ public interface ScheduleService {
 	List<Map<String, String>> selectScheduleList(int cPage, int numPerPage);
 
 	int selectTotalCount();
+	
+	Map selectSchedule(int scheduleNo);
+	
+	List<Map> selectTimeTableList(int scheduleNo);
+	
+	int updateSchedule(Schedule sc, List<TimeTable> list);
+	
+//	int deleteSchedule(int scheduleNo);
+	
 }

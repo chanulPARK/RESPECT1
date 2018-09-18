@@ -1,13 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="com.kh.respect.user.model.vo.User"%>
-<%@ include file="/WEB-INF/views/common/header.jsp" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 
-<html>
+<%@ include file="/WEB-INF/views/common/header.jsp"%>
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta http-equiv="X-UA-Compatible" content="ie=edge">
-<meta charset="UTF-8">
-
 <style>
 
     #map{
@@ -62,13 +56,15 @@
             <div class="row">
                     <h2 class="pt-4 ml-2">나의 여행 일정</h2>
                     <div class='row ml-2 ' style="margin-top:35px;">
-                        <h6>작성자</h6><h6 class="ml-2" style="color:rgb(208, 203, 203);">광주오상현</h6>
+                        <h6>작성자</h6><h6 class="ml-2" style="color:rgb(208, 203, 203);">${schedule.NICKNAME }</h6>
                         
                     </div>
                    <div class="pt-4 ml-2 col col-lg-8" style="margin-top:2px; float:right;" align='right'>
-                    	<button class='btn' onclick="fn_submit()">등록하기</button>
+                    	<button class='btn' onclick="fn_update()">수정하기</button>
                     </div>
-                     
+                     <div class="pt-4 ml-2 col col-lg-8" style="margin-top:2px; float:right;" align='right'>
+                    	<button class='btn' onclick="fn_scheduleDelete(${scheduleNo})">삭제</button>
+                    </div>
             </div> 
             
             <div class="row">
@@ -79,14 +75,14 @@
                         <br>          
                             <h6>제목</h6>
                             <div class="input-group ">
-                                <input style="margin-left: 3%; margin-right: 3%; border-radius:0; " name="title" type="text" class="form-control" placeholder="일정의 제목을 입력하세요." aria-label="Username" aria-describedby="basic-addon1" required>
+                                <input style="margin-left: 3%; margin-right: 3%; border-radius:0; " name="title" type="text" class="form-control" value='${schedule.TITLE }' aria-label="Username" aria-describedby="basic-addon1" required>
                             </div>
                                                         
                             <br>
                             <h6>기간</h6>
                             <div class="input-group row" >
-                                    <input style="margin-left: 1%; margin-right: 1%; border-radius:0;" type="text" class="form-control" name="startDate" id="start_date" required> <p>~</p>
-                                    <input style="margin-left: 1%; margin-right: 1%; border-radius:0;" type="text" class="form-control" name="endDate" id="end_date" required>
+                                    <input style="margin-left: 1%; margin-right: 1%; border-radius:0;" value='${schedule.STARTDATE1 }' type="text" class="form-control" name="startDate" id="start_date" required> <p>~</p>
+                                    <input style="margin-left: 1%; margin-right: 1%; border-radius:0;" value='${schedule.ENDDATE1 }' type="text" class="form-control" name="endDate" id="end_date" required>
                                     
                             </div>
                             <br>
@@ -95,12 +91,12 @@
                                 <h6 style="float:none;">&nbsp;&nbsp;일행</h6>
                             </div>
                             <div class="input-group row" >
-                                    <input style="margin-left: 3%; width:25%; border-radius:5%;"  name="people" type="number" class="form-control" min="1" max="1000" required >&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <input style="margin-left: 3%; width:25%; border-radius:5%;"  name="people" type="number" class="form-control" min="1" max="1000" value='${schedule.PEOPLENUM }' required >&nbsp;&nbsp;&nbsp;&nbsp;
                                     <select style="margin-right: 3%; width:30%; border-radius:0;" name='partyName'  class="form-control" required>
-                                            <option value="혼자">나홀로여행</option>
-                                            <option value="친구">친구와함께</option>
-                                            <option value="커플">커플</option>
-                                            <option value="단체">단체여행</option>
+                                            <option value="혼자" ${schedule.PARTYNAME=="혼자"?"selected":"" }>나홀로여행</option>
+                                            <option value="친구" ${schedule.PARTYNAME=="친구"?"selected":"" }>친구와함께</option>
+                                            <option value="커플" ${schedule.PARTYNAME=="커플"?"selected":"" }>커플</option>
+                                            <option value="단체" ${schedule.PARTYNAME=="단체"?"selected":"" }>단체여행</option>
                                     </select>   
                             </div>
                             <br>
@@ -108,11 +104,11 @@
                             <div class="input-group row" >
                                     
                                     <select style="margin-right: 3%; width:30%; border-radius:0;" name='travelTheme'  class="form-control" required>
-                                            <option value="휴식">휴식과 치유 여행</option>
-                                            <option value="걷기">천천히 걷기</option>
-                                            <option value="식도락">식도락 여행</option>
-                                            <option value="유산">제주의 문화유산</option>
-                                            <option value="행사">전시와 행사</option>
+                                            <option value="휴식" ${schedule.TRAVELTHEME=="휴식"?"selected":"" }>휴식과 치유 여행</option>
+                                            <option value="걷기" ${schedule.TRAVELTHEME=="걷기"?"selected":"" }>천천히 걷기</option>
+                                            <option value="식도락" ${schedule.TRAVELTHEME=="식도락"?"selected":"" }>식도락 여행</option>
+                                            <option value="유산" ${schedule.TRAVELTHEME=="유산"?"selected":"" }>제주의 문화유산</option>
+                                            <option value="행사" ${schedule.TRAVELTHEME=="행사"?"selected":"" }>전시와 행사</option>
                                         
                                     </select>   
                             </div>
@@ -120,8 +116,8 @@
                             <br>
                             <h6>여행일정 공개여부</h6>
                             <div style="display:inline-block">
-                                <input type="radio" id="open" name="openflag" value='1'>&nbsp;공개
-                                <input type="radio" id="private" name="openflag" class="ml-2" value="0">&nbsp;비공개
+                                <input type="radio" id="open" name="openflag" value='1' ${schedule.PUBLICFLAG==1?"checked='checked'":"" }>&nbsp;공개
+                                <input type="radio" id="private" name="openflag" class="ml-2" value="0" ${schedule.PUBLICFLAG==0?"checked='checked'":"" }>&nbsp;비공개
                             </div>
                          
                          
@@ -255,28 +251,228 @@
                        
                        <div class="p-0 ml-0 col-md-9" >
                             <div class="mt-4" id="map"  style="width:100%; height:300px; box-shadow: 3px 4px 5px 0 rgba(2,2,2,.2); border-radius:0;"></div> 
-                            <p id="timetableList"></p>
-                                    <!-- The slideshow(타임테이블) -->
+                            <p id="timetableList">
+                            <fmt:parseDate value="${schedule.STARTDATE }" var="startDate" pattern="yyyy-MM-dd"/>
+						<fmt:parseNumber value="${startDate.time / (1000*60*60*24)}" integerOnly="true" var="startDay"></fmt:parseNumber>
+						<fmt:parseDate value="${schedule.ENDDATE }" var="endDate" pattern="yyyy-MM-dd"/>
+						<fmt:parseNumber value="${endDate.time / (1000*60*60*24)}" integerOnly="true" var="endDay"></fmt:parseNumber>
+                        <!-- 타임테이블 -->
+                        <div id='demo' class='carousel slide' data-ride='carousel' data-interval='false'>
+                            <!-- The slideshow -->
+                            <form id='timetableForm' action='${path}/schedule/scheduleUpdateEnd' method='post'>
+        				    <input type='hidden' name='scheduleNo' value='${scheduleNo }'>
+        				    <input type='hidden' name='partyName2'><input type='hidden' name='title2'><input type='hidden' name='startDate2'><input type='hidden' name='endDate2'><input type='hidden' name='people2'><input type='hidden' name='travelTheme2'><input type='hidden' name='openflag2'>
+                            <div class="carousel-inner">
+                            <c:forEach var="v" begin='1' end='${endDay - startDay +1}' varStatus="s">
+	                            <c:choose>
+	                              <c:when test="${s.index==1}">
+	                              	<div class="carousel-item active">
+	                              	<div class="day">
+                                            <table class="table-bordered timeline" id='${s.count }'>
+                                                    <tr>
+                                                        <th class="time1">TIME</th>
+                                                        <th class="place">
+                                                                <a class='float-left' onclick='fn_move()' href='#demo'  data-slide='prev'>&lt;</a>
+                                                                DAY ${s.count }
+                                                                <a class='float-right' onclick='fn_move()' href='#demo'  data-slide='next'>&gt;</a>
+                                                        </th>
+                                                    </tr>
+                                                    <tr>
+                                                    		<td class='time1'>06:00</td>
+                                                    		<td id='6' class='place' ondrop='drop(event)' ondragover='allowDrop(event)'></td>
+                                                            
+                                                    </tr>
+                                                    <tr>
+                                                           <td class='time1'>07:00</td>
+                                                    		<td id='7' class='place' ondrop='drop(event)' ondragover='allowDrop(event)'></td>
+                                                    </tr>
+                                                    <tr>
+                                                            <td class='time1'>08:00</td>
+                                                    		<td id='8' class='place' ondrop='drop(event)' ondragover='allowDrop(event)'></td>
+                                                    </tr>
+                                                    <tr>
+                                                            <td class='time1'>09:00</td>
+                                                    		<td id='9' class='place' ondrop='drop(event)' ondragover='allowDrop(event)'></td>
+                                                    </tr>
+                                                    <tr>
+                                                            <td class='time1'>10:00</td>
+                                                    		<td id='10' class='place' ondrop='drop(event)' ondragover='allowDrop(event)'></td>
+                                                    </tr>
+                                                    <tr>
+                                                            <td class='time1'>11:00</td>
+                                                    		<td id='11' class='place' ondrop='drop(event)' ondragover='allowDrop(event)'></td>
+                                                    </tr>
+                                                    <tr>
+                                                            <td class='time1'>12:00</td>
+                                                    		<td id='12' class='place' ondrop='drop(event)' ondragover='allowDrop(event)'></td>
+                                                    </tr>
+                                                    <tr>
+                                                            <td class='time1'>13:00</td>
+                                                    		<td id='13' class='place' ondrop='drop(event)' ondragover='allowDrop(event)'></td>
+                                                    </tr>
+                                                    <tr>
+                                                            <td class='time1'>14:00</td>
+                                                    		<td id='14' class='place' ondrop='drop(event)' ondragover='allowDrop(event)'></td>
+                                                    </tr>
+                                                    <tr>
+                                                            <td class='time1'>15:00</td>
+                                                    		<td id='15' class='place' ondrop='drop(event)' ondragover='allowDrop(event)'></td>
+                                                    </tr>
+                                                    <tr>
+                                                            <td class='time1'>16:00</td>
+                                                    		<td id='16' class='place' ondrop='drop(event)' ondragover='allowDrop(event)'></td>
+                                                    </tr>
+                                                    <tr>
+                                                            <td class='time1'>17:00</td>
+                                                    		<td id='17' class='place' ondrop='drop(event)' ondragover='allowDrop(event)'></td>
+                                                    </tr>
+                                                    <tr>
+                                                            <td class='time1'>18:00</td>
+                                                    		<td id='18' class='place' ondrop='drop(event)' ondragover='allowDrop(event)'></td>
+                                                    </tr>
+                                                    <tr>
+                                                            <td class='time1'>19:00</td>
+                                                    		<td id='19' class='place' ondrop='drop(event)' ondragover='allowDrop(event)'></td>
+                                                    </tr>
+                                                    <tr>
+                                                            <td class='time1'>20:00</td>
+                                                    		<td id='20' class='place' ondrop='drop(event)' ondragover='allowDrop(event)'></td>
+                                                    </tr>
+                                                    <tr>
+                                                            <td class='time1'>21:00</td>
+                                                    		<td id='21' class='place' ondrop='drop(event)' ondragover='allowDrop(event)'></td>
+                                                    </tr>
+                                                    <tr>
+                                                            <td class='time1'>22:00</td>
+                                                    		<td id='22' class='place' ondrop='drop(event)' ondragover='allowDrop(event)'></td>
+                                                    </tr>
+                                                    <tr>
+                                                            <td class='time1'>23:00</td>
+                                                    		<td id='23' class='place' ondrop='drop(event)' ondragover='allowDrop(event)'></td>
+                                                    </tr>
+                                            
+                                            </table>
+                                    </div>
+                                    </div>
+	                              </c:when>
+	                              	<c:otherwise>
+	                              		<div class="carousel-item">
+	                              		<div class="day">
+                                            <table class="table-bordered timeline" id='${s.count }'>
+                                                    <tr>
+                                                        <th class="time1">TIME</th>
+                                                        <th class="place">
+                                                                <a class='float-left' onclick='fn_move()' href='#demo'  data-slide='prev'>&lt;</a>
+                                                                DAY ${s.count }
+                                                                <a class='float-right' onclick='fn_move()' href='#demo'  data-slide='next'>&gt;</a>
+                                                        </th>
+                                                    </tr>
+                                                    <tr>
+                                                    		<td class='time1'>06:00</td>
+                                                    		<td id='6' class='place' ondrop='drop(event)' ondragover='allowDrop(event)'></td>
+                                                            
+                                                    </tr>
+                                                    <tr>
+                                                           <td class='time1'>07:00</td>
+                                                    		<td id='7' class='place' ondrop='drop(event)' ondragover='allowDrop(event)'></td>
+                                                    </tr>
+                                                    <tr>
+                                                            <td class='time1'>08:00</td>
+                                                    		<td id='8' class='place' ondrop='drop(event)' ondragover='allowDrop(event)'></td>
+                                                    </tr>
+                                                    <tr>
+                                                            <td class='time1'>09:00</td>
+                                                    		<td id='9' class='place' ondrop='drop(event)' ondragover='allowDrop(event)'></td>
+                                                    </tr>
+                                                    <tr>
+                                                            <td class='time1'>10:00</td>
+                                                    		<td id='10' class='place' ondrop='drop(event)' ondragover='allowDrop(event)'></td>
+                                                    </tr>
+                                                    <tr>
+                                                            <td class='time1'>11:00</td>
+                                                    		<td id='11' class='place' ondrop='drop(event)' ondragover='allowDrop(event)'></td>
+                                                    </tr>
+                                                    <tr>
+                                                            <td class='time1'>12:00</td>
+                                                    		<td id='12' class='place' ondrop='drop(event)' ondragover='allowDrop(event)'></td>
+                                                    </tr>
+                                                    <tr>
+                                                            <td class='time1'>13:00</td>
+                                                    		<td id='13' class='place' ondrop='drop(event)' ondragover='allowDrop(event)'></td>
+                                                    </tr>
+                                                    <tr>
+                                                            <td class='time1'>14:00</td>
+                                                    		<td id='14' class='place' ondrop='drop(event)' ondragover='allowDrop(event)'></td>
+                                                    </tr>
+                                                    <tr>
+                                                            <td class='time1'>15:00</td>
+                                                    		<td id='15' class='place' ondrop='drop(event)' ondragover='allowDrop(event)'></td>
+                                                    </tr>
+                                                    <tr>
+                                                            <td class='time1'>16:00</td>
+                                                    		<td id='16' class='place' ondrop='drop(event)' ondragover='allowDrop(event)'></td>
+                                                    </tr>
+                                                    <tr>
+                                                            <td class='time1'>17:00</td>
+                                                    		<td id='17' class='place' ondrop='drop(event)' ondragover='allowDrop(event)'></td>
+                                                    </tr>
+                                                    <tr>
+                                                            <td class='time1'>18:00</td>
+                                                    		<td id='18' class='place' ondrop='drop(event)' ondragover='allowDrop(event)'></td>
+                                                    </tr>
+                                                    <tr>
+                                                            <td class='time1'>19:00</td>
+                                                    		<td id='19' class='place' ondrop='drop(event)' ondragover='allowDrop(event)'></td>
+                                                    </tr>
+                                                    <tr>
+                                                            <td class='time1'>20:00</td>
+                                                    		<td id='20' class='place' ondrop='drop(event)' ondragover='allowDrop(event)'></td>
+                                                    </tr>
+                                                    <tr>
+                                                            <td class='time1'>21:00</td>
+                                                    		<td id='21' class='place' ondrop='drop(event)' ondragover='allowDrop(event)'></td>
+                                                    </tr>
+                                                    <tr>
+                                                            <td class='time1'>22:00</td>
+                                                    		<td id='22' class='place' ondrop='drop(event)' ondragover='allowDrop(event)'></td>
+                                                    </tr>
+                                                    <tr>
+                                                            <td class='time1'>23:00</td>
+                                                    		<td id='23' class='place' ondrop='drop(event)' ondragover='allowDrop(event)'></td>
+                                                    </tr>
+                                            
+                                            </table>
+                                    </div>
+                                    </div>
+	                              	</c:otherwise>
+	                              </c:choose>
+                                    
+                                   </c:forEach>
+                              </div>
+                             
+                              
+                              </form>
+                            </div>
+                            </p>
+                             
                          
                                   
                                     
                                     
-                                  </div>
+                       </div>
+                        
                         </div>
   
                 <br>
                 
             </div>
           
-
+	
 </body>
-<!-- 지도 스크립트 -->
-
-
-
-
 
 <script>
+	
+	
 	function fn_deleteUserPlace(ev)
 	{ //타임테이블 값 삭제, 핀삭제, 장소삭제
 		var confirmflag=confirm("정말 삭제 하시겠습니까?");
@@ -363,7 +559,7 @@
 					data:{cPage:cPage,keyword:keyword},
 					
 					success:function(data)
-					{
+					{	
 						$("#pList").html(data);
 					}
 			});
@@ -494,19 +690,19 @@ $("#start_date").on("click",function()
         var days = (end - start) / 1000 / 60 / 60 / 24;
         if($("#demo")!=null)
         	{
-        	 $("#demo").remove();	
+        	 $("#demo").remove();
         	 for(var j=0; j<markers.length;j++)
-      		{
-      			if(markers[j]!=null)
-      			{
-      				
- 					markers[j].marks.setMap(null);
- 					markers[j].iw.close();
- 					markers[j]=null;
-      				
-      			}
-      			
-      		}
+     		{
+     			if(markers[j]!=null)
+     			{
+     				
+					markers[j].marks.setMap(null);
+					markers[j].iw.close();
+					markers[j]=null;
+     				
+     			}
+     			
+     		}
         	}
         
         var printHTML="<div id='demo' class='carousel slide' data-ride='carousel' data-interval='false'><div class='carousel-inner'>"
@@ -556,6 +752,7 @@ $("#start_date").on("click",function()
    		 	$('#timetableList').append(printHTML);
    		 
     }
+  
    
 });
     var clicktarget;
@@ -599,6 +796,7 @@ $("#start_date").on("click",function()
 	
 	var seq= createSeq();
 	var markers=[];
+	
 	var seq_num;
 	var ps= new daum.maps.services.Geocoder();
 	
@@ -616,8 +814,6 @@ $("#start_date").on("click",function()
 	var placename;
 	function fn_add(event)
 	{
-			
-			
 		    var place1=event.target.value;
 		    
 		    var place2=place1.split(",");
@@ -650,7 +846,7 @@ $("#start_date").on("click",function()
         active[0].classList.add("disable");
       	tableday=active[0].parentElement.parentElement.parentElement.id;
       	
-        var html="<div id='data"+seq_no+"' >"+place2[1]+"<input type='hidden' name='blank'><input type='hidden' name='timevalue' value='"+tableday+","+active[0].id+"'><input type='hidden' name='placevalue' value='"+place1+","+seq_no+"' class='placelist'><span class='float-right' class='drag' id='drag"+seq_no+"' draggable='true' ondragstart='drag(event)'> <img src='${path}/resources/img/arrow.png' style='width:50px; height:30px;'></span><button class='float-right delbtn' onclick='fn_delete("+seq_no+")'>X</button></div>";
+      	var html="<div id='data"+seq_no+"' >"+place2[1]+"<input type='hidden' name='blank'><input type='hidden' name='timevalue' value='"+tableday+","+active[0].id+"'><input type='hidden' name='placevalue' value='"+place1+","+seq_no+"' class='placelist'><span class='float-right' class='drag' id='drag"+seq_no+"' draggable='true' ondragstart='drag(event)'> <img src='${path}/resources/img/arrow.png' style='width:50px; height:30px;'></span><button class='float-right delbtn' onclick='fn_delete("+seq_no+")'>X</button></div>";
         
         active.append(html);
         var loc=place2[2];
@@ -750,6 +946,7 @@ $("#start_date").on("click",function()
 	
     function fn_move()
 	{
+    	
     	var origin=$(".active table[class='table-bordered timeline']");
 		if(markers!=null)
 		{
@@ -792,13 +989,13 @@ $("#start_date").on("click",function()
 		},1000);
 	};
 
-	function fn_submit(){
+	function fn_update(){
 		var title=$("input[name='title']").val();
 		var startDate=$("input[name='startDate']").val();
 		var endDate=$("input[name='endDate']").val();
 		var people=$("input[name='people']").val();
 		var travelTheme=$("select[name='travelTheme']").val();
-		console.log(travelTheme);
+		
 		var openflag=$("input[name='openflag']:checked").val();
 		
 		var partyName=$("select[name='partyName']").val();
@@ -821,7 +1018,13 @@ $("#start_date").on("click",function()
 		$("#timetableForm input[name='partyName2']").val(partyName);
 		$("#timetableForm").submit();
 	} 
-
+	function fn_scheduleDelete(scheduleNo)
+	{
+		if(confirm("정말 삭제하시겠습니까?"))
+		{
+			location.href="${path}/schedule/deleteSchedule?scheduleNo="+scheduleNo;
+		}
+	}
 	var custommarker = new daum.maps.Marker({
         map:map,
         clickable: true 
@@ -901,9 +1104,122 @@ $("#start_date").on("click",function()
 	       ps.coord2Address(coords.getLng(), coords.getLat(), callback);
 	   }
 	   
+	   var list=${ttList};
+	   var dataList=[];
+	   
+	   var idx=0;
+		for(var i=0; i<list.length;i++)
+		{
+			console.log(list[i]);
+			var pplaceno=list[i].PLACENO;
+			var pday=list[i].DAY;
+			var ptime=list[i].TIME;
+			var ptitle=list[i].TITLE;
+			var paddress=list[i].ADDRESS;
+			var pseq_no=seq();
+		  	var cate=list[i].MAJORCATEGORY;
+		  	console.log(cate);
+		  	
+		  	var html;
+		  	if(cate=='사용자등록')
+	  		{
+		  		html="<div id='data"+pseq_no+"' ><input type='hidden' name='blank'>"+ptitle+"<input type='hidden' name='timevalue' value='"+pday+","+ptime+"'><input type='hidden' name='placevalue' value='"+pplaceno+","+ptitle+","+paddress+","+pseq_no+"' class='placelist'><span class='float-right' class='drag' id='drag"+pseq_no+"' draggable='true' ondragstart='drag(event)'> <img src='${path}/resources/img/arrow.png' style='width:50px; height:30px;'></span><button class='float-right delbtn' onclick='fn_delete("+pseq_no+")'>X</button></div>";
+	  		}
+		  	else
+		  	{
+		  		html="<div id='data"+pseq_no+"' ><input class='mr-2' type='radio' name='represent' value='"+pplaceno+"'>"+ptitle+"<input type='hidden' name='timevalue' value='"+pday+","+ptime+"'><input type='hidden' name='placevalue' value='"+pplaceno+","+ptitle+","+paddress+","+pseq_no+"' class='placelist'><span class='float-right' class='drag' id='drag"+pseq_no+"' draggable='true' ondragstart='drag(event)'> <img src='${path}/resources/img/arrow.png' style='width:50px; height:30px;'></span><button class='float-right delbtn' onclick='fn_delete("+pseq_no+")'>X</button></div>";
+		  	}
+		    
+		    var tables=$("table[class='table-bordered timeline']");
+		    var pdata={pseq_no:pseq_no,ptitle:ptitle,paddress:paddress,pday:pday,idx:i};
+		    
+		    dataList.push(pdata);
+		  
+		    for(var k=0; k<tables.length;k++)
+	    	{
+				if(tables[k].id==pday)
+				{
+					
+					var targettd=$("table[id='"+pday+"'] td[id='"+ptime+"']");
+					
+					targettd.attr('class',"place disable");
+					targettd.append(html);
+				}
+	    	}
+		    ps.addressSearch(dataList[i].paddress,function(data,status)
+    		{
+		    	if(status === daum.maps.services.Status.OK)
+				{
+					
+					
+					for(var b=0; b<data.length; b++)
+					{
+						
+						makeMarker(data[b]);
+					} 
+					
+				}
+			}); 		
+		}
+		
+		function makeMarker(data)
+		{
+			var marker = new daum.maps.Marker({
+				map:map,
+				position:new daum.maps.LatLng(data.y, data.x),
+				clickable: true 
+			});
+			
+			
+			
+		    iwRemoveable = true;
+		    
+		    var infowindow = new daum.maps.InfoWindow({
+		        removable:iwRemoveable
+		    }); 
+		    
+			daum.maps.event.addListener(marker, 'click', function()
+			{
+				infowindow.open(map,marker);
+			});
+			
+			
+			var daymarker = {days:0,marks:marker,iw:infowindow,idx:idx++,data1:data};
+			markers.push(daymarker);
+			
+		
+			
+				for(var bb=0;bb<markers.length;bb++)
+				{
+					for(var aaa=0;aaa<dataList.length;aaa++)
+					{
+						if(markers[bb].data1.address_name==dataList[aaa].paddress)
+						{
+							markers[bb].days=dataList[aaa].pday;
+							markers[bb].marks.setTitle(dataList[aaa].pseq_no);
+							markers[bb].iw.setContent('<div style="padding:5px; font-size:12px;">'+dataList[aaa].ptitle+'</div>');
+						}
+					}
+					
+					
+					if(markers[bb].days!=1)
+					{
+						
+						markers[bb].marks.setVisible(false);		
+					}
+					
+				}
+		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
 
 </script>
-
 	
-	
-<%@ include file="/WEB-INF/views/common/footer.jsp" %>
+<%@ include file="/WEB-INF/views/common/footer.jsp"%>
