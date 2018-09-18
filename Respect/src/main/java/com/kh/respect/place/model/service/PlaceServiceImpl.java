@@ -55,5 +55,24 @@ public class PlaceServiceImpl implements PlaceService {
 		return dao.insertMySpot(sqlSession,place);
 	}
 	
+	public int selectTotalUserCount(String userId) {
+		
+		return dao.selectTotalUserCount(sqlSession,userId);
+	}
+
+	@Override
+	public List<Place> selectSearchList(int cPage, int numPerPage, String keyword) {
+		return dao.selectSearchList(sqlSession,cPage,numPerPage,keyword);
+	}
+
+	@Override
+	public int deleteSpot(int placeno) {
+		return dao.deleteSpot(sqlSession,placeno);
+	}
+
+	@Override
+	public int selectSearchCount(String keyword) {
+		return dao.selectSearchCount(sqlSession,keyword);
+	}
 	
 }

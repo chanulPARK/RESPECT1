@@ -40,5 +40,15 @@ public interface ScheduleService {
 
    List<Map<String, String>> scheduleAttList();
 
+
+	
+	Map selectSchedule(int scheduleNo);
+	
+	List<Map> selectTimeTableList(int scheduleNo);
+	
+	int updateSchedule(Schedule sc, List<TimeTable> list);
+	
+//	int deleteSchedule(int scheduleNo);
+
 	
 }

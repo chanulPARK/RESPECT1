@@ -49,6 +49,25 @@ public class PlaceDaoImpl implements PlaceDao {
 	}
 	
 	
+	public int selectTotalUserCount(SqlSessionTemplate sqlSession, String userId) {
+		
+		return sqlSession.selectOne("spot.selectTotalUserCount",userId);
+	}
+
+	@Override
+	public List<Place> selectSearchList(SqlSessionTemplate sqlSession, int cPage, int numPerPage, String keyword) {
+		return sqlSession.selectList("spot.selectSearchList", keyword, new RowBounds((cPage-1)*numPerPage, numPerPage));
+	}
+
+	@Override
+	public int deleteSpot(SqlSessionTemplate sqlSession, int placeno) {
+		return sqlSession.delete("spot.deleteSpot",placeno);
+	}
+
+	@Override
+	public int selectSearchCount(SqlSessionTemplate sqlSession, String keyword) {
+		return sqlSession.selectOne("spot.selectSearchCount",keyword);
+	}
 
 
 }
