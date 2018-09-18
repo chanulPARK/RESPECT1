@@ -6,18 +6,17 @@
 	
 	<select id="selectMeetList" resultMap="meetMap">
 		<!-- select *,A.nickname from meet B join rp_user A on(B.userid=A.userid) -->
-		select * from meet  A left join rp_user B on A.userid=b.userid
+		select A.*, b.gender, b.nickname, to_char(meetdate, 'yyyy/MM/dd') as meetday, to_number(extract(year from sysdate))-(to_number(substr(b.birth,0,2))+1900)+1 as age from meet A left join rp_user B on A.userid=b.userid
 	</select>
 	
 	<select id="searchMeetList" resultMap="meetMap" parameterType="map">
-		select * from meet where meetdate between #{start} and #{end} 
+		select A.*, b.gender, b.nickname, to_char(meetdate, 'yyyy/MM/dd') as meetday, to_number(extract(year from sysdate))-(to_number(substr(b.birth,0,2))+1900)+1 as age from meet A left join rp_user B on A.userid=b.userid where A.meetdate between #{start} and #{end} and A.address like '%'||#{area}||'%'
 	</select>
-	
+	 
 	
 	<select id="selectTotalCount" resultType="_int">
 		select count(*) from meet
 	</select>
-	
 	
 	<insert id="insertMeet" parameterType="meet">
 		insert into meet(meetno, userid, area, title, content, meetdate, meettime, address, hitscount, replycount, writedate) 
@@ -28,8 +27,20 @@
 	</insert>
 	
 	<select id="selectOne" resultType="meet">
-		select * from meet A left join rp_user B on A.userid=b.userid where meetno=#{meetNo}
+		select A.*, b.gender, b.nickname, to_char(meetdate, 'yyyy/MM/dd') as meetday, to_number(extract(year from sysdate))-(to_number(substr(b.birth,0,2))+1900)+1 as age from meet A left join rp_user B on A.userid=b.userid where meetno=#{meetNo}
 	</select>
+	
+	<delete id="meetDelete" parameterType="_int">
+		delete from meet where meetno=#{meetNo}
+	</delete>
+	
+	<update id="meetUpdate" parameterType="meet">
+		update meet set userid=#{userId}, area=#{area}, title=#{title}, content=#{content}, meetdate=#{meetDate}, meettime=#{meetTime}, address=#{address} where meetno=#{meetNo}
+	</update>
+	
+	<update id="updateMeetCnt">
+		update meet set hitscount=hitscount+1 where meetno=#{meetNo}
+	</update>
 	
 	
 </mapper>

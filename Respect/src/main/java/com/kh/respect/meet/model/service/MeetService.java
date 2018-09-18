@@ -17,4 +17,10 @@ public interface MeetService {
 	
 	Meet selectOne(int meetNo);
 	
+	int meetDelete(int meetNo);
+	
+	int meetUpdate(Meet meet);
+	
+	void updateMeetCnt(int meetNo);
+	
 }

@@ -228,5 +228,3 @@ $(function(){
             </nav>
         </div>
      </div>
-
-     
