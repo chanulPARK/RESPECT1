@@ -192,14 +192,14 @@
             	
             	<c:if test="${fn:length(myScheduleList)==1}">
             		<c:forEach items="${myScheduleList }" var="msl">
-            			<a class="portfolio-link" href="#portfolioModal1" style="text-decoration:none !important">
+            			<a class="portfolio-link" href="${path }/schedule/updateSchedule?scheduleNo=${msl.SCHEDULENO }" style="text-decoration:none !important">
 			              <div class="portfolio-hover mt-3 ">
 			                <div class="portfolio-hover-content">
 			                  
 			                </div>
 			              </div>
 			              <div id="card_line" style="height: auto;" >
-			                  <img src="${path }/resources/upload/profile/${msl.THUMBNAIL}" alt="" width="100%" height="130px">
+			                  <img src="${path }/resources/upload/spot/thumbnail/${msl.THUMBNAIL}" alt="" width="100%" height="130px">
 			                  
 			                  <!--여행일정의 제목, 끝날짜-시작날짜(몇박며칠), 누구와함께?, 성향-->
 			                  <fmt:parseDate value="${msl.STARTDATE }" var="strPlanDate" pattern="yyyy-MM-dd"/>
@@ -226,14 +226,14 @@
             	
             	<c:if test="${fn:length(myScheduleList)==2}">
             		<c:forEach items="${myScheduleList }" var="msl">
-            			<a class="portfolio-link" href="#portfolioModal1" style="text-decoration:none !important">
+            			<a class="portfolio-link" href="${path }/schedule/updateSchedule?scheduleNo=${msl.SCHEDULENO }" style="text-decoration:none !important">
 			              <div class="portfolio-hover mt-3 ">
 			                <div class="portfolio-hover-content">
 			                  
 			                </div>
 			              </div>
 			              <div id="card_line" style="height: auto;" >
-			                  <img src="${path }/resources/upload/profile/${msl.THUMBNAIL}" alt="" width="100%" height="130px">
+			                  <img src="${path }/resources/upload/spot/thumbnail/${msl.THUMBNAIL}" alt="" width="100%" height="130px">
 			                  <!--여행일정의 제목, 끝날짜-시작날짜(몇박며칠), 누구와함께?, 성향-->
 			                  <fmt:parseDate value="${msl.STARTDATE }" var="strPlanDate" pattern="yyyy-MM-dd"/>
 								<fmt:parseNumber value="${strPlanDate.time / (1000*60*60*24)}" integerOnly="true" var="strDate"></fmt:parseNumber>
@@ -316,7 +316,7 @@
 			                </div>
 			              </div>
 			              <div id="card_line" style="height: auto;" >
-			                  <img src="${path }/resources/upload/profile/${psl.THUMBNAIL}" alt="" width="100%" height="130px">
+			                  <img src="${path }/resources/upload/spot/thumbnail/${psl.THUMBNAIL}" alt="" width="100%" height="130px">
 			                  <!--여행일정의 제목, 끝날짜-시작날짜(몇박며칠), 누구와함께?, 성향-->
 			                  <fmt:parseDate value="${psl.STARTDATE }" var="strPlanDate" pattern="yyyy-MM-dd"/>
 								<fmt:parseNumber value="${strPlanDate.time / (1000*60*60*24)}" integerOnly="true" var="strDate"></fmt:parseNumber>
@@ -349,7 +349,7 @@
 			                </div>
 			              </div>
 			              <div id="card_line" style="height: auto;" >
-			                  <img src="${path }/resources/upload/profile/${psl.THUMBNAIL}" alt="" width="100%" height="130px">
+			                  <img src="${path }/resources/upload/spot/thumbnail/${psl.THUMBNAIL}" alt="" width="100%" height="130px">
 			                  <!--여행일정의 제목, 끝날짜-시작날짜(몇박며칠), 누구와함께?, 성향-->
 			                  <fmt:parseDate value="${psl.STARTDATE }" var="strPlanDate" pattern="yyyy-MM-dd"/>
 								<fmt:parseNumber value="${strPlanDate.time / (1000*60*60*24)}" integerOnly="true" var="strDate"></fmt:parseNumber>
@@ -542,7 +542,7 @@
 			              </div>
 			              <div id="card_line" style="height: auto;">
 			              
-			                  <img src="${path }/resources/upload/profile/${msrl.THUMBNAIL}" alt="" width="100%" height="130px">
+			                  <img src="${path }/resources/upload/spot/thumbnail/${msrl.THUMBNAIL}" alt="" width="100%" height="130px">
 			                  <!--여행일정의 제목, 끝날짜-시작날짜(몇박며칠), 누구와함께?, 성향-->
 			                  <fmt:parseDate value="${msrl.STARTDATE }" var="strPlanDate" pattern="yyyy-MM-dd"/>
 								<fmt:parseNumber value="${strPlanDate.time / (1000*60*60*24)}" integerOnly="true" var="strDate"></fmt:parseNumber>
@@ -578,7 +578,7 @@
 			              </div>
 			              <div id="card_line" style="height: auto;">
 			              
-			                  <img src="${path }/resources/upload/profile/${msrl.THUMBNAIL}" alt="" width="100%" height="130px">
+			                  <img src="${path }/resources/upload/spot/thumbnail/${msrl.THUMBNAIL}" alt="" width="100%" height="130px">
 			                  <!--여행일정의 제목, 끝날짜-시작날짜(몇박며칠), 누구와함께?, 성향-->
 			                  <fmt:parseDate value="${msrl.STARTDATE }" var="strPlanDate" pattern="yyyy-MM-dd"/>
 								<fmt:parseNumber value="${strPlanDate.time / (1000*60*60*24)}" integerOnly="true" var="strDate"></fmt:parseNumber>

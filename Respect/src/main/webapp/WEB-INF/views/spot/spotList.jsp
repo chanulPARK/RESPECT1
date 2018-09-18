@@ -31,6 +31,7 @@
 
 <main class="page landing-page">
 
+
 	<input type="hidden" id="minorcategory" name="minorcategory" value="자연" />
 	<input type="hidden" id="page" name="page" value="" />
 	
@@ -38,6 +39,7 @@
 		<img src="${path }/resources/img/spot/성산일출봉.gif" style="width:100%;">
 	</section>
 	
+
 	<section id="map-index">
 	    <div class="container">
 	        <h2>제주도 모든 여행지를 한 눈에…<br></h2>
@@ -146,10 +148,13 @@
             <div data-ax5grid="first-grid" data-ax5grid-config="{}" style="width:100%; height:316px;"></div>
             
 	        <div class="card-deck row place_card" style="display: flex;flex-wrap: wrap;">
+
 	        	
-	        	<c:forEach items="${list }" var="p">
+	        	
+	        	<c:forEach items="${list}" var="p">
 	        	
 	        	<div class="col-4 mt-4 px-3">
+
 		        	<div class="card m-0">
 		        		<%-- <img class="card-img-top" src="${path }/resources/upload/spot/thumbnail/${p.THUMBNAIL}"> --%>
 		        		<img class="card-img-top" src="${path }/resources/upload/spot/thumbnail/${p.thumbnail}" style="height: 200px">
@@ -174,6 +179,7 @@
 		                    </div>
 		                </div>
 		            </div>
+
 	            </div>
 	            
 	            </c:forEach>

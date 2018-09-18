@@ -44,6 +44,21 @@ public class MeetDaoImpl implements MeetDao {
 	public Meet selectOne(SqlSessionTemplate sqlSession, int meetNo) {
 		return sqlSession.selectOne("meet.selectOne", meetNo);
 	}
+
+	@Override
+	public int meetDelete(SqlSessionTemplate sqlSession, int meetNo) {
+		return sqlSession.delete("meet.meetDelete", meetNo);
+	}
+
+	@Override
+	public int meetUpdate(SqlSessionTemplate sqlSession, Meet meet) {
+		return sqlSession.update("meet.meetUpdate", meet);
+	}
+
+	@Override
+	public void updateMeetCnt(SqlSessionTemplate sqlSession, int meetNo) {
+		sqlSession.update("meet.updateMeetCnt", meetNo);
+	}
 	
 	
 	

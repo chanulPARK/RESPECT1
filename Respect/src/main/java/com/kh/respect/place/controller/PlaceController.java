@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,15 +25,15 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.kh.respect.common.Page;
 import com.kh.respect.place.model.service.PlaceService;
 import com.kh.respect.place.model.vo.Place;
 import com.kh.respect.place.model.vo.PlaceGood;
-import com.kh.respect.place.model.vo.PlaceSpring;
+import com.kh.respect.user.model.vo.User;
 
 import net.sf.json.JSONObject;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.kh.respect.common.Page;
 
 
 @Controller
@@ -42,6 +43,47 @@ public class PlaceController {
 	
 	@Autowired
 	private PlaceService service;
+	
+	
+	@RequestMapping("/spot/mySpotAdd.do")
+	public ModelAndView mySpotAdd(HttpSession session,String myTitle,String myAddr, String myContent)
+	{
+		User user=(User)session.getAttribute("userLoggedIn");
+	    String userId=user.getUserId();
+	    
+	    System.out.println("유저아이디 : "+userId);
+	    System.out.println("제목 : "+myTitle);
+	    System.out.println("주소 : "+myAddr);
+	    System.out.println("내용 : "+myContent);
+	    
+	    ModelAndView mv= new ModelAndView();
+		Place place = new Place();
+		place.setTitle(myTitle);
+		place.setUserid(userId);
+		place.setAddress(myAddr);
+		place.setContent(myContent);
+		
+		int result = service.insertMySpot(place);
+ 
+		
+		String msg = "";
+		String loc = "";
+		
+		if(result>0) {
+			msg = "등록 성공";
+			loc = "/schedule/scheduleWrite";
+		}
+		else {
+			msg = "등록 실패";
+			loc = "/schedule/scheduleWrite";
+		}
+		
+		mv.addObject("msg", msg);
+		mv.addObject("loc", loc);
+		mv.setViewName("common/msg");
+		
+		return mv;
+	}
 	
 	@RequestMapping("/spot/spotList.do")
 	public ModelAndView spotList(@RequestParam(value="cPage", required=false, defaultValue="1") int cPage) {

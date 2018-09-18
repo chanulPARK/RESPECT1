@@ -149,10 +149,12 @@
                         <div class="container tab-pane active" id="searchPlace" >
                             
                             <div class="row mt-2" style="overflow: auto;">
-                            <input style="width:73%;" type="text" class="form-control" name="inputText" placeholder="검색어 입력" id=inputText2>
-                               <input class='btn ml-1' type="submit" value="검색">
+                            	
+		                            <input class="form-control " type="text"  name="keyword" placeholder="검색어 입력" style="width:70%">
+		                               <button class='btn text-center' onclick="fn_search()" style="width:30%">검색</button>
+                               
                                <br>
-                               <div class='mt-1 col-md-12'>  
+                               <div class='mt-1 col-md-12' id='pList'>  
                                    <a href="#">관광지</a>|
                                    <a href="#">숙소</a>|
                                    <a href="#">음식점</a>
@@ -171,24 +173,14 @@
                                       </c:forEach>
                                            <br>
                                        <nav aria-label="Page navigation example">
-                                               <ul class="pagination justify-content-center">
-                                                   <li class="page-item disabled">
-                                                   <a class="page-link btn-sm" href="#" tabindex="-1">&lt;</a>
-                                                   </li>
-                                                   <li class="page-item"><a class="page-link text-muted btn-sm" href="#">1</a></li>
-                                                   <li class="page-item"><a class="page-link text-muted btn-sm" href="#">2</a></li>
-                                                   <li class="page-item"><a class="page-link text-muted btn-sm" href="#">3</a></li>
-                                                   <li class="page-item">
-                                                   <a class="page-link text-muted btn-sm" href="#">&gt;</a>
-                                                   </li>
-                                               </ul>
+                                               ${listBar }
                                        </nav>
                                </div>
                            </div>
                         </div>
                         
                         <div class="container tab-pane fade" id="zzim">
-                               <div class="mt-2 col-md-13">
+                               <div class="mt-2 col-md-13" id="putList">
                                    <a href="#">관광지</a>|
                                    <a href="#">숙소</a>|
                                    <a href="#">음식점</a>
@@ -207,22 +199,12 @@
                                       </c:forEach>
                                            <br>
                                        <nav aria-label="Page navigation example">
-                                               <ul class="pagination justify-content-center">
-                                                   <li class="page-item disabled">
-                                                   <a class="page-link btn-sm" href="#" tabindex="-1"><</a>
-                                                   </li>
-                                                   <li class="page-item"><a class="page-link text-muted btn-sm" href="#">1</a></li>
-                                                   <li class="page-item"><a class="page-link text-muted btn-sm" href="#">2</a></li>
-                                                   <li class="page-item"><a class="page-link text-muted btn-sm" href="#">3</a></li>
-                                                   <li class="page-item">
-                                                   <a class="page-link text-muted btn-sm" href="#">></a>
-                                                   </li>
-                                               </ul>
+                                               ${putListBar }
                                        </nav>
                                </div>
                             </div>
                              <div class="container tab-pane fade"  align='center' id="myAdd">
-                    	<div class='mt-1 col-md-13'>  
+                    	<div class='mt-1 col-md-13' id='userList'>  
                                    <a href="#">관광지</a>|
                                    <a href="#">숙소</a>|
                                    <a href="#">음식점</a>
@@ -235,7 +217,7 @@
                                                <br><p>${uPlace.title }</p>
                                                <div class='row justify-content-center'>
                                                <button class="btn mb-2 mr-1" value="${uPlace }" onclick="fn_addUPlace(event)">일정등록</button>
-                                               <button class="btn mb-2" value="${uPlace }" onclick="fn_deleteUPlace(event)">장소삭제</button>
+                                               <button class="btn mb-2" value="${uPlace }" onclick="fn_deleteUserPlace(event)">장소삭제</button>
                                                </div>
                                            </div>
                                            
@@ -244,17 +226,7 @@
                                       </c:forEach>
                                            <br>
                                        <nav aria-label="Page navigation example">
-                                               <ul class="pagination justify-content-center">
-                                                   <li class="page-item disabled">
-                                                   <a class="page-link btn-sm" href="#" tabindex="-1"><</a>
-                                                   </li>
-                                                   <li class="page-item"><a class="page-link text-muted btn-sm" href="#">1</a></li>
-                                                   <li class="page-item"><a class="page-link text-muted btn-sm" href="#">2</a></li>
-                                                   <li class="page-item"><a class="page-link text-muted btn-sm" href="#">3</a></li>
-                                                   <li class="page-item">
-                                                   <a class="page-link text-muted btn-sm" href="#">></a>
-                                                   </li>
-                                               </ul>
+                                               ${userListBar }
                                        </nav>
                                </div>
                              <hr>
@@ -305,6 +277,127 @@
 
 
 <script>
+	function fn_deleteUserPlace(ev)
+	{ //타임테이블 값 삭제, 핀삭제, 장소삭제
+		var confirmflag=confirm("정말 삭제 하시겠습니까?");
+		var place1=ev.target.value;
+	    var place2=place1.split(",");
+	    var placeno=place2[0];
+	    var active=$("input[name='placevalue']");
+		if(confirmflag)
+		{
+			
+	        for(var i=0; i<active.length;i++)
+        	{
+	        	
+	        	var active2=active[i].value.split(",");
+	        	var seq_num=active2[3];
+	        	if(placeno==active2[0])
+        		{
+        			for(var j=0; j<markers.length;j++)
+        			{
+        				if(markers[j]!=null)
+        				{
+        						if(markers[j].marks.getTitle()==seq_num)
+        						{
+        							markers[j].marks.setMap(null);
+        							markers[j].iw.close();
+        							markers[j]=null;
+        						}
+        				}
+        			}
+        			var targetdiv=document.getElementById("data"+seq_num);
+        			targetdiv.parentElement.classList.remove("disable");
+        			targetdiv.remove();
+        		} 	
+        	}
+	        $.ajax
+			({
+					
+					url:"<%=request.getContextPath()%>/schedule/deletePlace",
+					type:"POST",
+					data:{placeno:placeno},
+					success:function(data)
+					{
+						$("#userList").html(data);
+					},
+					error:function()
+					{
+						alert("ajax 실행실패");
+					}
+					
+			});
+	        
+		}
+		else
+		{
+			return;
+		}
+		
+	}
+	
+	function fn_search()
+	{
+		var keyword=$("input[name=keyword]").val();
+		$.ajax
+		({
+				url:"<%=request.getContextPath()%>/schedule/placeSearch",
+				type:"POST",
+				data:{keyword:keyword},
+				success:function(data)
+				{
+					$("#pList").html(data);
+				}
+		});
+	}
+	function fn_paging(cPage,sort)
+	{
+		
+		if(sort==1)
+		{
+			var keyword=$("input[name=keyword]").val();
+			$.ajax
+			({
+					url:"<%=request.getContextPath()%>/schedule/placeList",
+					type:"POST",
+					data:{cPage:cPage,keyword:keyword},
+					
+					success:function(data)
+					{
+						$("#pList").html(data);
+					}
+			});
+		}
+		else if(sort==2)
+		{
+			$.ajax
+			({
+					url:"<%=request.getContextPath()%>/schedule/userList",
+					type:"POST",
+					data:{cPage:cPage},
+					
+					success:function(data)
+					{
+						$("#userList").html(data);
+					}
+			});
+		}
+		else if(sort==3)
+		{
+			$.ajax
+			({
+					url:"<%=request.getContextPath()%>/schedule/putList",
+					type:"POST",
+					data:{cPage:cPage},
+					
+					success:function(data)
+					{
+						$("#putList").html(data);
+					}
+			});
+		}
+	};
+	
 	var title;
 	
     $.datepicker.setDefaults({
@@ -402,6 +495,18 @@ $("#start_date").on("click",function()
         if($("#demo")!=null)
         	{
         	 $("#demo").remove();	
+        	 for(var j=0; j<markers.length;j++)
+      		{
+      			if(markers[j]!=null)
+      			{
+      				
+ 					markers[j].marks.setMap(null);
+ 					markers[j].iw.close();
+ 					markers[j]=null;
+      				
+      			}
+      			
+      		}
         	}
         
         var printHTML="<div id='demo' class='carousel slide' data-ride='carousel' data-interval='false'><div class='carousel-inner'>"
@@ -426,10 +531,10 @@ $("#start_date").on("click",function()
             printHTML+="<a class='float-right' onclick='fn_move()' href='#demo'  data-slide='next'>&gt;</a>";
             
             printHTML+="</th></tr>"
-            printHTML+="<tr><td class='time1'>06:00</td><td id='06' class='place' ondrop='drop(event)' ondragover='allowDrop(event)'></td></tr>";
-            printHTML+="<tr><td class='time1'>07:00</td><td id='07' class='place' ondrop='drop(event)' ondragover='allowDrop(event)'></td></tr>";
-            printHTML+="<tr><td class='time1'>08:00</td><td id='08' class='place' ondrop='drop(event)' ondragover='allowDrop(event)'></td></tr>";
-            printHTML+="<tr><td class='time1'>09:00</td><td id='09' class='place' ondrop='drop(event)' ondragover='allowDrop(event)'></td></tr>";
+            printHTML+="<tr><td class='time1'>06:00</td><td id='6' class='place' ondrop='drop(event)' ondragover='allowDrop(event)'></td></tr>";
+            printHTML+="<tr><td class='time1'>07:00</td><td id='7' class='place' ondrop='drop(event)' ondragover='allowDrop(event)'></td></tr>";
+            printHTML+="<tr><td class='time1'>08:00</td><td id='8' class='place' ondrop='drop(event)' ondragover='allowDrop(event)'></td></tr>";
+            printHTML+="<tr><td class='time1'>09:00</td><td id='9' class='place' ondrop='drop(event)' ondragover='allowDrop(event)'></td></tr>";
             printHTML+="<tr><td class='time1'>10:00</td><td id='10' class='place' ondrop='drop(event)' ondragover='allowDrop(event)'></td></tr>";
             printHTML+="<tr><td class='time1'>11:00</td><td id='11' class='place' ondrop='drop(event)' ondragover='allowDrop(event)'></td></tr>";
             printHTML+="<tr><td class='time1'>12:00</td><td id='12' class='place' ondrop='drop(event)' ondragover='allowDrop(event)'></td></tr>";
@@ -474,7 +579,10 @@ $("#start_date").on("click",function()
 	        ev.target.classList.add("disable");
 	        ev.target.appendChild(document.getElementById(data));
 	        var dayoftable=ev.target.parentElement.parentElement.parentElement.id;
-	        ev.target.firstChild.childNodes[1].value=dayoftable+","+ev.target.id;
+	        ev.target.firstChild.childNodes[2].value=dayoftable+","+ev.target.id;
+	        console.log(ev.target.firstChild.childNodes[2]);
+	        console.log(dayoftable);
+	        console.log(ev.target.id);
 	    }
 	    else
 	    {
@@ -542,7 +650,7 @@ $("#start_date").on("click",function()
         active[0].classList.add("disable");
       	tableday=active[0].parentElement.parentElement.parentElement.id;
       	
-        var html="<div id='data"+seq_no+"' >"+place2[1]+"<input type='hidden' name='timevalue' value='"+tableday+","+active[0].id+"'><input type='hidden' name='placevalue' value='"+place1+","+seq_no+"' class='placelist'><span class='float-right' class='drag' id='drag"+seq_no+"' draggable='true' ondragstart='drag(event)'> <img src='${path}/resources/img/arrow.png' style='width:50px; height:30px;'></span><button class='float-right delbtn' onclick='fn_delete("+seq_no+")'>X</button></div>";
+        var html="<div id='data"+seq_no+"' >"+place2[1]+"<input type='hidden' name='blank'><input type='hidden' name='timevalue' value='"+tableday+","+active[0].id+"'><input type='hidden' name='placevalue' value='"+place1+","+seq_no+"' class='placelist'><span class='float-right' class='drag' id='drag"+seq_no+"' draggable='true' ondragstart='drag(event)'> <img src='${path}/resources/img/arrow.png' style='width:50px; height:30px;'></span><button class='float-right delbtn' onclick='fn_delete("+seq_no+")'>X</button></div>";
         
         active.append(html);
         var loc=place2[2];
@@ -721,10 +829,10 @@ $("#start_date").on("click",function()
 	var detailAddr;
 	 function test3()
 	 	  {
-	       // 빈페이지는 주소값을 안주고 선언한다
-	       // 변수에 담으면 리턴값으로 컨트롤을 하기위한 id값을 리턴으로 변수에 담을 수 있다
-	       var w1=window.open("",'popup','width=300,height=350, resizable=no');
-	       // 변수로 선언해서도 가능하다
+			 var url="${path}/schedule/myPlaceAddView?detailAddr="+detailAddr;
+		     var w1=window.open(url,'popup','width=300,height=350, resizable=no');
+	       
+/* 	       var w1=window.open("",'popup','width=300,height=350, resizable=no');
 	       var html='<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8">';
 	    	   html+='<META HTTP-EQUIV="Content-type" CONTENT="text/html;charset=UTF-8">';
 	       	   html+='<meta http-equiv="X-UA-Compatible" content="ie=edge">'
@@ -745,7 +853,7 @@ $("#start_date").on("click",function()
 	               
 	           console.log(html);
 
-	       w1.document.write(html);
+	       w1.document.write(html); */
 	   }
 	   /* 추가 */
 	// 지도를 클릭했을 때 클릭 위치 좌표에 대한 주소정보를 표시하도록 이벤트를 등록합니다

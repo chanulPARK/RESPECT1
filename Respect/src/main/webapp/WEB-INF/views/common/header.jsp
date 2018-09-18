@@ -10,7 +10,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <meta charset="UTF-8">
-<title>Hello Spring</title>
+<title>니가가라 제주도</title>
 
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
@@ -27,7 +27,6 @@
 
 <%-- <script src="${path }/resources/js/jquery.min.js"></script> --%>
 <%-- <script src="${path }/resources/bootstrap/js/bootstrap.min.js"></script> --%>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.10.0/baguetteBox.min.js"></script>
 <link rel="stylesheet" href="${path }/resources/css/Footer-Dark.css">
 <link rel="stylesheet" href="${path }/resources/css/style.css">
 <link rel="stylesheet" href="${path }/resources/bootstrap/css/bootstrap.min.css">
@@ -119,7 +118,6 @@ $(function(){
 
 	
 });
-
 
 </script> -->
 
@@ -228,5 +226,3 @@ $(function(){
             </nav>
         </div>
      </div>
-
-     

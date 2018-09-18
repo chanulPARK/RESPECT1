@@ -71,7 +71,8 @@
 		<servlet-name>appServlet</servlet-name>
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
-
+	
+	
 	<!-- 한글처리를 위한 문자셋 인코딩(필터) -->
 	<!-- 이 클래스가 생성될때 매개변수를 던져줄 값 -->
 	<filter>
