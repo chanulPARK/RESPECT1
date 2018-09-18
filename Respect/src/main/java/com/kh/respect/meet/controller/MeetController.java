@@ -15,6 +15,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -41,9 +42,10 @@ public class MeetController {
 	public ModelAndView meetList(@RequestParam(value="cPage", required=false, defaultValue="1") int cPage)
 	{
 		ModelAndView mv = new ModelAndView();
-		int numPerPage = 10;
+		int numPerPage = 5;
 		
 		List<Map<String,String>> list = service.selectMeetList(cPage, numPerPage);
+
 		int totalCount=service.selectTotalCount();
 		
 		mv.addObject("list", list);
@@ -61,7 +63,7 @@ public class MeetController {
 	{
 		ModelAndView mv = new ModelAndView();
 		System.out.println(range);
-		
+		System.out.println("area == "+area);
 		String start = range.substring(0, 10);
 		System.out.println(start);
 		String end = range.substring(13);
@@ -96,12 +98,28 @@ public class MeetController {
 	{
 		ModelAndView mv = new ModelAndView();
 		
-		Meet meet = new Meet(0, userId, null, null, area, title, content, meetDate, meetTime, address, 0, 0, null);
+		Meet meet = new Meet(0, userId, null, null, 0, area, title, content, meetDate, null, meetTime, address, 0, 0, null);
 		
 		int result = service.insertMeet(meet);
 		System.out.println(result);
 		
-		mv.setViewName("meet/meetList");
+		String msg = "";
+		String loc = "";
+		
+		if(result>0)
+		{
+			msg = "모임 등록에 성공하였습니다.";
+			loc = "/meet/meetList.do";
+		}
+		else 
+		{
+			msg = "모임 등록에 실패하였습니다.";
+			loc = "/meet/meetList.do";
+		}
+		
+		mv.addObject("msg", msg);
+		mv.addObject("loc", loc);
+		mv.setViewName("common/msg");
 		
 		return mv;
 	}
@@ -114,30 +132,97 @@ public class MeetController {
 		Meet meet = service.selectOne(meetNo);
 		
 		String meetTime = meet.getMeetTime();
-		System.out.println(meetTime);
 		
 		String meetDate = meet.getMeetDate().substring(0, 10);
-		System.out.println(meetDate);
+		
+		service.updateMeetCnt(meetNo);
 		
 		mv.addObject("meet", meet);
 		mv.addObject("meetDate", meetDate);
+		mv.addObject("meetTime", meetTime);
 		mv.setViewName("meet/meetView");
 		
 		return mv;
 	}
 	
 	@RequestMapping("/meet/meetUpdate.do")
-	public String meetUpdate(int meetNo)
+	public String meetUpdate(int meetNo, Model model)
 	{
+		Meet meet = service.selectOne(meetNo);
+		String meetDate = meet.getMeetDate().substring(0, 10);
+		String meetTime = meet.getMeetTime();
 		
-		return "";
+		model.addAttribute("meet",meet);
+		model.addAttribute("meetDate", meetDate);
+		model.addAttribute("meetTime", meetTime);
+		
+		return "meet/meetUpdate";
+	}
+	
+	@RequestMapping(value = "/meet/meetUpdateEnd.do", method = RequestMethod.POST)
+	public ModelAndView meetUpdateEnd(@RequestParam(value="meetNo") int meetNo,
+									  @RequestParam(value="title") String title,
+									  @RequestParam(value="area") String area,
+									  @RequestParam(value="address") String address,
+									  @RequestParam(value="userId") String userId,
+									  @RequestParam(value="meetDate") String meetDate,
+									  @RequestParam(value="meetTime") String meetTime,
+									  @RequestParam(value="content") String content)
+	{
+		ModelAndView mv = new ModelAndView();
+		Meet meet = new Meet(meetNo, userId, null, null, 0, area, title, content, meetDate, null, meetTime, address, 0, 0, null);
+		
+		int result = service.meetUpdate(meet);
+		System.out.println("result :: "+result);
+		String msg = "";
+		String loc = "";
+		
+		if(result>0)
+		{
+			msg="수정이 완료되었습니다.";
+			loc="/meet/meetList.do";
+		}
+		else 
+		{
+			msg="수정애 실패하였습니다.";
+			loc="/meet/meetList.do";
+		}
+		
+		mv.addObject("msg", msg);
+		mv.addObject("loc", loc);
+		mv.setViewName("common/msg");
+		
+		return mv;
 	}
 	
 	@RequestMapping("/meet/meetDelete.do")
-	public String meetDelete(int meetNo)
+	public ModelAndView meetDelete(@RequestParam(value="meetNo") int meetNo)
 	{
+		ModelAndView mv = new ModelAndView();
 		
-		return "";
+		System.out.println("meetNo == "+ meetNo);
+		
+		String msg = "";
+		String loc = "";
+		
+		int result = service.meetDelete(meetNo);
+		
+		if(result>0)
+		{
+			msg = "해당 모임이 삭제되었습니다.";
+			loc = "/meet/meetList.do";
+		}
+		else 
+		{
+			msg = "모임 삭제에 실패하였습니다.";
+			loc = "/meet/meetList.do";
+		}
+		
+		mv.addObject("msg", msg);
+		mv.addObject("loc", loc);
+		mv.setViewName("common/msg");
+		
+		return mv;
 	}
 	
    @RequestMapping(value="/imageUpload.do", method = RequestMethod.POST)
@@ -148,7 +233,6 @@ public class MeetController {
       ModelAndView mv = new ModelAndView();
       ObjectMapper mapper=new ObjectMapper();
       Map<String,Object> map=new HashMap();
-      
       
       String saveDir = request.getSession().getServletContext().getRealPath("/resources/uploadImg");
       

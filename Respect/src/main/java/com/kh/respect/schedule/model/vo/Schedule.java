@@ -171,6 +171,12 @@ public class Schedule {
 	public void setPlaceNo(int placeNo) {
 		this.placeNo = placeNo;
 	}
+	
+	public String getNickname() {
+		return userId;
+	}
+
+	
 
 	@Override
 	public String toString() {

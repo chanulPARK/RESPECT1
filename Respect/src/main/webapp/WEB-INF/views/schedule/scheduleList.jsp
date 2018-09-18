@@ -19,12 +19,12 @@
                     <form action="${path }/schedule/scheduleFilter" method="post">
                         <br>          
                             <h6>검색범위 및 정렬방식</h6>
-                            <div class="btn-group btn-group-toggle col-md-12" data-toggle="buttons">
+                            	<div class="btn-group btn-group-toggle col-md-12" data-toggle="buttons">
                                     <label class="btn btn-outline-secondary mt-1 ml-1" style="width:100%; border-radius:0;">
-                                      <input type="radio" name="lastest" id="option1" autocomplete="off" > 최신순
+                                      <input type="radio" name="sort" id="option1" value="on" > 최신순
                                     </label>
                                     <label class="btn btn-outline-secondary mt-1 ml-1" style="width:100%;  border-radius:0;">
-                                      <input type="radio" name="popularity" id="option2" autocomplete="off" > 인기순
+                                      <input type="radio" name="sort" id="option2" value="off" > 인기순
                                     </label>
                             </div>
                                  <br>
@@ -32,50 +32,51 @@
                         <div data-toggle="buttons">
                             <h6>여행 구분</h6>
                             <div class="btn-group-toggle col-md-12">
-                                   <label for='seoul' class="btn btn-dark ">
-					                  <input type="checkbox" name="addr" id='seoul' value="서울"> 서울
-					                </label>
+                                   <label class="btn btn-outline-secondary mt-1 ml-1" style="width:99%;  border-radius:0;">
+										<input type="radio" name="tripType" id="tripAll" value='2'> 전체
+									</label>
                             </div>
                             
                             <div class="btn-group btn-group-toggle col-md-12">
                                 <label class="btn btn-outline-secondary mt-1 ml-1" style="width:100%; border-radius:0;">
-                                  <input type="radio" name="beforeTrip" id="beforeTrip" autocomplete="off" value=0> 여행전
+                                  <input type="radio" name="tripType" id="beforeTrip" value='0'> 여행전
                                 </label>
                                 <label class="btn btn-outline-secondary mt-1 ml-1" style="width:100%; border-radius:0;">
-                                  <input type="radio" name="afterTrip" id="afterTrip" autocomplete="off" value=1> 여행후 
+                                  <input type="radio" name="tripType" id="afterTrip"  value='1'> 여행후 
                                 </label>
                        		 </div>
                         </div>
 						<br>
 						
-                        <div >
+                       <div data-toggle="buttons">
 							<h6>여행 테마</h6>
-							<div class="btn-group-toggle col-md-12">
+							<div class="btn-group-toggle col-md-12" >
 								<label class="btn btn-outline-secondary mt-1 ml-1" style="width:99%;  border-radius:0;">
-									<input type="radio" name="themeAll" id="themeAll" autocomplete="off" > 전체
+									<input type="radio" name="tripPartner" id="themeAll" value="전체" > 전체
 								</label>
 							</div>
 							<div class="btn-group btn-group-toggle col-md-12">
 								<label class="btn btn-outline-secondary mt-1 ml-1" style="width:100%; border-radius:0;">
-									<input type="radio" name="soloTheme" id="soloTheme" autocomplete="off" value="혼자"> 나홀로 여행
+									<input type="radio" name="tripPartner" id="soloTheme" value="혼자"> 나홀로 여행
 								</label>
 								<label class="btn btn-outline-secondary mt-1 ml-1" style="width:100%; border-radius:0;">
-									<input type="radio" name="friendTheme" id="friendTheme" autocomplete="off" value="친구"> 친구와 함께
+									<input type="radio" name="tripPartner" id="friendTheme"  value="친구"> 친구와 함께
 								</label>
 							</div>
+							
 
 							<div class="btn-group btn-group-toggle col-md-12">
 									<label class="btn btn-outline-secondary mt-1 ml-1" style="width:100%; border-radius:0;">
-										<input type="radio" name="coupleTheme" id="coupleTheme" autocomplete="off" value="커플"> 커플
+										<input type="radio" name="tripPartner" id="coupleTheme" value="커플"> 커플
 									</label>
 									<label class="btn btn-outline-secondary mt-1 ml-1" style="width:100%; border-radius:0;">
-										<input type="radio" name="groupTheme" id="groupTheme" autocomplete="off" value="단체"> 단체여행
+										<input type="radio" name="tripPartner" id="groupTheme" value="단체"> 단체여행
 									</label>
 								</div>
+						 </div>
 								<div>
 									<input class="btn mt-3" type="submit" value="검색하기">
 								</div>
-                        </div>
                         <br>
                         
                     </form> 
@@ -97,13 +98,13 @@
 									<!-- text -->
 									
 									<fmt:parseDate value="${sc.STARTDATE }" var="startDate" pattern="yyyy-MM-dd"/>
-									<fmt:parseNumber value="${startDate.time / (1000/60/60/24)}" integerOnly="true" var="startDay"></fmt:parseNumber>
+									<fmt:parseNumber value="${startDate.time / (1000*60*60*24)}" integerOnly="true" var="startDay"></fmt:parseNumber>
 									<fmt:parseDate value="${sc.ENDDATE }" var="endDate" pattern="yyyy-MM-dd"/>
-									<fmt:parseNumber value="${endDate.time / (1000/60/60/24)}" integerOnly="true" var="endDay"></fmt:parseNumber>
+									<fmt:parseNumber value="${endDate.time / (1000*60*60*24)}" integerOnly="true" var="endDay"></fmt:parseNumber>
 									<p class="mt-1 card-text btn-outline-secondary">
-										${endDay-strDay}박 ${endDay-strDay+1}일 ㆍ ${sc.TRAVELTHEME} ㆍ ${sc.REPORTFLAG==0?"여행 전":"여행 후"} 
-									</p><br>
-										<div class="row" align='center'style="width:250px">
+										${endDay - startDay }박${endDay - startDay +1}일 ㆍ ${sc.TRAVELTHEME} ㆍ ${sc.REPORTFLAG==0?"여행 전":"여행 후"} 
+									</p>
+										<div class="row pt-1" align='center'style="width:250px">
 											<i class="ml-4 far fa-thumbs-up fa-1x"></i><h6 class="ml-1">${sc.GOODCOUNT }</h6>
 											<i class="ml-5 far fa-heart fa-1x"></i><h6 class="ml-1">${sc.BRINGCOUNT }</h6>
 											<i class="ml-5 far fa-eye fa-1x"></i><h6 class="ml-1">${sc.HITSCOUNT }</h6>

@@ -6,7 +6,7 @@
 
 <c:set value="${pageContext.request.contextPath}" var="path"/>
 
-<%-- <jsp:include page="/WEB-INF/views/common/header.jsp"></jsp:include> --%>
+
 <%@ include file="/WEB-INF/views/common/header.jsp" %>
 
 <head>
@@ -28,8 +28,6 @@
 <!-- Include English language -->
 <script src="${path }/resources/js/i18n/datepicker.en.js" type="text/javascript"></script>
 
-
-
 </head>
 
 
@@ -46,7 +44,7 @@
 	        var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
 	            mapOption = {
 	                center: new daum.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
-	                level: 2 // 지도의 확대 레벨
+	                level: 7 // 지도의 확대 레벨
 	            };
 	        
 	        // 지도를 생성합니다    
@@ -54,11 +52,12 @@
 	        
 	        // 주소-좌표 변환 객체를 생성합니다
 	        var geocoder = new daum.maps.services.Geocoder();
-				        
+	        
 	        <c:forEach items="${list }" var="meet">
 	        	
 	        	var addr = new Array();
 	        	addr.push("${meet.ADDRESS}");
+	        	
 	        	console.log(addr);
 	        	
 	        	// 주소로 좌표를 검색합니다
@@ -69,21 +68,32 @@
 			        
 			            // 정상적으로 검색이 완료됐으면 
 			             if (status === daum.maps.services.Status.OK) {
-			        
+			        		
 			                var coords = new daum.maps.LatLng(result[i].y, result[i].x);
-			        
+			        		
 			                // 결과값으로 받은 위치를 마커로 표시합니다
 			                var marker = new daum.maps.Marker({
 			                    map: map,
 			                    position: coords
 			                });
-			        
+			        		
+			                var no = new Array();
+			                no.push("${meet.MEETNO}");
+			                
+		                	var incontent = '<div style="width:200px;height:100px;text-align:center;padding:6px 0;">${meet.TITLE}<br><br><button class="btn btn-primary" onclick=location.href="${path}/meet/meetView.do?meetNo='+no+'">상세보기</button></div>',
+		                	inRemoveable = true;
+		                	
 			                // 인포윈도우로 장소에 대한 설명을 표시합니다
 			                var infowindow = new daum.maps.InfoWindow({
-			                    content: '<div style="width:150px;text-align:center;padding:6px 0;">${meet.TITLE}</div>'
+			                    //content: '<div style="width:150px;text-align:center;padding:6px 0;">$(no)</div>'
+			                    content : incontent,
+			                    removable : inRemoveable
 			                });
-			                infowindow.open(map, marker);
-			        
+			                
+			                daum.maps.event.addListener(marker, 'click', function(){
+			                	infowindow.open(map, marker);
+			                })
+			                
 			                // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
 			                map.setCenter(coords);
 			            }
@@ -92,32 +102,6 @@
         		}
 	        </c:forEach>
 	       	
-	        // 주소로 좌표를 검색합니다
-
-	        /* geocoder.addressSearch(addr, function(result, status) {
-	        
-
-	            // 정상적으로 검색이 완료됐으면 
-	             if (status === daum.maps.services.Status.OK) {
-	        		
-	                var coords = new daum.maps.LatLng(result[0].y, result[0].x);
-	        		
-	                // 결과값으로 받은 위치를 마커로 표시합니다
-	                var marker = new daum.maps.Marker({
-	                    map: map,
-	                    position: coords
-	                });
-	        		
-	                // 인포윈도우로 장소에 대한 설명을 표시합니다
-	                var infowindow = new daum.maps.InfoWindow({
-	                    content: '<div style="width:150px;text-align:center;padding:6px 0;">[지역명]</div>'
-	                });
-	                infowindow.open(map, marker);
-	        
-	                // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
-	                map.setCenter(coords);
-	            }
-        	}); */
 		</script>
 		<br>
 		<div id="wrapper">
@@ -139,7 +123,7 @@
 						
 						<div style="height: 10%; display: inline-block;padding-left:10px;">
 							<br>
-							<h5 class="">더 재미있는 제주도 여행을 위해..</h5>
+							<h5>더 재미있는 제주도 여행을 위해..</h5>
 							<div class="justify-content-center" align='center'>							
 								<button class="btn btn-block"
 									onclick="writeMeet();" style="width: 60%;">글쓰기</button>
@@ -185,7 +169,6 @@
 							
 						</form>
 					</li>
-					
 				</ul>
 			</div>
 		</div>
@@ -206,12 +189,12 @@
 		            </div>
 		            <div class="col-lg-5 col-md-5" class="justify-content-center" align='center'>
 		            	<br>
-						제목 : <input type="text" readonly="readonly" value="${meet.TITLE }"><br /><br />
-						위치 : <input type="text" id="address" readonly="readonly" value="${meet.ADDRESS }"><br /><br /> 
-						닉네임 : <input type="text" readonly="readonly" value="${meet.NICKNAME }"><br /><br /> 
-						성별 : <input type="text" readonly="readonly" value="${meet.GENDER=='M'?'남':'여' }"><br /><br />
-						<%-- 나이 : <input type="text" readonly="readonly" value="${meet.USERID.BIRTH }"><br /><br /> --%> 
-						날짜 : <input type="text" readonly="readonly" value="${meet.MEETDATE }"><br /><br />
+						제목 : ${meet.TITLE }<br><br>
+						위치 : ${meet.ADDRESS }<br /><br /> 
+						닉네임 : ${meet.NICKNAME }<br /><br /> 
+						성별 : ${meet.GENDER=='M'?'남':'여' }자<br /><br />
+						나이 : ${meet.AGE } 살<br /><br />
+						날짜 : ${meet.MEETDAY }<br /><br />
 		                
 	                	<button class="btn btn-primary" onclick="location.href='${path}/meet/meetView.do?meetNo=${meet.MEETNO }'">상세보기</button>
 		                <br>
@@ -255,7 +238,6 @@
 		}else{
 			location.href='${path}/meet/meetForm.do';
 		}
-		//location.href='${path}/meet/meetForm.do';
 	}
 
 </script>
@@ -263,4 +245,4 @@
 	
 </section>
 <%@ include file="/WEB-INF/views/common/footer.jsp" %>
-<%-- <jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include> --%>
+
