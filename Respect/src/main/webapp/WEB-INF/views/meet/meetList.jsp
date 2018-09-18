@@ -53,7 +53,6 @@
 	        // 주소-좌표 변환 객체를 생성합니다
 	        var geocoder = new daum.maps.services.Geocoder();
 	        
-				        
 	        <c:forEach items="${list }" var="meet">
 	        	
 	        	var addr = new Array();
@@ -193,7 +192,7 @@
 						제목 : ${meet.TITLE }<br><br>
 						위치 : ${meet.ADDRESS }<br /><br /> 
 						닉네임 : ${meet.NICKNAME }<br /><br /> 
-						성별 : ${meet.GENDER=='M'?'남':'여' }<br /><br />
+						성별 : ${meet.GENDER=='M'?'남':'여' }자<br /><br />
 						나이 : ${meet.AGE } 살<br /><br />
 						날짜 : ${meet.MEETDAY }<br /><br />
 		                

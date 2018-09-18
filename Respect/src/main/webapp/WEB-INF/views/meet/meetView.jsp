@@ -40,10 +40,10 @@
 		<br>
 		
 		<div class="card mb-4">
+			<div class="col-sm-3" style="float:right;">
+				<button class="btn btn-success" onclick="sendM()">쪽지보내기</button>
+		    </div>
 	        <div class="card-body">
-	        	<div class="col-sm-3" style="float:right;">
-					<button class="btn btn-success" onclick="sendM()">쪽지보내기</button>
-			    </div>
 				<div class="form-group row">
 				   	<label for="gender" class="col-sm-2 col-form-label">닉네임</label>
 				   	<div class="col-sm-3">
@@ -55,7 +55,7 @@
 				<div class="form-group row">
 				   	<label for="gender" class="col-sm-2 col-form-label">성별</label>
 				   	<div class="col-sm-3">
-				       	${meet.gender=='M'?'남':'여' }
+				       	${meet.gender=='M'?'남':'여' }자
 				    </div>
 				</div>
 			</div>
@@ -63,7 +63,7 @@
 				<div class="form-group row">
 				   	<label for="gender" class="col-sm-2 col-form-label">나이</label>
 				   	<div class="col-sm-3">
-				       	<input type="text" class="form-control">
+				       	${meet.age} 살
 				    </div>
 				</div>
 			</div>

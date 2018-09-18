@@ -127,7 +127,7 @@
 							            center: new daum.maps.LatLng(37.537187, 127.005476), // 지도의 중심좌표
 							            level: 5 // 지도의 확대 레벨
 							        };
-							
+								
 							    //지도를 미리 생성
 							    var map = new daum.maps.Map(mapContainer, mapOption);
 							    //주소-좌표 변환 객체를 생성
@@ -137,8 +137,8 @@
 							        position: new daum.maps.LatLng(37.537187, 127.005476),
 							        map: map
 							    });
-							
-							
+								
+								
 							    function sample5_execDaumPostcode() {
 							        new daum.Postcode({
 							            oncomplete: function(data) {
@@ -146,7 +146,7 @@
 							                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
 							                var fullAddr = data.address; // 최종 주소 변수
 							                var extraAddr = ''; // 조합형 주소 변수
-							
+											
 							                // 기본 주소가 도로명 타입일때 조합한다.
 							                if(data.addressType === 'R'){
 							                    //법정동명이 있을 경우 추가한다.
@@ -160,7 +160,7 @@
 							                    // 조합형주소의 유무에 따라 양쪽에 괄호를 추가하여 최종 주소를 만든다.
 							                    fullAddr += (extraAddr !== '' ? ' ('+ extraAddr +')' : '');
 							                }
-							
+											
 							                // 주소 정보를 해당 필드에 넣는다.
 							                document.getElementById("address").value = fullAddr;
 							                // 주소로 상세 정보를 검색

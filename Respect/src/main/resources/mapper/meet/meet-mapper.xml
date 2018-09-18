@@ -27,7 +27,7 @@
 	</insert>
 	
 	<select id="selectOne" resultType="meet">
-		select * from meet A left join rp_user B on A.userid=b.userid where meetno=#{meetNo}
+		select A.*, b.gender, b.nickname, to_char(meetdate, 'yyyy/MM/dd') as meetday, to_number(extract(year from sysdate))-(to_number(substr(b.birth,0,2))+1900)+1 as age from meet A left join rp_user B on A.userid=b.userid where meetno=#{meetNo}
 	</select>
 	
 	<delete id="meetDelete" parameterType="_int">
