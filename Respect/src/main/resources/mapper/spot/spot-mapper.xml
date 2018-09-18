@@ -5,7 +5,7 @@
 	</resultMap>
 	
 	<select id="selectSpotList" resultType="place">
-		SELECT * FROM PLACE WHERE USERID IS NULL
+		SELECT * FROM PLACE
 	</select>
 	<select id="selectUserSpotList" resultType="place" parameterType="string">
 		SELECT * FROM PLACE WHERE USERID=#{userId}

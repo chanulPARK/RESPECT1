@@ -39,4 +39,6 @@
 	<delete id="deleteNotice" parameterType="_int">
 		delete from notice where noticeno=#{noticeNo}
 	</delete>
+	
+	
 </mapper>

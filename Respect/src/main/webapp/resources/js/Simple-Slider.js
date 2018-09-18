@@ -21,7 +21,6 @@ $(function(){
     );
 
     $("#myCarousel").carousel({interval: 3000, keyboard:true, pause: false});
-    $("#weather-carousel").carousel({interval: 2000, pause: false});
 
     var count = $('#rank-list li').length;
         var height = $('#rank-list li').height();

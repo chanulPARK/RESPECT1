@@ -1,4 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<c:set value="${pageContext.request.contextPath}" var="path"/>
+<script src="${path}/resources/js/Simple-Slider.js"></script>
+<link rel="stylesheet" href="${path}/resources/css/styles2.css">
 
 <div id="myCarousel" class="carousel slide carousel-fade" data-ride="carousel">
         <div class="row">
@@ -257,15 +263,17 @@
         
             <div class="accordian mt-5">
                 <ul>
+                <c:forEach items="${list}" var="mp" begin="0" end="4">
                     <li>
-                        <div class="image_title">
-                            <a href="https://www.youtube.com/channel/UCXTfDJ60DBmA932Du6B1ydg">관광지1</a>
-                        </div> 
-                        <a href="#">
-                            <img src="${path}/resources/img/main/관광지1.jpg"/>
+			          	<div class="image_title">
+                            <a href="${path}/spot/spotList.do">${mp.title}</a>
+                        </div>
+                        <a href="${path}/spot/spotList.do">
+                            <img src="${path}/resources/img/thumbnail/${mp.thumbnail}"/>
                         </a>
                     </li>
-                    <li>
+                 </c:forEach>
+                    <%-- <li>
                         <div class="image_title">
                             <a href="https://www.youtube.com/channel/UCXTfDJ60DBmA932Du6B1ydg">관광지2</a>
                         </div>
@@ -296,7 +304,7 @@
                         <a href="#">
                             <img src="${path}/resources/img/main/관광지5.jpg"/>
                         </a>
-                    </li>
+                    </li> --%>
                 </ul>
             </div>
                 
