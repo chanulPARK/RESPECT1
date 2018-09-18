@@ -9,6 +9,8 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.kh.respect.meet.model.vo.Meet;
+import com.kh.respect.meet.model.vo.MeetReply;
+import com.kh.respect.meet.model.vo.MeetReplyAttachment;
 
 @Repository
 public class MeetDaoImpl implements MeetDao {
@@ -58,6 +60,64 @@ public class MeetDaoImpl implements MeetDao {
 	@Override
 	public void updateMeetCnt(SqlSessionTemplate sqlSession, int meetNo) {
 		sqlSession.update("meet.updateMeetCnt", meetNo);
+	}
+	
+	/////////////   댓글     ////////////////
+	@Override
+	public List<Map<String, String>> meetReplyList(SqlSessionTemplate sqlSession, int meetNo) {
+		return sqlSession.selectList("meet.meetReplyList", meetNo);
+	}
+
+	@Override
+	public List<Map<String, String>> meetAttList(SqlSessionTemplate sqlSession) {
+		return sqlSession.selectList("meet.meetAttList");
+	}
+
+	@Override
+	public int meetReplyWrite(SqlSessionTemplate sqlSession, MeetReply meetReply) {
+		return sqlSession.insert("meet.meetReplyWrite", meetReply);
+	}
+
+	@Override
+	public void meetReplyCountUpdate(SqlSessionTemplate sqlSession, int meetNo) {
+		sqlSession.update("meet.meetReplyCountUpdate", meetNo);
+	}
+
+	@Override
+	public int insertMeetReplyAttach(SqlSessionTemplate sqlSession, MeetReplyAttachment a) {
+		// TODO Auto-generated method stub
+		return sqlSession.insert("meet.insertMeetReplyAttach", a);
+	}
+
+	@Override
+	public int meetReplyWrite2(SqlSessionTemplate sqlSession, MeetReply meetReply) {
+		// TODO Auto-generated method stub
+		return sqlSession.insert("meet.meetReplyWrite2",meetReply);
+	}
+
+	@Override
+	public void meetReplyReplyCountUpdate(SqlSessionTemplate sqlSession, int replyRefNo) {
+		sqlSession.update("meet.meetReplyReplyCountUpdate", replyRefNo);
+	}
+
+	@Override
+	public int meetReplyDelete(SqlSessionTemplate sqlSession, int replyNo) {
+		return sqlSession.delete("meet.meetReplyDelete",replyNo);
+	}
+
+	@Override
+	public int meetReplyGood(SqlSessionTemplate sqlSession, int replyNo) {
+		return sqlSession.update("meet.meetReplyGood",replyNo);
+	}
+
+	@Override
+	public int meetReplyGoodCheck(SqlSessionTemplate sqlSession, MeetReply meetReply) {
+		return sqlSession.selectOne("meet.meetReplyGoodCheck", meetReply);
+	}
+
+	@Override
+	public void insertmeetReplyGood(SqlSessionTemplate sqlSession, MeetReply meetReply) {
+		sqlSession.insert("meet.insertmeetReplyGood", meetReply);
 	}
 	
 	

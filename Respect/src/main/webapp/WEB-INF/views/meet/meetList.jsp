@@ -33,7 +33,7 @@
 
 <section>
 	<div class="container">
-		<br><br><br><br><br><br><br><br>
+		<br><br>
 		<div id="map-container" style="width: 100%; height: auto;">
 			<div id="map" style="width: 100%; height: 300px; min-height: 150px;"></div>
 		</div>
@@ -44,7 +44,7 @@
 	        var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
 	            mapOption = {
 	                center: new daum.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
-	                level: 7 // 지도의 확대 레벨
+	                level: 10 // 지도의 확대 레벨
 	            };
 	        
 	        // 지도를 생성합니다    
@@ -125,12 +125,11 @@
 							<br>
 							<h5>더 재미있는 제주도 여행을 위해..</h5>
 							<div class="justify-content-center" align='center'>							
-								<button class="btn btn-block"
+								<button class="btn btn-outline-warning"
 									onclick="writeMeet();" style="width: 60%;">글쓰기</button>
 							</div>
 							<br>
 						</div>
-						
 					</li>
 					<li class="sidebar-brand" style="background:#ef8321; text-align:center;padding-top:15px;">
 						<h4>
@@ -138,9 +137,9 @@
 						</h4>
 					</li>
 					<li>
-						<form action="${path }/meet/searchMeet.do">
+						<form action="${path }/meet/searchMeet.do" class="justify-content-center" style="margin-left:50px;">
 							<ul>
-								<li>
+								<li id="date-search">
 									<h5>기간</h5>
 									<div class="form-group row">
 					                	<div class="col-sm-10">
@@ -154,19 +153,17 @@
 					                </div>
 									<br>
 								</li>
-								<li>지역 
-									<input type="text" name="area" class="form-control" 
-										placeholder="주소를 입력해주세요." style="width: 70%;"> 
+								<li id="area-search">지역 
+									<input type="text" name="area" class="form-control" placeholder="주소를 입력해주세요." style="width: 70%;"> 
 									&nbsp;
 									<div class="form-inline">
-										<input type="submit" class="btn" style="width: 30%;" value="검색">
+										<input type="submit" class="btn btn-outline-warning" style="width: 30%;" value="검색">
 										&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-										<input type="reset" class="btn" style="width: 30%;" value="취소">
+										<input id="close" type="button" class="btn btn-outline-danger" style="width: 30%;" value="취소">
 									</div>
 									<br>
 								</li>
 							</ul>
-							
 						</form>
 					</li>
 				</ul>
@@ -176,39 +173,38 @@
 		<!-- Page Content -->
 		<div id="page-content-wrapper">
 			<div class="container">
-				<a href="#menu-toggle" class="btn btn-primary" id="menu-toggle">필터설정</a>
+				<a href="#menu-toggle" class="btn btn-outline-warning" id="menu-toggle">필터설정</a>
 			</div>
 			<br>
 			<c:forEach items="${list }" var="meet">
-				<div class="row" style="margin-left:-45px;">
+				<div class="row" style="box-shadow: rgba(0,0,0,.298039) 0 1px 4px -1px, inset 0 -1px 0 0 rgba(0,0,0,.24);border-radius:2px;">
 		            <div class="col-lg-7 col-md-7">
 		                <br>
-		                <a href="#" onclick="location.href='${path}/meet/meetView.do?meetNo=${meet.MEETNO }'" style="margin-top:10px;">
-		                    <img class="img-thumbnail" src="http://placehold.it/500x300" alt="">
+		                <a href="#" onclick="location.href='${path}/meet/meetView.do?meetNo=${meet.MEETNO }'">
+		                    <img class="img-thumbnail" src="${path }/resources/upload/meet/thumbnail/${meet.THUMBNAIL }" >
 		                </a>
 		            </div>
 		            <div class="col-lg-5 col-md-5" class="justify-content-center" align='center'>
 		            	<br>
-						제목 : ${meet.TITLE }<br><br>
-						위치 : ${meet.ADDRESS }<br /><br /> 
+						${meet.TITLE }<br><hr>
+						주소 : ${meet.ADDRESS }<br /><br /> 
 						닉네임 : ${meet.NICKNAME }<br /><br /> 
 						성별 : ${meet.GENDER=='M'?'남':'여' }자<br /><br />
 						나이 : ${meet.AGE } 살<br /><br />
 						날짜 : ${meet.MEETDAY }<br /><br />
 		                
-	                	<button class="btn btn-primary" onclick="location.href='${path}/meet/meetView.do?meetNo=${meet.MEETNO }'">상세보기</button>
+	                	<button class="btn btn-outline-warning" onclick="location.href='${path}/meet/meetView.do?meetNo=${meet.MEETNO }'">상세보기</button>
 		                <br>
 		            </div>
 	        	</div>
 				<hr>
 			</c:forEach>
 			<br>
-			<div id="pagebar">
-				${pagebar }
-			</div>
 			
 		</div>
-		
+		<div id="pagebar">
+				${pagebar }
+			</div>
 	</div>
 	
 	<!-- /#wrapper -->
