@@ -44,4 +44,43 @@
 	SELECT COUNT(*) FROM PLACE WHERE USERID IS NULL AND (TITLE LIKE '%'||#{keyword}||'%' OR ADDRESS LIKE '%'||#{keyword}||'%')
 	</select>
 	
+	<select id="spotSearchList" resultType="placespring" parameterType="string">
+		SELECT * FROM (
+			SELECT ROWNUM AS RNUM, B.* FROM (
+				SELECT *
+				FROM PLACE A
+				WHERE 1 = 1 
+				
+				AND MINORCATEGORY = #{minorcategory}
+				
+				ORDER BY NUM DESC
+			) B
+		) WHERE RNUM BETWEEN #{first} AND #{last}
+	</select>
+	
+    <select id="spotSearchListTotal" resultType="_int" parameterType="string">
+		SELECT COUNT(*) AS CNT
+		FROM PLACE
+		WHERE 1 = 1
+           
+           AND MINORCATEGORY = #{minorcategory}
+           
+    </select>
+    
+    <select id="selectLike" parameterType="placegood" resultType="placegood">
+    	SELECT * FROM PLACE_GOOD
+    	WHERE PLACENO=#{placeno} AND USERID=#{userid}
+    </select>
+    
+    <insert id="insertLike" parameterType="placegood">
+		INSERT INTO PLACE_GOOD(PLACENO, USERID)
+		VALUES(#{placeno}, #{userid})
+	</insert>
+	
+	<delete id="deleteLike" parameterType="placegood">
+		DELETE FROM PLACE_GOOD
+		WHERE PLACENO=#{placeno} AND USERID=#{userid}
+	</delete>
+    
+	
 </mapper>
