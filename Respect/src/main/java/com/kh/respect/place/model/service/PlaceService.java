@@ -12,6 +12,7 @@ public interface PlaceService {
 	int insertSpot(Place p);
 	Place selectSpot(int spotno);
 	void updateSpotCnt(int spotno);
+	int insertMySpot(Place place);
 	int selectTotalUserCount(String userId);
 	int deleteSpot(int placeno);
 	int selectSearchCount(String keyword);

@@ -23,6 +23,11 @@
 		</selectKey>
 	</insert>
 	
+	<insert id="insertMyPlace" parameterType="place">
+		insert into place(PLACENO,USERID,TITLE,ADDRESS,CONTENT)
+		VALUES(SEQ_PLACE.NEXTVAL,#{userid}, #{title}, #{address},#{content})
+	</insert>
+	
 	<select id="selectSpot" parameterType="_int" resultType="place">
 		SELECT * FROM PLACE WHERE PLACENO = #{spotno}
 	</select>

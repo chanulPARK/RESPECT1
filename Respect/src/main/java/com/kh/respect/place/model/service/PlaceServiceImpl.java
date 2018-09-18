@@ -51,6 +51,10 @@ public class PlaceServiceImpl implements PlaceService {
 	}
 
 	@Override
+	public int insertMySpot(Place place) {
+		return dao.insertMySpot(sqlSession,place);
+	}
+	
 	public int selectTotalUserCount(String userId) {
 		
 		return dao.selectTotalUserCount(sqlSession,userId);
