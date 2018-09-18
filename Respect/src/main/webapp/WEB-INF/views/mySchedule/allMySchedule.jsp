@@ -192,7 +192,7 @@
             	
             	<c:if test="${fn:length(myScheduleList)==1}">
             		<c:forEach items="${myScheduleList }" var="msl">
-            			<a class="portfolio-link" href="#portfolioModal1" style="text-decoration:none !important">
+            			<a class="portfolio-link" href="${path }/schedule/updateSchedule?scheduleNo=${msl.SCHEDULENO }" style="text-decoration:none !important">
 			              <div class="portfolio-hover mt-3 ">
 			                <div class="portfolio-hover-content">
 			                  
@@ -226,7 +226,7 @@
             	
             	<c:if test="${fn:length(myScheduleList)==2}">
             		<c:forEach items="${myScheduleList }" var="msl">
-            			<a class="portfolio-link" href="#portfolioModal1" style="text-decoration:none !important">
+            			<a class="portfolio-link" href="${path }/schedule/updateSchedule?scheduleNo=${msl.SCHEDULENO }" style="text-decoration:none !important">
 			              <div class="portfolio-hover mt-3 ">
 			                <div class="portfolio-hover-content">
 			                  

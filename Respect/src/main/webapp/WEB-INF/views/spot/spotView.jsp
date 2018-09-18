@@ -62,7 +62,7 @@
             </div> -->
         </div>
         <div class="mx-auto" style="width: 1902px">
-	        <img src="${path }/resources/upload/spot/mainimage/${place.mainimage}" style="width:1902px; height:560px;">
+	        <img src="${path }/resources/upload/spot/mainimage/${place.mainimage}" style="width:100%; height:560px;">
 	        <%-- <img src="${path }/resources/img/spot/${place.title}.jpg" style="width: 1902px; height:560px;"> --%>
         </div>
         </section>

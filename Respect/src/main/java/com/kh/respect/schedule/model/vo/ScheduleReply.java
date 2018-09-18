@@ -3,6 +3,7 @@ package com.kh.respect.schedule.model.vo;
 import java.sql.Date;
 
 public class ScheduleReply {
+
 	private int replyNo;
 	private int scheduleNo;
 	private int replyRef;
@@ -111,3 +112,4 @@ public class ScheduleReply {
 	}
 
 }
+

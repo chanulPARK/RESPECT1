@@ -10,7 +10,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <meta charset="UTF-8">
-<title>Hello Spring</title>
+<title>니가가라 제주도</title>
 
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
@@ -221,7 +221,7 @@ $(function(){
                           	</div>
                         </li>
                         <li class="nav-item mr-3" role="presentation"><a class="nav-link" href="${path }/meet/meetList.do">모임</a></li>
-                        <li class="nav-item mr-3" role="presentation"><a class="nav-link" href="#">여행일정</a></li>
+                        <li class="nav-item mr-3" role="presentation"><a class="nav-link" href="${path}/schedule/scheduleList">여행일정</a></li>
                         <li class="nav-item mr-3" role="presentation"><a class="nav-link" href="${path}/schedule/scheduleWrite">일정 만들기</a></li>
                     </ul>
                 </div>

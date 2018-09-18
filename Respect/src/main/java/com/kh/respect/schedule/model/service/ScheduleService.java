@@ -12,6 +12,7 @@ public interface ScheduleService {
 
 	int insertSchedule(Schedule sc, List<TimeTable> list);
 
+
 	//좋아요증가부터
 
 	int goodCountCheck(Schedule schedule);
@@ -25,4 +26,45 @@ public interface ScheduleService {
 	int bringCountUp(Schedule schedule);
 
 	int bringCountDown(Schedule schedule);
+
+	List<Map<String, String>> selectScheduleList(int cPage, int numPerPage);
+
+	int selectTotalCount();
+
+	List<Map<String, String>> selectScheduleFilter(Map<String, String> map, int numPerPage, int cPage);
+
+	Map<String, String> selectOneScheduleView(int scheduleNo);
+
+	List<TimeTable> selectOneTimetableView(int scheduleNo);
+
+
+	//댓글
+	int scheduleReplyWrite(ScheduleReply schedulyReply, List<ScheduleReplyAttachment> attList);
+
+   int scheduleReplyWrite2(ScheduleReply schedulyReply);
+
+   int scheduleReplyDelete(int replyNo);
+
+   int scheduleReplyGood(int replyNo);
+
+   int scheduleReplyGoodCheck(ScheduleReply schedulyReply);
+
+   void insertscheduleReplyGood(ScheduleReply schedulyReply);
+
+   List<Map<String, String>> scheduleReplyList(int scheduleNo);
+
+   List<Map<String, String>> scheduleAttList();
+
+
+	
+	Map selectSchedule(int scheduleNo);
+	
+	List<Map> selectTimeTableList(int scheduleNo);
+	
+	int updateSchedule(Schedule sc, List<TimeTable> list);
+	
+//	int deleteSchedule(int scheduleNo);
+
+	
+
 }

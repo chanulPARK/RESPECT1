@@ -1,6 +1,7 @@
 package com.kh.respect.schedule.model.vo;
 
 public class ScheduleReplyAttachment {
+
 	private int attachNo;
 	private int replyNo;
 	private String originName;
@@ -58,3 +59,4 @@ public class ScheduleReplyAttachment {
 	
 	
 }
+
