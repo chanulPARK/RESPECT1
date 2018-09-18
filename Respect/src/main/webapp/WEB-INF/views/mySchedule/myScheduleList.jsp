@@ -6,17 +6,8 @@
 <c:set var="path" value="<%=request.getContextPath()%>"/>
 <jsp:include page="/WEB-INF/views/common/header.jsp"/>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+  
+
     <script>
       // 더보기버튼구현
     $(function(){
@@ -280,7 +271,7 @@
 		                      </div>
 		                    </div>
 		                    <div id="card_line" style="height: auto;">
-		                      <img src="${path }/resources/upload/profile/${msl.THUMBNAIL}" alt="" width="100%" height="130px">
+		                      <img src="${path }/resources/upload/spot/thumbnail/${msl.THUMBNAIL}" alt="" width="100%" height="130px">
 		                      <a href="${path }/mySchedule/myScheduleDelete.do?scheduleNo=${msl.SCHEDULENO }&userId=${userLoggedIn.userId}&sort=${sort}" style="text-decoration:none !important" onclick="return check()"><img src="${path }/resources/upload/profile/xButton.png" alt="" width="20px" style="position: absolute; top: 25px; right: 25px;"></a>
 		                      
 		                      <fmt:parseDate value="${msl.STARTDATE }" var="strPlanDate" pattern="yyyy-MM-dd"/>
