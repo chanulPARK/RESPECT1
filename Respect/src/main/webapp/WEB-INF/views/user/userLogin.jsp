@@ -35,7 +35,7 @@
 </head>
 <body style="background: #f1f1f1">
     <div class="container mt-5 p-5">
-        <div class="p-4"align="center"><label><a id="logo" class="navbar-brand" href="<%=request.getContextPath() %>/index.jsp"><img src="${path }/resources/img/main/KakaoTalk_20180913_202949683.png" > 니가가라 제주도</a></label></div>
+        <div class="p-4"align="center"><label><a id="logo" class="navbar-brand" href="<%=request.getContextPath() %>/index.jsp"><img src="${path }/resources/img/main/logo.png" > 니가가라 제주도</a></label></div>
         <div class="container col-sm-5 shadow p-4 rounded" style="background:white;">
             <form action="${path }/user/loginEnd" method="post">
                 <div class="form-group">

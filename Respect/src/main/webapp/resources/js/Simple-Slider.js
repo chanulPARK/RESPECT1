@@ -19,8 +19,6 @@ $(function(){
             $(".textfeat").hide(500);
         }
     );
-
-    $("#myCarousel").carousel({interval: 3000, keyboard:true, pause: false});
     
 
     var count = $('#rank-list li').length;
@@ -36,6 +34,6 @@ $(function(){
     
     step(1);
     
-    
+    $("#myCarousel").carousel({interval: 5000, keyboard:true, pause: false});
     
 });

@@ -252,7 +252,7 @@
                   <div id="card_line" style=" border: 1px solid #ef8321; text-align: center;" >
                     <br><br>
                     <p id="more_title" class="mt-1">나의 여행일정 만들기</p>
-                    <a class="portfolio-link" href="http://www.naver.com" style="text-decoration:none !important">
+                    <a class="portfolio-link" href="${path }/schedule/scheduleWrite" style="text-decoration:none !important">
                         <img src="${path }/resources/upload/profile/btn_plus.PNG" alt="">
                       </a>
                   </div>

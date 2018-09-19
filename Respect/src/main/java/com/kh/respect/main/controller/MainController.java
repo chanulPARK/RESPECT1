@@ -26,6 +26,8 @@ public class MainController {
 		List<Place> tlist = service.selectMtpList();
 		List<Map<String, String>> mlist = service.selectMmpList();
 		List<Map<String, String>> nlist = service.selectMnpList();
+		List<Map<String, String>> clist = service.selectMcpList();
+		
 		ImgExtract ie=new ImgExtract();
 		
 //		System.out.println(ie.imgExtract("<img src='/respect/resources/uploadImg/20180918_164442203_5777.jpg' data-filename='20180918_164442203_5777.jpg' style='width: 513px;'>"));
@@ -34,6 +36,7 @@ public class MainController {
 		mv.addObject("tlist", tlist);
 		mv.addObject("mlist", mlist);
 		mv.addObject("nlist", nlist);
+		mv.addObject("clist", clist);
 		mv.addObject("ie", ie);
 		mv.setViewName("main/main");
 		

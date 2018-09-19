@@ -23,12 +23,11 @@
 <!-- Popper JS -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
 
-<!-- Latest compiled JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+
 
 
 <%-- <script src="${path }/resources/js/jquery.min.js"></script> --%>
-<%-- <script src="${path }/resources/bootstrap/js/bootstrap.min.js"></script> --%>
+<script src="${path }/resources/bootstrap/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="${path }/resources/css/Footer-Dark.css">
 <link rel="stylesheet" href="${path }/resources/bootstrap/css/bootstrap.min.css">
 <link rel="stylesheet" href="${path }/resources/css/style.css">
@@ -234,7 +233,6 @@ $(function(){
                         <li class="dropdown mr-3"><a class="dropdown-toggle nav-link dropdown-toggle" data-toggle="dropdown" aria-expanded="false" href="#">제주이야기 </a>
                             <div class="dropdown-menu" role="menu">
                             	<a class="dropdown-item" role="presentation" href="${path}/notice/notice-board.do">공지사항</a>
-                            	<a class="dropdown-item" role="presentation" href="#">축제</a>
                             	<a class="dropdown-item" role="presentation" href="${path}/notice/traffic-board.do">교통</a>
                           	</div>
                         </li>
