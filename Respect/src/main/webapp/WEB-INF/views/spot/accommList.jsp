@@ -52,43 +52,29 @@
 	    <div class="container">
 	        <div class="row map-row">
 	            <div class="col-xl-1 tag-all cate cate_click" style="padding:0px;">
-	                <h5>전체</h5>
+	                <h5 style="padding-top: 35px;">전체</h5>
 	            </div>
 	            <div class="col">
-	                <a href="javascript:fn_search('자연')">
+	                <a href="javascript:fn_search('리조트')">
 	                <div class="row cate">
 	                    <div class="col">
-	                        <h5>자연</h5>
+	                        <h5>리조트</h5>
 	                    </div>
 	                </div>
 	                </a>
-	                <a href="javascript:fn_search('섬속의섬')">
+	                <a href="javascript:fn_search('게스트하우스')">
 	                <div class="row cate">
 	                    <div class="col">
-	                        <h5>섬속의섬</h5>
-	                    </div>
-	                </div>
-	                </a>
-	                <a href="javascript:fn_search('템플스테이')">
-	                <div class="row cate">
-	                    <div class="col">
-	                        <h5>템플스테이</h5>
+	                        <h5>게스트하우스</h5>
 	                    </div>
 	                </div>
 	                </a>
 	            </div>
 	            <div class="col">
-	            	<a href="javascript:fn_search('문화관광')">
+	            	<a href="javascript:fn_search('호텔')">
 	                <div class="row cate">
 	                    <div class="col">
-	                        <h5>문화관광</h5>
-	                    </div>
-	                </div>
-	                </a>
-	                <a href="javascript:fn_search('도보')">
-	                <div class="row cate">
-	                    <div class="col">
-	                        <h5>도보</h5>
+	                        <h5>호텔</h5>
 	                    </div>
 	                </div>
 	                </a>
@@ -99,17 +85,10 @@
 	                </div>
 	            </div>
 	            <div class="col">
-	            	<a href="javascript:fn_search('레저/체험')">
+	            	<a href="javascript:fn_search('모텔/여관')">
 	                <div class="row cate">
 	                    <div class="col">
-	                        <h5>레저/체험<br></h5>
-	                    </div>
-	                </div>
-	                </a>
-	                <a href="javascript:fn_search('포토스팟')">
-	                <div class="row cate">
-	                    <div class="col">
-	                        <h5>포토/스팟</h5>
+	                        <h5>모텔/여관<br></h5>
 	                    </div>
 	                </div>
 	                </a>
@@ -120,17 +99,10 @@
 	                </div>
 	            </div>
 	            <div class="col">
-	            	<a href="javascript:fn_search('테마관광지')">
+	            	<a href="javascript:fn_search('펜션/민박')">
 	                <div class="row cate">
 	                    <div class="col">
-	                        <h5>테마관광지</h5>
-	                    </div>
-	                </div>
-	                </a>
-	                <a href="javascript:fn_search('4.3 70주년')">
-	                <div class="row cate">
-	                    <div class="col">
-	                        <h5>4.3 70주년</h5>
+	                        <h5>펜션/민박</h5>
 	                    </div>
 	                </div>
 	                </a>
@@ -217,7 +189,7 @@
 	}
 	
 	function fn_search(minorcategory) {
-		location.href="${path}/spot/searchCategoryList.do?minorcategory="+minorcategory;
+		location.href="${path}/spot/searchaccommCategoryList.do?minorcategory="+minorcategory;
 	}
 	
 	$(document).ready(function() {

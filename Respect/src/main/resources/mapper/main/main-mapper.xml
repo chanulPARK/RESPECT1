@@ -17,5 +17,8 @@
 		select * from meet order by hitscount desc
 	</select>
 	
+	<select id="selectMnpList" resultType="map">
+		select * from notice order by writedate desc
+	</select>
 
 </mapper>

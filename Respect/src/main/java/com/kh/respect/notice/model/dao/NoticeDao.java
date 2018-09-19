@@ -27,4 +27,9 @@ public interface NoticeDao {
 
 	int deleteNotice(SqlSession session, int noticeNo);
 
+	List<Map<String, String>> searchList(SqlSession session, int cPage, int numPerPage, String searchText);
+
+
+
+
 }

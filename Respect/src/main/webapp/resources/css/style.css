@@ -48,8 +48,7 @@
 }
 
 #map-tag .tag-all {
-  background:#ffb53c;
-  color:#fff;
+  border: 1px solid #e5e5e5;
   text-align:center;
 }
 

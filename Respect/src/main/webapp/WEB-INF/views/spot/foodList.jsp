@@ -52,85 +52,61 @@
 	    <div class="container">
 	        <div class="row map-row">
 	            <div class="col-xl-1 tag-all cate cate_click" style="padding:0px;">
-	                <h5>전체</h5>
+	                <h5 style="padding-top: 35px;">전체</h5>
 	            </div>
 	            <div class="col">
-	                <a href="javascript:fn_search('자연')">
+	                <a href="javascript:fn_search('향토음식')">
 	                <div class="row cate">
 	                    <div class="col">
-	                        <h5>자연</h5>
+	                        <h5>향토음식</h5>
 	                    </div>
 	                </div>
 	                </a>
-	                <a href="javascript:fn_search('섬속의섬')">
+	                <a href="javascript:fn_search('중식')">
 	                <div class="row cate">
 	                    <div class="col">
-	                        <h5>섬속의섬</h5>
-	                    </div>
-	                </div>
-	                </a>
-	                <a href="javascript:fn_search('템플스테이')">
-	                <div class="row cate">
-	                    <div class="col">
-	                        <h5>템플스테이</h5>
+	                        <h5>중식</h5>
 	                    </div>
 	                </div>
 	                </a>
 	            </div>
 	            <div class="col">
-	            	<a href="javascript:fn_search('문화관광')">
+	            	<a href="javascript:fn_search('한식')">
 	                <div class="row cate">
 	                    <div class="col">
-	                        <h5>문화관광</h5>
+	                        <h5>한식</h5>
 	                    </div>
 	                </div>
 	                </a>
-	                <a href="javascript:fn_search('도보')">
+	                <a href="javascript:fn_search('동남아식')">
 	                <div class="row cate">
 	                    <div class="col">
-	                        <h5>도보</h5>
+	                        <h5>동남아식</h5>
 	                    </div>
 	                </div>
 	                </a>
-	                <div class="row">
-	                    <div class="col">
-	                        <h5>-</h5>
-	                    </div>
-	                </div>
 	            </div>
 	            <div class="col">
-	            	<a href="javascript:fn_search('레저/체험')">
+	            	<a href="javascript:fn_search('양식')">
 	                <div class="row cate">
 	                    <div class="col">
-	                        <h5>레저/체험<br></h5>
+	                        <h5>양식<br></h5>
 	                    </div>
 	                </div>
 	                </a>
-	                <a href="javascript:fn_search('포토스팟')">
+	                <a href="javascript:fn_search('카페')">
 	                <div class="row cate">
 	                    <div class="col">
-	                        <h5>포토/스팟</h5>
+	                        <h5>카페</h5>
 	                    </div>
 	                </div>
 	                </a>
-	                <div class="row">
-	                    <div class="col">
-	                        <h5>-</h5>
-	                    </div>
-	                </div>
 	            </div>
 	            <div class="col">
-	            	<a href="javascript:fn_search('테마관광지')">
+	            	<a href="javascript:fn_search('일식')">
 	                <div class="row cate">
 	                    <div class="col">
-	                        <h5>테마관광지</h5>
-	                    </div>
-	                </div>
-	                </a>
-	                <a href="javascript:fn_search('4.3 70주년')">
-	                <div class="row cate">
-	                    <div class="col">
-	                        <h5>4.3 70주년</h5>
+	                        <h5>일식</h5>
 	                    </div>
 	                </div>
 	                </a>
@@ -217,7 +193,7 @@
 	}
 	
 	function fn_search(minorcategory) {
-		location.href="${path}/spot/searchCategoryList.do?minorcategory="+minorcategory;
+		location.href="${path}/spot/searchfoodCategoryList.do?minorcategory="+minorcategory;
 	}
 	
 	$(document).ready(function() {

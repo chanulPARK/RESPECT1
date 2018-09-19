@@ -12,14 +12,31 @@ public interface PlaceService {
 	List<Place> selectUserSpotList(String userId, int cPage, int numPerPage);
 	List<Place> selectSearchList(int cPage, int numPerPage, String keyword );
 	int selectTotalCount();
-	int insertSpot(Place p);
-	Place selectSpot(int spotno);
+	int insertPlace(Place p);
+	Place selectPlace(int placeno);
+	int updatePlace(Place p);
 	void updateSpotCnt(int spotno);
-
-//	Map<String, Object> spotSearchList(PlaceSpring palce) throws Exception;
 	int insertLike(PlaceGood pg);
 	int deleteLike(PlaceGood pg);
 	PlaceGood selectLike(PlaceGood pg);
+	int insertBring(PlaceGood pg);
+	int deleteBring(PlaceGood pg);
+	PlaceGood selectBring(PlaceGood pg);
+	void increaseLike(int placeno);
+	void decreaseLike(int placeno);
+	int selectPlaceLikecnt(int placeno);
+	void increaseBring(int placeno);
+	void decreaseBring(int placeno);
+	int selectPlaceBringcnt(int placeno);
+	List<Place> searchCategoryList(int cPage, int numPerPage, String minorcategory);
+	int categoryTotalCount(String minorcategory);
+	
+	List<Place> selectPlaceList(int cPage, int numPerPage);
+	int selectPlaceCount();
+	List<Place> selectFoodList(int cPage, int numPerPage);
+	int selectFoodCount();
+	List<Place> selectAccommList(int cPage, int numPerPage);
+	int selectAccommCount();
 
 	int insertMySpot(Place place);
 	int selectTotalUserCount(String userId);

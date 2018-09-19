@@ -21,6 +21,7 @@ $(function(){
     );
 
     $("#myCarousel").carousel({interval: 3000, keyboard:true, pause: false});
+    
 
     var count = $('#rank-list li').length;
         var height = $('#rank-list li').height();
@@ -34,5 +35,7 @@ $(function(){
         }
     
     step(1);
+    
+    
     
 });
