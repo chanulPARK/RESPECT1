@@ -6,6 +6,15 @@
 <script src="${path}/resources/js/Simple-Slider.js"></script>
 <link rel="stylesheet" href="${path}/resources/css/styles2.css">
 
+<script>
+$(function(){
+	
+	$('#featured .carousel-item:first').siblings().removeClass('active');
+	$("#featured").carousel({interval: 3000, pause: false});
+	
+});
+</script>
+
 <div id="myCarousel" class="carousel slide carousel-fade" data-ride="carousel">
         <div class="row">
             <!-- Indicators -->
@@ -48,26 +57,26 @@
         <div class="row justify-content-center mb-5">
             <p style="font-size:20px; color: #959595;">당신의 여행 친구가 필요하신가요?</p>
         </div>
-
+		
         <div class="row">
             <div class="col-sm-12 col-md-6 col-lg-6  py-0 pl-3 pr-1 mt-4 featcard">
                 <div id="featured" class="carousel slide carousel-fade" data-ride="carousel">
                     <div class="carousel-inner">
+                    <c:forEach items="${mlist}" var="ml">
                         <div class="carousel-item active">
                             <div class="card bg-dark text-white">
-                                <img class="card-img img-fluid" src="${path}/resources/img/main/여행친구1.jpg" alt="">
+                                <img class="card-img img-fluid" src="${ie.imgExtract(ml.CONTENT)}" alt="">
                                 <div class="card-img-overlay d-flex linkfeat">
-                                    <a href="#" class="align-self-end">
+                                    <a href="${path}/meet/meetList.do" class="align-self-end">
                                         <span class="badge">여행친구</span>
-                                        <h4 class="card-title">즐거운 여행! 혼자하긴 심심하시죠? 드루와 다 드루와~</h4>
-                                        <p class="textfeat" style="display: none;">내용 불라불라~내용 불라불라~더 많은 내용을 볼려면 클릭 클릭!!
-                                        </p>
+                                        <h4 class="card-title">${ml.TITLE}</h4>
+                                        <%-- <p class="textfeat" style="display: none;">${ie.hpExtract(ml.CONTENT)}</p> --%>
                                     </a>
                                 </div>
                             </div>
                         </div>
-                                    
-                        <div class="carousel-item">
+                       </c:forEach>
+                        <%-- <div class="carousel-item">
                             <div class="card bg-dark text-white">
                                 <img class="card-img img-fluid" src="${path}/resources/img/main/여행친구2.jpg" alt="">
                                 <div class="card-img-overlay d-flex linkfeat">
@@ -128,7 +137,7 @@
                                     </a>
                                 </div>
                             </div>
-                        </div>
+                        </div> --%>
                     </div>
                 </div>
             </div>
@@ -136,19 +145,21 @@
 
             <div class="col-6 py-0 px-1 mt-4 d-none d-lg-block">
                 <div class="row">
-                    <div class="col-6 pb-2 mg-1	">
+                <c:forEach items="${mlist}" var="ml" varStatus="v" begin="0" end="3">
+                    <div class="col-6 pb-2 mg-${v.count}">
                         <div class="card bg-dark text-white">
-                            <img class="card-img img-fluid" src="${path}/resources/img/main/술자리1.jpg" alt="" style="max-height: 148.5px;">
+                            <img class="card-img img-fluid" src="${ie.imgExtract(ml.CONTENT)}" alt="" style="max-height: 148.5px;">
                             <div class="card-img-overlay d-flex">
-                                <a href="http://gerbong.id/bi-atur-standarisasi-qr-code" class="align-self-end">
+                                <a href="${path}/meet/meetView.do?meetNo=${ml.MEETNO}" class="align-self-end">
                                 <span class="badge">모임</span> 
-                                <h6 class="card-title">즐거운 술자리~</h6>
+                                <h6 class="card-title">${ml.TITLE}</h6>
                                 </a>
                             </div>
                         </div>
                     </div>
-
-                    <div class="col-6 pb-2 mg-2	">
+				</c:forEach>
+				
+                    <%-- <div class="col-6 pb-2 mg-2">
                         <div class="card bg-dark text-white">
                             <img class="card-img img-fluid" src="${path}/resources/img/main/밤길1.jpg" alt="" style="max-height: 148.5px;">
                             <div class="card-img-overlay d-flex">
@@ -160,7 +171,7 @@
                         </div>
                     </div>
 
-                    <div class="col-6 pb-2 mg-3	">
+                    <div class="col-6 pb-2 mg-3">
                         <div class="card bg-dark text-white">
                             <img class="card-img img-fluid" src="${path}/resources/img/main/파티1.jpg" alt="" style="max-height: 148.5px;">
                             <div class="card-img-overlay d-flex">
@@ -172,7 +183,7 @@
                         </div>
                     </div>
                                 
-                    <div class="col-6 pb-2 mg-4	">
+                    <div class="col-6 pb-2 mg-4">
                         <div class="card bg-dark text-white">
                             <img class="card-img img-fluid" src="${path}/resources/img/main/밤길2.jpg" alt="" style="max-height: 148.5px;">
                             <div class="card-img-overlay d-flex">
@@ -182,7 +193,7 @@
                                 </a>
                             </div>
                         </div>
-                    </div>
+                    </div> --%>
                     
                 </div>
             </div>
@@ -205,15 +216,17 @@
         
             <div class="accordian mt-5">
                     <ul>
+                    <c:forEach items="${tlist}" var="mt" begin="0" end="4">
                         <li>
                             <div class="image_title">
-                                <a href="https://www.youtube.com/channel/UCXTfDJ60DBmA932Du6B1ydg">숙소1</a>
+                                <a href="#">${mt.title}</a>
                             </div> 
                             <a href="#">
-                                <img src="${path}/resources/img/main/게스트하우스5.jpg"/>
+                                <img src="${path}/resources/upload/spot/thumbnail/${mt.thumbnail}"/>
                             </a>
                         </li>
-                        <li>
+                  	</c:forEach>
+                       <%-- <li>
                             <div class="image_title">
                                 <a href="https://www.youtube.com/channel/UCXTfDJ60DBmA932Du6B1ydg">숙소2</a>
                             </div>
@@ -244,7 +257,7 @@
                             <a href="#">
                                 <img src="${path}/resources/img/main/게스트하우스1.jpg"/>
                             </a>
-                        </li>
+                        </li> --%>
                     </ul>
                 </div>
             
@@ -263,13 +276,13 @@
         
             <div class="accordian mt-5">
                 <ul>
-                <c:forEach items="${list}" var="mp" begin="0" end="4">
+                <c:forEach items="${slist}" var="mp" begin="0" end="4">
                     <li>
 			          	<div class="image_title">
-                            <a href="${path}/spot/spotList.do">${mp.title}</a>
+                            <a href="${path}/spot/spotView.do?spotno=${mp.placeno}">${mp.title}</a>
                         </div>
-                        <a href="${path}/spot/spotList.do">
-                            <img src="${path}/resources/img/thumbnail/${mp.thumbnail}"/>
+                        <a href="${path}/spot/spotView.do?spotno=${mp.placeno}">
+                            <img src="${path}/resources/upload/spot/thumbnail/${mp.thumbnail}"/>
                         </a>
                     </li>
                  </c:forEach>
@@ -338,13 +351,15 @@
                 </div>
                 <div class="col-lg-4 col-md-12 col-sm-12" style="border-top:1px solid orange;">
                     <h3 class="col-12 my-3"><a href="${path}/notice/notice-board.do">공지사항</a></h3>
-                    <a href="#"><img class="img-fluid px-3 mx-auto" src="${path}/resources/img/main/관광지6.jpg" alt=""></a>
-                    <div class="row justify-content-center">
-                    	<div class="col text-center">
-	                        <p class="my-2">2018-08-29</p>
-	                        <h5><a href="${path}/notice/notice-board.do">공지사항 안내드려요~ 다들 주목~</a></h5>
-                        </div>
-                    </div>
+                    <a href="${path}/notice/notice-board.do"><img class="img-fluid px-3 mx-auto" src="${path}/resources/img/main/관광지6.jpg" alt=""></a>
+                    <c:forEach items="${nlist}" var="nl" begin="0" end="0">
+	                   <div class="row justify-content-center">
+	                   	<div class="col text-center">
+	                        <p class="my-2"><fmt:formatDate value="${nl.WRITEDATE}" type="date" pattern="yyyy-MM-dd"/></p>
+	                        <h5><a href="${path}/notice/notice-board.do">${nl.TITLE}</a></h5>
+	                       </div>
+	                   </div>
+                    </c:forEach>
                 </div>
             </div>
         </div>

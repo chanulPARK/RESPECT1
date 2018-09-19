@@ -28,8 +28,9 @@
 <%-- <script src="${path }/resources/js/jquery.min.js"></script> --%>
 <%-- <script src="${path }/resources/bootstrap/js/bootstrap.min.js"></script> --%>
 <link rel="stylesheet" href="${path }/resources/css/Footer-Dark.css">
-<link rel="stylesheet" href="${path }/resources/css/style.css">
+
 <link rel="stylesheet" href="${path }/resources/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="${path }/resources/css/style.css">
 <link rel="stylesheet" href="${path }/resources/fonts/font-awesome.min.css">
 <link rel="stylesheet" href="${path }/resources/fonts/ionicons.min.css">
 

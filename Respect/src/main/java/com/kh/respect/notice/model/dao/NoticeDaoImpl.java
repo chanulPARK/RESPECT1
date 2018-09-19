@@ -62,12 +62,14 @@ public class NoticeDaoImpl implements NoticeDao {
 		// TODO Auto-generated method stub
 		return session.delete("mybatis.deleteNotice", noticeNo);
 	}
-	
-	
-	
-	
-	
-	
-	
+
+	@Override
+	public List<Map<String, String>> searchList(SqlSession session, int cPage, int numPerPage,
+			String searchText) 
+	{
+		// TODO Auto-generated method stub
+		return session.selectList("mybatis.searchNoticeList",searchText,new RowBounds((cPage-1)*numPerPage, numPerPage));
+	}
+
 	
 }

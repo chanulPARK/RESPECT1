@@ -8,17 +8,34 @@
 		color:black;
 	}
 </style>
-<script type="text/javascript">
+<script>
 	function fn_goNoticeWrite() {
 		
 		location.href='${pageContext.request.contextPath}/notice/noticeWrite.do';
 	}
+	
+	function check() {
+
+		if(fr.searchText.value == "") {
+
+		  alert("검색어를 입력해 주세요.");
+
+		  fr.searchText.focus();
+
+		  return false;
+
+		}else{
+		 return true;
+		    }
+		}
 </script>
 
 	<div class="container">
         <h4 class="text-center pt-5">공지</h1>
-        <p class="text-center pt-4">제주도의 공지사항을 알려드립니다</p>
-        <input type="button" value="글쓰기" style="float:right;" class="btn btn-outline-warning mb-3" onclick="fn_goNoticeWrite()"/>
+        <p class="text-center py-4">제주도의 공지사항을 알려드립니다</p>
+       	<c:if test="${userLoggedIn.userId=='admin'}">
+        	<input type="button" value="글쓰기" style="float:right;" class="btn btn-outline-warning mb-3" onclick="fn_goNoticeWrite()"/>
+        </c:if>
         <div class="table-responsive">
             <table class="table text-center">
                 <thead>
@@ -34,7 +51,7 @@
                 <c:forEach items="${list}" var="nb">
                     <tr>
                         <td>${nb.NOTICENO}</td>
-                        <td><a href="${pageContext.request.contextPath}/notice/notice-view.do?noticeNo=${nb.NOTICENO}">${nb.TITLE}</a></td>
+                        <td><a href="${pageContext.request.contextPath}/notice/notice-view.do?noticeNo=${nb.NOTICENO}&searchText=null">${nb.TITLE}</a></td>
                         <td><fmt:formatDate value="${nb.WRITEDATE}" pattern="yyyy년MM월dd일 E요일"/></td>
                         <td>${nb.HITSCOUNT}</td>
                         
@@ -48,27 +65,24 @@
                 </tbody>
             </table>
         </div>
-        <nav class="d-flex justify-content-center pt-4 pb-5">
-            <!-- <ul class="pagination">
-                <li class="page-item"><a class="page-link" aria-label="Previous"><span aria-hidden="true">«</span></a></li>
-                <li class="page-item"><a class="page-link">1</a></li>
-                <li class="page-item"><a class="page-link">2</a></li>
-                <li class="page-item"><a class="page-link">3</a></li>
-                <li class="page-item"><a class="page-link">4</a></li>
-                <li class="page-item"><a class="page-link">5</a></li>
-                <li class="page-item"><a class="page-link" aria-label="Next"><span aria-hidden="true">»</span></a></li>
-            </ul> -->
+        <nav class="d-flex justify-content-center pt-4 pb-3">
             ${pageBar}<br>
         </nav>
 
-
-        <div class="row py-3" style="background-color:#efefef;">
-            <div class="col d-flex align-content-center justify-content-end">
-                <select><option value="12" selected="">제목</option><option value="13">내용</option></select>
-            </div>
-            <div class="col-xl-4 text-center"><input type="text" class="form-control"></div>
-            <div class="col text-left"><button class="btn btn-warning" type="button">검색</button></div>
-        </div>
+		<form name="fr" method="get" action="${path}/notice/noticeSearch" onsubmit="return check()">
+	        <div class="row mb-5 justify-content-center" style="background-color:#efefef;">
+	        	
+	            <div class="input-group w-50 my-2">
+				  <input type="text" class="form-control" placeholder="제목 또는 내용 입력" name="searchText">
+				  <div class="input-group-append">
+				    <button class="btn btn-warning" type="submit">검색</button> 
+				  </div>
+				</div>
+				
+	        </div>
+	  	</form>
+        
+        
         
     </div>
     

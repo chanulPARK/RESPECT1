@@ -37,6 +37,12 @@ public class MainServiceImpl implements MainService {
 		// TODO Auto-generated method stub
 		return dao.selectMmpList(session);
 	}
+
+	@Override
+	public List<Map<String, String>> selectMnpList() {
+		// TODO Auto-generated method stub
+		return dao.selectMnpList(session);
+	}
 	
 	
 	
