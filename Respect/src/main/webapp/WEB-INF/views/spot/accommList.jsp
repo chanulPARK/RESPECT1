@@ -175,7 +175,9 @@
             </div>
             ${pageBar }<br/>
         </div>
-        <button class="btn btn-warning btn-block" type="button" onclick="fn_spotEnrollgo()">장소 등록</button>
+        <c:if test="${userLoggedIn.userLevel==1}">
+        	<button class="btn btn-warning btn-block" type="button" onclick="fn_spotEnrollgo()">장소 등록</button>
+        </c:if>
     </section>
 </main>
 	
@@ -200,27 +202,6 @@
 			$(this).addClass('cate_click');
 		});
 	});
-	
-/* 	function fn_search(minorcategory) {
-		var sendData = {"placeno":$('#placeno').val(), "userid":$('#userid').val()};
-		
-		console.log("boardno, userid : " + placeNo +","+ userId);
-		
-		$.ajax({
-		    url: "${path}/spot/searchCategory.do",
-		    type: "POST",
-		    cache: false,
-		    dataType: "json",
-		    data: 'minorcategory='+minorcategory,
-		    success: function(data) {
-		    	
-		    	
-		    },
-		    error: function(request, status, error){
-		      alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-		    }
-		});
-	} */
 </script>
 
 	

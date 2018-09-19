@@ -188,7 +188,9 @@
             </div>
         </div>
     </section>
-    <button class="btn btn-warning btn-block" type="button" onclick="fn_spotUpdatego()">장소 수정</button>
+    <c:if test="${userLoggedIn.userLevel==1}">
+	    <button class="btn btn-warning btn-block" type="button" onclick="fn_spotUpdatego()">장소 수정</button>
+    </c:if>
 </main>
 
 <!-- <script type="text/javascript">
