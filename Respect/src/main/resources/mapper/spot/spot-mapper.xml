@@ -3,7 +3,9 @@
 <mapper namespace="spot">
 	<resultMap type="map" id="spotMap">
 	</resultMap>
-	
+	<select id="searchKeyword" parameterType="string" resultType="string">
+		select title from place where title like '%'||#{keyword}||'%'
+	</select>
 	<select id="selectSpotList" resultType="place">
 		SELECT * FROM PLACE WHERE USERID IS NULL
 	</select>

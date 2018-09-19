@@ -147,14 +147,12 @@
                             
                             <div class="row mt-2" style="overflow: auto;">
                             	
-		                            <input class="form-control " type="text"  name="keyword" placeholder="검색어 입력" style="width:70%">
+		                            <input class="form-control " type="text"  name="keyword" autocomplete="off" placeholder="검색어 입력" style="width:70%" id="searchKeyword">
 		                               <button class='btn text-center' onclick="fn_search()" style="width:30%">검색</button>
                                
                                <br>
                                <div class='mt-1 col-md-12' id='pList'>  
-                                   <a href="#">관광지</a>|
-                                   <a href="#">숙소</a>|
-                                   <a href="#">음식점</a>
+                                   
                                        <hr>
                                        <c:forEach var="place" items="${list }" >
                                        		
@@ -178,9 +176,7 @@
                         
                         <div class="container tab-pane fade" id="zzim">
                                <div class="mt-2 col-md-13" id="putList">
-                                   <a href="#">관광지</a>|
-                                   <a href="#">숙소</a>|
-                                   <a href="#">음식점</a>
+                                   
                                    <hr>
                                    <c:forEach var="pPlace" items="${putList }" >
                                        		
@@ -202,9 +198,7 @@
                             </div>
                              <div class="container tab-pane fade"  align='center' id="myAdd">
                     	<div class='mt-1 col-md-13' id='userList'>  
-                                   <a href="#">관광지</a>|
-                                   <a href="#">숙소</a>|
-                                   <a href="#">음식점</a>
+                                   
                                        <hr>
                                        <c:forEach var="uPlace" items="${userList }" >
                                        		
@@ -562,6 +556,7 @@ $("#start_date").on("click",function()
 	
 	function drag(ev) {
 	    clicktarget=ev.target.parentElement.parentElement.parentElement;
+	     console.log(clicktarget);
 	    clicktarget.classList.remove("disable");
 	    ev.dataTransfer.setData("text", ev.target.parentElement.parentElement.id);
 	}
@@ -625,7 +620,7 @@ $("#start_date").on("click",function()
 	        active[0].classList.add("disable");
 	      	tableday=active[0].parentElement.parentElement.parentElement.id;
 	      	
-	        var html="<div id='data"+seq_no+"' ><input class='mr-2' type='radio' name='represent' value='"+place2[0]+"'>"+place2[1]+"<input type='hidden' name='timevalue' value='"+tableday+","+active[0].id+"'><input type='hidden' name='placevalue' value='"+place1+","+seq_no+"' class='placelist'><span class='float-right' class='drag' id='drag"+seq_no+"' draggable='true' ondragstart='drag(event)'> <img src='${path}/resources/img/arrow.png' style='width:50px; height:30px;'></span><button class='float-right delbtn' onclick='fn_delete("+seq_no+")'>X</button></div>";
+	        var html="<div id='data"+seq_no+"' ><small style='color:orange'>대표장소선택 </small> <input class='mr-2' type='radio' name='represent' value='"+place2[0]+"'>"+place2[1]+"<input type='hidden' name='timevalue' value='"+tableday+","+active[0].id+"'><input type='hidden' name='placevalue' value='"+place1+","+seq_no+"' class='placelist'><span class='float-right' class='drag' id='drag"+seq_no+"' draggable='true' ondragstart='drag(event)'> <img src='${path}/resources/img/arrow.png' style='width:50px; height:30px;'></span><button class='float-right delbtn' onclick='fn_delete("+seq_no+")'>X</button></div>";
 	        
 	        active.append(html);
 	        var loc=place2[2];
@@ -895,7 +890,23 @@ $("#start_date").on("click",function()
 	       ps.coord2Address(coords.getLng(), coords.getLat(), callback);
 	   }
 	   
-
+	   $("#searchKeyword").keyup(function(){
+		   $.ajax({
+ 				url:"<%=request.getContextPath()%>/schedule/autoComplete",
+ 				type:"post",
+ 				data:{keyword:$("#searchKeyword").val()},
+ 				dataType:"JSON",
+ 				success:function(data)
+ 				{
+ 					$("#searchKeyword").autocomplete({
+ 						source: data,
+ 						select:function(event,ui){
+ 							$("#searchKeyword").val(ui.item);
+ 						}
+ 					});
+ 				}
+ 			}); 
+	   });
 </script>
 
 	

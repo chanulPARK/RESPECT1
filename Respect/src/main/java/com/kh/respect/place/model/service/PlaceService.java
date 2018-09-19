@@ -8,6 +8,7 @@ import com.kh.respect.place.model.vo.PlaceGood;
 import com.kh.respect.place.model.vo.PlaceSpring;
 
 public interface PlaceService {
+	List<String> searchKeyword(String keyword);
 	List<Place> selectSpotList(int cPage, int numPerPage);
 	List<Place> selectUserSpotList(String userId, int cPage, int numPerPage);
 	List<Place> selectSearchList(int cPage, int numPerPage, String keyword );

@@ -52,44 +52,55 @@ public class ScheduleController {
 	
 	
 	@RequestMapping("/schedule/scheduleReportInsert")
-	public ModelAndView scheduleReview(HttpSession session,int scheduleNo,String [] reportTitle, String [] reportContent,int [] day)
+	public ModelAndView scheduleReview(HttpSession session,int scheduleNo,@RequestParam(value="reportTitle" ,required=false)String [] reportTitle, @RequestParam(value="reportContent", required=false) String [] reportContent, @RequestParam(value="day",required=false) int [] day)
 	{
 		ModelAndView mv= new ModelAndView();
-
+		int result=0;
 				
 		User user=(User)session.getAttribute("userLoggedIn");
 		String userId=user.getUserId();
 		List<ScheduleReport> list=new ArrayList<ScheduleReport>();
 		ScheduleReport sr = null;
-		
-		if(day.length==1)
+		System.out.println("제목 : "+reportTitle.length);
+		System.out.println("내용 : "+reportContent.length);
+		System.out.println("일차 : "+day.length);
+		if(reportTitle!=null)
 		{
-			sr=new ScheduleReport();
-			sr.setUserId(userId);
-			sr.setReportDay(day[0]);
-			sr.setContent(reportContent[0]);
-			sr.setTitle(reportTitle[0]);
-			sr.setScheduleNo(scheduleNo);
-			list.add(sr);
-		}else
-		{
-
-			for(int i=0; i<day.length; i++)
+			if(reportTitle.length==1)
 			{
 				sr=new ScheduleReport();
-				sr.setScheduleNo(scheduleNo);
 				sr.setUserId(userId);
-				sr.setContent(reportContent[i]);
-				sr.setTitle(reportTitle[i]);
-				sr.setReportDay(day[i]);
+				sr.setReportDay(day[0]);
+				sr.setContent(reportContent[0]);
+				sr.setTitle(reportTitle[0]);
+				sr.setScheduleNo(scheduleNo);
 				list.add(sr);
+			}else
+			{
 				
-//				System.out.println("리스트에 담긴 내용입니다 : "+list.get(i).getContent());
-//				System.out.println("리스트에 담긴 아이디 : "+list.get(i).getUserId());
+				for(int i=0; i<reportTitle.length; i++)
+				{
+					System.out.println(reportTitle[i]);
+					if(reportTitle[i]!=null&&reportTitle[i]!="")
+					{
+						sr=new ScheduleReport();
+						sr.setScheduleNo(scheduleNo);
+						sr.setUserId(userId);
+						sr.setContent(reportContent[i]);
+						sr.setTitle(reportTitle[i]);
+						sr.setReportDay(day[i]);
+						list.add(sr);
+					}
+					
+					
+//					System.out.println("리스트에 담긴 내용입니다 : "+list.get(i).getContent());
+//					System.out.println("리스트에 담긴 아이디 : "+list.get(i).getUserId());
+				}
 			}
+			
+			result=service.insertScheduleReport(list);
 		}
 		
-		int result=service.insertScheduleReport(list);
 		
 		Map<String, String> map=service.selectOneScheduleView(scheduleNo);
 		List<TimeTable> tt=service.selectOneTimetableView(scheduleNo);
@@ -484,7 +495,7 @@ public class ScheduleController {
 		
 		
 		
-		String html="<a href='#'>관광지</a>|<a href='#'>숙소</a>|<a href='#'>음식점</a><hr>";
+		String html="";
 		for(Place p:list)
 		{
 			
@@ -514,7 +525,7 @@ public class ScheduleController {
 		List<Place> list=pservice.selectUserSpotList(userId,cPage,5);
 		
 		
-		String html="<a href='#'>관광지</a>|<a href='#'>숙소</a>|<a href='#'>음식점</a><hr>";
+		String html="";
 		for(Place p:list)
 		{
 			html+="<div class=' col-md-13 mt-3 justify-content-center' >";
@@ -534,7 +545,7 @@ public class ScheduleController {
 		String userId=user.getUserId();
 		List<Place> list=myservice.putPlaceList(userId, 1, 5);
 		
-		String html="<a href='#'>관광지</a>|<a href='#'>숙소</a>|<a href='#'>음식점</a><hr>";
+		String html="";
 		for(Place p:list)
 		{
 			html+="<div class=' col-md-13 mt-3 justify-content-center' >";
@@ -552,7 +563,7 @@ public class ScheduleController {
 	public void placeListSearch(ModelAndView mv, String keyword, HttpServletResponse response) throws Exception
 	{	
 		List<Place> list=pservice.selectSearchList(1, 5,keyword);
-		String html="<a href='#'>관광지</a>|<a href='#'>숙소</a>|<a href='#'>음식점</a><hr>";
+		String html="";
 		for(Place p:list)
 		{
 			html+="<div class=' col-md-13 mt-3 justify-content-center' >";
@@ -579,7 +590,7 @@ public class ScheduleController {
 			List<Place> list=pservice.selectUserSpotList(userId,1,5);
 			
 			
-			String html="<a href='#'>관광지</a>|<a href='#'>숙소</a>|<a href='#'>음식점</a><hr>";
+			String html="";
 			for(Place p:list)
 			{
 				html+="<div class=' col-md-13 mt-3 justify-content-center' >";
@@ -848,7 +859,11 @@ public class ScheduleController {
 		String userId=user.getUserId();
 		List<ScheduleReport> list=new ArrayList<ScheduleReport>();
 		ScheduleReport sr = null;
-		if(day.length==1)
+		if(reportTitle!=null)
+		{
+			
+		
+		if(reportTitle.length==1)
 		{
 			sr=new ScheduleReport();
 			sr.setUserId(userId);
@@ -860,7 +875,10 @@ public class ScheduleController {
 		}else
 		{
 
-			for(int i=0; i<day.length; i++)
+			for(int i=0; i<reportTitle.length; i++)
+			{
+			if(reportTitle[i]!=null&&reportTitle[i]!="")
+			
 			{
 				sr=new ScheduleReport();
 				sr.setScheduleNo(scheduleNo);
@@ -869,10 +887,12 @@ public class ScheduleController {
 				sr.setTitle(reportTitle[i]);
 				sr.setReportDay(day[i]);
 				list.add(sr);
-				
+			}
 
 			}
 		}
+		}
+	
 		int result=service.updateReport(list,scheduleNo);
 		String msg="";
 	    String loc="/schedule/scheduleView?scheduleNo="+scheduleNo+"&userId="+userId;  
@@ -915,5 +935,14 @@ public class ScheduleController {
 		mv.setViewName("common/msg");
 		
 		return mv;
+	}
+	
+	@RequestMapping("/schedule/autoComplete")
+	public void autoComplete(String keyword,HttpServletResponse response) throws Exception
+	{
+		List<String> list=pservice.searchKeyword(keyword);
+		Gson gson=new Gson();
+		String json = gson.toJson(list);
+		response.getWriter().println(json);
 	}
 }
