@@ -27,6 +27,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kh.respect.common.Page;
 import com.kh.respect.meet.model.service.MeetService;
 import com.kh.respect.meet.model.vo.Meet;
+import com.kh.respect.meet.model.vo.MeetReply;
+import com.kh.respect.meet.model.vo.MeetReplyAttachment;
 
 
 
@@ -94,11 +96,38 @@ public class MeetController {
 								  @RequestParam(value="userId") String userId,
 								  @RequestParam(value="meetDate") String meetDate,
 								  @RequestParam(value="meetTime") String meetTime,
-								  @RequestParam(value="content") String content)
+								  @RequestParam(value="content") String content,
+								  MultipartFile thumbnail, HttpServletRequest request)
 	{
 		ModelAndView mv = new ModelAndView();
 		
-		Meet meet = new Meet(0, userId, null, null, 0, area, title, content, meetDate, null, meetTime, address, 0, 0, null);
+		Meet meet = new Meet(0, userId, null, null, 0, area, title, null, content, meetDate, null, meetTime, address, 0, 0, null);
+		
+		String saveDir = request.getSession().getServletContext().getRealPath("/resources/upload/meet/thumbnail");
+		File dir = new File(saveDir);
+		
+		if(dir.exists()==false) dir.mkdirs();
+		
+		if(!thumbnail.isEmpty()) {
+			String originalFileName = thumbnail.getOriginalFilename();
+			String ext = originalFileName.substring(originalFileName.lastIndexOf(".")+1);
+			// 확장자를 구분해냄
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_HHmmssSS");
+			int rndNum = (int)(Math.random()*1000);
+			String renamedFileName = sdf.format(new Date(System.currentTimeMillis()));
+			renamedFileName+="_"+rndNum+"."+ext;
+			
+			try {
+				// 서버에 해당경로에 파일을 저장하는 명령
+				thumbnail.transferTo(new File(saveDir+"/"+renamedFileName));
+			} catch (IllegalStateException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			meet.setThumbnail(renamedFileName);
+		}
+		
 		
 		int result = service.insertMeet(meet);
 		System.out.println(result);
@@ -132,10 +161,15 @@ public class MeetController {
 		Meet meet = service.selectOne(meetNo);
 		
 		String meetTime = meet.getMeetTime();
-		
 		String meetDate = meet.getMeetDate().substring(0, 10);
-		
 		service.updateMeetCnt(meetNo);
+		
+		//댓글
+		List<Map<String, String>> meetReplyList = service.meetReplyList(meetNo);
+        List<Map<String, String>> meetAttList = service.meetAttList();
+		
+        mv.addObject("meetReplyList",meetReplyList);
+		mv.addObject("meetAttList",meetAttList);
 		
 		mv.addObject("meet", meet);
 		mv.addObject("meetDate", meetDate);
@@ -170,7 +204,7 @@ public class MeetController {
 									  @RequestParam(value="content") String content)
 	{
 		ModelAndView mv = new ModelAndView();
-		Meet meet = new Meet(meetNo, userId, null, null, 0, area, title, content, meetDate, null, meetTime, address, 0, 0, null);
+		Meet meet = new Meet(meetNo, userId, null, null, 0, area, title, null, content, meetDate, null, meetTime, address, 0, 0, null);
 		
 		int result = service.meetUpdate(meet);
 		System.out.println("result :: "+result);
@@ -273,6 +307,145 @@ public class MeetController {
       
       return jsonStr;
    }
+   
+   /////////////////// 댓글 /////////////////////////////// 
+   
+   @RequestMapping("/meet/meetReplyWrite.do")
+   public ModelAndView meetReplyWrite(MeetReply meetReply, MultipartFile[] upFile, HttpServletRequest request) {
+      
+      String saveDir=request.getSession().getServletContext().getRealPath("/resources/upload/replyPicture");
+      
+      List<MeetReplyAttachment> attList=new ArrayList();
+      
+      File dir=new File(saveDir);
+      //경로가 없으면 경로를 만들어랏!!
+      if(dir.exists()==false) dir.mkdirs();
+      
+      for(MultipartFile f : upFile)
+      {
+         if(!f.isEmpty())
+         {
+            String originalFilename=f.getOriginalFilename();
+            //확장자 가져오기
+            String ext=originalFilename.substring(originalFilename.lastIndexOf(".")+1);
+            SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMdd_HHmmssSS");
+            int rndNum=(int)(Math.random()*1000);
+            String renamedFileName=sdf.format(new Date(System.currentTimeMillis()));
+            renamedFileName+="_"+rndNum+"."+ext;
+            try 
+            {
+               /*서버의 해당경로에 파일을 저장하는 명령*/
+               f.transferTo(new File(saveDir+"/"+renamedFileName));
+            }
+            catch (Exception e) {
+               e.printStackTrace();
+            }
+            MeetReplyAttachment attach=new MeetReplyAttachment();
+            attach.setOriginName(originalFilename);
+            attach.setReNamed(renamedFileName);
+            attList.add(attach);
+         }
+      }
+      //파일업로드 끝~~
+      
+      int result=service.meetReplyWrite(meetReply,attList);
+      
+      String msg="";
+      String loc="";
+      if(result>0){
+         msg="댓글을 등록하였습니다!";
+         loc="/meet/meetView.do?meetNo="+meetReply.getMeetNo();
+      }
+      else{
+         msg="댓글등록에 실패하였습니다";
+         loc="/meet/meetView.do?meetNo="+meetReply.getMeetNo();
+      }
+      
+      ModelAndView mv=new ModelAndView();
+      mv.addObject("msg",msg);
+      mv.addObject("loc", loc);
+      mv.setViewName("common/msg");
+      return mv;
+   }
+   
+   
+   @RequestMapping("/meet/meetReplyWrite2.do")
+   public ModelAndView meetReplyWrite2(MeetReply meetReply) {
+      int result = service.meetReplyWrite2(meetReply);
+      
+      String msg="";
+      String loc="";
+      if(result>0){
+         msg="답글을 등록하였습니다!";
+         loc="/meet/meetView.do?meetNo="+meetReply.getMeetNo();
+      }
+      else{
+         msg="답글등록에 실패하였습니다";
+         loc="/meet/meetView.do?meetNo="+meetReply.getMeetNo();
+      }
+      
+      ModelAndView mv=new ModelAndView();
+      mv.addObject("msg",msg);
+      mv.addObject("loc", loc);
+      mv.setViewName("common/msg");
+      return mv;
+      
+   }
+   
+   
+   @RequestMapping("/meet/meetReplyDelete.do")
+   public ModelAndView meetReplyDelete(int replyNo, int meetNo) {
+      int result = service.meetReplyDelete(replyNo);
+      String msg="";
+      String loc="";
+      if(result>0) {
+         msg="댓글을 삭제하였습니다!";
+         loc="/meet/meetView.do?meetNo="+meetNo;
+      }else {
+         msg="댓글 삭제에 실패하였습니다.";
+         loc="/meet/meetView.do?meetNo="+meetNo;
+      }
+      ModelAndView mv=new ModelAndView();
+      mv.addObject("msg",msg);
+      mv.addObject("loc", loc);
+      mv.setViewName("common/msg");
+      return mv;
+   }
+   
+   @RequestMapping("/meet/meetReplyGood.do")
+   public ModelAndView meetReplyGood(MeetReply meetReply) {
+      System.out.println("아이디 : " + meetReply.getUserId());
+      System.out.println("q버놓번호 : " + meetReply.getMeetNo());
+      int check = service.meetReplyGoodCheck(meetReply);
+      String msg="";
+      String loc="";
+      if(check>0) {
+         msg="이미 추천하셨습니다.";
+         loc="/meet/meetView.do?meetNo="+meetReply.getMeetNo();
+      }else {
+         
+         service.insertmeetReplyGood(meetReply);
+         
+         int result = service.meetReplyGood(meetReply.getReplyNo());   
+         
+         if(result>0) {
+            msg="추천을 하였습니다!";
+            loc="/meet/meetView.do?meetNo="+meetReply.getMeetNo();
+         }else {
+            msg="추천에 실패하였습니다.";
+            loc="/meet/meetView.do?meetNo="+meetReply.getMeetNo();
+         }
+      }
+      ModelAndView mv=new ModelAndView();
+      mv.addObject("msg",msg);
+      mv.addObject("loc", loc);
+      mv.setViewName("common/msg");
+      return mv;
+      
+   }
+   
+   
+   
 }
 	
 	
