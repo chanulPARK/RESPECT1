@@ -2,6 +2,7 @@ package com.kh.respect.place.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -17,7 +18,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -31,8 +31,6 @@ import com.kh.respect.place.model.service.PlaceService;
 import com.kh.respect.place.model.vo.Place;
 import com.kh.respect.place.model.vo.PlaceGood;
 import com.kh.respect.user.model.vo.User;
-
-import net.sf.json.JSONObject;
 
 
 
@@ -114,7 +112,6 @@ public class PlaceController {
 	public ModelAndView spotEnrollEnd(MultipartFile thumbnail, MultipartFile mainimage, HttpServletRequest request) {
 		
 		String title = request.getParameter("title");
-		String userid = request.getParameter("userid");
 		String majorcategory = request.getParameter("majorcategory");
 		String minorcategory = request.getParameter("minorcategory");
 		String area = request.getParameter("area");
@@ -124,7 +121,6 @@ public class PlaceController {
 		
 		Place place = new Place();
 		place.setTitle(title);
-		place.setUserid(userid);
 		place.setMajorcategory(majorcategory);
 		place.setMinorcategory(minorcategory);
         place.setArea(area);
@@ -185,7 +181,7 @@ public class PlaceController {
 			place.setMainimage(renamedFileName);
 		}
 		
-		int result = service.insertSpot(place);
+		int result = service.insertPlace(place);
 		
 		String msg = "";
 		String loc = "";
@@ -214,9 +210,52 @@ public class PlaceController {
 		// 조회수 증가, 중복 증가
 		service.updateSpotCnt(spotno);
 		
-		Place place = service.selectSpot(spotno);
+		Place place = service.selectPlace(spotno);
 		
 		model.addAttribute("place", place);
+		
+		return "spot/spotView";
+	}
+	
+	@RequestMapping("/spot/spotViewLogin.do")
+	public String selectSpot(int spotno, String userid, Model model) {
+		
+		// 조회수 증가, 중복 증가
+		service.updateSpotCnt(spotno);
+		
+		Place place = service.selectPlace(spotno);
+		
+		PlaceGood pg = new PlaceGood();
+		pg.setUserid(userid);
+		pg.setPlaceno(spotno); 
+		
+		boolean like_ck = true;
+		boolean bring_ck = true;
+		
+		// 좋아요하지 않은 경우
+		if(service.selectLike(pg)==null) {
+			like_ck = false;
+			if(service.selectBring(pg)==null) {
+				bring_ck = false;
+			}
+			else {
+				bring_ck = true;
+			}
+		}
+		// 좋아요한 경우
+		else {
+			like_ck = true;
+			if(service.selectBring(pg)==null) {
+				bring_ck = false;
+			}
+			else {
+				bring_ck = true;
+			}
+		}
+		
+		model.addAttribute("place", place);
+		model.addAttribute("like_ck", like_ck);
+		model.addAttribute("bring_ck", bring_ck);
 		
 		return "spot/spotView";
 	}
@@ -267,6 +306,113 @@ public class PlaceController {
       return jsonStr;
 	}
 	
+	@RequestMapping("/spot/spotUpdate.do")
+	public String spotUpdate(int placeno, Model model) {
+		
+		Place place = service.selectPlace(placeno);
+		
+		model.addAttribute("place", place);
+		
+		return "spot/spotUpdate";
+	}
+	
+	@RequestMapping(value="/spot/spotUpdateEnd.do", method=RequestMethod.POST)
+	public ModelAndView spotUpdateEnd(MultipartFile thumbnail, MultipartFile mainimage, HttpServletRequest request) {
+		
+		String title = request.getParameter("title");
+		String majorcategory = request.getParameter("majorcategory");
+		String minorcategory = request.getParameter("minorcategory");
+		String area = request.getParameter("area");
+		String address = request.getParameter("address");
+		String phone = request.getParameter("phone");
+		String content = request.getParameter("content");
+		
+		Place place = new Place();
+		place.setTitle(title);
+		place.setMajorcategory(majorcategory);
+		place.setMinorcategory(minorcategory);
+        place.setArea(area);
+		place.setAddress(address);
+		place.setPhone(phone);
+		place.setContent(content);
+		
+		String saveDir = request.getSession().getServletContext().getRealPath("/resources/upload/spot/thumbnail");
+		String saveDir2 = request.getSession().getServletContext().getRealPath("/resources/upload/spot/mainimage");
+		
+		System.out.println(saveDir);
+		
+		File dir = new File(saveDir);
+		
+		if(dir.exists()==false) dir.mkdirs();
+		
+		if(!thumbnail.isEmpty()) {
+			String originalFileName = thumbnail.getOriginalFilename();
+			String ext = originalFileName.substring(originalFileName.lastIndexOf(".")+1);
+			// 확장자를 구분해냄
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_HHmmssSS");
+			int rndNum = (int)(Math.random()*1000);
+			String renamedFileName = sdf.format(new Date(System.currentTimeMillis()));
+			renamedFileName+="_"+rndNum+"."+ext;
+			
+			try {
+				// 서버에 해당경로에 파일을 저장하는 명령
+				thumbnail.transferTo(new File(saveDir+"/"+renamedFileName));
+			} catch (IllegalStateException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			place.setThumbnail(renamedFileName);
+		}
+		
+		if(!mainimage.isEmpty()) {
+			String originalFileName = mainimage.getOriginalFilename();
+			String ext = originalFileName.substring(originalFileName.lastIndexOf(".")+1);
+			// 확장자를 구분해냄
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_HHmmssSS");
+			int rndNum = (int)(Math.random()*1000);
+			String renamedFileName = sdf.format(new Date(System.currentTimeMillis()));
+			renamedFileName+="_"+rndNum+"."+ext;
+			
+			try {
+				// 서버에 해당경로에 파일을 저장하는 명령
+				mainimage.transferTo(new File(saveDir2+"/"+renamedFileName));
+			} catch (IllegalStateException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			place.setMainimage(renamedFileName);
+		}
+		
+		int result = service.updatePlace(place);
+		
+		String msg = "";
+		String loc = "";
+		
+		if(result>0) {
+			msg = "수정 성공";
+			loc = "/spot/spotList.do";
+//			loc = "/spot/spotView.do?spotno="+place.getPlaceno();
+		}
+		else {
+			msg = "수정 실패";
+			loc = "/spot/spotList.do";
+		}
+		
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("msg", msg);
+		mv.addObject("loc", loc);
+		mv.setViewName("common/msg");
+		
+		return mv;
+	}
+	
+	
 //	@RequestMapping(value = "/spot/spotSearchList.do", method = RequestMethod.POST)
 //	public @ResponseBody Map<String, Object> spotSearchList(@RequestBody PlaceSpring place) throws Exception  {
 //		
@@ -277,36 +423,148 @@ public class PlaceController {
 	
 	
 	@RequestMapping(value="/spot/like.do", method=RequestMethod.POST)
-	public @ResponseBody String like(@RequestBody PlaceGood pg) throws Exception {
+	@ResponseBody
+	public String like(PlaceGood pg) throws Exception {
 		
 		String userid = pg.getUserid();
 		int placeno = pg.getPlaceno(); 
 		
-		logger.info("uuu"+userid+placeno);
-		
 		int result = 0;
 		String msg = "";
+		boolean like_ck = true;
+		int like_cnt = 0;
 		
 		if(service.selectLike(pg)==null) {
 			result = service.insertLike(pg);
+			service.increaseLike(pg.getPlaceno());
 			msg = "좋아요하였습니다.";
+			like_ck = true;
 		}
-		
 		else {
 			result = service.deleteLike(pg);
-			msg = "좋아요를 취소하였습니다.";
+			service.decreaseLike(pg.getPlaceno());
+			msg = "좋아요를취소하였습니다.";
+			like_ck = false;
 		}
 		
-		JSONObject obj = new JSONObject();
+		like_cnt = service.selectPlaceLikecnt(pg.getPlaceno());
 		
+		ObjectMapper mapper = new ObjectMapper();
+		Map map = new HashMap();
+		//ModelAndView mv=new ModelAndView();
 //	    obj.put("placeNo", pg.getPlaceno());
 //	    obj.put("like_check", like_check);
 //	    obj.put("like_cnt", like_cnt);
-	    obj.put("msg", msg);
-	    
-	    return obj.toString();
-//	    return msg;
-	  }
+	    //mv.addObject("msg", msg);
+//	    return obj.toString();
+		map.put("msg", URLEncoder.encode(msg, "UTF-8"));
+		map.put("like_ck", like_ck);
+		map.put("like_cnt", like_cnt);
+		
+		String temp = mapper.writeValueAsString(map);
+	    return temp;
+	}
+	
+	@RequestMapping(value="/spot/bring.do", method=RequestMethod.POST)
+	@ResponseBody
+	public String bring(PlaceGood pg) throws Exception {
+		
+		String userid = pg.getUserid();
+		int placeno = pg.getPlaceno(); 
+		
+		int result = 0;
+		String msg = "";
+		boolean bring_ck = true;
+		int bring_cnt = 0;
+		
+		if(service.selectBring(pg)==null) {
+			result = service.insertBring(pg);
+			service.increaseBring(pg.getPlaceno());
+			msg = "찜하였습니다.";
+			bring_ck = true;
+		}
+		
+		else {
+			result = service.deleteBring(pg);
+			service.decreaseBring(pg.getPlaceno());
+			msg = "찜을취소하였습니다.";
+			bring_ck = false;
+		}
+		
+		bring_cnt = service.selectPlaceBringcnt(pg.getPlaceno());
+		
+		logger.info("bring_cnt"+bring_cnt);
+		
+		ObjectMapper mapper = new ObjectMapper();
+		Map map = new HashMap();
+		map.put("msg", URLEncoder.encode(msg, "UTF-8"));
+		map.put("bring_ck", bring_ck);
+		map.put("bring_cnt", bring_cnt);
+		
+		String temp = mapper.writeValueAsString(map);
+	    return temp;
+	}
+	
+/*	@RequestMapping(value="/spot/likeAndBring.do", method=RequestMethod.POST)
+	@ResponseBody
+	public String likeAndBring(PlaceGood pg) throws Exception {
+		
+		String userid = pg.getUserid();
+		int placeno = pg.getPlaceno(); 
+		
+		boolean like_ck = true;
+		boolean bring_ck = true;
+		
+		// 좋아요하지 않은 경우
+		if(service.selectLike(pg)==null) {
+			like_ck = false;
+			if(service.selectBring(pg)==null) {
+				bring_ck = false;
+			}
+			else {
+				bring_ck = true;
+			}
+		}
+		// 좋아요한 경우
+		else {
+			like_ck = true;
+			if(service.selectBring(pg)==null) {
+				bring_ck = false;
+			}
+			else {
+				bring_ck = true;
+			}
+		}
+		
+		ObjectMapper mapper = new ObjectMapper();
+		Map map = new HashMap();
+		
+		map.put("like_ck", like_ck);
+		map.put("bring_ck", bring_ck);
+		
+		String temp = mapper.writeValueAsString(map);
+	    return temp;
+	}*/
+	
+	@RequestMapping("/spot/searchCategoryList.do")
+	public ModelAndView searchCategoryList(@RequestParam(value="cPage", required=false, defaultValue="1") int cPage, String minorcategory) {
+		
+		System.out.println(minorcategory);
+		
+		ModelAndView mv = new ModelAndView();
+		int numPerPage = 6;
+		
+		List<Place> list = service.searchCategoryList(cPage, numPerPage, minorcategory);
+		
+		int totalCount = service.categoryTotalCount(minorcategory);
+		
+		mv.addObject("list", list);
+		mv.addObject("totalContents", totalCount);
+		mv.addObject("pageBar", Page.getPage(cPage, numPerPage, totalCount, "searchCategoryList.do"));
+		mv.setViewName("spot/spotList");
+		
+		return mv;
+	}
 
 
 	

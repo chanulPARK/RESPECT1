@@ -53,15 +53,6 @@
                 <h2>명소 등록</h2>
                 <div class="form-group">
                 	<form action="${pageContext.request.contextPath}/spot/spotEnrollEnd.do" method="post" enctype="multipart/form-data">
-                		<!-- <input type="hidden" name="userid" value="admin">
-                		<input type="hidden" name="placeno" value="1">
-                		<input type="hidden" name="gpa" value="0">
-                		<input type="hidden" name="goodcount" value="0">
-                		<input type="hidden" name="bringcount" value="0">
-                		<input type="hidden" name="replycount" value="0">
-                		<input type="hidden" name="hitscount" value="0"> -->
-                		
-                		<!-- <div id="map" style="width:100%;height:350px;"></div> -->
 	                    <div class="row m-1">
 	                        <div class="col-xl-2"><label class="col-form-label">명소이름</label></div>
 	                        <div class="col">
@@ -90,6 +81,27 @@
                                     <option value="포토스팟">포토스팟</option>
                                     <option value="4.3 70주년">4.3 70주년</option>
                                     <option value="템플스테이">템플스테이</option>
+                                    
+                                    <optgroup label="음식점">
+                                    <option value="향토음식">향토음식</option>
+                                    <option value="한식">한식</option>
+                                    <option value="양식">양식</option>
+                                    <option value="일식">일식</option>
+                                    <option value="중식">중식</option>
+                                    <option value="동남아식">동남아식</option>
+                                    <option value="카페">카페</option>
+                                    
+                                    <optgroup label="숙소">
+                                    <option value="리조트">리조트</option>
+                                    <option value="호텔">호텔</option>
+                                    <option value="모텔/여관">모텔/여관</option>
+                                    <option value="펜션/민박">펜션/민박</option>
+                                    <option value="게스트하우스">게스트하우스</option>
+                                    </optgroup>
+                                    
+                                    
+                                    
+                                    </optgroup>
                                 </select>
 	                        </div>
 	                    </div>
@@ -97,19 +109,10 @@
 	                        <div class="col-xl-2"><label class="col-form-label">주소/위치</label></div>
 	                        <div class="col">
                                 <div class="input-group">
-                                    <!-- <input class="form-control" type="text" name="sample5_address" placeholder="주소" required>
-                                    <div class="input-group-append"><button class="btn btn-outline-warning" type="button" onclick="go_map()">검색</button></div>
-                                    <div class="input-group-append">
-                                    	<input class="btn btn-outline-warning" type="button" onclick="sample5_execDaumPostcode()" value="주소 검색">
-                                   	</div>
-									<div id="map" style="width:300px;height:300px;margin-top:10px;display:none"></div> -->
 									<input type="text" class="form-control" id="sample5_address" name="address" placeholder="주소" required readonly>
 									<input type="button" class="btn btn-outline-warning" onclick="sample5_execDaumPostcode()" value="주소 검색"><br>
                                 </div>
 									<div id="map" style="width:100%;height:300px;margin-top:10px;display:none"></div>
-
-                                <!-- <div id="postcodify"></div>
-                                <input type="text" name="" id="address" value=""> -->
 	                        </div>
 	                    </div>
 	                    <div class="row m-1">
@@ -151,12 +154,6 @@
 	                            <input class="form-control" type="text" id="cellPhone" name="phone" placeholder="-없이 입력하세요">
 	                        </div>
 	                    </div>
-	                    <!-- <div class="row m-1">
-	                        <div class="col-xl-2"><label class="col-form-label">홈페이지</label></div>
-	                        <div class="col">
-	                            <input class="form-control" type="text" name="">
-	                        </div>
-	                    </div> -->
 	                    <div class="row m-1">
 	                        <div class="col-xl-2"><label class="col-form-label">대표이미지</label></div>
 	                        <div class="col">
@@ -270,6 +267,7 @@
                 var fullAddr = data.address; // 최종 주소 변수
                 var extraAddr = ''; // 조합형 주소 변수
 
+                /* 
                 // 기본 주소가 도로명 타입일때 조합한다.
                 if(data.addressType === 'R'){
                     //법정동명이 있을 경우 추가한다.
@@ -282,7 +280,7 @@
                     }
                     // 조합형주소의 유무에 따라 양쪽에 괄호를 추가하여 최종 주소를 만든다.
                     fullAddr += (extraAddr !== '' ? ' ('+ extraAddr +')' : '');
-                }
+                } */
 
                 // 주소 정보를 해당 필드에 넣는다.
                 document.getElementById("sample5_address").value = fullAddr;

@@ -34,15 +34,18 @@ public class PlaceServiceImpl implements PlaceService {
 	}
 
 	@Override
-	public int insertSpot(Place p) {
-		int result = dao.insertSpot(sqlSession, p);
-		
-		return result;
+	public int insertPlace(Place p) {
+		return dao.insertPlace(sqlSession, p);
+	}
+	
+	@Override
+	public int updatePlace(Place p) {
+		return dao.updatePlace(sqlSession, p);
 	}
 
 	@Override
-	public Place selectSpot(int spotno) {
-		return dao.selectSpot(sqlSession, spotno);
+	public Place selectPlace(int placeno) {
+		return dao.selectPlace(sqlSession, placeno);
 	}
 	
 	@Override
@@ -73,6 +76,46 @@ public class PlaceServiceImpl implements PlaceService {
 		return dao.selectLike(sqlSession, pg);
 	}
 	
+	@Override
+	public int selectPlaceLikecnt(int placeno) {
+		// TODO Auto-generated method stub
+		return dao.selectPlaceLikecnt(sqlSession, placeno);
+	}
+	
+	@Override
+	public int insertBring(PlaceGood pg) {
+		// TODO Auto-generated method stub
+		return dao.insertBring(sqlSession, pg);
+	}
+	
+	@Override
+	public int deleteBring(PlaceGood pg) {
+		// TODO Auto-generated method stub
+		return dao.deleteBring(sqlSession, pg);
+	}
+	
+	@Override
+	public int selectPlaceBringcnt(int placeno) {
+		// TODO Auto-generated method stub
+		return dao.selectPlaceBringcnt(sqlSession, placeno);
+	}
+	
+	@Override
+	public PlaceGood selectBring(PlaceGood pg) {
+		// TODO Auto-generated method stub
+		return dao.selectBring(sqlSession, pg);
+	}
+	
+	@Override
+	public List<Place> searchCategoryList(int cPage, int numPerPage, String minorcategory) {
+		return dao.searchCategoryList(sqlSession, cPage, numPerPage, minorcategory);
+	}
+
+	@Override
+	public int categoryTotalCount(String minorcategory) {
+		return dao.categoryTotalCount(sqlSession, minorcategory);
+	}
+	
 	
 
 //	@Override
@@ -99,6 +142,26 @@ public class PlaceServiceImpl implements PlaceService {
 //		return map;
 //	}
 
+	@Override
+	public void increaseLike(int placeno) {
+		dao.increaseLike(sqlSession, placeno);
+	}
+
+	@Override
+	public void decreaseLike(int placeno) {
+		dao.decreaseLike(sqlSession, placeno);
+	}
+	
+	@Override
+	public void increaseBring(int placeno) {
+		dao.increaseBring(sqlSession, placeno);
+	}
+
+	@Override
+	public void decreaseBring(int placeno) {
+		dao.decreaseBring(sqlSession, placeno);
+	}
+
 	public int insertMySpot(Place place) {
 		return dao.insertMySpot(sqlSession,place);
 	}
@@ -120,7 +183,7 @@ public class PlaceServiceImpl implements PlaceService {
 
 	@Override
 	public int selectSearchCount(String keyword) {
-		return dao.selectSearchCount(sqlSession,keyword);
+		return dao.selectSearchCount(sqlSession, keyword);
 	}
 
 	

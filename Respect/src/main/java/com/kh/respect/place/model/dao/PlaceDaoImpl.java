@@ -12,12 +12,17 @@ import com.kh.respect.place.model.vo.PlaceSpring;
 
 @Repository
 public class PlaceDaoImpl implements PlaceDao {
-	
+
 	SqlSessionTemplate sqlSession;
 
 	@Override
-	public int insertSpot(SqlSessionTemplate sqlSession, Place p) {
+	public int insertPlace(SqlSessionTemplate sqlSession, Place p) {
 		return sqlSession.insert("spot.insertPlace", p);
+	}
+	
+	@Override
+	public int updatePlace(SqlSessionTemplate sqlSession, Place p) {
+		return sqlSession.update("spot.updatePlace", p);
 	}
 
 	@Override
@@ -31,9 +36,9 @@ public class PlaceDaoImpl implements PlaceDao {
 	}
 
 	@Override
-	public Place selectSpot(SqlSessionTemplate sqlSession, int spotno) {
+	public Place selectPlace(SqlSessionTemplate sqlSession, int placeno) {
 		// TODO Auto-generated method stub
-		return sqlSession.selectOne("spot.selectSpot", spotno);
+		return sqlSession.selectOne("spot.selectSpot", placeno);
 	}
 	
 	@Override
@@ -65,6 +70,24 @@ public class PlaceDaoImpl implements PlaceDao {
 		return sqlSession.selectOne("spot.selectLike", pg);
 	}
 	
+	@Override
+	public int insertBring(SqlSessionTemplate sqlSession, PlaceGood pg) {
+		// TODO Auto-generated method stub
+		return sqlSession.insert("spot.insertBring", pg);
+	}
+	
+	@Override
+	public int deleteBring(SqlSessionTemplate sqlSession, PlaceGood pg) {
+		// TODO Auto-generated method stub
+		return sqlSession.delete("spot.deleteBring", pg);
+	}
+	
+	@Override
+	public PlaceGood selectBring(SqlSessionTemplate sqlSession, PlaceGood pg) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("spot.selectBring", pg);
+	}
+	
 	
 
 //	@Override
@@ -79,15 +102,51 @@ public class PlaceDaoImpl implements PlaceDao {
 //		return sqlSession.selectOne("spot.spotSearchListTotal", p.getMinorcategory());
 //	}
 	
+	@Override
+	public int selectPlaceLikecnt(SqlSessionTemplate sqlSession, int placeno) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("spot.selectPlaceLikecnt", placeno);
+	}
+
+	@Override
+	public int selectPlaceBringcnt(SqlSessionTemplate sqlSession, int placeno) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("spot.selectPlaceBringcnt", placeno);
+	}
 	
+	public void increaseLike(SqlSessionTemplate sqlSession, int placeno) {
+		sqlSession.update("spot.increaseLike", placeno);
+	}
+	
+	public void decreaseLike(SqlSessionTemplate sqlSession, int placeno) {
+		sqlSession.update("spot.decreaseLike", placeno);
+	}
+	
+	public void increaseBring(SqlSessionTemplate sqlSession, int placeno) {
+		sqlSession.update("spot.increaseBring", placeno);
+	}
+	
+	public void decreaseBring(SqlSessionTemplate sqlSession, int placeno) {
+		sqlSession.update("spot.decreaseBring", placeno);
+	}
 
 	public int insertMySpot(SqlSessionTemplate sqlSession, Place place) {
 		return sqlSession.insert("spot.insertMyPlace", place);
 	}
 	
+	@Override
+	public List<Place> searchCategoryList(SqlSessionTemplate sqlSession, int cPage, int numPerPage, String minorcategory) {
+		return sqlSession.selectList("spot.searchCategoryList", minorcategory, new RowBounds((cPage-1)*numPerPage, numPerPage));
+	}
+
+	@Override
+	public int categoryTotalCount(SqlSessionTemplate sqlSession, String minorcategory) {
+		return sqlSession.selectOne("spot.categoryTotalCount", minorcategory);
+	}
+	
+	
 	
 	public int selectTotalUserCount(SqlSessionTemplate sqlSession, String userId) {
-		
 		return sqlSession.selectOne("spot.selectTotalUserCount",userId);
 	}
 

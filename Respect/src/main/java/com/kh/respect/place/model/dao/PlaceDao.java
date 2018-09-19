@@ -12,17 +12,29 @@ public interface PlaceDao {
 	List<Place> selectUserSpotList(SqlSessionTemplate sqlSession, String userId, int cPage, int numPerPage);
 	List<Place> selectSearchList(SqlSessionTemplate sqlSession,int cPage, int numPerPage,String keyword);
 	int selectTotalCount(SqlSessionTemplate sqlSession);
-	int insertSpot(SqlSessionTemplate sqlSession, Place p);
-	Place selectSpot(SqlSessionTemplate sqlSession, int spotno);
-	void updateSpotCnt(SqlSessionTemplate sqlSession, int spotno);
+	int insertPlace(SqlSessionTemplate sqlSession, Place p);
+	int updatePlace(SqlSessionTemplate sqlSession, Place p);
+	Place selectPlace(SqlSessionTemplate sqlSession, int placeno);
+	void updateSpotCnt(SqlSessionTemplate sqlSession, int placeno);
 
 //	List<PlaceSpring> spotSearchList(PlaceSpring p) throws Exception;
 //	Integer spotSearchListTotal(PlaceSpring p) throws Exception;
 	int insertLike(SqlSessionTemplate sqlSession, PlaceGood pg);
 	int deleteLike(SqlSessionTemplate sqlSession, PlaceGood pg);
 	PlaceGood selectLike(SqlSessionTemplate sqlSession, PlaceGood pg);
+	int insertBring(SqlSessionTemplate sqlSession, PlaceGood pg);
+	int deleteBring(SqlSessionTemplate sqlSession, PlaceGood pg);
+	PlaceGood selectBring(SqlSessionTemplate sqlSession, PlaceGood pg);
+	void increaseLike(SqlSessionTemplate sqlSession, int placeno);
+	void decreaseLike(SqlSessionTemplate sqlSession, int placeno);
+	int selectPlaceLikecnt(SqlSessionTemplate sqlSession, int placeno);
+	void increaseBring(SqlSessionTemplate sqlSession, int placeno);
+	void decreaseBring(SqlSessionTemplate sqlSession, int placeno);
+	int selectPlaceBringcnt(SqlSessionTemplate sqlSession, int placeno);
+	List<Place> searchCategoryList(SqlSessionTemplate sqlSession, int cPage, int numPerPage, String minorcategory);
+	int categoryTotalCount(SqlSessionTemplate sqlSession, String minorcategory);
 	
-
+	
 	int insertMySpot(SqlSessionTemplate sqlSession, Place place);
 	int selectTotalUserCount(SqlSessionTemplate sqlSession,String userId);
 	int deleteSpot(SqlSessionTemplate sqlSession,int placeno);
