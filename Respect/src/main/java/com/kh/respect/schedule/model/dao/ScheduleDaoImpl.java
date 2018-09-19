@@ -245,6 +245,13 @@ public class ScheduleDaoImpl implements ScheduleDao {
 	      return session.selectList("schedule.scheduleAttList");
 	   }
 
+
+		@Override
+		public void updateHitsCountUp(SqlSessionTemplate session, int scheduleNo) {
+			session.update("schedule.updateHitsCountUp",scheduleNo);
+			
+		}
+
 	@Override
 	public Schedule selectScheduleSC(SqlSessionTemplate session, int scheduleNo) {
 		return session.selectOne("schedule.selectScheduleSC",scheduleNo);
@@ -254,6 +261,7 @@ public class ScheduleDaoImpl implements ScheduleDao {
 	public List<TimeTable> selectTimeTableSC(SqlSessionTemplate session, int scheduleNo) {
 		return session.selectList("schedule.selectTimeTableSC",scheduleNo);
 	}
+
 	
 	@Override
 	public int insertScheduleReport(SqlSessionTemplate session, ScheduleReport sr) {

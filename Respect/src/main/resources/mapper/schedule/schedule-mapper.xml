@@ -87,7 +87,8 @@
   	</select>
   	
   	<select id="selectScheduleList" resultType="map">
-		SELECT * FROM(SELECT S.*,P.THUMBNAIL FROM SCHEDULE S INNER JOIN PLACE P ON(S.PLACENO=P.PLACENO) ORDER BY ROWNUM DESC) order by writedate desc
+		SELECT * FROM(SELECT S.*,P.THUMBNAIL, (select count(*) from schedule_reply b where b.scheduleno = s.scheduleNo)as REPLYNUM FROM SCHEDULE S INNER JOIN PLACE P ON(S.PLACENO=P.PLACENO) ORDER BY ROWNUM DESC)
+
   	</select>
   	
   	<select id="selectTotalCount" resultType="_int">
@@ -299,7 +300,15 @@
 	</delete>
 	<delete id="scheduleDelete" parameterType="_int">
 		delete from schedule where scheduleno=#{scheduleNo}
+<<<<<<< HEAD
+	</delete> -->
+
+	<update id="updateHitsCountUp" parameterType="_int">
+		UPDATE SCHEDULE SET HITSCOUNT = HITSCOUNT+1 WHERE SCHEDULENO=#{scheduleNo}
+	</update>
+=======
 	</delete>
+>>>>>>> master
 
 	<select id="selectScheduleSC" parameterType="_int" resultType='schedule'>
 		select traveltheme, partyname, title,to_char(startdate,'yyyy-mm-dd') startdate,to_char(enddate,'yyyy-mm-dd') as enddate, peoplenum, publicflag, placeno from schedule where scheduleno=#{scheduleNo}

@@ -86,32 +86,34 @@
 
 				<div class="p-0 ml-0 row col-md-9 ">
 					<c:forEach items="${list }" var="sc">
-						<div class="col-lg-6 col-sm-6 mt-4">
-								<div class="card pp" align='center' style="box-shadow: 3px 4px 5px 0 rgba(2,2,2,.2); border-radius:0;">
-								<!-- Card image -->
-									<img class="card-img-top" src="${path }/resources/upload/spot/thumbnail/${sc.THUMBNAIL}" style="border-radius:0;" height="220px;">
-								<!-- Card content -->
-								<div class="card-body">
-								
-									<!-- Title -->
-									<a href="${path}/schedule/scheduleView?scheduleNo=${sc.SCHEDULENO}"><h4 class="card-title">${sc.TITLE}</h4></a>
-									<!-- text -->
+						<c:if test="${sc.PUBLICFLAG==1}">
+							<div class="col-lg-6 col-sm-6 mt-4">
+									<div class="card pp" align='center' style="box-shadow: 3px 4px 5px 0 rgba(2,2,2,.2); border-radius:0;">
+									<!-- Card image -->
+										<img class="card-img-top" src="${path }/resources/upload/spot/thumbnail/${sc.THUMBNAIL}" style="border-radius:0;" height="220px;">
+									<!-- Card content -->
+									<div class="card-body">
 									
-									<fmt:parseDate value="${sc.STARTDATE }" var="startDate" pattern="yyyy-MM-dd"/>
-									<fmt:parseNumber value="${startDate.time / (1000*60*60*24)}" integerOnly="true" var="startDay"></fmt:parseNumber>
-									<fmt:parseDate value="${sc.ENDDATE }" var="endDate" pattern="yyyy-MM-dd"/>
-									<fmt:parseNumber value="${endDate.time / (1000*60*60*24)}" integerOnly="true" var="endDay"></fmt:parseNumber>
-									<p class="mt-1 card-text btn-outline-secondary">
-										${endDay - startDay }박${endDay - startDay +1}일 ㆍ ${sc.TRAVELTHEME} ㆍ ${sc.REPORTFLAG==0?"여행 전":"여행 후"} 
-									</p>
-										<div class="row pt-1" align='center'style="width:250px">
-											<i class="ml-4 far fa-thumbs-up fa-1x"></i><h6 class="ml-1">${sc.GOODCOUNT }</h6>
-											<i class="ml-5 far fa-heart fa-1x"></i><h6 class="ml-1">${sc.BRINGCOUNT }</h6>
-											<i class="ml-5 far fa-eye fa-1x"></i><h6 class="ml-1">${sc.HITSCOUNT }</h6>
+										<!-- Title -->
+										<a href="${path}/schedule/scheduleView?scheduleNo=${sc.SCHEDULENO}&userId=${userLoggedIn.userId}"><h4 class="card-title">${sc.TITLE}</h4></a>
+										<!-- text -->
+										
+										<fmt:parseDate value="${sc.STARTDATE }" var="startDate" pattern="yyyy-MM-dd"/>
+										<fmt:parseNumber value="${startDate.time / (1000*60*60*24)}" integerOnly="true" var="startDay"></fmt:parseNumber>
+										<fmt:parseDate value="${sc.ENDDATE }" var="endDate" pattern="yyyy-MM-dd"/>
+										<fmt:parseNumber value="${endDate.time / (1000*60*60*24)}" integerOnly="true" var="endDay"></fmt:parseNumber>
+										<p class="mt-1 card-text btn-outline-secondary">
+											${endDay - startDay }박${endDay - startDay +1}일 ㆍ ${sc.TRAVELTHEME} ㆍ ${sc.REPORTFLAG==0?"여행 전":"여행 후"} 
+										</p>
+											<div class="row pt-1" align='center'style="width:250px">
+												<i class="ml-4 far fa-thumbs-up fa-1x"></i><h6 class="ml-1">${sc.REPLYNUM }</h6>
+												<i class="ml-5 far fa-heart fa-1x"></i><h6 class="ml-1">${sc.BRINGCOUNT }</h6>
+												<i class="ml-5 far fa-eye fa-1x"></i><h6 class="ml-1">${sc.HITSCOUNT }</h6>
+											</div>
 										</div>
 									</div>
-								</div>
-							  </div>
+								  </div>
+							  </c:if>
 						  </c:forEach>
 					</div>
 		</div>

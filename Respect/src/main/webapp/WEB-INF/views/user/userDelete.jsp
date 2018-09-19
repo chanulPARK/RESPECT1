@@ -50,16 +50,16 @@
             <br>
             
             <div class="btn-group m-2" style="display: inline-block;">
-                <button id="updatePage" type="button" class="btn btn-outline-secondary">정보 수정</button>
-                <button id="updatePw" type="button" class="btn btn-outline-secondary">비밀번호 변경</button>
-                <button id="updateProfile" type="button" class="btn btn-outline-secondary">프로필사진 변경</button>
+                <button id="updatePage" type="button" class="btn btn-outline-warning">정보 수정</button>
+                <button id="updatePw" type="button" class="btn btn-outline-warning">비밀번호 변경</button>
+                <button id="updateProfile" type="button" class="btn btn-outline-warning">프로필사진 변경</button>
                 <c:if test="${userLoggedIn.noReadMessage>0}">
-	            	<button id="message" type="button" class="btn btn-outline-secondary">쪽지함<img class="align-top" src="${path }/resources/upload/profile/ic_new.gif" alt="새로운쪽지"></button>
+	            	<button id="message" type="button" class="btn btn-outline-warning">쪽지함<img class="align-top" src="${path }/resources/upload/profile/ic_new.gif" alt="새로운쪽지"></button>
 	            </c:if>
 	            <c:if test="${userLoggedIn.noReadMessage==0}">
-	            	<button id="message" type="button" class="btn btn-outline-secondary">쪽지함</button>
+	            	<button id="message" type="button" class="btn btn-outline-warning">쪽지함</button>
 	            </c:if>
-	            <button id="deleteMember" type="button" class="btn btn-outline-secondary">회원 탈퇴</button>
+	            <button id="deleteMember" type="button" class="btn btn-outline-warning">회원 탈퇴</button>
             </div>
             <div class="p-3 pb-3">
                 <div class="container col-sm-7">
@@ -87,7 +87,7 @@
 	                        	<input type="password" class="form-control" id="password" name="password" placeholder="현재 비밀번호를 입력하세요" required>
 	                     </div>
 	                     <div class="form-group " align="center">
-	                         <button type="submit" id="pwCheck" class="btn mt-2" style="background: rgb(200, 152, 152);">탈퇴하기</button>
+	                         <button type="submit" id="pwCheck" class="btn mt-2" style="background: #f19221;">탈퇴하기</button>
 	                         <button type="reset" class="btn mt-2">취소</button>
 	                     </div>
 	                 </form>

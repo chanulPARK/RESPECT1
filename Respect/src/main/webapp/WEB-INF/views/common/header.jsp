@@ -115,13 +115,22 @@ $(function(){
 	        console.log(error);
 		}
 		});
+		
+		
+		
 
 	
 });
 
 </script> -->
 
-
+<script>
+	$(function(){
+		$('#message').on('click',function(){
+		     window.open('${path}/message/receiveMessageList.do?userId=${userLoggedIn.userId}','message','top=50px, left=100px, height=600px, width=800px, resizable=no');
+		}); 
+	});
+</script>
 
 </head>
 <body>
@@ -176,13 +185,21 @@ $(function(){
 	                
                 </c:if>
                 <c:if test="${userLoggedIn!=null }">
-                	<div class="col-4">
+                	<div class="col-3">
 	                    <a class="btn btn-outline-warning" href="${path}/mySchedule/allMySchedule.do?userId=${userLoggedIn.userId}">나의 일정관리</a>
 	                </div>
-	                <div class="col-4">
+	                <div class="col-3">
 	                    <a class="btn btn-outline-warning" href="${path}/user/userUpdate.do">나의 정보관리</a>
 	                </div>
-	                <div class="col-4">
+	                <div class="col-3">
+	                    <c:if test="${userLoggedIn.noReadMessage>0}">
+			            	<button id="message" type="button" class="btn btn-outline-warning">쪽지함<img class="align-top" src="${path }/resources/upload/profile/ic_new.gif" alt="새로운쪽지"></button>
+			            </c:if>
+			            <c:if test="${userLoggedIn.noReadMessage==0}">
+			            	<button id="message" type="button" class="btn btn-outline-warning">쪽지함</button>
+			            </c:if>
+	                </div>
+	                <div class="col-3">
 	                    <a class="btn btn-outline-warning" href="${path }/user/userLogout.do">로그아웃</a>
 	                </div>
                 </c:if>   

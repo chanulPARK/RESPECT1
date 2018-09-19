@@ -217,7 +217,6 @@
 #logo{color:black; font-family:'Gloria Hallelujah', cursive;  font-size: 30px; }
 #logo img{width:40px;}
 #contentarea{background:white;}
-.form-group button{background: rgb(200, 152, 152);}
 a{text-decoration: none;}
 button{background: rgb(200, 152, 152);}
 
@@ -226,7 +225,7 @@ button{background: rgb(200, 152, 152);}
 </head>
 <body>
     <div class="container mt-5 p-5">
-		<div class="p-4"align="center"><label><a id="logo" href="<%=request.getContextPath() %>/index.jsp" ><img src="<%=request.getContextPath() %>/images/dog.png"> 제주도다</a></label></div>
+		<div class="p-4"align="center"><label><a id="logo" href="<%=request.getContextPath() %>/index.jsp" ><img src="${path }/resources/img/main/KakaoTalk_20180913_202949683.png"> 니가가라 제주도</a></label></div>
    		<div id="contentarea" class="container col-sm-7 shadow h-100 p-4 rounded" >
 	        <form action="${path }/user/registerEnd" method="post" id="registerForm" enctype="multipart/form-data">
 	          <div class="form-group">
@@ -281,7 +280,7 @@ button{background: rgb(200, 152, 152);}
 	          </div>
 	          
 	          <div class="form-group mt-3" align="center">
-	              <button type="submit" class="btn mt-2" >가입하기</button>
+	              <button type="submit" class="btn mt-2" style="background: #f19221;" >가입하기</button>
 	          </div>
 	        </form>
   		</div>                     

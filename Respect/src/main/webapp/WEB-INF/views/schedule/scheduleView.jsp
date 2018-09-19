@@ -51,6 +51,7 @@
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 <script>
 
+
 function fn_updateReport(scheduleNo)
 {
 	location.href="${path}/schedule/updateReport?scheduleNo="+scheduleNo;
@@ -198,24 +199,106 @@ function btn_replySee(a){
 	}
 	function fn_bring(scheduleNo)
 	{
-		$.ajax({
-			url:"${path}/schedule/bringSchedule",
-			type:"POST",
-			data:{scheduleNo:scheduleNo},
-			success:function(data)
-			{
-				alert(data);
-			}
-		});
+		<c:if test="${userLoggedIn == null }">
+			alert("로그인후 이용 가능합니다.");
+			location.href="${path}/user/userLogin.do";
+		</c:if>
+		if (${userLoggedIn != null}){
+			var scheduleNo = ${viewList.SCHEDULENO};
+			var userId = '${userLoggedIn.userId}';
+			$.ajax({
+				url:"<%=request.getContextPath()%>/schedule/goodCountUpdate",
+				type:"POST",
+				data:{scheduleNo:scheduleNo,userId:userId},
+				success:function(data)
+				{
+					$(".btn-like").html(data);
+				}
+			});
+		}
 		
 	}
+	
+	function fn_zzim()
+	{
+		<c:if test="${userLoggedIn == null }">
+			alert("로그인후 이용 가능합니다.");
+			location.href="${path}/user/userLogin.do";
+		</c:if>
+		if (${userLoggedIn != null}){
+			var scheduleNo = ${viewList.SCHEDULENO};
+			var userId = '${userLoggedIn.userId}';
+			$.ajax({
+				url:"<%=request.getContextPath()%>/schedule/bringCountUpdate",
+				type:"POST",
+				data:{scheduleNo:scheduleNo,userId:userId},
+				success:function(data)
+				{
+					$(".btn-jjim").html(data);
+				}
+			});
+		}
+		
+	};
+		
+		
+	
+
 </script>
 <body>
     <div class="container">
             <div class="row">
                     <h2 class="pt-4 ml-2">${viewList.TITLE}</h2>
                     <div class='row ml-5' style="margin-top:35px;">
-                        <h6>조회</h6><h6 class="ml-2" style="color:rgb(208, 203, 203);">${viewList.HITSCOUNT }</h6>&nbsp;&nbsp;<h6>|</h6>&nbsp;&nbsp;<h6>찜하기</h6><h6 class="ml-2" style="color:rgb(208, 203, 203);">${viewList.BRINGCOUNT }</h6>&nbsp;&nbsp;<h6>|</h6>&nbsp;&nbsp;<h6>좋아요</h6><h6 class="ml-2" style="color:rgb(208, 203, 203);">${viewList.GOODCOUNT}</h6>
+                        <h6>조회</h6><h6 class="ml-2" style="color:#f19221;">${viewList.HITSCOUNT }</h6>
+                        &nbsp;&nbsp;
+                        <h6>|</h6>
+                        &nbsp;&nbsp;
+                        <h6 onclick="fn_zzim()" style="cursor:pointer">찜하기</h6>
+                        <c:choose>
+	                        <c:when test="${userLoggedIn eq null }">
+	              
+		                        <div class="btn-jjim" >
+		                        	<h6 class="ml-2" style="color:rgb(208, 203, 203);">${viewList.BRINGCOUNT }</h6>
+		                        </div>
+	                        </c:when>
+	                        <c:when test="${userLoggedIn ne null || userLoggedIn != '' }">
+	                        	<c:if test="${bringCheck ==0 }">
+	                        		<div class="btn-jjim" >
+										<h6 class="ml-2" style="color:rgb(208, 203, 203);">${viewList.BRINGCOUNT }</h6>
+									</div>               	
+	                        	</c:if>
+	                        	<c:if test="${bringCheck >0 }">
+	                        		<div class="btn-jjim" >
+										<h6 class="ml-2" style="color:#f19221;">${viewList.BRINGCOUNT }</h6>
+									</div>                 	
+	                        	</c:if>
+	                        </c:when>
+                        </c:choose>
+                        &nbsp;&nbsp;
+                        <h6>|</h6>
+                        &nbsp;&nbsp;
+                        <h6 onclick="fn_like()" style="cursor:pointer">좋아요</h6>
+                        <c:choose>
+	                        <c:when test="${userLoggedIn eq null }">
+	              
+		                        <div class="btn-like" >
+		                        	<h6 class="ml-2" style="color:rgb(208, 203, 203);">${viewList.GOODCOUNT }</h6>
+		                        </div>
+	                        </c:when>
+	                        <c:when test="${userLoggedIn ne null || userLoggedIn != '' }">
+	                        	<c:if test="${goodCheck ==0 }">
+	                        		<div class="btn-like" >
+										<h6 class="ml-2" style="color:rgb(208, 203, 203);">${viewList.GOODCOUNT }</h6>
+									</div>               	
+	                        	</c:if>
+	                        	<c:if test="${goodCheck >0 }">
+	                        		<div class="btn-like" >
+										<h6 class="ml-2" style="color:#f19221;">${viewList.GOODCOUNT }</h6>
+									</div>                 	
+	                        	</c:if>
+	                        </c:when>
+                        </c:choose>
                     </div>
              </div> 
             <div class="row">
@@ -527,18 +610,18 @@ function btn_replySee(a){
                       </c:choose>
                   
                    
-                   
-                    
+                                       
                </div>
                        </div>     
                           </div>
   
                 <br>
             </div>
+
             <div class="row justify-content-center" align='center'>
       		
       	</div>
-          
+
           
          <br>
   
@@ -550,7 +633,7 @@ function btn_replySee(a){
             <div class="col-md-11">
               <div class="page-header mb-3 mt-5" style="border-bottom: solid 1px black; height: 50px;">
                 <button type="button" class="btn float-right"  style="background: #f19221;" data-toggle="modal" data-target="#replyWriteModal" onclick="return loginCheck()">댓글등록</button>
-                <h4>이 일정에 대한 의견(<span style="color: #f19221">${viewList.GOODCOUNT }</span>)</h4>  
+                <h4>이 일정에 대한 의견(<span style="color: #f19221">${fn:length(scheduleReplyList)}</span>)</h4>  
               </div> 
                <div class="mb-5">
               
@@ -580,7 +663,7 @@ function btn_replySee(a){
                                    
                                 <button type="button" class="btn mt-2 ml-2 p-1 btn-replyWrite" value="${reply.REPLYNO }"  style="background: white; border: 1px solid #959595;" > <span style="font-size: 12px; color: #959595;">댓글 쓰기</span> </button>
                           <c:if test="${userLoggedIn != '' || userLoggedIn ne null }">
-                            <c:if test="${reply.USERID eq userLoggedIn.userId }">
+                            <c:if test="${reply.USERID eq userLoggedIn.userId || userLoggedIn.userLevel==1 }">
                                       <button type="button" class="btn mt-2 ml-2 p-1 btn-replyDelte" value="${reply.REPLYNO }" style="background: white; border: solid 1px #ccc;"  > <span style="font-size: 12px; color: #959595;">삭제</span> </button>
                                    </c:if>
                                 </c:if>
@@ -605,7 +688,7 @@ function btn_replySee(a){
                                        
                                            <br>
                                            <c:if test="${userLoggedIn != '' || userLoggedIn ne null }">
-                                       <c:if test="${reply.USERID eq userLoggedIn.userId }">
+                                       <c:if test="${reply.USERID eq userLoggedIn.userId || userLoggedIn.userLevel==1 }">
                                                  <button type="button" class="btn mt-2 ml-2 p-1 btn-replyDelte" value="${reply.REPLYNO }" style="background: white; border: solid 1px #ccc;"  > <span style="font-size: 12px; color: #959595;">삭제</span> </button>
                                               </c:if>
                                            </c:if>
@@ -714,6 +797,9 @@ function btn_replySee(a){
           <input type="hidden" name="replyNo">
          <!--   리턴페이지 유지위해  -->
           <input type="hidden" name="scheduleNo" value="${viewList.SCHEDULENO }">
+          <c:if test="${userLoggedIn != '' || userLoggedIn ne null }">
+             <input type="hidden" name="userId" value="${userLoggedIn.userId }">
+          </c:if>
     
         </form>
         
@@ -806,6 +892,7 @@ function btn_replySee(a){
 			
 		},1000);
 	};
+
 
 	
 	   var list=${tt};
@@ -911,11 +998,108 @@ function btn_replySee(a){
 		
 		
 		
-		
 
-   
-   
-   
-   
+
+	
+	   var list=${tt};
+	   var dataList=[];
+	   
+	   var idx=0;
+		for(var i=0; i<list.length;i++)
+		{
+			console.log(list[i]);
+			var pplaceno=list[i].PLACENO;
+			var pday=list[i].DAY;
+			var ptime=list[i].TIME;
+			var ptitle=list[i].TITLE;
+			var paddress=list[i].ADDRESS;
+			var pseq_no=seq();
+		  	
+		  	var html="<div id='data"+pseq_no+"' >"+ptitle+"<input type='hidden' name='timevalue' value='"+pday+","+ptime+"'><input type='hidden' name='placevalue' value='"+pplaceno+","+ptitle+","+paddress+","+pseq_no+"' class='placelist'></div>";
+
+		    var tables=$("table[class='table-bordered timeline']");
+		    var pdata={pseq_no:pseq_no,ptitle:ptitle,paddress:paddress,pday:pday,idx:i};
+		    
+		    dataList.push(pdata);
+		  
+		    for(var k=0; k<tables.length;k++)
+	    	{
+				if(tables[k].id==pday)
+				{
+					
+					var targettd=$("table[id='"+pday+"'] td[id='"+ptime+"']");
+					
+					targettd.attr('class',"place disable");
+					targettd.append(html);
+				}
+	    	}
+		    ps.addressSearch(dataList[i].paddress,function(data,status)
+  		{
+		    	if(status === daum.maps.services.Status.OK)
+				{
+					
+					
+					for(var b=0; b<data.length; b++)
+					{
+						
+						makeMarker(data[b]);
+					} 
+					
+				}
+			}); 		
+		}
+		
+		function makeMarker(data)
+		{
+			var marker = new daum.maps.Marker({
+				map:map,
+				position:new daum.maps.LatLng(data.y, data.x),
+				clickable: true 
+			});
+			
+			
+			
+		    iwRemoveable = true;
+		    
+		    var infowindow = new daum.maps.InfoWindow({
+		        removable:iwRemoveable
+		    }); 
+		    
+			daum.maps.event.addListener(marker, 'click', function()
+			{
+				infowindow.open(map,marker);
+			});
+			
+			
+			var daymarker = {days:0,marks:marker,iw:infowindow,idx:idx++,data1:data};
+			markers.push(daymarker);
+			
+		
+			
+				for(var bb=0;bb<markers.length;bb++)
+				{
+					for(var aaa=0;aaa<dataList.length;aaa++)
+					{
+						if(markers[bb].data1.address_name==dataList[aaa].paddress)
+						{
+							markers[bb].days=dataList[aaa].pday;
+							markers[bb].marks.setTitle(dataList[aaa].pseq_no);
+							markers[bb].iw.setContent('<div style="padding:5px; font-size:12px;">'+dataList[aaa].ptitle+'</div>');
+						}
+					}
+					
+					console.log(markers);
+					if(markers[bb].days!=1)
+					{
+						
+						markers[bb].marks.setVisible(false);		
+					}
+					
+				}
+		}
+		
+		
+		
+		
 </script>
 <%@ include file="/WEB-INF/views/common/footer.jsp"%>
