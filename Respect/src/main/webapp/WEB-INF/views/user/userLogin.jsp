@@ -31,12 +31,11 @@
     <style>
     #logo{color:black; font-size: 30px; }
     #logo img{width:40px;}
-    button{background: rgb(200, 152, 152);}
     </style>
 </head>
 <body style="background: #f1f1f1">
     <div class="container mt-5 p-5">
-        <div class="p-4"align="center"><label><a id="logo" class="navbar-brand" href="<%=request.getContextPath() %>/index.jsp"><img src="<%=request.getContextPath() %>/images/dog.png" > 제주도다</a></label></div>
+        <div class="p-4"align="center"><label><a id="logo" class="navbar-brand" href="<%=request.getContextPath() %>/index.jsp"><img src="${path }/resources/img/main/KakaoTalk_20180913_202949683.png" > 니가가라 제주도</a></label></div>
         <div class="container col-sm-5 shadow p-4 rounded" style="background:white;">
             <form action="${path }/user/loginEnd" method="post">
                 <div class="form-group">
@@ -53,7 +52,7 @@
                     <input type="password" class="form-control" id="userPw" name="password" placeholder="비밀번호를 입력하세요" required>
                 </div>
                 <div class="form-group">
-                    <button type="submit" class="btn "  align="center">로그인</button>
+                    <button type="submit" class="btn "  align="center" style="background: #f19221;">로그인</button>
                     <div class="float-right">
                             <a href="${path }/user/userEnroll.do"  class="p-2">회원가입</a>
                             <a href="${path }/user/findPassword.do"  class="p-2">비밀번호찾기</a>

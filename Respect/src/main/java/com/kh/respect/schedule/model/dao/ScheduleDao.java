@@ -59,9 +59,13 @@ public interface ScheduleDao {
 	int updateSchedule(SqlSessionTemplate session, Schedule sc);
 	int deleteTimeTable(SqlSessionTemplate session, int scheduleNo);
 //	int deleteSchedule(SqlSessionTemplate session, int scheduleNo);
+
+	void updateHitsCountUp(SqlSessionTemplate session, int scheduleNo);
+
 	List<ScheduleReport> selectScheduleReportView(SqlSessionTemplate session,int scheduleNo);
 	int updateScheduleReportFlag(SqlSessionTemplate session, int scheduleNo);
 	int deleteScheduleReport(SqlSessionTemplate session, int scheduleNo);
+
 
 	int deleteSchedule(SqlSessionTemplate session, int scheduleNo);
 	Schedule selectScheduleSC(SqlSessionTemplate session,int scheduleNo);

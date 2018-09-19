@@ -18,6 +18,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -146,7 +147,7 @@ public class ScheduleController {
 	
 	
 	@RequestMapping("/schedule/scheduleView")
-	public ModelAndView ScheduleView(HttpSession session,int scheduleNo)
+	public ModelAndView ScheduleView(HttpSession session,int scheduleNo, String userId)
 	{
 		ModelAndView mv= new ModelAndView();
 		Map<String, String> map=service.selectOneScheduleView(scheduleNo);
@@ -160,9 +161,19 @@ public class ScheduleController {
 		String json = gson.toJson(tt);
 		mv.addObject("viewList",map);
 		mv.addObject("tt",json);
-
 		
+		if(userId!="") {
 		
+			Schedule schedule = new Schedule();
+			schedule.setScheduleNo(scheduleNo);
+			schedule.setUserId(userId);
+			int goodCheck = service.goodCountCheck(schedule);
+			int bringCheck = service.bringCountCheck(schedule);
+			System.out.println("goodCheck : "  + goodCheck);
+			System.out.println("bringCheck : "  + bringCheck);
+			mv.addObject("goodCheck",goodCheck);
+		    mv.addObject("bringCheck",bringCheck);
+		}
 		//댓글
 		List<Map<String, String>> scheduleReplyList = service.scheduleReplyList(scheduleNo);
         List<Map<String, String>> scheduleAttList = service.scheduleAttList();
@@ -367,11 +378,11 @@ public class ScheduleController {
 	      String loc="";
 	      if(result>0){
 	         msg="댓글을 등록하였습니다!";
-	         loc="/schedule/scheduleView?scheduleNo="+schedulyReply.getScheduleNo();
+	         loc="/schedule/scheduleView?scheduleNo="+schedulyReply.getScheduleNo()+"&userId="+schedulyReply.getUserId();
 	      }
 	      else{
 	         msg="댓글등록에 실패하였습니다";
-	         loc="/schedule/scheduleView?scheduleNo="+schedulyReply.getScheduleNo();
+	         loc="/schedule/scheduleView?scheduleNo="+schedulyReply.getScheduleNo()+"&userId="+schedulyReply.getUserId();
 	      }
 	      
 	      ModelAndView mv=new ModelAndView();
@@ -390,11 +401,11 @@ public class ScheduleController {
 	      String loc="";
 	      if(result>0){
 	         msg="답글을 등록하였습니다!";
-	         loc="/schedule/scheduleView?scheduleNo="+schedulyReply.getScheduleNo();
+	         loc="/schedule/scheduleView?scheduleNo="+schedulyReply.getScheduleNo()+"&userId="+schedulyReply.getUserId();
 	      }
 	      else{
 	         msg="답글등록에 실패하였습니다";
-	         loc="/schedule/scheduleView?scheduleNo="+schedulyReply.getScheduleNo();
+	         loc="/schedule/scheduleView?scheduleNo="+schedulyReply.getScheduleNo()+"&userId="+schedulyReply.getUserId();
 	      }
 	      
 	      ModelAndView mv=new ModelAndView();
@@ -407,16 +418,16 @@ public class ScheduleController {
 	   
 	   
 	   @RequestMapping("/scheduleReply/scheduleReplyDelete.do")
-	   public ModelAndView scheduleReplyDelete(int replyNo, int scheduleNo) {
+	   public ModelAndView scheduleReplyDelete(int replyNo, int scheduleNo, String userId) {
 	      int result = service.scheduleReplyDelete(replyNo);
 	      String msg="";
 	      String loc="";
 	      if(result>0) {
 	         msg="댓글을 삭제하였습니다!";
-	         loc="/schedule/scheduleView?scheduleNo="+scheduleNo;
+	         loc="/schedule/scheduleView?scheduleNo="+scheduleNo+"&userId="+userId;
 	      }else {
 	         msg="댓글 삭제에 실패하였습니다.";
-	         loc="/schedule/scheduleView?scheduleNo="+scheduleNo;
+	         loc="/schedule/scheduleView?scheduleNo="+scheduleNo+"&userId="+userId;
 	      }
 	      ModelAndView mv=new ModelAndView();
 	      mv.addObject("msg",msg);
@@ -433,7 +444,7 @@ public class ScheduleController {
 	      String loc="";
 	      if(check>0) {
 	         msg="이미 추천하셨습니다.";
-	         loc="/schedule/scheduleView?scheduleNo="+schedulyReply.getScheduleNo();
+	         loc="/schedule/scheduleView?scheduleNo="+schedulyReply.getScheduleNo()+"&userId="+schedulyReply.getUserId();
 	      }else {
 	         
 	         service.insertscheduleReplyGood(schedulyReply);
@@ -442,10 +453,10 @@ public class ScheduleController {
 	         
 	         if(result>0) {
 	            msg="추천을 하였습니다!";
-	            loc="/schedule/scheduleView?scheduleNo="+schedulyReply.getScheduleNo();
+	            loc="/schedule/scheduleView?scheduleNo="+schedulyReply.getScheduleNo()+"&userId="+schedulyReply.getUserId();
 	         }else {
 	            msg="추천에 실패하였습니다.";
-	            loc="/schedule/scheduleView?scheduleNo="+schedulyReply.getScheduleNo();
+	            loc="/schedule/scheduleView?scheduleNo="+schedulyReply.getScheduleNo()+"&userId="+schedulyReply.getUserId();
 	         }
 	      }
 	      ModelAndView mv=new ModelAndView();
@@ -694,70 +705,59 @@ public class ScheduleController {
 	
 	//좋아요 증가및 감소
 		// 뷰 호출할때 int goodCheck를 넘겨 0인지 1인지 구분하고 jsp에서 구분 (0은 추천안함, 1은이미 추천함) 
-		@RequestMapping("/schedul/goodCountUpdate")
-		public ModelAndView goodCountUpdate(Schedule schedule) {
-			ModelAndView mv = new ModelAndView();
+		@RequestMapping("/schedule/goodCountUpdate")
+		public void goodCountUpdate(Schedule schedule,HttpServletResponse response)throws Exception {
+			
 			int goodCheck = service.goodCountCheck(schedule);
-			String msg = "";
-			String loc = "";
 			if(goodCheck==0) {
 				int result2 = service.goodCountUp(schedule);
 				if(result2>0) {
-					msg = "추천이 완료되었습니다.";
-					loc="/schedule/scheduleView?scheduleNo="+schedule.getScheduleNo();
-				}else {
-					msg = "추천에 실패했습니다.";
-					loc="/schedule/scheduleView?scheduleNo="+schedule.getScheduleNo();
+					Map<String, String> map=service.selectOneScheduleView(schedule.getScheduleNo());
+					String goodCount = String.valueOf(map.get("GOODCOUNT"));
+
+					String html="<h6 class='ml-2' style='color:#f19221'>"+goodCount+"</h6>";
+					response.getWriter().println(html);
 				}
 			}else {
 				int result = service.goodCountDown(schedule);
 				if(result >0) {
-					msg = "추천이 취소되었습니다.";
-					loc="/schedule/scheduleView?scheduleNo="+schedule.getScheduleNo();
-				}else {
-					msg = "추천이 취소에 실패했습니다.";
-					loc="/schedule/scheduleView?scheduleNo="+schedule.getScheduleNo();
+					Map<String, String> map=service.selectOneScheduleView(schedule.getScheduleNo());
+					String goodCount = String.valueOf(map.get("GOODCOUNT"));
+			
+					String html="<h6 class='ml-2' style='color:rgb(208, 203, 203);'>"+goodCount+"</h6>";
+					response.getWriter().println(html);
 				}
 			}
-			mv.addObject("msg",msg);
-			mv.addObject("loc", loc);
-			mv.setViewName("common/msg");
-			return mv;
 		}
 		
 		//찜하기 증가및 감소
 		// 뷰 호출할때 int bringCheck를 넘겨 0인지 1인지 구분하고 jsp에서 구분 (0은 찜안함, 1은이미 찜함) 
-		@RequestMapping("/schedul/bringCountUpdate")
-		public ModelAndView bringCountUpdate(Schedule schedule) {
-			ModelAndView mv = new ModelAndView();
+		@RequestMapping("/schedule/bringCountUpdate")
+		public void bringCountUpdate(Schedule schedule,HttpServletResponse response) throws Exception {
+			
+		
 			int bringCheck = service.bringCountCheck(schedule);
-			String msg = "";
-			String loc = "";
 			
 			if(bringCheck==0) {
 				int result = service.bringCountUp(schedule)	;
 				if(result>0) {
-					msg="찜한 목록에 추가되었습니다.";
-					loc="/schedule/scheduleView?scheduleNo="+schedule.getScheduleNo();
-				}else {
-					msg="찜하기에 실패했습니다.";
-					loc="/schedule/scheduleView?scheduleNo="+schedule.getScheduleNo();
+					Map<String, String> map=service.selectOneScheduleView(schedule.getScheduleNo());
+					String jjimCount = String.valueOf(map.get("BRINGCOUNT"));
+
+					String html="<h6 class='ml-2' style='color:#f19221'>"+jjimCount+"</h6>";
+					response.getWriter().println(html);
 				}
 			}else {
 				int result2 = service.bringCountDown(schedule);
 				if(result2>0) {
-					msg="찜하기가 취소되었습니다.";
-					loc="/schedule/scheduleView?scheduleNo="+schedule.getScheduleNo();
-				}else {
-					msg="찜하기취소에 실패했습니다.";
-					loc="/schedule/scheduleView?scheduleNo="+schedule.getScheduleNo();
+					Map<String, String> map=service.selectOneScheduleView(schedule.getScheduleNo());
+					String jjimCount = String.valueOf(map.get("BRINGCOUNT"));
+			
+					String html="<h6 class='ml-2' style='color:rgb(208, 203, 203);'>"+jjimCount+"</h6>";
+					response.getWriter().println(html);
 				}
 			}
 			
-			mv.addObject("msg",msg);
-			mv.addObject("loc", loc);
-			mv.setViewName("common/msg");
-			return mv;
 		}
 	
 	
