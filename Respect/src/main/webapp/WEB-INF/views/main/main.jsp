@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ include file="/WEB-INF/views/common/header.jsp"%>
 <c:set value="${pageContext.request.contextPath}" var="path"/>
 <script src="${path}/resources/js/Simple-Slider.js"></script>
 <link rel="stylesheet" href="${path}/resources/css/styles2.css">
@@ -365,3 +366,4 @@ $(function(){
         </div>
     </div>
     <!-- 공지 끝! -->
+    <%@ include file="/WEB-INF/views/common/footer.jsp"%>

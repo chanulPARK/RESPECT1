@@ -101,8 +101,7 @@
     }
 
     </style>
-</head>
-<body>
+
     <div class="container p-0">
        
             <div class="card card-register mx-auto mt-5" style="background: #f4f4f4; border: 1px solid #e5e5e5;">
@@ -264,7 +263,7 @@
     			<c:forEach items="${myScheduleList }" var="msl">
     			
     				<div class="col-md-3 col-sm-6 portfolio-item mt-3 card_list">
-	                	<a class="portfolio-link" href="#portfolioModal1" style="text-decoration:none !important">
+	                	<a class="portfolio-link" href="${path }/schedule/scheduleView?scheduleNo=${msl.SCHEDULENO }&userId=${userLoggedIn.userId}" style="text-decoration:none !important">
 		                    <div class="portfolio-hover mt-3">
 		                      <div class="portfolio-hover-content">
 		                        
@@ -306,7 +305,6 @@
             <button  id='load' type="button" class="btn w-50">더보기</button>
           </div>
     </div>
-</body>
-</html>
+<div class="mb-5"></div>
 
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>

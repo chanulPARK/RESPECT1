@@ -34,7 +34,35 @@
 <script src="${path }/resources/js/summernote.js"></script>
 <script src="${path }/resources/js/summernote.min.js"></script>
 <script src="${path }/resources/js/summernote-ko-KR.js"></script>
+<style type="text/css">
 
+	.custom-file-input {
+        min-width: 14rem;
+        max-width: 100%;
+        height: calc(2.25rem + 2px);
+        margin: 0;
+        opacity: 0;
+    }
+    .custom-file-control {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 5;
+    height: calc(2.25rem + 2px);
+    padding: 0.375rem 0.75rem;
+    line-height: 1.5;
+    color: #495057;
+    pointer-events: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-color: #fff;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+    }
+</style>
 
 
 </head>
@@ -52,6 +80,16 @@
       		}
   	    });
   	});
+	
+	$(document).ready(function(){
+		//datepicker
+		// Initialization
+		$('.datepicker-here').datepicker({
+			autoClose : true
+		});
+		// Access instance of plugin
+		$('#my-element').data('datepicker');
+	});
 	
 	function sendFile(file, editor, welEditable){
 	    data = new FormData();
@@ -84,11 +122,7 @@
 	    });
 	}
 	
-	//datepicker
-	// Initialization
-	//$('#my-element').datepicker([options]);
-	// Access instance of plugin
-	$('#my-element').data('datepicker');
+	
 	
 </script>
 
@@ -99,23 +133,30 @@
 	        <div class="card-header bg-white font-weight-bold">번개모집</div>
 	        <div class="card-body">
 	            <form action="${path }/meet/meetFormEnd.do" enctype="multipart/form-data" method="POST" accept-charset="UTF-8">
+	            
 	                <div class="form-group row">
 	                    <label for="제목" class="col-sm-2 col-form-label">제목</label>
 	                    <div class="col-sm-8">
-	                        <input type="text" class="form-control" id="inputEmail3" name="title" placeholder="제목">
+	                        <input type="text" class="form-control" id="inputEmail3" name="title" placeholder="제목" required="required">
+	                    </div>
+	                </div>
+	                <div class="form-group row">
+	                    <label for="제목" class="col-sm-2 col-form-label">대표이미지</label>
+	                    <div class="col-sm-8">
+							<input type="file" accept="image/*" id="thumbnail" name="thumbnail" required="required">
 	                    </div>
 	                </div>
 	                <div class="form-group row">
 	                    <label for="area" class="col-sm-2 col-form-label">지역</label>
 	                    <div class="col-sm-8">
-	                        <input type="text" class="form-control" id="area" name="area" placeholder="동/읍/면">
+	                        <input type="text" class="form-control" id="area" name="area" placeholder="동/읍/면" required="required">
 	                    </div>
 	                </div>
 	                <div class="form-group row">
 	                    <label for="area" class="col-sm-2 col-form-label">주소</label>
 	                    <div class="col-sm-8">
 	                        <!-- <input type="text" class="form-control" id="address" name="address" placeholder="상세주소"> -->
-	                        <input type="text" class="form-control" id="address" name="address" placeholder="상세주소"><br>
+	                        <input type="text" class="form-control" id="address" name="address" placeholder="상세주소" required="required"><br>
 							<input type="button" class="btn btn-success" onclick="sample5_execDaumPostcode()" value="주소 검색"><br>
 							<div id="map" style="width:300px;height:300px;margin-top:10px;display:none"></div>
 							
@@ -210,19 +251,19 @@
 	                <div class="form-group row">
 	                	<label for="date" class="col-sm-2 col-form-label">날짜</label>
 	                	<div class="col-sm-3">
-	                		<input type='text' class='form-control datepicker-here' data-language='en' name="meetDate"/>
+	                		<input type='text' class='datepicker-here form-control' data-language='en' required="required"/>
 	                	</div>
 	                </div>
 	                <div class="form-group row">
 	                	<label for="date" class="col-sm-2 col-form-label">시간</label>
 	                	<div class="col-sm-3">
-	                		<input type="time" class="form-control" name="meetTime">
+	                		<input type="time" class="form-control" name="meetTime" required="required">
 	                	</div>
 	                </div>
 	                <!-- 썸머노트 에디터 사용 -->
 					<div class="form-group row">
 	                    <label for="제목" class="col-sm-2 col-form-label">내용</label>
-	                    <textarea id="summernote" name="content" class="col-sm-8" style="resize: none;"></textarea>
+	                    <textarea id="summernote" name="content" class="col-sm-8" style="resize: none;" required="required"></textarea>
 	                </div>
 	                <div class="justify-content-center" align="center">
 				        <div class="card-footer bg-white" style="align-content:center;">
@@ -242,6 +283,9 @@
 			alert("취소되었습니다.");
 			location.href="${path}/meet/meetList.do";
 		}
+		
+		
+		
 	</script>
 	
 	

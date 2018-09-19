@@ -61,10 +61,7 @@
     
             <div class="row">
                     <h2 class="pt-4 ml-2">나의 여행 일정</h2>
-                    <div class='row ml-2 ' style="margin-top:35px;">
-                        <h6>작성자</h6><h6 class="ml-2" style="color:rgb(208, 203, 203);">광주오상현</h6>
-                        
-                    </div>
+                    
                    <div class="pt-4 ml-2 col col-lg-8" style="margin-top:2px; float:right;" align='right'>
                     	<button class='btn' onclick="fn_submit()">등록하기</button>
                     </div>
@@ -830,8 +827,9 @@ $("#start_date").on("click",function()
 	 function test3()
 	 	  {
 			 var url="${path}/schedule/myPlaceAddView?detailAddr="+detailAddr;
-		     var w1=window.open(url,'popup','width=300,height=350, resizable=no');
-	       
+		     var w1=window.open(url,'popup','width=700,height=350, resizable=no');
+	       	 custommarker.setMap(null);
+	       	infowindow2.close();
 /* 	       var w1=window.open("",'popup','width=300,height=350, resizable=no');
 	       var html='<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8">';
 	    	   html+='<META HTTP-EQUIV="Content-type" CONTENT="text/html;charset=UTF-8">';
@@ -868,11 +866,7 @@ $("#start_date").on("click",function()
        				 '</div>';
 	               				 
        				
-	               				 
-	                              console.log(content);
-	                              console.log(mouseEvent.latLng);
-	                              /* 둘다 뜸 */
-	                             
+	               				
 
 	               // 마커를 클릭한 위치에 표시합니다 
 	               custommarker.setPosition(mouseEvent.latLng);
