@@ -139,23 +139,29 @@ function btn_replySee(a){
 <section>
 	<div class="container">
 	<br><br>
+		<div class="justify-content-center" align="center">
+			<h1>${meet.title }</h1>
+		</div>
+		<br>
 		<div id="bung-img" align="center">
 			<img alt="" src="${path }/resources/upload/meet/thumbnail/${meet.thumbnail }">
 		</div>
 		<br>
 		
-		<div class="card mb-4">
-			<div class="col-sm-3" style="float:right;">
-				<button class="btn btn-success" onclick="sendM()">쪽지보내기</button>
-		    </div>
+		<div class="card mb-4 justify-content-center" align="center">
+			
 	        <div class="card-body">
 				<div class="form-group row">
 				   	<label for="gender" class="col-sm-2 col-form-label">닉네임</label>
 				   	<div class="col-sm-3">
 				       	${meet.nickName }
 				    </div>
+				    <div class="col-sm-3" style="float:right;">
+						<button class="btn btn-success" onclick="sendM()">쪽지보내기</button>
+				    </div>
 				</div>
 			</div>
+			
 			<div class="card-body">
 				<div class="form-group row">
 				   	<label for="gender" class="col-sm-2 col-form-label">성별</label>
@@ -189,25 +195,29 @@ function btn_replySee(a){
 				</div>
 			</div>
 			<hr>
-			<div class="card-body">
-				<div class="form-group row">
-				   	
-				   	<div class="col-sm-3">
-				       	${meet.content }
-				    </div>
-				</div>
-			</div>
+			<div class="justify-content-center" align="center">
+	       		${meet.content }
+	    	</div>
 		</div>
-		<hr>
 		
-		<hr>
+	   	
+		
 		<c:if test="${userLoggedIn.userId==meet.userId }">
-			<div class="justify-content-center">
-				<button class="btn btn-primary" onclick="meetUpdate(${meet.meetNo})" value="${meet.meetNo }">수정</button>
-				<button class="btn btn-danger" onclick="meetDelete(${meet.meetNo})" value="${meet.meetNo }">삭제</button>
+			<div class="justify-content-center" align="center">
+				<button class="btn btn-outline-primary" onclick="meetUpdate(${meet.meetNo})" value="${meet.meetNo }">수정</button>
+				&nbsp;&nbsp;&nbsp;
+				<button class="btn btn-outline-danger" onclick="meetDelete(${meet.meetNo})" value="${meet.meetNo }">삭제</button>
+				<button class="btn btn-outline-warning" onclick="goList()" style="float:right;">목록으로</button>
 			</div>
 		</c:if>
-		<br><hr>
+		<c:if test="${userLoggedIn.userId!=meet.userId }">
+			<div style="float:right;">
+				<button class="btn btn-outline-warning" onclick="goList()" style="float:right;">목록으로</button>
+			</div>
+		</c:if>
+		<br><br>
+		<hr>
+		
 		
 		<!-- 댓글영역 -->
 		
@@ -215,7 +225,7 @@ function btn_replySee(a){
         <div class="row">
             <div class="col-md-11">
               <div class="page-header mb-3 mt-5" style="border-bottom: solid 1px black; height: 50px;">
-                <button type="button" class="btn float-right"  style="background: #f19221;" data-toggle="modal" data-target="#replyWriteModal" onclick="return loginCheck()">댓글등록</button>
+                <button type="button" class="btn btn-outline-warning float-right"  data-toggle="modal" data-target="#replyWriteModal" onclick="return loginCheck()">댓글등록</button>
                 <h4>이 모임에 대한 의견(<span style="color: #f19221">${fn:length(meetReplyList) }</span>)</h4>  
               </div> 
                <div class="mb-5">
@@ -417,6 +427,18 @@ function btn_replySee(a){
 					alert("취소되었습니다.");
 					e.preventDefault();
 				}
+			}
+		}
+		
+		function goList()
+		{
+			var bool = confirm("목록으로 돌아가시겠습니까?");
+			if(bool)
+			{
+				location.href="${path}/meet/meetList.do";
+			}else{
+				alert("취소되었습니다.");
+				e.preventDefault();
 			}
 		}
 		

@@ -81,6 +81,16 @@
   	    });
   	});
 	
+	$(document).ready(function(){
+		//datepicker
+		// Initialization
+		$('.datepicker-here').datepicker({
+			autoClose : true
+		});
+		// Access instance of plugin
+		$('#my-element').data('datepicker');
+	});
+	
 	function sendFile(file, editor, welEditable){
 	    data = new FormData();
 	    console.log(file);
@@ -112,11 +122,7 @@
 	    });
 	}
 	
-	//datepicker
-	// Initialization
-	//$('#my-element').datepicker([options]);
-	// Access instance of plugin
-	$('#my-element').data('datepicker');
+	
 	
 </script>
 
@@ -245,7 +251,7 @@
 	                <div class="form-group row">
 	                	<label for="date" class="col-sm-2 col-form-label">날짜</label>
 	                	<div class="col-sm-3">
-	                		<input type='text' class='form-control datepicker-here' data-language='en' name="meetDate" required="required"/>
+	                		<input type='text' class='datepicker-here form-control' data-language='en' required="required"/>
 	                	</div>
 	                </div>
 	                <div class="form-group row">
@@ -277,6 +283,8 @@
 			alert("취소되었습니다.");
 			location.href="${path}/meet/meetList.do";
 		}
+		
+		
 		
 	</script>
 	

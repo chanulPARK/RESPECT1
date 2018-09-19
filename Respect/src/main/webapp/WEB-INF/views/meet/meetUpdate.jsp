@@ -86,7 +86,9 @@
 	
 	//datepicker
 	// Initialization
-	//$('#my-element').datepicker([options]);
+	$('.datepicker-here').datepicker({
+		autoClose : true
+	});
 	// Access instance of plugin
 	$('#my-element').data('datepicker');
 	
@@ -153,9 +155,9 @@
 	                </div>
 	                <div class="justify-content-center" align="center">
 				        <div class="card-footer bg-white" style="align-content:center;">
-				            <button type="submit" class="btn btn-primary">확인</button>
+				            <button type="submit" class="btn btn-success">확인</button>
 				            &nbsp;&nbsp;
-				            <button type="button" onclick="fn_cancel()" class="btn">취소</button>
+				            <button type="button" onclick="fn_cancel(${meet.meetNo})" class="btn">취소</button>
 				        </div>
 			        </div>
 	            </form>
@@ -165,10 +167,10 @@
 	</div>
 	<script>
 		/* 취소버튼 */
-		function fn_cancel()
+		function fn_cancel(meetNo)
 		{
 			alert("취소되었습니다.");
-			location.href="${path}/meet/meetList.do";
+			location.href="${path}/meet/meetView.do?meetNo="+meetNo;
 		}
 	</script>
 	

@@ -29,7 +29,18 @@
 <script src="${path }/resources/js/i18n/datepicker.en.js" type="text/javascript"></script>
 
 </head>
+<style>
+	div#meet-list{
+		box-shadow: rgba(0,0,0,.298039) 0 1px 4px -1px, inset 0 -1px 0 0 rgba(0,0,0,.24);
+		border-radius:4px;
+		transition : 0.34s;
+	}
 
+	div#meet-list:hover{
+		box-shadow: rgba(0,0,0,.298039) 0 1px 20px -1px, inset 0 -1px 0 0 rgba(0,0,0,.24);
+		border-radius:4px;
+	}
+</style>
 
 <section>
 	<div class="container">
@@ -159,7 +170,7 @@
 									<div class="form-inline">
 										<input type="submit" class="btn btn-outline-warning" style="width: 30%;" value="검색">
 										&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-										<input id="close" type="button" class="btn btn-outline-danger" style="width: 30%;" value="취소">
+										<input id="close" type="reset" class="btn btn-outline-danger" style="width: 30%;" value="취소">
 									</div>
 									<br>
 								</li>
@@ -171,14 +182,14 @@
 		</div>
 		<!-- /#sidebar-wrapper -->
 		<!-- Page Content -->
-		<div id="page-content-wrapper">
+		
 			<div class="container">
 				<a href="#menu-toggle" class="btn btn-outline-warning" id="menu-toggle">필터설정</a>
 			</div>
 			<br>
 			<c:forEach items="${list }" var="meet">
-				<div class="row" style="box-shadow: rgba(0,0,0,.298039) 0 1px 4px -1px, inset 0 -1px 0 0 rgba(0,0,0,.24);border-radius:2px;">
-		            <div class="col-lg-7 col-md-7">
+				<div id="meet-list" class="row" >
+		            <div class="col-lg-7 col-md-7" style="margin-left:-15px;margin-bottom:20px; height:100%;">
 		                <br>
 		                <a href="#" onclick="location.href='${path}/meet/meetView.do?meetNo=${meet.MEETNO }'">
 		                    <img class="img-thumbnail" src="${path }/resources/upload/meet/thumbnail/${meet.THUMBNAIL }" >
@@ -193,19 +204,17 @@
 						나이 : ${meet.AGE } 살<br /><br />
 						날짜 : ${meet.MEETDAY }<br /><br />
 		                
-	                	<button class="btn btn-outline-warning" onclick="location.href='${path}/meet/meetView.do?meetNo=${meet.MEETNO }'">상세보기</button>
+	                	<button class="btn btn-outline-warning" style="margin-bottom:10px;" onclick="location.href='${path}/meet/meetView.do?meetNo=${meet.MEETNO }'">상세보기</button>
 		                <br>
 		            </div>
 	        	</div>
 				<hr>
 			</c:forEach>
 			<br>
-			
 		</div>
 		<div id="pagebar">
-				${pagebar }
-			</div>
-	</div>
+			${pagebar }
+		</div>
 	
 	<!-- /#wrapper -->
 	<!-- Menu Toggle Script -->
@@ -220,7 +229,9 @@
 	   $("#wrapper").toggleClass("toggled");
 	});
 	// Initialization
-	//$('#my-element').datepicker([options]);
+	$('.datepicker-here').datepicker({
+		autoClose : true
+	});
 	// Access instance of plugin
 	$('#my-element').data('datepicker');
 	
