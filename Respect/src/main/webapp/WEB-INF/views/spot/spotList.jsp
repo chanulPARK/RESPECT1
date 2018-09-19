@@ -230,27 +230,6 @@
 			$(this).addClass('cate_click');
 		});
 	});
-	
-/* 	function fn_search(minorcategory) {
-		var sendData = {"placeno":$('#placeno').val(), "userid":$('#userid').val()};
-		
-		console.log("boardno, userid : " + placeNo +","+ userId);
-		
-		$.ajax({
-		    url: "${path}/spot/searchCategory.do",
-		    type: "POST",
-		    cache: false,
-		    dataType: "json",
-		    data: 'minorcategory='+minorcategory,
-		    success: function(data) {
-		    	
-		    	
-		    },
-		    error: function(request, status, error){
-		      alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-		    }
-		});
-	} */
 </script>
 
 	
