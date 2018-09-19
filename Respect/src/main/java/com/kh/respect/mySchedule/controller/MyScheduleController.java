@@ -147,6 +147,7 @@ public class MyScheduleController {
 		//주소를 담을 배열
 		List<String> addList = new ArrayList<String>();
 		for(int i = 0; i<putPlaceList.size(); i++) {
+			
 			String address = putPlaceList.get(i).getAddress();
 			addList.add(address);
 		}

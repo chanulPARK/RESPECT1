@@ -195,6 +195,11 @@ public class PlaceDaoImpl implements PlaceDao {
 		return sqlSession.selectOne("spot.selectSearchCount",keyword);
 	}
 
+	@Override
+	public List<String> searchKeyword(SqlSessionTemplate sqlSession, String keyword) {
+		return sqlSession.selectList("spot.searchKeyword",keyword);
+	}
+
 
 
 }
