@@ -20,5 +20,9 @@
 	<select id="selectMnpList" resultType="map">
 		select * from notice order by writedate desc
 	</select>
+	
+	<select id="selectMcpList" resultType="map">
+		SELECT * FROM(SELECT S.*,P.THUMBNAIL, (select count(*) from schedule_reply b where b.scheduleno = s.scheduleNo) FROM SCHEDULE S INNER JOIN PLACE P ON(S.PLACENO=P.PLACENO)) order by goodcount desc
+	</select>
 
 </mapper>
