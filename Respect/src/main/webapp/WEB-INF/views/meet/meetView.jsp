@@ -143,7 +143,7 @@ function btn_replySee(a){
 			<h1>${meet.title }</h1>
 		</div>
 		<br>
-		<div id="bung-img" align="center">
+		<div id="bung-img" class="card mb-4 img-thumbnail" align="center">
 			<img alt="" src="${path }/resources/upload/meet/thumbnail/${meet.thumbnail }">
 		</div>
 		<br>

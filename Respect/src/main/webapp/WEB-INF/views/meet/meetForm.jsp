@@ -84,9 +84,9 @@
 	$(document).ready(function(){
 		//datepicker
 		// Initialization
-		$('.datepicker-here').datepicker({
+		/* $('.datepicker-here').datepicker({
 			autoClose : true
-		});
+		}); */
 		// Access instance of plugin
 		$('#my-element').data('datepicker');
 	});
@@ -251,7 +251,7 @@
 	                <div class="form-group row">
 	                	<label for="date" class="col-sm-2 col-form-label">날짜</label>
 	                	<div class="col-sm-3">
-	                		<input type='text' class='datepicker-here form-control' data-language='en' required="required"/>
+	                		<input type='text' class='datepicker-here form-control' name="meetDate" data-language='en' required="required"/>
 	                	</div>
 	                </div>
 	                <div class="form-group row">
