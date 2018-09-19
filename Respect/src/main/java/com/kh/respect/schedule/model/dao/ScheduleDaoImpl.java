@@ -279,6 +279,11 @@ public class ScheduleDaoImpl implements ScheduleDao {
 		return session.delete("schedule.deleteReport",scheduleNo);
 	}
 
+	@Override
+	public int updateReportFlag(SqlSessionTemplate session, int scheduleNo) {
+		return session.update("schedule.updateReportFlag2",scheduleNo);
+	}
+
 	
 	
 

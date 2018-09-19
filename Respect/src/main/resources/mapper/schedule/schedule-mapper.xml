@@ -19,7 +19,9 @@
   	<update id="updateReportFlag" parameterType="_int">
   		UPDATE SCHEDULE SET REPORTFLAG = 1 WHERE SCHEDULENO=#{scheduleNo}
   	</update>
-  	
+  	<update id="updateReportFlag2" parameterType="_int">
+  		UPDATE SCHEDULE SET REPORTFLAG = 0 WHERE SCHEDULENO=#{scheduleNo}
+  	</update>
   	<delete id="deleteScheduleReport" parameterType="_int">
   		delete from schedule_report where scheduleno=#{scheduleNo}
   	</delete>
@@ -27,6 +29,7 @@
 	<insert id="insertScheduleReport" parameterType="schedulereport">
 		insert into SCHEDULE_REPORT values(seq_schedule_report.nextval,#{scheduleNo},#{userId},#{title},sysdate,#{content},#{reportDay})
 	</insert>
+
   	
   	
 

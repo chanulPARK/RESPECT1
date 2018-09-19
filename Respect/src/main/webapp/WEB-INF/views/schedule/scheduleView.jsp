@@ -194,9 +194,10 @@ function btn_replySee(a){
 
 	function fn_review(scheduleNo)
 	{
-		alert(scheduleNo);
+		
 		location.href="${path}/schedule/scheduleReport?scheduleNo="+scheduleNo;
 	}
+
 	function fn_like()
 	{
 		var scheduleNo = ${viewList.SCHEDULENO};
@@ -208,6 +209,7 @@ function btn_replySee(a){
 	         return;         
 	      }
 		
+
 		<c:if test="${userLoggedIn == null }">
 			alert("로그인후 이용 가능합니다.");
 			location.href="${path}/user/userLogin.do";
@@ -226,6 +228,19 @@ function btn_replySee(a){
 		}
 		
 	}
+	function fn_put(scheduleNo)
+	{
+		$.ajax({
+			url:"${path}/schedule/bringSchedule",
+			type:"POST",
+			data:{scheduleNo:scheduleNo},
+			success:function(data)
+			{
+				alert(data);
+			}
+		});
+		
+	}
 	
 	function fn_zzim()
 	{
@@ -237,7 +252,6 @@ function btn_replySee(a){
 	         alert("본인의 게시물은 찜할수 없습니다.");
 	         return;         
 	      }
-		
 		<c:if test="${userLoggedIn == null }">
 			alert("로그인후 이용 가능합니다.");
 			location.href="${path}/user/userLogin.do";
@@ -911,104 +925,7 @@ function btn_replySee(a){
 
 
 	
-	   var list=${tt};
-	   var dataList=[];
-	   
-	   var idx=0;
-		for(var i=0; i<list.length;i++)
-		{
-			console.log(list[i]);
-			var pplaceno=list[i].PLACENO;
-			var pday=list[i].DAY;
-			var ptime=list[i].TIME;
-			var ptitle=list[i].TITLE;
-			var paddress=list[i].ADDRESS;
-			var pseq_no=seq();
-		  	
-		  	var html="<div id='data"+pseq_no+"' >"+ptitle+"<input type='hidden' name='timevalue' value='"+pday+","+ptime+"'><input type='hidden' name='placevalue' value='"+pplaceno+","+ptitle+","+paddress+","+pseq_no+"' class='placelist'></div>";
-
-		    var tables=$("table[class='table-bordered timeline']");
-		    var pdata={pseq_no:pseq_no,ptitle:ptitle,paddress:paddress,pday:pday,idx:i};
-		    
-		    dataList.push(pdata);
-		  
-		    for(var k=0; k<tables.length;k++)
-	    	{
-				if(tables[k].id==pday)
-				{
-					
-					var targettd=$("table[id='"+pday+"'] td[id='"+ptime+"']");
-					
-					targettd.attr('class',"place disable");
-					targettd.append(html);
-				}
-	    	}
-		    ps.addressSearch(dataList[i].paddress,function(data,status)
-  		{
-		    	if(status === daum.maps.services.Status.OK)
-				{
-					
-					
-					for(var b=0; b<data.length; b++)
-					{
-						
-						makeMarker(data[b]);
-					} 
-					
-				}
-			}); 		
-		}
-		
-		function makeMarker(data)
-		{
-			var marker = new daum.maps.Marker({
-				map:map,
-				position:new daum.maps.LatLng(data.y, data.x),
-				clickable: true 
-			});
-			
-			
-			
-		    iwRemoveable = true;
-		    
-		    var infowindow = new daum.maps.InfoWindow({
-		        removable:iwRemoveable
-		    }); 
-		    
-			daum.maps.event.addListener(marker, 'click', function()
-			{
-				infowindow.open(map,marker);
-			});
-			
-			
-			var daymarker = {days:0,marks:marker,iw:infowindow,idx:idx++,data1:data};
-			markers.push(daymarker);
-			
-		
-			
-				for(var bb=0;bb<markers.length;bb++)
-				{
-					for(var aaa=0;aaa<dataList.length;aaa++)
-					{
-						if(markers[bb].data1.address_name==dataList[aaa].paddress)
-						{
-							markers[bb].days=dataList[aaa].pday;
-							markers[bb].marks.setTitle(dataList[aaa].pseq_no);
-							markers[bb].iw.setContent('<div style="padding:5px; font-size:12px;">'+dataList[aaa].ptitle+'</div>');
-						}
-					}
-					
-					console.log(markers);
-					if(markers[bb].days!=1)
-					{
-						
-						markers[bb].marks.setVisible(false);		
-					}
-					
-				}
-		}
-		
-		
+	 
 		
 		
 		

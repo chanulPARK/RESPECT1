@@ -18,7 +18,6 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -62,6 +61,7 @@ public class ScheduleController {
 		String userId=user.getUserId();
 		List<ScheduleReport> list=new ArrayList<ScheduleReport>();
 		ScheduleReport sr = null;
+		
 		if(day.length==1)
 		{
 			sr=new ScheduleReport();
@@ -103,7 +103,7 @@ public class ScheduleController {
         List<Map<String, String>> scheduleAttList = service.scheduleAttList();
 	      
 	      String msg="";
-	      
+	      String loc="/schedule/scheduleView?scheduleNo="+scheduleNo+"&userId="+userId;  
 	      if(result>0)
 	      {
 	         msg="후기 등록 성공";
@@ -114,11 +114,12 @@ public class ScheduleController {
 	      }
 	      
         mv.addObject("msg", msg);
+        mv.addObject("loc",loc);
         mv.addObject("viewList",map);
         mv.addObject("tt",json);
 	    mv.addObject("scheduleReplyList",scheduleReplyList);
 	    mv.addObject("scheduleAttList",scheduleAttList);
-		mv.setViewName("schedule/scheduleView");
+		mv.setViewName("common/msg");
 		return mv;
 	}
 
@@ -875,7 +876,7 @@ public class ScheduleController {
 		}
 		int result=service.updateReport(list,scheduleNo);
 		String msg="";
-	    String loc="/schedule/scheduleView?scheduleNo="+scheduleNo;  
+	    String loc="/schedule/scheduleView?scheduleNo="+scheduleNo+"&userId="+userId;  
 	      if(result>0)
 	      {
 	         msg="후기 수정 성공";
@@ -891,21 +892,23 @@ public class ScheduleController {
 	}
 	
 	@RequestMapping("/schedule/deleteReport")
-	public ModelAndView scheduleReportDelete(int scheduleNo)
+	public ModelAndView scheduleReportDelete(int scheduleNo,HttpSession session)
 	{
+		User user=(User)session.getAttribute("userLoggedIn");
+		String userId=user.getUserId();
 		ModelAndView mv = new ModelAndView();
 		int result=service.deleteReport(scheduleNo);
 		String msg="";
-		String loc="";
+		String loc="/schedule/scheduleView?scheduleNo="+scheduleNo+"&userId="+userId; 
 		if(result>0)
 		{
 			msg="후기 삭제 성공";
-			loc="/";
+			
 		}
 		else
 		{
 			msg="후기 삭제 실패";
-			loc="/";
+			
 		}
 		
 		mv.addObject("msg", msg);

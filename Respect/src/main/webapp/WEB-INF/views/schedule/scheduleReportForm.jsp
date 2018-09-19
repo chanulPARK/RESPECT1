@@ -92,7 +92,21 @@ function sendFile(file, editor, welEditable){
 
    function fn_submit()
    {
-      $("#reportForm").submit();
+	  var titleval=$("input[name='reportTitle']").val();
+	  var contentval=$("textarea[name='reportContent']").val();
+	
+      if(titleval.length==0)
+    	  {
+    	  alert("제목을 입력해주세요");
+    	  }
+      else if(contentval.length==0)
+    	  {
+    	  alert("내용을 입력해주세요");
+    	  }
+      else
+    	  {
+    	  $("#reportForm").submit();
+    	  }
    }
    function fn_reviewDelete(scheduleNo)
    {
@@ -390,13 +404,13 @@ function sendFile(file, editor, welEditable){
                                         <h5 class="col-md-7">제목</h5>
                                         <div class="col-md-7">
                                                 <div class="form-group">
-                                                   <input type="text" class="form-control" name="reportTitle" autocomplete="off" id="reportTitle" placeholder="title">
+                                                   <input type="text" class="form-control" name="reportTitle" autocomplete="off" id="reportTitle" placeholder="title" required>
                                                 </div>
                                         </div>
                                         <h5 class="col-md-7">내용</h5>
                                                 <div class="col-md-7">
                                                 <div class="form-group">
-                                                     <textarea class="form-control textarea summernote" rows="3" name="reportContent" id="reportContent" placeholder="content"  resize: none;"></textarea>
+                                                     <textarea class="form-control textarea summernote" rows="3" name="reportContent" id="reportContent" required placeholder="content"  resize: none;"></textarea>
                                                 </div>
                                                 </div>
                                         <br>
