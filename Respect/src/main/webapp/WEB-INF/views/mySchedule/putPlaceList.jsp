@@ -192,7 +192,7 @@
           
              <c:forEach items="${putPlaceList }" var="ppl">
                 <div class="col-md-3 col-sm-6 portfolio-item mt-3">
-                  <a class="portfolio-link"  href="#portfolioModal1" style="text-decoration:none !important">
+                  <a class="portfolio-link"  href="${path }/spot/spotView.do?spotno=${ppl.PLACENO}" style="text-decoration:none !important">
                       <div class="portfolio-hover mt-3">
                         <div class="portfolio-hover-content">
                           
@@ -635,5 +635,7 @@
    
    
     </script>
+    
+    <div class="mb-5"></div>
 
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>

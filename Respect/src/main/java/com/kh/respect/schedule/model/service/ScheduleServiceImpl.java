@@ -72,6 +72,7 @@ public class ScheduleServiceImpl implements ScheduleService {
 
 	@Override
 	public Map<String, String> selectOneScheduleView(int scheduleNo) {
+		dao.updateHitsCountUp(session, scheduleNo);
 		return dao.selectOneScheduleView(session, scheduleNo);
 	}
 

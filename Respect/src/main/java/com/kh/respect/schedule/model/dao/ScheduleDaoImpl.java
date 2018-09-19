@@ -228,6 +228,12 @@ public class ScheduleDaoImpl implements ScheduleDao {
 	      // TODO Auto-generated method stub
 	      return session.selectList("schedule.scheduleAttList");
 	   }
+
+		@Override
+		public void updateHitsCountUp(SqlSessionTemplate session, int scheduleNo) {
+			session.update("schedule.updateHitsCountUp",scheduleNo);
+			
+		}
 	
 	
 
