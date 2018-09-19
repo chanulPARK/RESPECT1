@@ -38,6 +38,12 @@ public class MainDaoImpl implements MainDao {
 		// TODO Auto-generated method stub
 		return session.selectList("main.selectMnpList");
 	}
+
+	@Override
+	public List<Map<String, String>> selectMcpList(SqlSession session) {
+		// TODO Auto-generated method stub
+		return session.selectList("main.selectMcpList");
+	}
 	
 	
 	

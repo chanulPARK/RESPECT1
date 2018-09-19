@@ -38,7 +38,7 @@
 	<input type="hidden" id="page" name="page" value="" />
 	
 	<section class="clean-block slider dark" style="padding:0;margin:0 0 100px;">
-		<img src="${path }/resources/img/spot/성산일출봉.gif" style="width:100%;">
+		<img src="${path }/resources/img/spot/2.gif" style="width:100%;">
 	</section>
 	<section id="map-index">
 	    <div class="container">

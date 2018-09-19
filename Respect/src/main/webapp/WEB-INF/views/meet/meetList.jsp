@@ -10,9 +10,25 @@
 <head>
 <title>모임리스트</title>
 
+
+<title>번개리스트</title>
+
+
+<%-- <link
+	href="${path }/resources/bootstrap/css/bootstrap.css"
+	rel="stylesheet"> --%>
+
 <link href="${path }/resources/css/sidebar.css" rel="stylesheet">
+<%-- <link href="${path }/resources/bootstrap/css/bootstrap.css" rel="stylesheet">
+
+<<<<<<< HEAD
+<script src="http://code.jquery.com/jquery-latest.min.js"></script> --%>
+
+<!-- <script src="http://code.jquery.com/jquery-latest.min.js"></script> -->
+
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
 
 <link href="${path }/resources/css/datepicker.css" rel="stylesheet" type="text/css">
 <link href="${path }/resources/css/datepicker.min.css" rel="stylesheet" type="text/css">

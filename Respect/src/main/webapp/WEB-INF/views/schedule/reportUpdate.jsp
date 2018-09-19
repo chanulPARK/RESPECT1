@@ -95,7 +95,47 @@ $.ajax({
 	function fn_updateEnd(scheduleNo)
 	{
 		
-		$("#reportUpdate").submit();
+		  var titleflag=0;
+		   var contentflag=0;
+		   
+		   	var title=$("input[name='reportTitle']");
+		   	var content=$("textarea[name='reportContent']");
+		   	
+		   for(var i=0;i<title.length;i++)
+		   {
+			   if(title[i].value=="")
+			   {
+					alert((i+1)+"일차 제목을 입력하세요");
+					return;
+			   }
+			   else
+		   	   {
+					titleflag=1;	   
+			   }
+			   
+		   }
+		   for(var j=0;j<content.length;j++)
+		   {
+			   if(content[j].value=="")
+			   {
+					alert((j+1)+"일차 내용을 입력하세요");
+					return;
+			   }
+			   else
+		   	   {
+					contentflag=1;	   
+			   }
+			   
+		   }
+		   
+		   if(titleflag==1&&contentflag==1)
+		   {
+			   $("#reportUpdate").submit();
+		   }
+		   else
+		   {
+			   return;
+		   }
 	}
      
      function fn_toggle(ev)
