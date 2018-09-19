@@ -308,7 +308,15 @@ public class ScheduleServiceImpl implements ScheduleService {
 
 		@Override
 		public int deleteReport(int scheduleNo) {
-			return dao.deleteReport(session, scheduleNo);
+			
+			int result=dao.deleteReport(session, scheduleNo);
+			result=updateReportFlag(scheduleNo);
+			return result;
+		}
+		@Override 
+		public int updateReportFlag(int scheduleNo)
+		{
+			return dao.updateReportFlag(session,scheduleNo);
 		}
 
 		

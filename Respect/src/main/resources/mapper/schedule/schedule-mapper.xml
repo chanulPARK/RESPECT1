@@ -19,12 +19,16 @@
   	<update id="updateReportFlag" parameterType="_int">
   		UPDATE SCHEDULE SET REPORTFLAG = 1 WHERE SCHEDULENO=#{scheduleNo}
   	</update>
-  	
+  	<update id="updateReportFlag2" parameterType="_int">
+  		UPDATE SCHEDULE SET REPORTFLAG = 0 WHERE SCHEDULENO=#{scheduleNo}
+  	</update>
   	<delete id="deleteScheduleReport" parameterType="_int">
   		delete from schedule_report where scheduleno=#{scheduleNo}
   	</delete>
-  	
-  	
+	<insert id="insertScheduleReport" parameterType="schedulereport">
+		insert into SCHEDULE_REPORT values(seq_schedule_report.nextval,#{scheduleNo},#{userId},#{title},sysdate,#{content},#{reportDay})
+	</insert>
+
 
   		<!-- 추천추천 -->
   	
@@ -295,9 +299,11 @@
 		delete from schedule where scheduleno=#{scheduleNo}
 	</delete> 
 
+
 	<update id="updateHitsCountUp" parameterType="_int">
 		UPDATE SCHEDULE SET HITSCOUNT = HITSCOUNT+1 WHERE SCHEDULENO=#{scheduleNo}
 	</update>
+
 
 	<select id="selectScheduleSC" parameterType="_int" resultType='schedule'>
 		select traveltheme, partyname, title,to_char(startdate,'yyyy-mm-dd') startdate,to_char(enddate,'yyyy-mm-dd') as enddate, peoplenum, publicflag, placeno from schedule where scheduleno=#{scheduleNo}
@@ -306,9 +312,7 @@
 	<select id="selectTimeTableSC" parameterType="_int" resultType='timetable'>
 		select * from timetable where scheduleno=#{scheduleNo}
 	</select>
-	<insert id="insertScheduleReport" parameterType="schedulereport">
-		insert into SCHEDULE_REPORT values(seq_schedule_report.nextval,#{scheduleNo},#{userId},#{title},sysdate,#{content},#{reportDay})
-	</insert>
+	
 	<select id="selectScheduleReportView" parameterType="_int" resultType="schedulereport">
 		select reportno,scheduleno,userid,title,content,reportday, to_char(writedate, 'yyyy-mm-dd') as writedate1 from schedule_report where scheduleno=#{scheduleNo}
 	</select>

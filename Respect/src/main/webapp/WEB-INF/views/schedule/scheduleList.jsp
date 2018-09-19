@@ -106,7 +106,7 @@
 											${endDay - startDay }박${endDay - startDay +1}일 ㆍ ${sc.TRAVELTHEME} ㆍ ${sc.REPORTFLAG==0?"여행 전":"여행 후"} 
 										</p>
 											<div class="row pt-1" align='center'style="width:250px">
-												<i class="ml-4 far fa-thumbs-up fa-1x"></i><h6 class="ml-1">${sc.REPLYNUM }</h6>
+												<i class="ml-4 far fa-thumbs-up fa-1x"></i><h6 class="ml-1">${sc.GOODCOUNT }</h6>
 												<i class="ml-5 far fa-heart fa-1x"></i><h6 class="ml-1">${sc.BRINGCOUNT }</h6>
 												<i class="ml-5 far fa-eye fa-1x"></i><h6 class="ml-1">${sc.HITSCOUNT }</h6>
 											</div>
