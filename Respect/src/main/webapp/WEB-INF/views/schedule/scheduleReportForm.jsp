@@ -90,24 +90,8 @@ function sendFile(file, editor, welEditable){
 }
 
 
-   function fn_submit()
-   {
-	  var titleval=$("input[name='reportTitle']").val();
-	  var contentval=$("textarea[name='reportContent']").val();
-	
-      if(titleval.length==0)
-    	  {
-    	  alert("제목을 입력해주세요");
-    	  }
-      else if(contentval.length==0)
-    	  {
-    	  alert("내용을 입력해주세요");
-    	  }
-      else
-    	  {
-    	  $("#reportForm").submit();
-    	  }
-   }
+
+	   
    function fn_reviewDelete(scheduleNo)
    {
       location.href="${path}/schedule/scheduleReportDelete?scheduleNo="+scheduleNo;
@@ -177,6 +161,7 @@ function sendFile(file, editor, welEditable){
 								<fmt:parseNumber value="${startDate.time / (1000*60*60*24)}" integerOnly="true" var="startDay"></fmt:parseNumber>
 								<fmt:parseDate value="${viewList.ENDDATE }" var="endDate" pattern="yyyy-MM-dd"/>
 								<fmt:parseNumber value="${endDate.time / (1000*60*60*24)}" integerOnly="true" var="endDay"></fmt:parseNumber>
+								<c:set var="days" value="${endDay - startDay +1}"/>
                                 <div id='demo' class='carousel slide mt-3' data-ride='carousel' data-interval='false'>
                             <!-- The slideshow -->
                             
@@ -404,13 +389,13 @@ function sendFile(file, editor, welEditable){
                                         <h5 class="col-md-7">제목</h5>
                                         <div class="col-md-7">
                                                 <div class="form-group">
-                                                   <input type="text" class="form-control" name="reportTitle" autocomplete="off" id="reportTitle" placeholder="title" required>
+                                                   <input type="text" class="form-control" name="reportTitle" autocomplete="off" id="reportTitle${s.count }" placeholder="title" required>
                                                 </div>
                                         </div>
                                         <h5 class="col-md-7">내용</h5>
                                                 <div class="col-md-7">
                                                 <div class="form-group">
-                                                     <textarea class="form-control textarea summernote" rows="3" name="reportContent" id="reportContent" required placeholder="content"  resize: none;"></textarea>
+                                                     <textarea class="form-control textarea summernote" rows="3" name="reportContent" id="reportContent${s.count }" required placeholder="content"  resize: none;"></textarea>
                                                 </div>
                                                 </div>
                                         <br>
@@ -609,7 +594,54 @@ function sendFile(file, editor, welEditable){
    
    
    
-  
+		function fn_submit()
+		  {
+			   
+			   var titleflag=0;
+			   var contentflag=0;
+			   
+			   	var title=$("input[name='reportTitle']");
+			   	var content=$("textarea[name='reportContent']");
+			   	
+			   for(var i=0;i<title.length;i++)
+			   {
+				   if(title[i].value=="")
+				   {
+						alert((i+1)+"일차 제목을 입력하세요");
+						return;
+				   }
+				   else
+			   	   {
+						titleflag=1;	   
+				   }
+				   
+			   }
+			   for(var j=0;j<content.length;j++)
+			   {
+				   if(content[j].value=="")
+				   {
+						alert((j+1)+"일차 내용을 입력하세요");
+						return;
+				   }
+				   else
+			   	   {
+						contentflag=1;	   
+				   }
+				   
+			   }
+			   
+			   if(titleflag==1&&contentflag==1)
+			   {
+				   $("#reportForm").submit();
+			   }
+			   else
+			   {
+				   return;
+			   }
+		   
+		   
+	    	
+	   }
 
    
 
