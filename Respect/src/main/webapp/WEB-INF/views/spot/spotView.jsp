@@ -18,6 +18,14 @@
     .show>.btn-outline-warning.dropdown-toggle:focus {
         box-shadow: none;
     }
+    
+    #like_n:hover, #like_a:hover, #bring_n:hover, #bring_a:hover {
+    	color: #ffc107;
+    }
+    #detail_info p {
+    	margin: 0;
+    	text-align: left;
+    }
 </style>
 
 <main class="page landing-page">
@@ -66,7 +74,6 @@
         </div>
         <div class="mx-auto" style="width: 1902px">
 	        <img src="${path }/resources/upload/spot/mainimage/${place.mainimage}" style="width:100%; height:560px;">
-	        <%-- <img src="${path }/resources/img/spot/${place.title}.jpg" style="width: 1902px; height:560px;"> --%>
         </div>
         </section>
     <section id="detail-body">
@@ -76,25 +83,48 @@
                     <c:choose>
 						<c:when test="${userLoggedIn ne null}">
 		                    <a href='javascript: fn_like();'>
-		                        <i class="fa fa-thumbs-o-up detail-icon" id="like_a" style="padding: 8px 16px;"></i>
+		                    <c:choose>
+								<c:when test="${like_ck}">
+			                        <i class="fa fa-thumbs-o-up detail-icon" id="like_a" style="color:#ffc107; padding: 8px 16px;"></i>
+			                    </c:when>
+			                    <c:otherwise>
+			                    	<i class="fa fa-thumbs-o-up detail-icon" id="like_a" style="padding: 8px 16px;"></i>
+			                    </c:otherwise>
+		                    </c:choose>
 		                    </a>
 						</c:when>
 						<c:otherwise>
 						    <a href='javascript: login_need();'>
-		                        <i class="fa fa-thumbs-o-up detail-icon" style="padding: 8px 16px;"></i>
+		                        <i class="fa fa-thumbs-o-up detail-icon" id="like_n" style="padding: 8px 16px;"></i>
 		                    </a>
 						</c:otherwise>
 					</c:choose>
                     
                     <h5 style="color:rgb(150,150,150);">좋아요</h5>
-                    <h5 style="color:#ffb53c;">${place.goodcount }</h5>
+                    <h5 style="color:#ffb53c;" id="like_cnt">${place.goodcount }</h5>
                 </div>
                 <div class="col" style="border-left:1px solid #e5e5e5">
-                    <button class="btn btn-outline-warning btn-lg" type="button" id="bring_btn" style="border: 0; padding: 8px 12px">
-                        <i class="fa fa-heart m-0" style="font-size: 50px;"></i>
-                    </button>
+                    <c:choose>
+						<c:when test="${userLoggedIn ne null}">
+		                    <a href='javascript: fn_bring();'>
+		                    <c:choose>
+								<c:when test="${like_ck}">
+			                        <i class="fa fa-heart m-0 detail-icon" id="bring_a" style="color:#ffc107; padding: 8px 16px;"></i>
+			                    </c:when>
+			                    <c:otherwise>
+			                    	<i class="fa fa-heart m-0 detail-icon" id="bring_a" style="padding: 8px 16px;"></i>
+			                    </c:otherwise>
+		                    </c:choose>
+		                    </a>
+						</c:when>
+						<c:otherwise>
+						    <a href='javascript: login_need();'>
+		                        <i class="fa fa-heart m-0 detail-icon" id="bring_n" style="padding: 8px 16px;"></i>
+		                    </a>
+						</c:otherwise>
+					</c:choose>
                     <h5 style="color:rgb(150,150,150);">찜하기</h5>
-                    <h5 style="color:#ffb53c;">${place.bringcount }</h5>
+                    <h5 style="color:#ffb53c;" id="bring_cnt">${place.bringcount }</h5>
                 </div>
                 <div class="col" style="border-right: 1px solid #e5e5e5;border-left: 1px solid #e5e5e5;">
                     <i class="fa fa-commenting-o detail-icon" style="padding: 8px 16px"></i>
@@ -121,7 +151,7 @@
     </section>
     <section id="detail_info">
         <div class="detail-content container">
-            <h5 style="line-height: 3.5;">${place.content }</h5>
+            <h5 style="line-height: 2.5;font-size: 1.15rem">${place.content }</h5>
         </div>
     </section>
     <section id="map" class="hide">
@@ -161,9 +191,47 @@
     <button class="btn btn-warning btn-block" type="button" onclick="fn_spotUpdatego()">장소 수정</button>
 </main>
 
+<!-- <script type="text/javascript">
+	$(document).ready(function(){
+		var placeNo = $("#placeno").val();
+		var userId = $("#userid").val();
+		
+		$.ajax({
+		    url: "${path}/spot/likeAndBring.do",
+		    type: "POST",
+		    cache: false,
+		    dataType: "json",
+		    data: sendData,
+		    success: function(data) {
+		    	if(data.like_ck) {
+					$('#like_a').attr('style', 'color:#ffc107;padding: 8px 16px;');
+					if(data.bring_ck) {
+						$('#bring_a').attr('style', 'color:#ffc107;padding: 8px 16px;');
+			    	}
+			    	else {
+			    		$('#bring_a').attr('style', 'padding: 8px 16px;');
+			    	}
+		    	}
+		    	else {
+		    		$('#like_a').attr('style', 'padding: 8px 16px;');
+		    		if(data.bring_ck) {
+						$('#bring_a').attr('style', 'color:#ffc107;padding: 8px 16px;');
+			    	}
+			    	else {
+			    		$('#bring_a').attr('style', 'padding: 8px 16px;');
+			    	}
+		    	}
+		    },
+		    error: function(request, status, error){
+		      alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+		    }
+		});
+	});
+</script> -->
+
 <script>
 	function fn_spotUpdatego() {
-		location.href="${pageContext.request.contextPath}/spot/spotUpdate.do";
+		location.href="${path}/spot/spotUpdate.do?placeno=${place.placeno }";
 	}
 </script>
 
@@ -256,7 +324,6 @@
 		alert("로그인이 필요합니다.")
 	}
 
-
 	function fn_like() {
 		var placeNo = $("#placeno").val();
 		var userId = $("#userid").val();
@@ -273,18 +340,58 @@
 		    data: sendData,
 		    success: function(data) {
 		    	var msg = '';
-		    	msg += data.msg;
+		    	msg += decodeURIComponent(data.msg);
 		    	alert(msg);
-		       
-				$('#like_a').attr('style', 'color:#ffc107;');
+		    	
+		    	if(data.like_ck) {
+					$('#like_a').attr('style', 'color:#ffc107;padding: 8px 16px;');
+					
+		    	}
+		    	else {
+		    		$('#like_a').attr('style', 'padding: 8px 16px;');
+		    	}
+		    	$('#like_cnt').html(data.like_cnt);
+		    	
 		    },
 		    error: function(request, status, error){
 		      alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
 		    }
 		});
+	}
+	
+	function fn_bring() {
+		var placeNo = $("#placeno").val();
+		var userId = $("#userid").val();
 		
+		var sendData = {"placeno":$('#placeno').val(), "userid":$('#userid').val()};
 		
-		}
+		console.log("boardno, userid : " + placeNo +","+ userId);
+		
+		$.ajax({
+		    url: "${path}/spot/bring.do",
+		    type: "POST",
+		    cache: false,
+		    dataType: "json",
+		    data: sendData,
+		    success: function(data) {
+		    	var msg = '';
+		    	msg += decodeURIComponent(data.msg);
+		    	alert(msg);
+		       
+		    	if(data.bring_ck) {
+					$('#bring_a').attr('style', 'color:#ffc107;padding: 8px 16px;');
+		    	}
+		    	else {
+		    		$('#bring_a').attr('style', 'padding: 8px 16px;');
+		    	}
+		    	$('#bring_cnt').html(data.bring_cnt);
+		    	
+		    },
+		    error: function(request, status, error){
+		      alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+		    }
+		});
+	}
 
 </script>
 

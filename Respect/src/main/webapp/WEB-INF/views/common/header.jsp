@@ -12,6 +12,8 @@
 <meta charset="UTF-8">
 <title>니가가라 제주도</title>
 
+
+
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
 
@@ -28,11 +30,11 @@
 <%-- <script src="${path }/resources/js/jquery.min.js"></script> --%>
 <%-- <script src="${path }/resources/bootstrap/js/bootstrap.min.js"></script> --%>
 <link rel="stylesheet" href="${path }/resources/css/Footer-Dark.css">
-
 <link rel="stylesheet" href="${path }/resources/bootstrap/css/bootstrap.min.css">
 <link rel="stylesheet" href="${path }/resources/css/style.css">
 <link rel="stylesheet" href="${path }/resources/fonts/font-awesome.min.css">
 <link rel="stylesheet" href="${path }/resources/fonts/ionicons.min.css">
+<link rel="shortcut icon" href="${path }/resources/img/main/favicon.ico">
 
 <link rel="stylesheet" href="${path}/resources/css/weather-icons-master/css/weather-icons-wind.css">
 <link rel="stylesheet" href="${path}/resources/css/weather-icons-master/css/weather-icons-wind.min.css">
@@ -215,7 +217,7 @@ $(function(){
         <div class="container">
         <nav class="navbar navbar-light navbar-expand-md">
             <a class="navbar-brand" href="${path}">
-            	<img class="img-fluid" src="${path }/resources/img/main/KakaoTalk_20180913_202949683.png" style="max-width: 50px; max-height: 50px;">
+            	<img class="img-fluid" src="${path }/resources/img/main/logo.png" style="max-width: 50px; max-height: 50px;">
             </a>
                 <div class="jejuhallasan">
                     <h1>니가가라 제주도</h1>
@@ -226,9 +228,9 @@ $(function(){
                 </button>
                 <div class="collapse navbar-collapse" id="navcol-1">
                     <ul class="nav navbar-nav ml-auto mx-auto">
-                        <li class="nav-item mr-3" role="presentation"><a class="nav-link" href="${path}/spot/spotList.do">관광지</a></li>
-                        <li class="nav-item mr-3" role="presentation"><a class="nav-link" href="#">숙소</a></li>
-                        <li class="nav-item mr-3" role="presentation"><a class="nav-link" href="#">음식점</a></li>
+                        <li class="nav-item mr-3" role="presentation"><a class="nav-link" href="${path}/spot/placeList.do">관광지</a></li>
+                        <li class="nav-item mr-3" role="presentation"><a class="nav-link" href="${path}/spot/accommList.do">숙소</a></li>
+                        <li class="nav-item mr-3" role="presentation"><a class="nav-link" href="${path}/spot/foodList.do">음식점</a></li>
                         <li class="dropdown mr-3"><a class="dropdown-toggle nav-link dropdown-toggle" data-toggle="dropdown" aria-expanded="false" href="#">제주이야기 </a>
                             <div class="dropdown-menu" role="menu">
                             	<a class="dropdown-item" role="presentation" href="${path}/notice/notice-board.do">공지사항</a>

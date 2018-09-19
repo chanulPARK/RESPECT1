@@ -52,17 +52,17 @@
             <div class="container">
                 <h2>명소 등록</h2>
                 <div class="form-group">
-                	<form action="${pageContext.request.contextPath}/spot/spotEnrollEnd.do" method="post" enctype="multipart/form-data">
+                	<form action="${pageContext.request.contextPath}/spot/spotUpdateEnd.do?placeno=${place.placeno }" method="post" enctype="multipart/form-data">
 	                    <div class="row m-1">
 	                        <div class="col-xl-2"><label class="col-form-label">명소이름</label></div>
 	                        <div class="col">
-	                            <input class="form-control" type="text" name="title" required>
+	                            <input class="form-control" type="text" name="title" required value="${place.title }">
 	                        </div>
 	                    </div>
 	                    <div class="row m-1">
 	                        <div class="col-xl-2"><label class="col-form-label">구분</label></div>
 	                        <div class="col-xl-4 input-group">
-	                            <input class="form-control" type="radio" value="관광지" name="majorcategory" style="margin-top:12px;" checked><label class="col-form-label">관광지</label>
+	                            <input class="form-control" type="radio" value="관광지" name="majorcategory" style="margin-top:12px;"><label class="col-form-label">관광지</label>
 	                            <input class="form-control" type="radio" value="숙소" name="majorcategory" style="margin-top:12px;"><label class="col-form-label">숙소</label>
 	                            <input class="form-control" type="radio" value="음식점" name="majorcategory" style="margin-top:12px;"><label class="col-form-label">음식점</label>
 	                        </div>
@@ -70,8 +70,8 @@
 	                    <div class="row m-1">
 	                        <div class="col-xl-2"><label class="col-form-label">카테고리</label></div>
 	                        <div class="col">
-                                <select class="form-control" name="minorcategory" required>
-                                    <option value="" selected>카테고리를 선택하세요</option>
+                                <select class="form-control" name="minorcategory" id="minorcategory2" required>
+                                    <optgroup label="관광지">
                                     <option value="자연">자연</option>
                                     <option value="문화관광">문화관광</option>
                                     <option value="레저/체험">레저/체험</option>
@@ -81,7 +81,7 @@
                                     <option value="포토스팟">포토스팟</option>
                                     <option value="4.3 70주년">4.3 70주년</option>
                                     <option value="템플스테이">템플스테이</option>
-                                    
+                                    </optgroup>
                                     <optgroup label="음식점">
                                     <option value="향토음식">향토음식</option>
                                     <option value="한식">한식</option>
@@ -90,17 +90,13 @@
                                     <option value="중식">중식</option>
                                     <option value="동남아식">동남아식</option>
                                     <option value="카페">카페</option>
-                                    
+                                    </optgroup>
                                     <optgroup label="숙소">
                                     <option value="리조트">리조트</option>
                                     <option value="호텔">호텔</option>
                                     <option value="모텔/여관">모텔/여관</option>
                                     <option value="펜션/민박">펜션/민박</option>
                                     <option value="게스트하우스">게스트하우스</option>
-                                    </optgroup>
-                                    
-                                    
-                                    
                                     </optgroup>
                                 </select>
 	                        </div>
@@ -109,17 +105,16 @@
 	                        <div class="col-xl-2"><label class="col-form-label">주소/위치</label></div>
 	                        <div class="col">
                                 <div class="input-group">
-									<input type="text" class="form-control" id="sample5_address" name="address" placeholder="주소" required readonly>
+									<input type="text" class="form-control" id="sample5_address" name="address" value="${place.address }" placeholder="주소" required readonly>
 									<input type="button" class="btn btn-outline-warning" onclick="sample5_execDaumPostcode()" value="주소 검색"><br>
                                 </div>
-									<div id="map" style="width:100%;height:300px;margin-top:10px;display:none"></div>
+								<div id="map" style="width:100%;height:300px;margin-top:10px;display:none"></div>
 	                        </div>
 	                    </div>
 	                    <div class="row m-1">
 	                        <div class="col-xl-2"><label class="col-form-label">지역</label></div>
 	                        <div class="col">
-                                <select class="form-control" name="area" required>
-                                    <option value="" selected>지역을 선택하세요</option>
+                                <select class="form-control" name="area" id="area2" required>
                                     <optgroup label="제주시">
                                     <option value="제주시내">제주시내</option>
                                     <option value="조천읍">조천읍</option>
@@ -151,15 +146,21 @@
 	                    <div class="row m-1">
 	                        <div class="col-xl-2"><label class="col-form-label">연락처</label></div>
 	                        <div class="col">
-	                            <input class="form-control" type="text" id="cellPhone" name="phone" placeholder="-없이 입력하세요">
+	                            <input class="form-control" type="text" id="cellPhone" name="phone" placeholder="-없이 입력하세요" value="${place.phone }">
 	                        </div>
 	                    </div>
+	                    <!-- <div class="row m-1">
+	                        <div class="col-xl-2"><label class="col-form-label">홈페이지</label></div>
+	                        <div class="col">
+	                            <input class="form-control" type="text" name="">
+	                        </div>
+	                    </div> -->
 	                    <div class="row m-1">
 	                        <div class="col-xl-2"><label class="col-form-label">대표이미지</label></div>
 	                        <div class="col">
 	                            <label class="custom-file">
-	                                <input type="file" name="mainimage" class="custom-file-input" accept="image/*">
-	                                <span class="custom-file-control" id="file-name">이미지를 선택하세요</span>
+	                                <input type="file" name="mainimage" class="custom-file-input" accept="image/*" value="${place.mainimage}">
+	                                <span class="custom-file-control" id="file-name">${place.mainimage}</span>
 	                            </label>
 	                        </div>
 	                    </div>
@@ -167,8 +168,8 @@
 	                        <div class="col-xl-2"><label class="col-form-label">썸네일이미지</label></div>
 	                        <div class="col">
 	                            <label class="custom-file">
-	                                <input type="file" name="thumbnail" class="custom-file-input" accept="image/*">
-	                                <span class="custom-file-control" id="file-name2">이미지를 선택하세요</span>
+	                                <input type="file" name="thumbnail" class="custom-file-input" accept="image/*" value="${place.thumbnail}">
+	                                <span class="custom-file-control" id="file-name2">${place.thumbnail}</span>
 	                            </label>
 	                        </div>
 	                    </div>
@@ -180,7 +181,7 @@
 	                    <div class="row m-1">
 	                        <div class="col">
 	                            <div class="form-group">
-	                            	<textarea id="summernote" name="content" style="min-height:500px; resize: none;"></textarea>
+	                            	<textarea id="summernote" name="content" style="min-height:500px; resize: none;">${place.content }</textarea>
 	                            </div>
 	                            <input type="submit" class="btn btn-warning btn-block" value="등록">
 	                        </div>
@@ -190,6 +191,32 @@
             </div>
         </section>
     </main>
+    
+<script>
+	$(document).ready(function(){
+		$('#minorcategory2').children().children().each(function() {
+			if($(this).val()=="${place.minorcategory }") {
+				$(this).prop("selected","selected");
+			}
+		});
+	});
+	
+	$(document).ready(function(){
+		$('#area2').children().children().each(function() {
+			if($(this).val()=="${place.area }") {
+				$(this).prop("selected","selected");
+			}
+		});
+	});
+	
+	$(document).ready(function(){
+		$('input[name=majorcategory]').each(function() {
+			if($(this).val()=="${place.majorcategory}") {
+				$(this).prop("checked","checked");
+			}
+		});
+	});
+</script>
 
 <script type="text/javascript">
 	$("input[name=thumbnail]").change(function(){

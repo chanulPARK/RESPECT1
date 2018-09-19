@@ -7,17 +7,31 @@
 	<select id="selectSpotList" resultType="place">
 		SELECT * FROM PLACE WHERE USERID IS NULL
 	</select>
+	
+	<select id="selectPlaceList" resultType="place">
+		SELECT * FROM PLACE WHERE USERID IS NULL AND MAJORCATEGORY = '관광지'
+	</select>
+	<select id="selectPlaceCount" resultType="_int"> SELECT COUNT(*) FROM PLACE WHERE USERID IS NULL AND MAJORCATEGORY = '관광지' </select>
+	<select id="selectAccommList" resultType="place">
+		SELECT * FROM PLACE WHERE USERID IS NULL AND MAJORCATEGORY = '숙소'
+	</select>
+	<select id="selectAccommCount" resultType="_int"> SELECT COUNT(*) FROM PLACE WHERE USERID IS NULL AND MAJORCATEGORY = '숙소' </select>
+	<select id="selectFoodList" resultType="place">
+		SELECT * FROM PLACE WHERE USERID IS NULL AND MAJORCATEGORY = '음식점'
+	</select>
+	<select id="selectFoodCount" resultType="_int"> SELECT COUNT(*) FROM PLACE WHERE USERID IS NULL AND MAJORCATEGORY = '음식점' </select>
+	
 	<select id="selectUserSpotList" resultType="place" parameterType="string">
 		SELECT * FROM PLACE WHERE USERID=#{userId}
 	</select>
 	<select id="selectSearchList" resultType="place" parameterType="string">
 		SELECT * FROM PLACE WHERE USERID IS NULL AND (TITLE LIKE '%'||#{keyword}||'%' OR ADDRESS LIKE '%'||#{keyword}||'%')
 	</select>
-	<select id="selectTotalCount" resultType="_int"> SELECT COUNT(*) FROM PLACE </select>
+	<select id="selectTotalCount" resultType="_int"> SELECT COUNT(*) FROM PLACE WHERE USERID IS NULL </select>
 	<select id="selectTotalUserCount" resultType="_int" parameterType="string"> SELECT COUNT(*) FROM PLACE WHERE USERID=#{userId}</select>
 	<insert id="insertPlace" parameterType="place">
 		INSERT INTO PLACE(PLACENO, MAJORCATEGORY, MINORCATEGORY, AREA, USERID, TITLE, ADDRESS, PHONE, CONTENT, THUMBNAIL, MAINIMAGE)
-		VALUES(SEQ_PLACE.NEXTVAL, #{majorcategory}, #{minorcategory}, #{area}, #{userid}, #{title}, #{address}, #{phone}, #{content}, #{thumbnail}, #{mainimage})
+		VALUES(SEQ_PLACE.NEXTVAL, #{majorcategory}, #{minorcategory}, #{area}, null, #{title}, #{address}, #{phone}, #{content}, #{thumbnail}, #{mainimage})
 		<selectKey keyProperty="placeno" resultType="_int" order="AFTER">
 			SELECT SEQ_PLACE.CURRVAL FROM DUAL
 		</selectKey>
@@ -28,8 +42,15 @@
 		VALUES(SEQ_PLACE.NEXTVAL,'사용자등록',#{userid}, #{title}, #{address},#{content})
 	</insert>
 	
+	<update id="updatePlace" parameterType="place">
+		UPDATE PLACE
+		SET MAJORCATEGORY = #{majorcategory}, MINORCATEGORY = #{minorcategory}, AREA = #{area}, TITLE = #{title},
+			ADDRESS = #{address}, PHONE = #{phone}, CONTENT = #{content}, THUMBNAIL = #{thumbnail}, MAINIMAGE = #{mainimage}
+		WHERE PLACENO = #{placeno}
+	</update>
+	
 	<select id="selectSpot" parameterType="_int" resultType="place">
-		SELECT * FROM PLACE WHERE PLACENO = #{spotno}
+		SELECT * FROM PLACE WHERE PLACENO = #{placeno}
 	</select>
 	
 	<update id="updateSpotCnt">
@@ -37,6 +58,7 @@
 	    SET HITSCOUNT = HITSCOUNT + 1
 	    WHERE PLACENO = #{spotno}
 	</update>
+	
 	<delete id="deleteSpot" parameterType="_int">
 		DELETE FROM PLACE WHERE PLACENO = #{placeno}
 	</delete>
@@ -50,37 +72,78 @@
 				SELECT *
 				FROM PLACE A
 				WHERE 1 = 1 
-				
 				AND MINORCATEGORY = #{minorcategory}
-				
 				ORDER BY NUM DESC
 			) B
 		) WHERE RNUM BETWEEN #{first} AND #{last}
 	</select>
-	
     <select id="spotSearchListTotal" resultType="_int" parameterType="string">
 		SELECT COUNT(*) AS CNT
 		FROM PLACE
 		WHERE 1 = 1
-           
-           AND MINORCATEGORY = #{minorcategory}
-           
+        AND MINORCATEGORY = #{minorcategory}
     </select>
-    
     <select id="selectLike" parameterType="placegood" resultType="placegood">
     	SELECT * FROM PLACE_GOOD
     	WHERE PLACENO=#{placeno} AND USERID=#{userid}
     </select>
-    
     <insert id="insertLike" parameterType="placegood">
 		INSERT INTO PLACE_GOOD(PLACENO, USERID)
 		VALUES(#{placeno}, #{userid})
 	</insert>
-	
 	<delete id="deleteLike" parameterType="placegood">
 		DELETE FROM PLACE_GOOD
 		WHERE PLACENO=#{placeno} AND USERID=#{userid}
 	</delete>
-    
+	
+	<select id="selectBring" parameterType="placegood" resultType="placegood">
+    	SELECT * FROM PUT_PLACE
+    	WHERE PLACENO=#{placeno} AND USERID=#{userid}
+    </select>
+    <insert id="insertBring" parameterType="placegood">
+		INSERT INTO PUT_PLACE(PLACENO, USERID)
+		VALUES(#{placeno}, #{userid})
+	</insert>
+	<delete id="deleteBring" parameterType="placegood">
+		DELETE FROM PUT_PLACE
+		WHERE PLACENO=#{placeno} AND USERID=#{userid}
+	</delete>
+	
+	<update id="increaseLike">
+	    UPDATE PLACE
+	    SET GOODCOUNT = GOODCOUNT + 1
+	    WHERE PLACENO = #{placeno}
+	</update>
+	<update id="decreaseLike">
+	    UPDATE PLACE
+	    SET GOODCOUNT = GOODCOUNT - 1
+	    WHERE PLACENO = #{placeno}
+	</update>
+	<update id="increaseBring">
+	    UPDATE PLACE
+	    SET BRINGCOUNT = BRINGCOUNT + 1
+	    WHERE PLACENO = #{placeno}
+	</update>
+	<update id="decreaseBring">
+	    UPDATE PLACE
+	    SET BRINGCOUNT = BRINGCOUNT - 1
+	    WHERE PLACENO = #{placeno}
+	</update>
+	
+	<select id="selectPlaceLikecnt" parameterType="_int" resultType="_int">
+		SELECT GOODCOUNT
+		FROM PLACE WHERE PLACENO = #{placeno}
+	</select>
+	<select id="selectPlaceBringcnt" parameterType="_int" resultType="_int">
+		SELECT BRINGCOUNT
+		FROM PLACE WHERE PLACENO = #{placeno}
+	</select>
+	
+	<select id="searchCategoryList" resultType="place" parameterType="string">
+		SELECT * FROM PLACE WHERE USERID IS NULL AND MINORCATEGORY = #{minorcategory} 
+	</select>
+    <select id="categoryTotalCount" resultType="_int" parameterType="string">
+    	SELECT COUNT(*) FROM PLACE WHERE USERID IS NULL AND MINORCATEGORY = #{minorcategory}
+    </select>
 	
 </mapper>
