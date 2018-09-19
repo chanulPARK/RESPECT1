@@ -13,12 +13,12 @@
 
 <title>번개리스트</title>
 
-<link
+<%-- <link
 	href="${path }/resources/bootstrap/css/bootstrap.css"
-	rel="stylesheet">
+	rel="stylesheet"> --%>
 <link href="${path }/resources/css/sidebar.css" rel="stylesheet">
 
-<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<!-- <script src="http://code.jquery.com/jquery-latest.min.js"></script> -->
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
