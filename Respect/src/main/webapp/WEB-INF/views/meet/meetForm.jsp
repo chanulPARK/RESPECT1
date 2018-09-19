@@ -9,11 +9,8 @@
 <jsp:include page="/WEB-INF/views/common/header.jsp"></jsp:include>
 
 <head>
-
-<title>Insert title here</title>
-
-<link href="${path }/resources/bootstrap/css/bootstrap.css" rel="stylesheet">
-<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<%-- <link href="${path }/resources/bootstrap/css/bootstrap.css" rel="stylesheet"> --%>
+<!-- <script src="http://code.jquery.com/jquery-latest.min.js"></script> -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 <link href="${path }/resources/css/datepicker.css" rel="stylesheet" type="text/css">
@@ -21,21 +18,23 @@
 <script src="${path }/resources/js/datepicker.min.js"></script>
 <script src="${path }/resources/js/i18n/datepicker.en.js"></script>
 
-<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
-<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
-<script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
+<!-- <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet"> -->
+<!-- <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script> -->
+<!-- <script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script> -->
+<!-- <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet"> -->
 
-
-<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
+<!-- <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
 <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.js"></script> 
-<script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script> 
+<script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script> -->
 
-<link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.css" rel="stylesheet">
-<script src="${path }/resources/js/summernote.js"></script>
-<script src="${path }/resources/js/summernote.min.js"></script>
-<script src="${path }/resources/js/summernote-ko-KR.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote-bs4.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote-bs4.js"></script>
+<!-- <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.css" rel="stylesheet"> -->
+<%-- <script src="${path }/resources/js/summernote.js"></script>
+<script src="${path }/resources/js/summernote.min.js"></script> --%>
+<%-- <script src="${path }/resources/js/summernote-ko-KR.js"></script> --%>
+
 <style type="text/css">
-
 	.custom-file-input {
         min-width: 14rem;
         max-width: 100%;
@@ -122,12 +121,10 @@
 	    });
 	}
 	
-	
-	
 </script>
 
 <section class="container">
-	<br><br><br><br><br><br><br><br><br>
+	<br><br>
 	<div class="container">
 		<div class="card mb-4">
 	        <div class="card-header bg-white font-weight-bold">번개모집</div>
