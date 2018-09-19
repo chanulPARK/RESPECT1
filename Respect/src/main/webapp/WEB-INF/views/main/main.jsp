@@ -7,6 +7,11 @@
 <script src="${path}/resources/js/Simple-Slider.js"></script>
 <link rel="stylesheet" href="${path}/resources/css/styles2.css">
 
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+
+
 <script>
 $(function(){
 	
