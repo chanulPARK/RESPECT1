@@ -34,6 +34,36 @@ public class PlaceDaoImpl implements PlaceDao {
 	public int selectTotalCount(SqlSessionTemplate sqlSession) {
 		return sqlSession.selectOne("spot.selectTotalCount");
 	}
+	
+	@Override
+	public List<Place> selectPlaceList(SqlSessionTemplate sqlSession, int cPage, int numPerPage) {
+		return sqlSession.selectList("spot.selectPlaceList", null, new RowBounds((cPage-1)*numPerPage, numPerPage));
+	}
+
+	@Override
+	public int selectPlaceCount(SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("spot.selectPlaceCount");
+	}
+	
+	@Override
+	public List<Place> selectFoodList(SqlSessionTemplate sqlSession, int cPage, int numPerPage) {
+		return sqlSession.selectList("spot.selectFoodList", null, new RowBounds((cPage-1)*numPerPage, numPerPage));
+	}
+
+	@Override
+	public int selectFoodCount(SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("spot.selectFoodCount");
+	}
+	
+	@Override
+	public List<Place> selectAccommList(SqlSessionTemplate sqlSession, int cPage, int numPerPage) {
+		return sqlSession.selectList("spot.selectAccommList", null, new RowBounds((cPage-1)*numPerPage, numPerPage));
+	}
+
+	@Override
+	public int selectAccommCount(SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("spot.selectAccommCount");
+	}
 
 	@Override
 	public Place selectPlace(SqlSessionTemplate sqlSession, int placeno) {

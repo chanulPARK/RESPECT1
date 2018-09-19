@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -99,6 +100,60 @@ public class PlaceController {
 		mv.addObject("totalContents", totalCount);
 		mv.addObject("pageBar", Page.getPage(cPage, numPerPage, totalCount, "spotList.do"));
 		mv.setViewName("spot/spotList");
+		
+		return mv;
+	}
+	
+	@RequestMapping("/spot/placeList.do")
+	public ModelAndView placeList(@RequestParam(value="cPage", required=false, defaultValue="1") int cPage) {
+		
+		ModelAndView mv = new ModelAndView();
+		int numPerPage = 6;
+		
+		List<Place> list = service.selectPlaceList(cPage, numPerPage);
+		
+		int totalCount = service.selectPlaceCount();
+		
+		mv.addObject("list", list);
+		mv.addObject("totalContents", totalCount);
+		mv.addObject("pageBar", Page.getPage(cPage, numPerPage, totalCount, "placeList.do"));
+		mv.setViewName("spot/spotList");
+		
+		return mv;
+	}
+	
+	@RequestMapping("/spot/accommList.do")
+	public ModelAndView accommList(@RequestParam(value="cPage", required=false, defaultValue="1") int cPage) {
+		
+		ModelAndView mv = new ModelAndView();
+		int numPerPage = 6;
+		
+		List<Place> list = service.selectAccommList(cPage, numPerPage);
+		
+		int totalCount = service.selectAccommCount();
+		
+		mv.addObject("list", list);
+		mv.addObject("totalContents", totalCount);
+		mv.addObject("pageBar", Page.getPage(cPage, numPerPage, totalCount, "accommList.do"));
+		mv.setViewName("spot/accommList");
+		
+		return mv;
+	}
+	
+	@RequestMapping("/spot/foodList.do")
+	public ModelAndView foodList(@RequestParam(value="cPage", required=false, defaultValue="1") int cPage) {
+		
+		ModelAndView mv = new ModelAndView();
+		int numPerPage = 6;
+		
+		List<Place> list = service.selectFoodList(cPage, numPerPage);
+		
+		int totalCount = service.selectFoodCount();
+		
+		mv.addObject("list", list);
+		mv.addObject("totalContents", totalCount);
+		mv.addObject("pageBar", Page.getPage(cPage, numPerPage, totalCount, "foodList.do"));
+		mv.setViewName("spot/foodList");
 		
 		return mv;
 	}
@@ -556,7 +611,71 @@ public class PlaceController {
 		
 		List<Place> list = service.searchCategoryList(cPage, numPerPage, minorcategory);
 		
+		String majorcategory = list.get(0).getMajorcategory();
+		
 		int totalCount = service.categoryTotalCount(minorcategory);
+		
+		mv.addObject("list", list);
+		mv.addObject("totalContents", totalCount);
+		mv.addObject("pageBar", Page.getPage(cPage, numPerPage, totalCount, "searchCategoryList.do"));
+		mv.setViewName("spot/spotList");
+		
+		return mv;
+	}
+	
+	@RequestMapping("/spot/searchfoodCategoryList.do")
+	public ModelAndView searchfoodCategoryList(@RequestParam(value="cPage", required=false, defaultValue="1") int cPage, String minorcategory) {
+		
+		System.out.println(minorcategory);
+		
+		ModelAndView mv = new ModelAndView();
+		int numPerPage = 6;
+		
+		List<Place> list = service.searchCategoryList(cPage, numPerPage, minorcategory);
+		
+		String majorcategory = list.get(0).getMajorcategory();
+		
+		int totalCount = service.categoryTotalCount(minorcategory);
+		
+		mv.addObject("list", list);
+		mv.addObject("totalContents", totalCount);
+		mv.addObject("pageBar", Page.getPage(cPage, numPerPage, totalCount, "searchfoodCategoryList.do"));
+		mv.setViewName("spot/foodList");
+		
+		return mv;
+	}
+	
+	@RequestMapping("/spot/searchaccommCategoryList.do")
+	public ModelAndView searchaccommCategoryList(@RequestParam(value="cPage", required=false, defaultValue="1") int cPage, String minorcategory) {
+		
+		System.out.println(minorcategory);
+		
+		ModelAndView mv = new ModelAndView();
+		int numPerPage = 6;
+		
+		List<Place> list = service.searchCategoryList(cPage, numPerPage, minorcategory);
+		
+		String majorcategory = list.get(0).getMajorcategory();
+		
+		int totalCount = service.categoryTotalCount(minorcategory);
+		
+		mv.addObject("list", list);
+		mv.addObject("totalContents", totalCount);
+		mv.addObject("pageBar", Page.getPage(cPage, numPerPage, totalCount, "searchaccommCategoryList.do"));
+		mv.setViewName("spot/accommList");
+		
+		return mv;
+	}
+	
+	@RequestMapping(value="/spot/selectSearchList.do", method = RequestMethod.GET)
+	public ModelAndView selectSearchList(@RequestParam(value="cPage", required=false, defaultValue="1") int cPage, String keyword) {	
+		
+		ModelAndView mv = new ModelAndView();
+		int numPerPage = 6;
+		
+		List<Place> list = service.selectSearchList(1, 6 ,keyword);
+		
+		int totalCount = service.categoryTotalCount(keyword);
 		
 		mv.addObject("list", list);
 		mv.addObject("totalContents", totalCount);

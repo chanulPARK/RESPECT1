@@ -32,6 +32,36 @@ public class PlaceServiceImpl implements PlaceService {
 	public int selectTotalCount() {
 		return dao.selectTotalCount(sqlSession);
 	}
+	
+	@Override
+	public List<Place> selectPlaceList(int cPage, int numPerPage) {
+		return dao.selectPlaceList(sqlSession, cPage, numPerPage);
+	}
+
+	@Override
+	public int selectPlaceCount() {
+		return dao.selectPlaceCount(sqlSession);
+	}
+	
+	@Override
+	public List<Place> selectFoodList(int cPage, int numPerPage) {
+		return dao.selectFoodList(sqlSession, cPage, numPerPage);
+	}
+
+	@Override
+	public int selectFoodCount() {
+		return dao.selectFoodCount(sqlSession);
+	}
+	
+	@Override
+	public List<Place> selectAccommList(int cPage, int numPerPage) {
+		return dao.selectAccommList(sqlSession, cPage, numPerPage);
+	}
+
+	@Override
+	public int selectAccommCount() {
+		return dao.selectAccommCount(sqlSession);
+	}
 
 	@Override
 	public int insertPlace(Place p) {

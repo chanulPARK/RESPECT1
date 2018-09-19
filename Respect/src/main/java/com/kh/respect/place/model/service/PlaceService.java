@@ -30,6 +30,13 @@ public interface PlaceService {
 	int selectPlaceBringcnt(int placeno);
 	List<Place> searchCategoryList(int cPage, int numPerPage, String minorcategory);
 	int categoryTotalCount(String minorcategory);
+	
+	List<Place> selectPlaceList(int cPage, int numPerPage);
+	int selectPlaceCount();
+	List<Place> selectFoodList(int cPage, int numPerPage);
+	int selectFoodCount();
+	List<Place> selectAccommList(int cPage, int numPerPage);
+	int selectAccommCount();
 
 	int insertMySpot(Place place);
 	int selectTotalUserCount(String userId);

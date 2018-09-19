@@ -17,8 +17,13 @@ public interface PlaceDao {
 	Place selectPlace(SqlSessionTemplate sqlSession, int placeno);
 	void updateSpotCnt(SqlSessionTemplate sqlSession, int placeno);
 
-//	List<PlaceSpring> spotSearchList(PlaceSpring p) throws Exception;
-//	Integer spotSearchListTotal(PlaceSpring p) throws Exception;
+	List<Place> selectPlaceList(SqlSessionTemplate sqlSession, int cPage, int numPerPage);
+	int selectPlaceCount(SqlSessionTemplate sqlSession);
+	List<Place> selectFoodList(SqlSessionTemplate sqlSession, int cPage, int numPerPage);
+	int selectFoodCount(SqlSessionTemplate sqlSession);
+	List<Place> selectAccommList(SqlSessionTemplate sqlSession, int cPage, int numPerPage);
+	int selectAccommCount(SqlSessionTemplate sqlSession);
+	
 	int insertLike(SqlSessionTemplate sqlSession, PlaceGood pg);
 	int deleteLike(SqlSessionTemplate sqlSession, PlaceGood pg);
 	PlaceGood selectLike(SqlSessionTemplate sqlSession, PlaceGood pg);

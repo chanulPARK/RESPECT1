@@ -7,13 +7,27 @@
 	<select id="selectSpotList" resultType="place">
 		SELECT * FROM PLACE WHERE USERID IS NULL
 	</select>
+	
+	<select id="selectPlaceList" resultType="place">
+		SELECT * FROM PLACE WHERE USERID IS NULL AND MAJORCATEGORY = '관광지'
+	</select>
+	<select id="selectPlaceCount" resultType="_int"> SELECT COUNT(*) FROM PLACE WHERE USERID IS NULL AND MAJORCATEGORY = '관광지' </select>
+	<select id="selectAccommList" resultType="place">
+		SELECT * FROM PLACE WHERE USERID IS NULL AND MAJORCATEGORY = '숙소'
+	</select>
+	<select id="selectAccommCount" resultType="_int"> SELECT COUNT(*) FROM PLACE WHERE USERID IS NULL AND MAJORCATEGORY = '숙소' </select>
+	<select id="selectFoodList" resultType="place">
+		SELECT * FROM PLACE WHERE USERID IS NULL AND MAJORCATEGORY = '음식점'
+	</select>
+	<select id="selectFoodCount" resultType="_int"> SELECT COUNT(*) FROM PLACE WHERE USERID IS NULL AND MAJORCATEGORY = '음식점' </select>
+	
 	<select id="selectUserSpotList" resultType="place" parameterType="string">
 		SELECT * FROM PLACE WHERE USERID=#{userId}
 	</select>
 	<select id="selectSearchList" resultType="place" parameterType="string">
 		SELECT * FROM PLACE WHERE USERID IS NULL AND (TITLE LIKE '%'||#{keyword}||'%' OR ADDRESS LIKE '%'||#{keyword}||'%')
 	</select>
-	<select id="selectTotalCount" resultType="_int"> SELECT COUNT(*) FROM PLACE </select>
+	<select id="selectTotalCount" resultType="_int"> SELECT COUNT(*) FROM PLACE WHERE USERID IS NULL </select>
 	<select id="selectTotalUserCount" resultType="_int" parameterType="string"> SELECT COUNT(*) FROM PLACE WHERE USERID=#{userId}</select>
 	<insert id="insertPlace" parameterType="place">
 		INSERT INTO PLACE(PLACENO, MAJORCATEGORY, MINORCATEGORY, AREA, USERID, TITLE, ADDRESS, PHONE, CONTENT, THUMBNAIL, MAINIMAGE)
@@ -58,23 +72,17 @@
 				SELECT *
 				FROM PLACE A
 				WHERE 1 = 1 
-				
 				AND MINORCATEGORY = #{minorcategory}
-				
 				ORDER BY NUM DESC
 			) B
 		) WHERE RNUM BETWEEN #{first} AND #{last}
 	</select>
-	
     <select id="spotSearchListTotal" resultType="_int" parameterType="string">
 		SELECT COUNT(*) AS CNT
 		FROM PLACE
 		WHERE 1 = 1
-           
-           AND MINORCATEGORY = #{minorcategory}
-           
+        AND MINORCATEGORY = #{minorcategory}
     </select>
-    
     <select id="selectLike" parameterType="placegood" resultType="placegood">
     	SELECT * FROM PLACE_GOOD
     	WHERE PLACENO=#{placeno} AND USERID=#{userid}
@@ -121,7 +129,6 @@
 	    SET BRINGCOUNT = BRINGCOUNT - 1
 	    WHERE PLACENO = #{placeno}
 	</update>
-	
 	
 	<select id="selectPlaceLikecnt" parameterType="_int" resultType="_int">
 		SELECT GOODCOUNT
