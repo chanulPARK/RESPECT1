@@ -12,6 +12,7 @@ import com.kh.respect.schedule.model.dao.ScheduleDao;
 import com.kh.respect.schedule.model.vo.Schedule;
 import com.kh.respect.schedule.model.vo.ScheduleReply;
 import com.kh.respect.schedule.model.vo.ScheduleReplyAttachment;
+import com.kh.respect.schedule.model.vo.ScheduleReport;
 import com.kh.respect.schedule.model.vo.TimeTable;
 
 
@@ -30,6 +31,7 @@ public class ScheduleServiceImpl implements ScheduleService {
 		
 		int result=0;
 		int scheduleNo=0;
+		
 		result=dao.insertSchedule(session,sc);
 		
 		scheduleNo=sc.getScheduleNo();
@@ -189,8 +191,6 @@ public class ScheduleServiceImpl implements ScheduleService {
 				
 				for(TimeTable tt: list)
 				{
-					
-					
 					result=dao.insertTimeTable(session,tt);
 					System.out.println("인서트중");
 				}
@@ -198,11 +198,37 @@ public class ScheduleServiceImpl implements ScheduleService {
 		}
 		return result;
 	}
+	
+	@Override
+	public int insertScheduleReport(List<ScheduleReport> list) {
 
+		int result=0;
+		int result2=0;
+		for(ScheduleReport sr: list)
+		{ 
+			System.out.println("insert ing!!!");
+			result=dao.insertScheduleReport(session,sr);
+		}
+		if(result>0)
+		{
+			int scheduleNo=list.get(0).getScheduleNo();
+			result2=dao.updateScheduleReportFlag(session,scheduleNo);
+		}
+		return result2; 
+		
+	}
+	
+	
+	
+	
 //	@Override
 //	public int deleteSchedule(int scheduleNo) {
 //		return dao.deleteSchedule(session, scheduleNo);
 //	}
+	@Override
+	public int deleteSchedule(int scheduleNo) {
+		return dao.deleteSchedule(session, scheduleNo);
+	}
 
 	
 	
@@ -210,6 +236,10 @@ public class ScheduleServiceImpl implements ScheduleService {
 	
 	
 	//추천수정수정
+
+	
+
+	
 
 		@Override
 		public int goodCountCheck(Schedule schedule) {
@@ -249,9 +279,37 @@ public class ScheduleServiceImpl implements ScheduleService {
 			dao.deleteBringDownCount(session,schedule);
 			return dao.bringCountDown(session,schedule);
 		}
+
+		
+		public Schedule selectScheduleSC(int scheduleNo) {
+			return dao.selectScheduleSC(session, scheduleNo);
+		}
+
+		@Override
+		public List<TimeTable> selectTimeTableSC(int scheduleNo) {
+			return dao.selectTimeTableSC(session,scheduleNo);
+		}
 	
-	
-	
+		@Override
+		public List<ScheduleReport> selectScheduleReportView(int scheduleNo) {
+			return dao.selectScheduleReportView(session,scheduleNo);
+		}
+
+		@Override
+		public int updateReport(List<ScheduleReport> list, int scheduleNo) {
+			int result=0;
+			result=dao.deleteReport(session,scheduleNo);
+			for(ScheduleReport sr: list)
+			{ 
+				result=dao.insertScheduleReport(session,sr);
+			}
+			return result; 
+		}
+
+		@Override
+		public int deleteReport(int scheduleNo) {
+			return dao.deleteReport(session, scheduleNo);
+		}
 
 	
 }

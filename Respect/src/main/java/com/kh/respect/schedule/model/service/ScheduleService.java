@@ -6,6 +6,7 @@ import java.util.Map;
 import com.kh.respect.schedule.model.vo.Schedule;
 import com.kh.respect.schedule.model.vo.ScheduleReply;
 import com.kh.respect.schedule.model.vo.ScheduleReplyAttachment;
+import com.kh.respect.schedule.model.vo.ScheduleReport;
 import com.kh.respect.schedule.model.vo.TimeTable;
 
 public interface ScheduleService {
@@ -62,9 +63,18 @@ public interface ScheduleService {
 	List<Map> selectTimeTableList(int scheduleNo);
 	
 	int updateSchedule(Schedule sc, List<TimeTable> list);
-	
-//	int deleteSchedule(int scheduleNo);
+
+
+	int insertScheduleReport(List<ScheduleReport> list);
+
+
+	List<ScheduleReport> selectScheduleReportView(int scheduleNo);
+
 
 	
-
+	int deleteSchedule(int scheduleNo);
+	int deleteReport(int scheduleNo);
+	Schedule selectScheduleSC(int scheduleNo);
+	List<TimeTable> selectTimeTableSC(int scheduleNo);
+	int updateReport(List<ScheduleReport> list,int scheduleNo);
 }

@@ -7,10 +7,10 @@
 @media screen and (min-width: 769px) {
    /* 데스크탑에서 사용될 스타일을 여기에 작성합니다. */
 }
-	#map
-	{
-		background:black;	
-	}
+   #map
+   {
+      background:black;   
+   }
     .time1{width:20%;}
     .time2{width:80%;}
     .timeline th{background:black; color:orange;}
@@ -37,45 +37,76 @@
 <!-- 지도 라이브러리  -->
 
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=29d28c77afa06b8d3797cd516b310f0f&libraries=services"></script>
+ <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.css" rel="stylesheet"> 
+<script src="${path }/resources/js/summernote.js"></script>
+<script src="${path }/resources/js/summernote.min.js"></script>
+<script src="${path }/resources/js/summernote-ko-KR.js"></script>  
 
 <script>
-	function fn_submit(scheduleNo,daySize)
-	{
-		
-		for(var i=1; i<=daySize; i++)
-		{
-			var title=$("input[name='reportTitle"+i+"']").val();
-			var content=$("textarea[name='reportContent"+i+"']").val();
-			/* console.log(title);
-			console.log(content); 잘나옴 체크함*/
-			/* 배열값으로 여러개를 어떻게 보내는지 */
-			
-			reportForm.scheduleNo.value=scheduleNo;
-			reportForm.reportTitle.value=title[i];
-			reportForm.reportContent.value=content[i];
-			
-			
-		/* 	$("#reportId input[name='reportTitle"+i+"']").val(title);
-			$("#reportId textarea[name='reportContent"+i+"']").val(content); */
-			var url="${path}/schedule/scheduleReportInsert";
-			reportForm.action=url;
-			reportForm.method="get";
-		}
-			reportForm.submit();
-	}
-	
-	function fn_reviewDelete(scheduleNo)
-	{
-		location.href="${path}/schedule/scheduleReportDelete?scheduleNo="+scheduleNo;
-	}
-	
-	function fn_reviewModify(scheduleNo)
-	{
-		location.href="${path}/schedule/scheduleReportModify?scheduleNo="+scheduleNo;
-	}
+
+
+//summernote
+$(document).ready(function() {
+	    $('.summernote').summernote({
+        height : 400,                 // set editor height
+        lang : 'ko-KR', // default: 'en-US'
+  		callbacks : {
+  			onImageUpload : function(files, editor, welEditable){
+  				sendFile(files, editor, welEditable);
+  			}
+  		}
+	    });
+	});
+
+function sendFile(file, editor, welEditable){
+    data = new FormData();
+    console.log(file);
+    for(var i=0;i<file.length;i++){
+       data.append("uploadFile", file[i]);
+    }
+    console.log(data.getAll('uploadFile'));
+    $.ajax({
+       data:data,
+       url:"${path}/imageUpload.do",
+       type:"POST",
+       cache:false,
+       contentType:false,
+       processData:false,
+       dataType:"json",
+       success:function(data){
+    	  alert(data);
+          console.log(data);
+          for(var i=0;i<data.length;i++)
+          {
+             //$('#test').append('<img src=/resources/uploadImg/'+data.list[i]+'>');
+             $('.summernote').summernote('insertImage', "${path}/resources/uploadImg/"+data[i],data[i]);
+          }
+       },
+       error:function(obj,a,b){
+    	   console.log(obj);
+    	   console.log(b);
+       }
+    });
+}
+
+
+   function fn_submit()
+   {
+      $("#reportForm").submit();
+   }
+   function fn_reviewDelete(scheduleNo)
+   {
+      location.href="${path}/schedule/scheduleReportDelete?scheduleNo="+scheduleNo;
+   }
+   
+   function fn_reviewModify(scheduleNo)
+   {
+      location.href="${path}/schedule/scheduleReportModify?scheduleNo="+scheduleNo;
+   }
      
      function fn_toggle(ev)
      {
+       ev.preventDefault();
         var btnId=ev.target.value;
         console.log(btnId);
         $("#content"+btnId).toggle();
@@ -132,154 +163,250 @@
 								<fmt:parseNumber value="${startDate.time / (1000*60*60*24)}" integerOnly="true" var="startDay"></fmt:parseNumber>
 								<fmt:parseDate value="${viewList.ENDDATE }" var="endDate" pattern="yyyy-MM-dd"/>
 								<fmt:parseNumber value="${endDate.time / (1000*60*60*24)}" integerOnly="true" var="endDay"></fmt:parseNumber>
-                                <div id="demo" class="carousel slide" style="width: 100%;" data-ride="carousel" data-interval="false">
-                                      <!-- The slideshow -->
-                                      <div class="carousel-inner">
-                                      <c:forEach var="v" begin='1' end='${endDay - startDay +1}' varStatus="s">
-		                            <c:choose>
-		                              <c:when test="${s.index==1}">
-		                              	<div class="carousel-item active">
-		                              </c:when>
-		                              	<c:otherwise>
-		                              		<div class="carousel-item">
-		                              	</c:otherwise>
-		                              </c:choose>
-                                                <div class="day">
-                                            <table id='${s.count }' class="table-bordered timeline">
+                                <div id='demo' class='carousel slide mt-3' data-ride='carousel' data-interval='false'>
+                            <!-- The slideshow -->
+                            
+        				    
+                            <div class="carousel-inner">
+                            <c:forEach var="v" begin='1' end='${endDay - startDay +1}' varStatus="s">
+	                            <c:choose>
+	                              <c:when test="${s.index==1}">
+	                              	<div class="carousel-item active">
+	                              	<div class="day">
+                                            <table class="table-bordered timeline" id='${s.count }'>
                                                     <tr>
                                                         <th class="time1">TIME</th>
-                                                        <th class="time2">
-                                                                <a class="float-left" href="#demo" data-slide="prev">&lt;</a>
-                                                                	DAY ${s.count }
-                                                                <a class="float-right" href="#demo" data-slide="next">&gt;</a>
+                                                        <th class="place">
+                                                                <a class='float-left' onclick='fn_move()' href='#demo'  data-slide='prev'>&lt;</a>
+                                                                DAY ${s.count }
+                                                                <a class='float-right' onclick='fn_move()' href='#demo'  data-slide='next'>&gt;</a>
                                                         </th>
                                                     </tr>
                                                     <tr>
-                                                     		<td class="time1">06:00</td>
-                                                            <td id='06' class="place"></td>
+                                                    		<td class='time1'>06:00</td>
+                                                    		<td id='6' class='place' ondrop='drop(event)' ondragover='allowDrop(event)'></td>
+                                                            
                                                     </tr>
                                                     <tr>
-                                                            <td class="time1">07:00</td>
-                                                            <td id='07' class="place"></td>
+                                                           <td class='time1'>07:00</td>
+                                                    		<td id='7' class='place' ondrop='drop(event)' ondragover='allowDrop(event)'></td>
                                                     </tr>
                                                     <tr>
-                                                            <td class="time1">08:00</td>
-                                                            <td id='08' class="place"></td>
+                                                            <td class='time1'>08:00</td>
+                                                    		<td id='8' class='place' ondrop='drop(event)' ondragover='allowDrop(event)'></td>
                                                     </tr>
                                                     <tr>
-                                                            <td class="time1">09:00</td>
-                                                            <td id='09' class="place"></td>
+                                                            <td class='time1'>09:00</td>
+                                                    		<td id='9' class='place' ondrop='drop(event)' ondragover='allowDrop(event)'></td>
                                                     </tr>
                                                     <tr>
-                                                            <td class="time1">10:00</td>
-                                                            <td id='10' class="place"></td>
+                                                            <td class='time1'>10:00</td>
+                                                    		<td id='10' class='place' ondrop='drop(event)' ondragover='allowDrop(event)'></td>
                                                     </tr>
                                                     <tr>
-                                                            <td class="time1">11:00</td>
-                                                            <td id='11' class="place"></td>
+                                                            <td class='time1'>11:00</td>
+                                                    		<td id='11' class='place' ondrop='drop(event)' ondragover='allowDrop(event)'></td>
                                                     </tr>
                                                     <tr>
-                                                            <td class="time1">12:00</td>
-                                                            <td id='12' class="place"></td>
+                                                            <td class='time1'>12:00</td>
+                                                    		<td id='12' class='place' ondrop='drop(event)' ondragover='allowDrop(event)'></td>
                                                     </tr>
                                                     <tr>
-                                                            <td class="time1">13:00</td>
-                                                            <td id='13' class="place"></td>
+                                                            <td class='time1'>13:00</td>
+                                                    		<td id='13' class='place' ondrop='drop(event)' ondragover='allowDrop(event)'></td>
                                                     </tr>
                                                     <tr>
-                                                            <td class="time1">14:00</td>
-                                                            <td id='14' class="place"></td>
+                                                            <td class='time1'>14:00</td>
+                                                    		<td id='14' class='place' ondrop='drop(event)' ondragover='allowDrop(event)'></td>
                                                     </tr>
                                                     <tr>
-                                                            <td class="time1">15:00</td>
-                                                            <td id='15' class="place"></td>
+                                                            <td class='time1'>15:00</td>
+                                                    		<td id='15' class='place' ondrop='drop(event)' ondragover='allowDrop(event)'></td>
                                                     </tr>
                                                     <tr>
-                                                            <td class="time1">16:00</td>
-                                                            <td id='16' class="place"></td>
+                                                            <td class='time1'>16:00</td>
+                                                    		<td id='16' class='place' ondrop='drop(event)' ondragover='allowDrop(event)'></td>
                                                     </tr>
                                                     <tr>
-                                                            <td class="time1">17:00</td>
-                                                            <td id='17' class="place"></td>
+                                                            <td class='time1'>17:00</td>
+                                                    		<td id='17' class='place' ondrop='drop(event)' ondragover='allowDrop(event)'></td>
                                                     </tr>
                                                     <tr>
-                                                            <td class="time1">18:00</td>
-                                                            <td id='18' class="place"></td>
+                                                            <td class='time1'>18:00</td>
+                                                    		<td id='18' class='place' ondrop='drop(event)' ondragover='allowDrop(event)'></td>
                                                     </tr>
                                                     <tr>
-                                                            <td class="time1">19:00</td>
-                                                            <td id='19' class="place"></td>
+                                                            <td class='time1'>19:00</td>
+                                                    		<td id='19' class='place' ondrop='drop(event)' ondragover='allowDrop(event)'></td>
                                                     </tr>
                                                     <tr>
-                                                            <td class="time1">20:00</td>
-                                                            <td id='20' class="place"></td>
+                                                            <td class='time1'>20:00</td>
+                                                    		<td id='20' class='place' ondrop='drop(event)' ondragover='allowDrop(event)'></td>
                                                     </tr>
                                                     <tr>
-                                                            <td class="time1">21:00</td>
-                                                            <td id='21' class="place"></td>
+                                                            <td class='time1'>21:00</td>
+                                                    		<td id='21' class='place' ondrop='drop(event)' ondragover='allowDrop(event)'></td>
                                                     </tr>
                                                     <tr>
-                                                            <td class="time1">22:00</td>
-                                                            <td id='22' class="place"></td>
+                                                            <td class='time1'>22:00</td>
+                                                    		<td id='22' class='place' ondrop='drop(event)' ondragover='allowDrop(event)'></td>
                                                     </tr>
                                                     <tr>
-                                                            <td class="time1">23:00</td>
-                                                            <td id='23' class="place"></td>
+                                                            <td class='time1'>23:00</td>
+                                                    		<td id='23' class='place' ondrop='drop(event)' ondragover='allowDrop(event)'></td>
                                                     </tr>
+                                            
                                             </table>
                                     </div>
+                                    </div>
+	                              </c:when>
+	                              	<c:otherwise>
+	                              		<div class="carousel-item">
+	                              		<div class="day">
+                                            <table class="table-bordered timeline" id='${s.count }'>
+                                                    <tr>
+                                                        <th class="time1">TIME</th>
+                                                        <th class="place">
+                                                                <a class='float-left' onclick='fn_move()' href='#demo'  data-slide='prev'>&lt;</a>
+                                                                DAY ${s.count }
+                                                                <a class='float-right' onclick='fn_move()' href='#demo'  data-slide='next'>&gt;</a>
+                                                        </th>
+                                                    </tr>
+                                                    <tr>
+                                                    		<td class='time1'>06:00</td>
+                                                    		<td id='6' class='place' ondrop='drop(event)' ondragover='allowDrop(event)'></td>
+                                                            
+                                                    </tr>
+                                                    <tr>
+                                                           <td class='time1'>07:00</td>
+                                                    		<td id='7' class='place' ondrop='drop(event)' ondragover='allowDrop(event)'></td>
+                                                    </tr>
+                                                    <tr>
+                                                            <td class='time1'>08:00</td>
+                                                    		<td id='8' class='place' ondrop='drop(event)' ondragover='allowDrop(event)'></td>
+                                                    </tr>
+                                                    <tr>
+                                                            <td class='time1'>09:00</td>
+                                                    		<td id='9' class='place' ondrop='drop(event)' ondragover='allowDrop(event)'></td>
+                                                    </tr>
+                                                    <tr>
+                                                            <td class='time1'>10:00</td>
+                                                    		<td id='10' class='place' ondrop='drop(event)' ondragover='allowDrop(event)'></td>
+                                                    </tr>
+                                                    <tr>
+                                                            <td class='time1'>11:00</td>
+                                                    		<td id='11' class='place' ondrop='drop(event)' ondragover='allowDrop(event)'></td>
+                                                    </tr>
+                                                    <tr>
+                                                            <td class='time1'>12:00</td>
+                                                    		<td id='12' class='place' ondrop='drop(event)' ondragover='allowDrop(event)'></td>
+                                                    </tr>
+                                                    <tr>
+                                                            <td class='time1'>13:00</td>
+                                                    		<td id='13' class='place' ondrop='drop(event)' ondragover='allowDrop(event)'></td>
+                                                    </tr>
+                                                    <tr>
+                                                            <td class='time1'>14:00</td>
+                                                    		<td id='14' class='place' ondrop='drop(event)' ondragover='allowDrop(event)'></td>
+                                                    </tr>
+                                                    <tr>
+                                                            <td class='time1'>15:00</td>
+                                                    		<td id='15' class='place' ondrop='drop(event)' ondragover='allowDrop(event)'></td>
+                                                    </tr>
+                                                    <tr>
+                                                            <td class='time1'>16:00</td>
+                                                    		<td id='16' class='place' ondrop='drop(event)' ondragover='allowDrop(event)'></td>
+                                                    </tr>
+                                                    <tr>
+                                                            <td class='time1'>17:00</td>
+                                                    		<td id='17' class='place' ondrop='drop(event)' ondragover='allowDrop(event)'></td>
+                                                    </tr>
+                                                    <tr>
+                                                            <td class='time1'>18:00</td>
+                                                    		<td id='18' class='place' ondrop='drop(event)' ondragover='allowDrop(event)'></td>
+                                                    </tr>
+                                                    <tr>
+                                                            <td class='time1'>19:00</td>
+                                                    		<td id='19' class='place' ondrop='drop(event)' ondragover='allowDrop(event)'></td>
+                                                    </tr>
+                                                    <tr>
+                                                            <td class='time1'>20:00</td>
+                                                    		<td id='20' class='place' ondrop='drop(event)' ondragover='allowDrop(event)'></td>
+                                                    </tr>
+                                                    <tr>
+                                                            <td class='time1'>21:00</td>
+                                                    		<td id='21' class='place' ondrop='drop(event)' ondragover='allowDrop(event)'></td>
+                                                    </tr>
+                                                    <tr>
+                                                            <td class='time1'>22:00</td>
+                                                    		<td id='22' class='place' ondrop='drop(event)' ondragover='allowDrop(event)'></td>
+                                                    </tr>
+                                                    <tr>
+                                                            <td class='time1'>23:00</td>
+                                                    		<td id='23' class='place' ondrop='drop(event)' ondragover='allowDrop(event)'></td>
+                                                    </tr>
+                                            
+                                            </table>
+                                    </div>
+                                    </div>
+	                              	</c:otherwise>
+	                              </c:choose>
+                                    
+                                   </c:forEach>
                               </div>
-                                          </c:forEach>
-                                         
-                                          </div>
+                             
+                              
+                             
+                            </div>
                                           </div>
                             
                                 </div>
-                              </div>
+                              
+                              
                               <div class="tabe-pane fade" id="Review">
                               <br>
                               <br>
                                 <div class="btn-group">
-							        <button type="button btn-lg" class="btn btn-outline-warning dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-							          후기 작성
-							        </button>
-							        <div class="dropdown-menu">
-							                <a class="dropdown-item" onclick="fn_submit('${viewList.SCHEDULENO}','${endDay - startDay +1}')">글쓰기</a>
-							                <div class="dropdown-divider"></div>
-							                <a class="dropdown-item" onclick="fn_s(${viewList.SCHEDULENO})">수정</a>
-							                <a class="dropdown-item" onclick="fn_submit(${viewList.SCHEDULENO})">삭제</a>
-							        </div>
-							      </div>
-							      <br>
+		                             <button type="button" class="btn btn-outline-warning" onclick="fn_submit()">
+		                               후기 작성
+		                             </button>
+                           </div>
+                           <br>
                                  
                                 <br>  
+                                <form name="reportForm" id="reportForm" action="${path }/schedule/scheduleReportInsert" method='post'> 
+                                <input type="hidden" name="scheduleNo" value="${viewList.SCHEDULENO }">
                                 <!-- for문 -->
+
                                 <c:forEach var="v" begin='1' end='${endDay - startDay +1}' varStatus="s">
+                                <input type="hidden" name="day" value="${s.count }">
+                               
                                 <button class="btn" value="${s.count }" onclick="fn_toggle(event)">${s.count }일차</button><br>
                                 <br>
                                 <div id="content${s.count }"  class="hidetext">
-                                <div class="container">
+                                <div >
                                         
-                                                <h5 class="col-md-8">제목</h5>
-                                                <div class="col-md-8">
-                                                        <div class="form-group">
-                                                        	<input type="text" class="form-control" name="reportTitle${s.count }" autocomplete="off" id="reportTitle" placeholder="title">
-                                                        </div>
+
+                                        <h5 class="col-md-7">제목</h5>
+                                        <div class="col-md-7">
+                                                <div class="form-group">
+                                                   <input type="text" class="form-control" name="reportTitle" autocomplete="off" id="reportTitle" placeholder="title">
                                                 </div>
-                                                <h5 class="col-md-8">내용</h5>
-                                                        <div class="col-md-8">
-                                                        <div class="form-group">
-                                                                <textarea class="form-control textarea" rows="3" name="reportContent${s.count }" id="reportContent" placeholder="content"></textarea>
-                                                        </div>
-                                                        </div>
+                                        </div>
+                                        <h5 class="col-md-7">내용</h5>
+                                                <div class="col-md-7">
+                                                <div class="form-group">
+                                                     <textarea class="form-control textarea summernote" rows="3" name="reportContent" id="reportContent" placeholder="content"  resize: none;"></textarea>
+                                                </div>
+                                                </div>
                                         <br>
                                         </div>
                                 </div>
                                 <br>
                                 </c:forEach>
-                                       
+                                   </form>   
+
                               </div>
-                              
       
                     <br>
                 </div>
@@ -287,168 +414,188 @@
                 </div>
                 
                 
-                <form name="reportForm" id="reportId">
-                	<input type="hidden" name="scheduleNo">
-                	<input type="hidden" name="reportTitle">
-                	<input type="hidden" name="reportContent">
-                </form>
+                
+                
+                
               </body>
       
   <script>
-   var title;
+
+  var createSeq = function(){
+		var no=0;
+		return function(){
+			return ++no;
+		}
+	};
+	
+	var seq= createSeq();
+	var markers=[];
+	
+	var seq_num;
+	var ps= new daum.maps.services.Geocoder();
+	
+	//지도상에 마커를 클릭하면 장소명을 표출할 인포윈도우
+	var infowindow2=new daum.maps.InfoWindow({zIndex:1,removable:true});
+
+	//지도를 담을 영역의 DOM (지도표기)
+	var container = document.getElementById('map');
+	var options = {//지도 옵션 설정
+			center : new daum.maps.LatLng(33.361425, 126.529418),//지도 중심좌표
+			level:10
+	};
+	var map= new daum.maps.Map(container, options);
+	var tableday;
+	var placename;
+
+
+	
+	function fn_move()
+	{
+  	
+  	var origin=$("div[class='carousel-item active'] table[class='table-bordered timeline']");
+		if(markers!=null)
+		{
+			for(var i=0; i<markers.length;i++)
+			{
+				if(markers[i]!=null)
+				{
+					if(markers[i].days==origin[0].id)
+					{
+						markers[i].marks.setVisible(false);
+						
+						markers[i].iw.close();
+					}
+				}
+				
+			}
+		}
+		
+		
+		
+		setTimeout(function(){
+			
+			var active=($("div[class='carousel-item active'] table[class='table-bordered timeline']"));
+			if(markers!=null)
+			{
+				for(var i=0; i<markers.length;i++)
+				{
+					if(markers[i]!=null)
+					{
+						if(markers[i].days==active[0].id)
+						{
+							markers[i].marks.setVisible(true);
+						}
+					}
+				}
+			}
+
+			
+			
+		},1000);
+	};
+
+	
+	   var list=${tt};
+	   var dataList=[];
+	   
+	   var idx=0;
+		for(var i=0; i<list.length;i++)
+		{
+			console.log(list[i]);
+			var pplaceno=list[i].PLACENO;
+			var pday=list[i].DAY;
+			var ptime=list[i].TIME;
+			var ptitle=list[i].TITLE;
+			var paddress=list[i].ADDRESS;
+			var pseq_no=seq();
+		  	
+		  	var html="<div id='data"+pseq_no+"' >"+ptitle+"<input type='hidden' name='timevalue' value='"+pday+","+ptime+"'><input type='hidden' name='placevalue' value='"+pplaceno+","+ptitle+","+paddress+","+pseq_no+"' class='placelist'></div>";
+
+		    var tables=$("table[class='table-bordered timeline']");
+		    var pdata={pseq_no:pseq_no,ptitle:ptitle,paddress:paddress,pday:pday,idx:i};
+		    
+		    dataList.push(pdata);
+		  
+		    for(var k=0; k<tables.length;k++)
+	    	{
+				if(tables[k].id==pday)
+				{
+					
+					var targettd=$("table[id='"+pday+"'] td[id='"+ptime+"']");
+					
+					targettd.attr('class',"place disable");
+					targettd.append(html);
+				}
+	    	}
+		    ps.addressSearch(dataList[i].paddress,function(data,status)
+		{
+		    	if(status === daum.maps.services.Status.OK)
+				{
+					
+					
+					for(var b=0; b<data.length; b++)
+					{
+						
+						makeMarker(data[b]);
+					} 
+					
+				}
+			}); 		
+		}
+		
+		function makeMarker(data)
+		{
+			var marker = new daum.maps.Marker({
+				map:map,
+				position:new daum.maps.LatLng(data.y, data.x),
+				clickable: true 
+			});
+			
+			
+			
+		    iwRemoveable = true;
+		    
+		    var infowindow = new daum.maps.InfoWindow({
+		        removable:iwRemoveable
+		    }); 
+		    
+			daum.maps.event.addListener(marker, 'click', function()
+			{
+				infowindow.open(map,marker);
+			});
+			
+			
+			var daymarker = {days:0,marks:marker,iw:infowindow,idx:idx++,data1:data};
+			markers.push(daymarker);
+			
+		
+			
+				for(var bb=0;bb<markers.length;bb++)
+				{
+					for(var aaa=0;aaa<dataList.length;aaa++)
+					{
+						if(markers[bb].data1.address_name==dataList[aaa].paddress)
+						{
+							markers[bb].days=dataList[aaa].pday;
+							markers[bb].marks.setTitle(dataList[aaa].pseq_no);
+							markers[bb].iw.setContent('<div style="padding:5px; font-size:12px;">'+dataList[aaa].ptitle+'</div>');
+						}
+					}
+					
+					console.log(markers);
+					if(markers[bb].days!=1)
+					{
+						
+						markers[bb].marks.setVisible(false);		
+					}
+					
+				}
+		}
+		
+   
    
    
   
-    
-    
-   var clicktarget;
-   function allowDrop(ev) {
-       ev.preventDefault();
-   }
-   
-   function drag(ev) {
-       clicktarget=ev.target.parentElement.parentElement.parentElement;
-       clicktarget.classList.remove("disable");
-       ev.dataTransfer.setData("text", ev.target.parentElement.parentElement.id);
-   }
-   
-   function drop(ev) {
-       ev.preventDefault();
-       var data = ev.dataTransfer.getData("text");
-       var td=$(".active TD[class='place']");
-       
-       if(ev.target.className=="place")
-       {
-           ev.target.classList.add("disable");
-           ev.target.appendChild(document.getElementById(data));
-       }
-       else
-       {
-           clicktarget.classList.add("disable");
-       }
-   
-   }
-   var createSeq = function(){
-      var no=0;
-      return function(){
-         return ++no;
-      }
-   };
-   
-   var seq= createSeq();
-   var markers=[];
-   var seq_num;
-   var ps= new daum.maps.services.Geocoder();
-   
-   //지도상에 마커를 클릭하면 장소명을 표출할 인포윈도우
-   var infowindow=new daum.maps.InfoWindow({zIndex:1});
-
-   //지도를 담을 영역의 DOM (지도표기)
-   var container = document.getElementById('map');
-   var options = {//지도 옵션 설정
-         center : new daum.maps.LatLng(33.361425, 126.529418),//지도 중심좌표
-         level:10
-   };
-   var map= new daum.maps.Map(container, options);
-   
-   function fn_add(event)
-   {
-          var place1=event.target.value;
-          
-          var place2=place1.split(",");
-          
-          var seq_no=seq();
-          seq_num=seq_no
-           var html="<div id='data"+seq_no+"'>"+place2[1]+seq_no+"/"+place2[0]+"<input type='hidden' value='"+place1+"' class='placelist'><span class='float-right' class='drag' id='drag"+seq_no+"' draggable='true' ondragstart='drag(event)'> <img src='${path}/resources/img/arrow.png' style='width:50px; height:30px;'></span><button class='float-right' onclick='fn_delete("+seq_no+")'>X</button></div>";
-           var active=$(".active TD[class='place']:first");
-           active[0].classList.add("disable");
-           active.append(html);
-           var loc=place2[2];
-           title=place2[1];
-           console.log(loc);
-           ps.addressSearch(loc,placesSearchCB);
-   }
-   
-   //장소 검색 완료시 호출되는 콜백 함수
-   function placesSearchCB (data, status, pagination)
-   {
-      
-      if(status === daum.maps.services.Status.OK)
-      {
-         //검색된 장소 위치를 기준으로 좌표 추가
-         /* var bounds = new daum.maps.LatLngBounds(); */
-         
-         for(var i=0; i<data.length; i++)
-         {
-            
-            displayMarker(data[i]);
-            /* bounds.extend(new daum.maps.LatLng(data[i].y, data[i].x)); */
-         }
-         //검색된 장소 위치를 기준으로 지도 표기
-         /* map.setBounds(bounds); */
-      }
-   }
-
-   //지도 마커 표기하는 함수
-   function displayMarker(place)
-   {
-      console.log("마커생성 : "+seq_num);
-      //위치를 지도에 표기
-      var marker = new daum.maps.Marker({
-         map:map,
-         title:seq_num,
-         position:new daum.maps.LatLng(place.y, place.x),
-         clickable: true 
-         
-      });
-      
-      
-      
-       iwRemoveable = true; // removeable 속성을 ture 로 설정하면 인포윈도우를 닫을 수 있는 x버튼이 표시됩니다
-       // 인포윈도우로 장소에 대한 설명을 표시합니다
-       var infowindow = new daum.maps.InfoWindow({
-           removable:iwRemoveable
-       }); 
-       infowindow.setContent('<div style="padding:5px; font-size:12px;">'+title+'</div>');
-      daum.maps.event.addListener(marker, 'click', function()
-      {
-         console.log($("#addr").val());
-         //마커 클릭시 장소명이 인포윈도우에 표출
-         
-         infowindow.open(map,marker);
-      });
-      markers.push(marker);
-   };
-   
-   function fn_move()
-   {
-      console.log(markers);
-      for(var i=0; i<markers.length;i++)
-         {
-            markers[i].setMap(null);
-         }
-      
-      markers=null;
-      console.log(markers);
-   }
-   
-   
-   
-   function fn_delete(num)
-   {
-      for(var i=0; i<markers.length;i++)
-      {
-         if(markers[i].getTitle()==num)
-            {
-               markers[i].setMap(null);
-            }
-      }
-      var targetdiv=document.getElementById("data"+num);
-      
-      targetdiv.parentElement.classList.remove("disable");
-      targetdiv.remove();
-      
-   };
 
    
 

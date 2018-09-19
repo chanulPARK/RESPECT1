@@ -16,6 +16,23 @@
   		insert into timetable values(#{scheduleNo}, #{placeNo}, #{day}, #{time})
   	</insert>
   	
+  	<update id="updateReportFlag" parameterType="_int">
+  		UPDATE SCHEDULE SET REPORTFLAG = 1 WHERE SCHEDULENO=#{scheduleNo}
+  	</update>
+  	
+  	<delete id="deleteScheduleReport" parameterType="_int">
+  		delete from schedule_report where scheduleno=#{scheduleNo}
+  	</delete>
+  	
+	<insert id="insertScheduleReport" parameterType="schedulereport">
+		insert into SCHEDULE_REPORT values(seq_schedule_report.nextval,#{scheduleNo},#{userId},#{title},sysdate,#{content},#{reportDay})
+	</insert>
+	
+	<select id="selectScheduleReportView" parameterType="_int" resultType="schedulereport">
+		select * from schedule_report where scheduleno=#{scheduleNo}
+	</select>
+  	
+  	
 
   		<!-- 추천추천 -->
   	
@@ -71,12 +88,14 @@
   	
   	<select id="selectScheduleList" resultType="map">
 		SELECT * FROM(SELECT S.*,P.THUMBNAIL, (select count(*) from schedule_reply b where b.scheduleno = s.scheduleNo)as REPLYNUM FROM SCHEDULE S INNER JOIN PLACE P ON(S.PLACENO=P.PLACENO) ORDER BY ROWNUM DESC)
+
   	</select>
   	
   	<select id="selectTotalCount" resultType="_int">
 		select count(*) from schedule
 	</select>
 	
+
 
 	<select id="selectScheduleFilter" parameterType="map" resultMap="ScheduleMap">
 		SELECT * FROM(SELECT S.*,P.THUMBNAIL FROM SCHEDULE S INNER JOIN PLACE P ON(S.PLACENO=P.PLACENO) ORDER BY ROWNUM DESC)
@@ -279,12 +298,33 @@
 	<delete id="deleteTimeTable" parameterType="_int" >
 		delete from timetable where scheduleno=#{scheduleNo}
 	</delete>
-	<!-- <delete id="scheduleDelete" parameterMap="_int">
+	<delete id="scheduleDelete" parameterType="_int">
 		delete from schedule where scheduleno=#{scheduleNo}
+<<<<<<< HEAD
 	</delete> -->
 
 	<update id="updateHitsCountUp" parameterType="_int">
 		UPDATE SCHEDULE SET HITSCOUNT = HITSCOUNT+1 WHERE SCHEDULENO=#{scheduleNo}
 	</update>
+=======
+	</delete>
+>>>>>>> master
 
+	<select id="selectScheduleSC" parameterType="_int" resultType='schedule'>
+		select traveltheme, partyname, title,to_char(startdate,'yyyy-mm-dd') startdate,to_char(enddate,'yyyy-mm-dd') as enddate, peoplenum, publicflag, placeno from schedule where scheduleno=#{scheduleNo}
+	</select>
+	
+	<select id="selectTimeTableSC" parameterType="_int" resultType='timetable'>
+		select * from timetable where scheduleno=#{scheduleNo}
+	</select>
+	<insert id="insertScheduleReport" parameterType="schedulereport">
+		insert into SCHEDULE_REPORT values(seq_schedule_report.nextval,#{scheduleNo},#{userId},#{title},sysdate,#{content},#{reportDay})
+	</insert>
+	<select id="selectScheduleReportView" parameterType="_int" resultType="schedulereport">
+		select reportno,scheduleno,userid,title,content,reportday, to_char(writedate, 'yyyy-mm-dd') as writedate1 from schedule_report where scheduleno=#{scheduleNo}
+	</select>
+	<delete id="deleteReport">
+		delete from schedule_report where scheduleno=#{scheduleNo}
+	</delete>
+	
 </mapper>

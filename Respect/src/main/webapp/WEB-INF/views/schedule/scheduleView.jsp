@@ -51,14 +51,18 @@
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 <script>
 
-function fn_reviewDelete()
+
+function fn_updateReport(scheduleNo)
 {
-	location.href="${path}/scheduleReviewDelete.do";
+	location.href="${path}/schedule/updateReport?scheduleNo="+scheduleNo;
 }
 
-function fn_reviewModify()
+function fn_deleteReport(scheduleNo)
 {
-	location.href="${path}/scheduleReviewModify.do";
+	if(confirm("정말 삭제하시겠습니까?"))
+	{
+		location.href="${path}/schedule/deleteReport?scheduleNo="+scheduleNo;
+	}
 }
  
  function fn_toggle(ev)
@@ -193,7 +197,7 @@ function btn_replySee(a){
 		alert(scheduleNo);
 		location.href="${path}/schedule/scheduleReport?scheduleNo="+scheduleNo;
 	}
-	function fn_like()
+	function fn_bring(scheduleNo)
 	{
 		<c:if test="${userLoggedIn == null }">
 			alert("로그인후 이용 가능합니다.");
@@ -236,6 +240,10 @@ function btn_replySee(a){
 		}
 		
 	};
+		
+		
+	
+
 </script>
 <body>
     <div class="container">
@@ -323,7 +331,12 @@ function btn_replySee(a){
                             <c:if test="${userLoggedIn != null and viewList.USERID == userLoggedIn.userId}">
 	                             <input class="btn btn-sm" type="button" value="일정 수정" onclick="fn_update(${viewList.SCHEDULENO})">
 	                             <input class="btn btn-sm" type="button" value="일정 삭제" onclick="fn_delete(${viewList.SCHEDULENO})">
+	                             <c:if test="${viewList.REPORTFLAG==0 }">
 	                           	 <input class="btn btn-sm" type="button" value="후기 등록" onclick="fn_review(${viewList.SCHEDULENO})">
+	                           	 </c:if>
+                            </c:if>
+                            <c:if test="${userLoggedIn != null and viewList.USERID != userLoggedIn.userId}">
+                            <input class="btn btn-outline-warning" type="button" value="내일정으로 만들기" onclick="fn_bring(${viewList.SCHEDULENO});">
                             </c:if>
                         </div>
                         <br>
@@ -550,71 +563,65 @@ function btn_replySee(a){
                             </div>  
                             
                             
+
                             <div class="tabe-pane fade" id="Review">
                          
                         <br>  
-                      <!-- for문 -->
-                    <button class="btn" value="1" onclick="fn_toggle(event)" style="width:200px;">1일차</button><br>
-                    <br>
-                    <div id="content1"  class="hidetext">
-                    <div class="container">
-                    <div class="justify-content-center" align='center'>
-                      <div class="col-md-8">
-                        <div>
-                                <h3>Hello, world! Title</h3>
-                                <div class="row">
-                                    <h6><i class="far fa-id-badge"></i>&nbsp;user20</h6>
-                                
-                                    <h6 class="col col-lg-8" style="margin-top:2px; float:right;" align='right'><h6><i class="far fa-calendar-alt"></i>2018-07-04</h6>  
-                                </div>
-                                <hr class="my-3">
-                                <div>
-                                    <h6>내용입니다.</h6>
-                                </div>
-                              
-                                <br>
-                                <br>
-                        </div>
-                                
-                     </div>
-                            </div>        
-                        </div>
-                    </div>
+                      <c:choose>
+                      	<c:when test="${viewList.REPORTFLAG==0 }">
+                      		<img src="${path }/resources/upload/profile/noScheduleReport.png" alt="" width="250px;"height="196px;">
+                      	</c:when>
+                      	<c:otherwise>
+                      	<c:if test="${userLoggedIn != null and viewList.USERID == userLoggedIn.userId and viewList.REPORTFLAG==1}">
+                      		<button type="button" class="btn-outline-warning btn mb-3 mr-3" onclick="fn_updateReport(${viewList.SCHEDULENO})">후기수정</button>
+                      		<button type="button" class="btn-outline-warning btn mb-3" onclick="fn_deleteReport(${viewList.SCHEDULENO})">후기삭제</button>
+                      		<br>
+                      		<c:forEach items="${reportList }" var="sr" begin='0' end='${endDay - startDay +1}' varStatus="s">
+	                    <button class="btn" value="${s.count }" onclick="fn_toggle(event)" style="width:200px;">${s.count }일차</button><br>
+	                    <br>
+	                    <div id="content${s.count }"  class="hidetext">
+	                    <div class="container">
+	                    <div class="justify-content-center" align='center'>
+	                      <div class="col-md-8">
+	                        <div>
+	                                <h3>${sr.title }</h3>
+	                                <div class="row">
+	                                    <h6><i class="far fa-id-badge"></i>&nbsp;${sr.userId}</h6>
+	                                    <h6 class="col col-lg-8" style="margin-top:2px; float:right;" align='right'><h6><i class="far fa-calendar-alt"></i>${sr.writeDate1 }</h6>  
+	                                </div>
+	                                <hr class="my-3">
+	                                <div>
+	                                    <h6>${sr.content }</h6>
+	                                </div>
+	                                
+	                                <br>
+	                                <br>
+	                        </div>
+	                                
+	                     </div>
+	                            </div>        
+	                        </div>
+	                    </div>
+                    </c:forEach>
+                      	</c:if>
+                      	
+                      	</c:otherwise>
+                      	
+                      </c:choose>
+                  
                    
-                    <button class="btn" value="2" onclick="fn_toggle(event)" style="width:200px;">2일차</button><br>
-                    <br>
-                    <div id="content2"  class="hidetext">
-                    <div class="container">
-                    <div class="justify-content-center" align='center'>
-                      <div class="col-md-8">
-                        <div>
-                                <h3>Hello, world! Title</h3>
-                                <div class="row">
-                                    <h6><i class="far fa-id-badge"></i>&nbsp;user20</h6>
-                                
-                                    <h6 class="col col-lg-8" style="margin-top:2px; float:right;" align='right'><h6><i class="far fa-calendar-alt"></i>2018-07-04</h6></h6>  
-                                </div>
-                                <hr class="my-3">
-                                <div>
-                                    <h6>내용입니다.</h6>
-                                </div>
-                              
-                                <br>
-                                <br>
-                        </div>
-                                
-                     </div>
-                            </div>        
-                        </div>
-                    </div>
-                    
+                                       
                </div>
                        </div>     
                           </div>
   
                 <br>
             </div>
-          
+
+            <div class="row justify-content-center" align='center'>
+      		
+      	</div>
+
           
          <br>
   
@@ -885,6 +892,113 @@ function btn_replySee(a){
 			
 		},1000);
 	};
+
+
+	
+	   var list=${tt};
+	   var dataList=[];
+	   
+	   var idx=0;
+		for(var i=0; i<list.length;i++)
+		{
+			console.log(list[i]);
+			var pplaceno=list[i].PLACENO;
+			var pday=list[i].DAY;
+			var ptime=list[i].TIME;
+			var ptitle=list[i].TITLE;
+			var paddress=list[i].ADDRESS;
+			var pseq_no=seq();
+		  	
+		  	var html="<div id='data"+pseq_no+"' >"+ptitle+"<input type='hidden' name='timevalue' value='"+pday+","+ptime+"'><input type='hidden' name='placevalue' value='"+pplaceno+","+ptitle+","+paddress+","+pseq_no+"' class='placelist'></div>";
+
+		    var tables=$("table[class='table-bordered timeline']");
+		    var pdata={pseq_no:pseq_no,ptitle:ptitle,paddress:paddress,pday:pday,idx:i};
+		    
+		    dataList.push(pdata);
+		  
+		    for(var k=0; k<tables.length;k++)
+	    	{
+				if(tables[k].id==pday)
+				{
+					
+					var targettd=$("table[id='"+pday+"'] td[id='"+ptime+"']");
+					
+					targettd.attr('class',"place disable");
+					targettd.append(html);
+				}
+	    	}
+		    ps.addressSearch(dataList[i].paddress,function(data,status)
+  		{
+		    	if(status === daum.maps.services.Status.OK)
+				{
+					
+					
+					for(var b=0; b<data.length; b++)
+					{
+						
+						makeMarker(data[b]);
+					} 
+					
+				}
+			}); 		
+		}
+		
+		function makeMarker(data)
+		{
+			var marker = new daum.maps.Marker({
+				map:map,
+				position:new daum.maps.LatLng(data.y, data.x),
+				clickable: true 
+			});
+			
+			
+			
+		    iwRemoveable = true;
+		    
+		    var infowindow = new daum.maps.InfoWindow({
+		        removable:iwRemoveable
+		    }); 
+		    
+			daum.maps.event.addListener(marker, 'click', function()
+			{
+				infowindow.open(map,marker);
+			});
+			
+			
+			var daymarker = {days:0,marks:marker,iw:infowindow,idx:idx++,data1:data};
+			markers.push(daymarker);
+			
+		
+			
+				for(var bb=0;bb<markers.length;bb++)
+				{
+					for(var aaa=0;aaa<dataList.length;aaa++)
+					{
+						if(markers[bb].data1.address_name==dataList[aaa].paddress)
+						{
+							markers[bb].days=dataList[aaa].pday;
+							markers[bb].marks.setTitle(dataList[aaa].pseq_no);
+							markers[bb].iw.setContent('<div style="padding:5px; font-size:12px;">'+dataList[aaa].ptitle+'</div>');
+						}
+					}
+					
+					console.log(markers);
+					if(markers[bb].days!=1)
+					{
+						
+						markers[bb].marks.setVisible(false);		
+					}
+					
+				}
+		}
+		
+		
+		
+		
+		
+		
+		
+
 
 	
 	   var list=${tt};
