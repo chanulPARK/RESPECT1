@@ -6,10 +6,10 @@
 
 <c:set value="${pageContext.request.contextPath}" var="path"/>
 
-
 <%@ include file="/WEB-INF/views/common/header.jsp" %>
-
 <head>
+<title>모임리스트</title>
+
 
 <title>번개리스트</title>
 
@@ -26,8 +26,9 @@
 
 <!-- <script src="http://code.jquery.com/jquery-latest.min.js"></script> -->
 
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
 
 <link href="${path }/resources/css/datepicker.css" rel="stylesheet" type="text/css">
 <link href="${path }/resources/css/datepicker.min.css" rel="stylesheet" type="text/css">
@@ -35,7 +36,6 @@
 <!-- Include English language -->
 <script src="${path }/resources/js/i18n/datepicker.en.js" type="text/javascript"></script>
 
-</head>
 <style>
 	div#meet-list{
 		box-shadow: rgba(0,0,0,.298039) 0 1px 4px -1px, inset 0 -1px 0 0 rgba(0,0,0,.24);
@@ -48,7 +48,7 @@
 		border-radius:4px;
 	}
 </style>
-
+</head>
 <section>
 	<div class="container">
 		<br><br>
