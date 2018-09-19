@@ -197,15 +197,23 @@ function btn_replySee(a){
 		alert(scheduleNo);
 		location.href="${path}/schedule/scheduleReport?scheduleNo="+scheduleNo;
 	}
-	function fn_bring(scheduleNo)
+	function fn_like()
 	{
+		var scheduleNo = ${viewList.SCHEDULENO};
+		var userId = '${userLoggedIn.userId}';
+		var scheduleID= '${viewList.USERID}';
+		if(userId==scheduleID)
+	      {
+	         alert("본인의 게시물은 좋아요를 누를 수 없습니다.");
+	         return;         
+	      }
+		
 		<c:if test="${userLoggedIn == null }">
 			alert("로그인후 이용 가능합니다.");
 			location.href="${path}/user/userLogin.do";
 		</c:if>
 		if (${userLoggedIn != null}){
-			var scheduleNo = ${viewList.SCHEDULENO};
-			var userId = '${userLoggedIn.userId}';
+			
 			$.ajax({
 				url:"<%=request.getContextPath()%>/schedule/goodCountUpdate",
 				type:"POST",
@@ -221,13 +229,21 @@ function btn_replySee(a){
 	
 	function fn_zzim()
 	{
+		var scheduleNo = ${viewList.SCHEDULENO};
+		var userId = '${userLoggedIn.userId}';
+		var scheduleID= '${viewList.USERID}';
+		if(userId==scheduleID)
+	      {
+	         alert("본인의 게시물은 찜할수 없습니다.");
+	         return;         
+	      }
+		
 		<c:if test="${userLoggedIn == null }">
 			alert("로그인후 이용 가능합니다.");
 			location.href="${path}/user/userLogin.do";
 		</c:if>
 		if (${userLoggedIn != null}){
-			var scheduleNo = ${viewList.SCHEDULENO};
-			var userId = '${userLoggedIn.userId}';
+			
 			$.ajax({
 				url:"<%=request.getContextPath()%>/schedule/bringCountUpdate",
 				type:"POST",
@@ -336,7 +352,7 @@ function btn_replySee(a){
 	                           	 </c:if>
                             </c:if>
                             <c:if test="${userLoggedIn != null and viewList.USERID != userLoggedIn.userId}">
-                            <input class="btn btn-outline-warning" type="button" value="내일정으로 만들기" onclick="fn_bring(${viewList.SCHEDULENO});">
+                            <input class="btn btn-outline-warning" type="button" value="내일정으로 만들기" onclick="fn_put(${viewList.SCHEDULENO});">
                             </c:if>
                         </div>
                         <br>
