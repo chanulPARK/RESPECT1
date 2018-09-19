@@ -4,7 +4,17 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <c:set var="path" value="<%=request.getContextPath() %>"/>
+
 <script>
-	alert("${msg}");
+	
+	if(${msg!=null})
+	{
+		alert("${msg}");
+	}
+	
 	location.href="${path}${loc}";
+	if(${option!=null})
+	{
+		${option}
+	}
 </script>
