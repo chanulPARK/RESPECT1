@@ -71,10 +71,10 @@ public interface ScheduleService {
 	List<ScheduleReport> selectScheduleReportView(int scheduleNo);
 
 
-	int deleteScheduleReport(int scheduleNo);
 	
-//	int deleteSchedule(int scheduleNo);
-
-	
-
+	int deleteSchedule(int scheduleNo);
+	int deleteReport(int scheduleNo);
+	Schedule selectScheduleSC(int scheduleNo);
+	List<TimeTable> selectTimeTableSC(int scheduleNo);
+	int updateReport(List<ScheduleReport> list,int scheduleNo);
 }

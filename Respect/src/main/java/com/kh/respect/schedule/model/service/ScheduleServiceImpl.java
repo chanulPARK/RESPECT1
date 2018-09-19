@@ -31,6 +31,7 @@ public class ScheduleServiceImpl implements ScheduleService {
 		
 		int result=0;
 		int scheduleNo=0;
+		
 		result=dao.insertSchedule(session,sc);
 		
 		scheduleNo=sc.getScheduleNo();
@@ -216,10 +217,6 @@ public class ScheduleServiceImpl implements ScheduleService {
 		
 	}
 	
-	@Override
-	public List<ScheduleReport> selectScheduleReportView(int scheduleNo) {
-		return dao.selectScheduleReportView(session,scheduleNo);
-	}
 	
 	
 	
@@ -227,6 +224,10 @@ public class ScheduleServiceImpl implements ScheduleService {
 //	public int deleteSchedule(int scheduleNo) {
 //		return dao.deleteSchedule(session, scheduleNo);
 //	}
+	@Override
+	public int deleteSchedule(int scheduleNo) {
+		return dao.deleteSchedule(session, scheduleNo);
+	}
 
 	
 	
@@ -278,13 +279,36 @@ public class ScheduleServiceImpl implements ScheduleService {
 			return dao.bringCountDown(session,schedule);
 		}
 
+		
+		public Schedule selectScheduleSC(int scheduleNo) {
+			return dao.selectScheduleSC(session, scheduleNo);
+		}
+
 		@Override
-		public int deleteScheduleReport(int scheduleNo) {
-			return dao.deleteScheduleReport(session,scheduleNo);
+		public List<TimeTable> selectTimeTableSC(int scheduleNo) {
+			return dao.selectTimeTableSC(session,scheduleNo);
 		}
 	
-	
-	
+		@Override
+		public List<ScheduleReport> selectScheduleReportView(int scheduleNo) {
+			return dao.selectScheduleReportView(session,scheduleNo);
+		}
+
+		@Override
+		public int updateReport(List<ScheduleReport> list, int scheduleNo) {
+			int result=0;
+			result=dao.deleteReport(session,scheduleNo);
+			for(ScheduleReport sr: list)
+			{ 
+				result=dao.insertScheduleReport(session,sr);
+			}
+			return result; 
+		}
+
+		@Override
+		public int deleteReport(int scheduleNo) {
+			return dao.deleteReport(session, scheduleNo);
+		}
 
 	
 }

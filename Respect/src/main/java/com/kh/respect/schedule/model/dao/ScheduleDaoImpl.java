@@ -30,7 +30,7 @@ public class ScheduleDaoImpl implements ScheduleDao {
 	}
 
 
-	
+
 	//추천수정수정
 	
 		@Override
@@ -162,27 +162,18 @@ public class ScheduleDaoImpl implements ScheduleDao {
 		return session.delete("schedule.deleteTimeTable",scheduleNo);
 	}
 	
-	@Override
-	public List<ScheduleReport> selectScheduleReportView(SqlSessionTemplate session,int scheduleNo) {
-		return session.selectList("schedule.selectScheduleReportView",scheduleNo);
-	}
-
-//	@Override
-//	public int deleteSchedule(SqlSessionTemplate session, int scheduleNo) {
-//		
-//		return session.delete("schedule.scheduleDelete",scheduleNo);
-//	}
-
-
-	
-
-	
 
 	@Override
-	public int insertScheduleReport(SqlSessionTemplate session, ScheduleReport sr) {
+	public int deleteSchedule(SqlSessionTemplate session, int scheduleNo) {
 		
-		return session.insert("schedule.insertScheduleReport",sr);
+		return session.delete("schedule.scheduleDelete",scheduleNo);
 	}
+
+
+	
+
+	
+
 
 	//댓글
 	//스케쥴댓글
@@ -253,8 +244,32 @@ public class ScheduleDaoImpl implements ScheduleDao {
 	      // TODO Auto-generated method stub
 	      return session.selectList("schedule.scheduleAttList");
 	   }
+
+	@Override
+	public Schedule selectScheduleSC(SqlSessionTemplate session, int scheduleNo) {
+		return session.selectOne("schedule.selectScheduleSC",scheduleNo);
+	}
+
+	@Override
+	public List<TimeTable> selectTimeTableSC(SqlSessionTemplate session, int scheduleNo) {
+		return session.selectList("schedule.selectTimeTableSC",scheduleNo);
+	}
 	
-	
+	@Override
+	public int insertScheduleReport(SqlSessionTemplate session, ScheduleReport sr) {
+		
+		return session.insert("schedule.insertScheduleReport",sr);
+	}
+
+	@Override
+	public List<ScheduleReport> selectScheduleReportView(SqlSessionTemplate session,int scheduleNo) {
+		return session.selectList("schedule.selectScheduleReportView",scheduleNo);
+	}
+
+	@Override
+	public int deleteReport(SqlSessionTemplate session, int scheduleNo) {
+		return session.delete("schedule.deleteReport",scheduleNo);
+	}
 
 	
 	

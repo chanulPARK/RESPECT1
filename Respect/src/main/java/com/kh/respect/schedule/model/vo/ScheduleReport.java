@@ -10,6 +10,7 @@ public class ScheduleReport {
 	private Date writeDate;
 	private String content;
 	private int reportDay;
+	private String writeDate1;
 	
 	public ScheduleReport() {}
 
@@ -79,6 +80,14 @@ public class ScheduleReport {
 
 	public void setReportDay(int reportDay) {
 		this.reportDay = reportDay;
+	}
+
+	public String getWriteDate1() {
+		return writeDate1;
+	}
+
+	public void setWriteDate1(String writeDate1) {
+		this.writeDate1 = writeDate1;
 	}
 
 	@Override
