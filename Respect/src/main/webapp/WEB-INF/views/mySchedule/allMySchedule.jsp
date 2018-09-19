@@ -192,7 +192,7 @@
             	
             	<c:if test="${fn:length(myScheduleList)==1}">
             		<c:forEach items="${myScheduleList }" var="msl">
-            			<a class="portfolio-link" href="${path }/schedule/updateSchedule?scheduleNo=${msl.SCHEDULENO }" style="text-decoration:none !important">
+            			<a class="portfolio-link" href="${path }/schedule/scheduleView?scheduleNo=${msl.SCHEDULENO }&userId=${userLoggedIn.userId}" style="text-decoration:none !important">
 			              <div class="portfolio-hover mt-3 ">
 			                <div class="portfolio-hover-content">
 			                  
@@ -226,7 +226,7 @@
             	
             	<c:if test="${fn:length(myScheduleList)==2}">
             		<c:forEach items="${myScheduleList }" var="msl">
-            			<a class="portfolio-link" href="${path }/schedule/updateSchedule?scheduleNo=${msl.SCHEDULENO }" style="text-decoration:none !important">
+            			<a class="portfolio-link" href="${path }/schedule/scheduleView?scheduleNo=${msl.SCHEDULENO }&userId=${userLoggedIn.userId}" style="text-decoration:none !important">
 			              <div class="portfolio-hover mt-3 ">
 			                <div class="portfolio-hover-content">
 			                  
@@ -309,7 +309,7 @@
             	
             	<c:if test="${fn:length(putScheduleList)==1}">
             		<c:forEach items="${putScheduleList }" var="psl">
-            			<a class="portfolio-link" href="#portfolioModal1" style="text-decoration:none !important">
+            			<a class="portfolio-link" href="${path }/schedule/scheduleView?scheduleNo=${psl.SCHEDULENO }&userId=${userLoggedIn.userId}" style="text-decoration:none !important">
 			              <div class="portfolio-hover mt-3 ">
 			                <div class="portfolio-hover-content">
 			                  
@@ -342,7 +342,7 @@
             	
             	<c:if test="${fn:length(putScheduleList)==2}">
             		<c:forEach items="${putScheduleList }" var="psl">
-            			<a class="portfolio-link" href="#portfolioModal1" style="text-decoration:none !important">
+            			<a class="portfolio-link" href="${path }/schedule/scheduleView?scheduleNo=${psl.SCHEDULENO }&userId=${userLoggedIn.userId}" style="text-decoration:none !important">
 			              <div class="portfolio-hover mt-3 ">
 			                <div class="portfolio-hover-content">
 			                  
@@ -423,7 +423,7 @@
             	
             	<c:if test="${fn:length(putPlaceList)==1}">
             		<c:forEach items="${putPlaceList }" var="ppl">
-            			<a class="portfolio-link" href="#portfolioModal2" style="text-decoration:none !important">
+            			<a class="portfolio-link" href="${path }/spot/spotView.do?spotno=${ppl.PLACENO}" style="text-decoration:none !important">
 				              <div class="portfolio-hover mt-3">
 				                <div class="portfolio-hover-content">
 				                  
@@ -455,7 +455,7 @@
             	<c:if test="${fn:length(putPlaceList)==2}">
             		<c:forEach items="${putPlaceList }" var="ppl">
             			
-            			<a class="portfolio-link" href="#portfolioModal2" style="text-decoration:none !important">
+            			<a class="portfolio-link" href="${path }/spot/spotView.do?spotno=${ppl.PLACENO}" style="text-decoration:none !important">
 				              <div class="portfolio-hover mt-3">
 				                <div class="portfolio-hover-content">
 				                  
@@ -534,7 +534,7 @@
             	
             	<c:if test="${fn:length(myScheduleReportList)==1}">
             		<c:forEach items="${myScheduleReportList }" var="msrl">
-            			<a class="portfolio-link" href="#portfolioModal2" style="text-decoration:none !important">
+            			<a class="portfolio-link" href="${path }/schedule/scheduleView?scheduleNo=${msrl.SCHEDULENO }&userId=${userLoggedIn.userId}" style="text-decoration:none !important">
 			              <div class="portfolio-hover mt-3">
 			                <div class="portfolio-hover-content">
 			                  
@@ -570,7 +570,7 @@
             	
             	<c:if test="${fn:length(myScheduleReportList)==2}">
             		<c:forEach items="${myScheduleReportList }" var="msrl">
-            			<a class="portfolio-link" href="#portfolioModal2" style="text-decoration:none !important">
+            			<a class="portfolio-link" href="${path }/schedule/scheduleView?scheduleNo=${msrl.SCHEDULENO }&userId=${userLoggedIn.userId}" style="text-decoration:none !important">
 			              <div class="portfolio-hover mt-3">
 			                <div class="portfolio-hover-content">
 			                  
@@ -615,5 +615,7 @@
         </div>
       </div>
     </div>
+    <div class="mb-5"></div>
+
 
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>

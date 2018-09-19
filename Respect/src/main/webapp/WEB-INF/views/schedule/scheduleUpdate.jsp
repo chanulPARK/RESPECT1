@@ -62,9 +62,7 @@
                    <div class="pt-4 ml-2 col col-lg-8" style="margin-top:2px; float:right;" align='right'>
                     	<button class='btn' onclick="fn_update()">수정하기</button>
                     </div>
-                     <div class="pt-4 ml-2 col col-lg-8" style="margin-top:2px; float:right;" align='right'>
-                    	<button class='btn' onclick="fn_scheduleDelete(${scheduleNo})">삭제</button>
-                    </div>
+                     
             </div> 
             
             <div class="row">
@@ -1018,13 +1016,7 @@ $("#start_date").on("click",function()
 		$("#timetableForm input[name='partyName2']").val(partyName);
 		$("#timetableForm").submit();
 	} 
-	function fn_scheduleDelete(scheduleNo)
-	{
-		if(confirm("정말 삭제하시겠습니까?"))
-		{
-			location.href="${path}/schedule/deleteSchedule?scheduleNo="+scheduleNo;
-		}
-	}
+	
 	var custommarker = new daum.maps.Marker({
         map:map,
         clickable: true 

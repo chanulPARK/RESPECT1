@@ -16,6 +16,19 @@
   		insert into timetable values(#{scheduleNo}, #{placeNo}, #{day}, #{time})
   	</insert>
   	
+  	<update id="updateReportFlag" parameterType="_int">
+  		UPDATE SCHEDULE SET REPORTFLAG = 1 WHERE SCHEDULENO=#{scheduleNo}
+  	</update>
+  	<update id="updateReportFlag2" parameterType="_int">
+  		UPDATE SCHEDULE SET REPORTFLAG = 0 WHERE SCHEDULENO=#{scheduleNo}
+  	</update>
+  	<delete id="deleteScheduleReport" parameterType="_int">
+  		delete from schedule_report where scheduleno=#{scheduleNo}
+  	</delete>
+	<insert id="insertScheduleReport" parameterType="schedulereport">
+		insert into SCHEDULE_REPORT values(seq_schedule_report.nextval,#{scheduleNo},#{userId},#{title},sysdate,#{content},#{reportDay})
+	</insert>
+
 
   		<!-- 추천추천 -->
   	
@@ -70,13 +83,15 @@
   	</select>
   	
   	<select id="selectScheduleList" resultType="map">
-		SELECT * FROM(SELECT S.*,P.THUMBNAIL FROM SCHEDULE S INNER JOIN PLACE P ON(S.PLACENO=P.PLACENO) ORDER BY ROWNUM DESC)
+		SELECT * FROM(SELECT S.*,P.THUMBNAIL, (select count(*) from schedule_reply b where b.scheduleno = s.scheduleNo)as REPLYNUM FROM SCHEDULE S INNER JOIN PLACE P ON(S.PLACENO=P.PLACENO) ORDER BY ROWNUM DESC)
+
   	</select>
   	
   	<select id="selectTotalCount" resultType="_int">
 		select count(*) from schedule
 	</select>
 	
+
 
 	<select id="selectScheduleFilter" parameterType="map" resultMap="ScheduleMap">
 		SELECT * FROM(SELECT S.*,P.THUMBNAIL FROM SCHEDULE S INNER JOIN PLACE P ON(S.PLACENO=P.PLACENO) ORDER BY ROWNUM DESC)
@@ -146,26 +161,26 @@
 			</choose>
 		</if>
 		<!-- 1,2 -->
-		<if test="sort!=null and tripType!=null and partyName==null">
+		<if test='sort!=null and tripType!=null and partyName eq "null"'>
 			<choose>
 			<!-- 검색범위 최신기준 경우의 수-->
-				<when test="sort == 'on' and tripType == 0">
+				<when test="sort eq 'on' and tripType eq 0">
 					where partyname = #{partyName} and reportflag=0 order by writedate desc
 				</when>
-				<when test="sort == 'on' and tripType == 1">
+				<when test="sort eq 'on' and tripType eq 1">
 					where partyname = #{partyName} and reportflag=1 order by writedate desc
 				</when>
-				<when test="sort == 'on' and tripType == 2">
+				<when test="sort eq 'on' and tripType eq 2">
 					where partyname = #{partyName} order by writedate desc
 				</when>
 			<!-- 검색범위 인기기준 경우의 수-->
-				<when test="sort eq 'off' and tripType == 0">
+				<when test="sort eq 'off' and tripType eq 0">
 					where partyname = #{partyName} and reportflag=0 order by hitscount desc
 				</when>
-				<when test="sort eq 'off' and tripType == 1">
+				<when test="sort eq 'off' and tripType eq 1">
 					where partyname = #{partyName} and reportflag=1 order by hitscount desc
 				</when>
-				<when test="sort eq 'off' and tripType == 2">
+				<when test="sort eq 'off' and tripType eq 2">
 					where partyname = #{partyName} order by hitscount desc
 				</when>
 			</choose>
@@ -174,15 +189,16 @@
 		<!-- 2,3 -->
 		<if test="sort==null and tripType!=null and partyName!=null">
 			<choose>
-				<when test="tripType == 0">
+				<when test="tripType  eq '0'">
 					where partyname = #{partyName} and reportflag=0
 				</when>
-				<when test="tripType == 1">
+				<when test="tripType eq '1'">
 					where partyname = #{partyName} and reportflag=1
 				</when>
-				<when test="tripType == 2">
+				<when test="tripType eq '2'">
 					where partyname = #{partyName}
 				</when>
+				<when test="tripType eq '2' and partyName eq '전체'"></when> 
 			</choose>
 		</if>
 		<!-- 1,3 -->
@@ -279,9 +295,29 @@
 	<delete id="deleteTimeTable" parameterType="_int" >
 		delete from timetable where scheduleno=#{scheduleNo}
 	</delete>
-	<!-- <delete id="scheduleDelete" parameterMap="_int">
+	<delete id="scheduleDelete" parameterType="_int">
 		delete from schedule where scheduleno=#{scheduleNo}
-	</delete> -->
+	</delete> 
 
 
+	<update id="updateHitsCountUp" parameterType="_int">
+		UPDATE SCHEDULE SET HITSCOUNT = HITSCOUNT+1 WHERE SCHEDULENO=#{scheduleNo}
+	</update>
+
+
+	<select id="selectScheduleSC" parameterType="_int" resultType='schedule'>
+		select traveltheme, partyname, title,to_char(startdate,'yyyy-mm-dd') startdate,to_char(enddate,'yyyy-mm-dd') as enddate, peoplenum, publicflag, placeno from schedule where scheduleno=#{scheduleNo}
+	</select>
+	
+	<select id="selectTimeTableSC" parameterType="_int" resultType='timetable'>
+		select * from timetable where scheduleno=#{scheduleNo}
+	</select>
+	
+	<select id="selectScheduleReportView" parameterType="_int" resultType="schedulereport">
+		select reportno,scheduleno,userid,title,content,reportday, to_char(writedate, 'yyyy-mm-dd') as writedate1 from schedule_report where scheduleno=#{scheduleNo}
+	</select>
+	<delete id="deleteReport">
+		delete from schedule_report where scheduleno=#{scheduleNo}
+	</delete>
+	
 </mapper>
