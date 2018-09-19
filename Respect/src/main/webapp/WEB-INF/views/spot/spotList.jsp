@@ -203,7 +203,9 @@
             </div>
             ${pageBar }<br/>
         </div>
-        <button class="btn btn-warning btn-block" type="button" onclick="fn_spotEnrollgo()">장소 등록</button>
+        <c:if test="${userLoggedIn.userLevel==1}">
+        	<button class="btn btn-warning btn-block" type="button" onclick="fn_spotEnrollgo()">장소 등록</button>
+        </c:if>
     </section>
 </main>
 	
