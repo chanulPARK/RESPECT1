@@ -562,6 +562,7 @@ $("#start_date").on("click",function()
 	
 	function drag(ev) {
 	    clicktarget=ev.target.parentElement.parentElement.parentElement;
+	     console.log(clicktarget);
 	    clicktarget.classList.remove("disable");
 	    ev.dataTransfer.setData("text", ev.target.parentElement.parentElement.id);
 	}
