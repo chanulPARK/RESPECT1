@@ -6,9 +6,12 @@
 <c:set value="${pageContext.request.contextPath}" var="path"/>
 <script src="${path}/resources/js/Simple-Slider.js"></script>
 <link rel="stylesheet" href="${path}/resources/css/styles2.css">
+<!-- <!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 
 <script>
 $(function(){
+	
 	
 	$('#featured .carousel-item:first').siblings().removeClass('active');
 	$("#featured").carousel({interval: 3000, pause: false});
@@ -220,9 +223,9 @@ $(function(){
                     <c:forEach items="${tlist}" var="mt" begin="0" end="4">
                         <li>
                             <div class="image_title">
-                                <a href="#">${mt.title}</a>
+                                <a href="${path}/spot/spotView.do?spotno=${mt.placeno}">${mt.title}</a>
                             </div> 
-                            <a href="#">
+                            <a href="${path}/spot/spotView.do?spotno=${mt.placeno}">
                                 <img src="${path}/resources/upload/spot/thumbnail/${mt.thumbnail}"/>
                             </a>
                         </li>
@@ -339,16 +342,20 @@ $(function(){
 
             <div class="row justify-content-center">
                 <div class="col-lg-6 col-md-12 col-sm-12 mr-3" style="border-top:1px solid orange;">
-                    <h3 class="my-3"><a href="#">후기글</a></h3>
+                    <c:forEach items="${clist}" var="mc" begin="0" end="0">
+                    <h3 class="my-3"><a href="${path}/schedule/scheduleView?scheduleNo=${mc.SCHEDULENO}&userId=${userLoggedIn.userId}">후기글</a></h3>
                     <div class="row align-items-center text-center">
+                    
                         <div class="col-lg-6 col-md-12 col-sm-6">
-                            <a href="#"><img class="img-fluid" src="${path}/resources/img/main/여행친구4.jpg" alt=""></a>
+                            <a href="${path}/respect/schedule/scheduleView?scheduleNo=${mc.SCHEDULENO}&userId=${userLoggedIn.userId}"><img class="img-fluid" src="${path}/resources/upload/spot/thumbnail/${mc.THUMBNAIL}" alt=""></a>
                         </div>
                         <div class="col">
-                            <p class="mb-2">2018-08-29</p>
-                            <h4><a href="#">공항 탐방썰 푼다 주작 아님 ㄹㅇ루다가</a></h4>
+                            <p class="mb-2"><fmt:formatDate value="${mc.WRITEDATE}" type="date" pattern="yyyy-MM-dd"/></p>
+                            <h4><a href="${path}/schedule/scheduleView?scheduleNo=${mc.SCHEDULENO}&userId=${userLoggedIn.userId}">${mc.TITLE}</a></h4>
                         </div>
+                    
                     </div>
+                    </c:forEach>
                 </div>
                 <div class="col-lg-4 col-md-12 col-sm-12" style="border-top:1px solid orange;">
                     <h3 class="col-12 my-3"><a href="${path}/notice/notice-board.do">공지사항</a></h3>

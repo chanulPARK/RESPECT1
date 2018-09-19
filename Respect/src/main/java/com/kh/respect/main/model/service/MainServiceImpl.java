@@ -43,6 +43,12 @@ public class MainServiceImpl implements MainService {
 		// TODO Auto-generated method stub
 		return dao.selectMnpList(session);
 	}
+
+	@Override
+	public List<Map<String, String>> selectMcpList() {
+		// TODO Auto-generated method stub
+		return dao.selectMcpList(session);
+	}
 	
 	
 	
