@@ -12,7 +12,7 @@ import com.kh.respect.schedule.model.vo.TimeTable;
 public interface ScheduleService {
 
 	int insertSchedule(Schedule sc, List<TimeTable> list);
-
+	int updateReportFlag(int scheduleNo);
 
 	//좋아요증가부터
 
