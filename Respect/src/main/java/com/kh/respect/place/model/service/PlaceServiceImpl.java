@@ -216,5 +216,10 @@ public class PlaceServiceImpl implements PlaceService {
 		return dao.selectSearchCount(sqlSession, keyword);
 	}
 
+	@Override
+	public List<String> searchKeyword(String keyword) {
+		return dao.searchKeyword(sqlSession,keyword);
+	}
+
 	
 }

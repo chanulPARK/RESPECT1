@@ -8,6 +8,7 @@ import com.kh.respect.place.model.vo.Place;
 import com.kh.respect.place.model.vo.PlaceGood;
 
 public interface PlaceDao {
+	List<String> searchKeyword(SqlSessionTemplate sqlSession,String keyword);
 	List<Place> selectSpotList(SqlSessionTemplate sqlSession, int cPage, int numPerPage);
 	List<Place> selectUserSpotList(SqlSessionTemplate sqlSession, String userId, int cPage, int numPerPage);
 	List<Place> selectSearchList(SqlSessionTemplate sqlSession,int cPage, int numPerPage,String keyword);
