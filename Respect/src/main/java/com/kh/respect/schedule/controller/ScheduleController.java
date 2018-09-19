@@ -209,7 +209,6 @@ public class ScheduleController {
 	@RequestMapping("/schedule/scheduleFilter")
 	public ModelAndView ScheduleListFilter(@RequestParam(value="cPage",required=false,defaultValue="1") int cPage, String tripType, String tripPartner, String sort)
 	{
-		
 		ModelAndView mv=new ModelAndView();
 		System.out.println("스케줄 컨트롤러 필터 sort:"+sort);
 		System.out.println("스케줄 컨트롤러 필터 tripType:"+tripType);
