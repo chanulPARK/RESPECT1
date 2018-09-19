@@ -102,6 +102,19 @@ public class NoticeServiceImpl implements NoticeService {
 		// TODO Auto-generated method stub
 		return dao.deleteNotice(session,noticeNo);
 	}
+
+
+
+
+	@Override
+	public List<Map<String, String>> searchList(int cPage, int numPerPage, String searchText) {
+		// TODO Auto-generated method stub
+		return dao.searchList(session, cPage, numPerPage, searchText);
+	}
+
+
+
+
 	
 	
 	

@@ -16,6 +16,8 @@ public interface MainDao {
 
 	List<Map<String, String>> selectMmpList(SqlSession session);
 
+	List<Map<String, String>> selectMnpList(SqlSession session);
+
 
 	
 

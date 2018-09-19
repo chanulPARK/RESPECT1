@@ -38,8 +38,8 @@
 	</insert>
 	
 	<insert id="insertMyPlace" parameterType="place">
-		insert into place(PLACENO,USERID,TITLE,ADDRESS,CONTENT)
-		VALUES(SEQ_PLACE.NEXTVAL,#{userid}, #{title}, #{address},#{content})
+		insert into place(PLACENO,MAJORCATEGORY,USERID,TITLE,ADDRESS,CONTENT)
+		VALUES(SEQ_PLACE.NEXTVAL,'사용자등록',#{userid}, #{title}, #{address},#{content})
 	</insert>
 	
 	<update id="updatePlace" parameterType="place">

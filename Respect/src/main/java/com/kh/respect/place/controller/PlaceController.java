@@ -45,7 +45,7 @@ public class PlaceController {
 	
 	
 	@RequestMapping("/spot/mySpotAdd.do")
-	public ModelAndView mySpotAdd(HttpSession session,String myTitle,String myAddr, String myContent)
+	public void mySpotAdd(HttpSession session,String myTitle,String myAddr, String myContent,HttpServletResponse response) throws Exception
 	{
 		User user=(User)session.getAttribute("userLoggedIn");
 	    String userId=user.getUserId();
@@ -65,23 +65,24 @@ public class PlaceController {
 		int result = service.insertMySpot(place);
  
 		
-		String msg = "";
-		String loc = "";
 		
-		if(result>0) {
-			msg = "등록 성공";
-			loc = "/schedule/scheduleWrite";
+		
+		List<Place> list=service.selectUserSpotList(userId,1,5);
+		
+		
+		String html="<a href='#'>관광지</a>|<a href='#'>숙소</a>|<a href='#'>음식점</a><hr>";
+		for(Place p:list)
+		{
+			html+="<div class=' col-md-13 mt-3 justify-content-center' >";
+			html+="<br><p>"+p.getTitle()+"</p>";
+			html+="<button class='btn mb-2 mr-1' value='"+p.toString()+"' onclick='fn_addUPlace(event)'>일정등록</button></div>";
+			html+="<button class='btn mb-2' value='"+p.toString()+"' onclick='fn_deleteUserPlace(event)'>장소삭제</button></div><hr>";
 		}
-		else {
-			msg = "등록 실패";
-			loc = "/schedule/scheduleWrite";
-		}
+		html+="<br><nav aria-label='Page navigation example'>"+Page.getPageBarSC(1, 5, service.selectTotalUserCount(userId), 2)+"</nav>";		
 		
-		mv.addObject("msg", msg);
-		mv.addObject("loc", loc);
-		mv.setViewName("common/msg");
-		
-		return mv;
+		response.getWriter().println(html);		
+				
+	
 	}
 	
 	@RequestMapping("/spot/spotList.do")

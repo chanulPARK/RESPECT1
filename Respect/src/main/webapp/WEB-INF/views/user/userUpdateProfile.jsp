@@ -20,10 +20,7 @@
               location.href="${path}/user/userUpdateProfile.do";
             });
           
-          
-          $('#message').on('click',function(){
-        	 window.open('${path}/message/receiveMessageList.do?userId=${userLoggedIn.userId}','message','top=50px, left=100px, height=600px, width=800px, resizable=no');
-          });  
+         
           
           $('#deleteMember').on('click',function(){
             location.href="${path}/user/userDelete.do";
@@ -73,20 +70,15 @@
         <br>
         
         <div class="btn-group m-2" style="display: inline-block;">
-            <button id="updatePage" type="button" class="btn btn-outline-secondary">정보 수정</button>
-            <button id="updatePw" type="button" class="btn btn-outline-secondary">비밀번호 변경</button>
-            <button id="updateProfile" type="button" class="btn btn-outline-secondary">프로필사진 변경</button>
-            <c:if test="${userLoggedIn.noReadMessage>0}">
-            	<button id="message" type="button" class="btn btn-outline-secondary">쪽지함<img class="align-top" src="${path }/resources/upload/profile/ic_new.gif" alt="새로운쪽지"></button>
-            </c:if>
-            <c:if test="${userLoggedIn.noReadMessage==0}">
-            	<button id="message" type="button" class="btn btn-outline-secondary">쪽지함</button>
-            </c:if>
-            <button id="deleteMember" type="button" class="btn btn-outline-secondary">회원 탈퇴</button>
+            <button id="updatePage" type="button" class="btn btn-outline-warning">정보 수정</button>
+            <button id="updatePw" type="button" class="btn btn-outline-warning">비밀번호 변경</button>
+            <button id="updateProfile" type="button" class="btn btn-outline-warning">프로필사진 변경</button>
+            
+            <button id="deleteMember" type="button" class="btn btn-outline-warning">회원 탈퇴</button>
 		</div>
 		<div class="p-3 pb-3" >
 			<div class="container col-sm-7" align="center">
-				<h1 class="mt-3"> 프로필사진 변경 <button id="userProfileDelete" type="button" class="btn" style="background: rgb(200, 152, 152);">사진 삭제</button></h1>
+				<h1 class="mt-3"> 프로필사진 변경 <button id="userProfileDelete" type="button" class="btn" style="background: #f19221;">사진 삭제</button></h1>
 		            <hr>
 		            <div class="col-sm-10" >
 			            <c:if test="${userLoggedIn.picture!=null}">
@@ -101,7 +93,7 @@
 			            			<input type="hidden" name="userId" value="${userLoggedIn.userId }">
 			            			<input type="file" class="form-control-file border" name="upFile" id="imgInp">
 			            			
-	           						<button id="updatePw" type="submit" class="btn mt-3" style="background: rgb(200, 152, 152);" onclick="return check()">변경사진 적용</button>
+	           						<button id="updatePw" type="submit" class="btn mt-3" style="background: #f19221;" onclick="return check()">변경사진 적용</button>
 			            		</form>
 			            	</div>
 			            </div>

@@ -27,7 +27,7 @@
              <p class="mt-3">제주도의 공지사항을 알려드립니다.</p>
             </div>
         </div>
-
+	
         <div class="table">
             <table class="table">
                 <tbody>
@@ -75,16 +75,31 @@
                 </tbody>
             </table>
         </div>
-
-        <div class="row text-center mt-5">
-            <div class="col text-right" >
-                <a class="btn btn-warning" href="#">수정</a>
-            </div>
-            <div class="col text-left">
+		
+		
+        <div class="row text-center my-5">
+        <c:if test="${userLoggedIn.userId=='admin'}">
+            <!-- <div class="col text-right" >
+                <a class="btn btn-warning" href="#" onClick='fn_update()'>수정</a>
+            </div> -->
+            <div class="col">
                 <a class="btn btn-warning" href="${path}/notice/notice-del.do?noticeNo=${nv.noticeNo}">삭제</a>
             </div>
+            </c:if>
         </div>
+        
 		</c:forEach>
+		
     </div>
+<!-- <script>
+
+function fn_update(){
+	
+	var form = document.getElementById("noticeView");
+	form.action = "<c:url value='${path}/notice/noticeUpdate.do?noticeNo=${nv.noticeNo}'/>";
+	form.submit();
+}
+
+</script> -->
 
 <%@ include file="/WEB-INF/views/common/footer.jsp"%>

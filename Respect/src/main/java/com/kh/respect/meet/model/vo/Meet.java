@@ -11,6 +11,7 @@ public class Meet {
 	private int age;
 	private String area;
 	private String title;
+	private String thumbnail;
 	private String content;
 	private String meetDate;
 	private String meetDay;
@@ -21,10 +22,12 @@ public class Meet {
 	private Date writeDate;
 	
 	public Meet() {}
+	
+	
 
 	public Meet(int meetNo, String userId, String nickName, String gender, int age, String area, String title,
-			String content, String meetDate, String meetDay, String meetTime, String address, int hitsCount,
-			int replyCount, Date writeDate) {
+			String thumbnail, String content, String meetDate, String meetDay, String meetTime, String address,
+			int hitsCount, int replyCount, Date writeDate) {
 		super();
 		this.meetNo = meetNo;
 		this.userId = userId;
@@ -33,6 +36,7 @@ public class Meet {
 		this.age = age;
 		this.area = area;
 		this.title = title;
+		this.thumbnail = thumbnail;
 		this.content = content;
 		this.meetDate = meetDate;
 		this.meetDay = meetDay;
@@ -42,6 +46,8 @@ public class Meet {
 		this.replyCount = replyCount;
 		this.writeDate = writeDate;
 	}
+
+
 
 	public int getMeetNo() {
 		return meetNo;
@@ -97,6 +103,14 @@ public class Meet {
 
 	public void setTitle(String title) {
 		this.title = title;
+	}
+
+	public String getThumbnail() {
+		return thumbnail;
+	}
+
+	public void setThumbnail(String thumbnail) {
+		this.thumbnail = thumbnail;
 	}
 
 	public String getContent() {
@@ -166,10 +180,13 @@ public class Meet {
 	@Override
 	public String toString() {
 		return "Meet [meetNo=" + meetNo + ", userId=" + userId + ", nickName=" + nickName + ", gender=" + gender
-				+ ", age=" + age + ", area=" + area + ", title=" + title + ", content=" + content + ", meetDate="
-				+ meetDate + ", meetDay=" + meetDay + ", meetTime=" + meetTime + ", address=" + address + ", hitsCount="
-				+ hitsCount + ", replyCount=" + replyCount + ", writeDate=" + writeDate + "]";
+				+ ", age=" + age + ", area=" + area + ", title=" + title + ", thumbnail=" + thumbnail + ", content="
+				+ content + ", meetDate=" + meetDate + ", meetDay=" + meetDay + ", meetTime=" + meetTime + ", address="
+				+ address + ", hitsCount=" + hitsCount + ", replyCount=" + replyCount + ", writeDate=" + writeDate
+				+ "]";
 	}
+
+	
 
 	
 	

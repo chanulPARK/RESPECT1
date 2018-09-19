@@ -327,7 +327,7 @@ $(function(){
                 </div>
             </div>
 
-            <table class="table table-bordered text-center mt-5">
+            <table class="table table-bordered text-center my-5">
                 <thead>
                     <tr style="background-color: #f0f0f0;">
                         <th>지역</th>
@@ -614,7 +614,7 @@ $(function(){
                 </div>
             </div>
 
-            <table class="table table-bordered text-center mt-5">
+            <table class="table table-bordered text-center my-5">
                 <thead>
                     <tr style="background-color: #f0f0f0;">
                         <th>업체명</th>
@@ -1063,7 +1063,7 @@ $(function(){
 
                 <div class="row mt-3">
                     <div class="col">
-                        <img class="img-fluid" src="image/tourInfoTraffic_img03.png" alt="">
+                        <img class="img-fluid" src="${path}/resources/img/main/tourInfoTraffic_img03.png" alt="">
                     </div>
                 </div>
 

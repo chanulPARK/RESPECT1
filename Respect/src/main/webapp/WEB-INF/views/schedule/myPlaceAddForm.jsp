@@ -15,22 +15,44 @@
   <title>내 장소 추가</title>
  </head>
  <body>
-	<form action="${path}/spot/mySpotAdd.do" method="get">
+	
            <div class="container">
 	           <div class="form-group">
 		           <label for="recipient-name" class="form-control-label">제목</label>
-		           <input type="text" name="myTitle" class="form-control" id="recipient-name">
+		           <input type="text" name="myTitle" class="form-control" id="recipient-name" required>
 		       </div>
 	           <div class="form-group">
 					<label for="recipient-name" class="form-control-label">주소</label>
 					<input type="text" name="myAddr" class="form-control" id="recipient-name" value="${detailAddr }" readonly>
 			   </div>
 			   <div class="form-group"><label for="message-text" class="form-control-label">상세설명</label>
-					<textarea name="myContent" class="form-control" id="message-text" style="resize: none;"></textarea></div>
+					<textarea name="myContent" class="form-control" id="message-text" style="resize: none;" required></textarea></div>
 			   <div>
-					<button type="submit" class="btn btn-warning">등록</button>
+					<button type="button" class="btn btn-warning" onclick="fn_submit()">등록</button>
 			   </div>
 		    </div>
-    </form>
+    
   </body>
+  <script>
+
+  	function fn_submit()
+  	{
+  		var title=$("input[name='myTitle']").val();
+  		var addr=$("input[name='myAddr']").val();
+  		var content=$("textarea[name='myContent']").val();
+  		
+  		$.ajax({
+  			url:"${path}/spot/mySpotAdd.do",
+  			type:"POST",
+  			data:{myTitle:title,myAddr:addr,myContent:content},
+  			success:function(data)
+			{	
+  				opener.document.getElementById("userList").innerHTML=data;
+  				
+  				location.href="${path}/schedule/addPlace?msg='장소등록 성공'&option=window.close();";
+			}
+  		});
+  	}
+  </script>
+
 </html>

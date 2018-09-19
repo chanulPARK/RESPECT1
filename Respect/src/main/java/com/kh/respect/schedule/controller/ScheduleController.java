@@ -33,6 +33,7 @@ import com.kh.respect.schedule.model.service.ScheduleService;
 import com.kh.respect.schedule.model.vo.Schedule;
 import com.kh.respect.schedule.model.vo.ScheduleReply;
 import com.kh.respect.schedule.model.vo.ScheduleReplyAttachment;
+import com.kh.respect.schedule.model.vo.ScheduleReport;
 import com.kh.respect.schedule.model.vo.TimeTable;
 import com.kh.respect.user.model.vo.User;
 
@@ -47,20 +48,81 @@ public class ScheduleController {
 	private MyScheduleService myservice;
 	
 	
+
+	
+	
 	@RequestMapping("/schedule/scheduleReportInsert")
-	public ModelAndView scheduleReview(int scheduleNo,String [] reportTitle, String [] reportContent)
+	public ModelAndView scheduleReview(HttpSession session,int scheduleNo,String [] reportTitle, String [] reportContent,int [] day)
 	{
 		ModelAndView mv= new ModelAndView();
-		System.out.println();
-		for(int i=0; i<reportTitle.length; i++)
+
+				
+		User user=(User)session.getAttribute("userLoggedIn");
+		String userId=user.getUserId();
+		List<ScheduleReport> list=new ArrayList<ScheduleReport>();
+		ScheduleReport sr = null;
+		
+		if(day.length==1)
 		{
-			System.out.println("제목 배열 :"+reportTitle[i]);
-			System.out.println("내용 배열 :"+reportContent[i]);
+			sr=new ScheduleReport();
+			sr.setUserId(userId);
+			sr.setReportDay(day[0]);
+			sr.setContent(reportContent[0]);
+			sr.setTitle(reportTitle[0]);
+			sr.setScheduleNo(scheduleNo);
+			list.add(sr);
+		}else
+		{
+
+			for(int i=0; i<day.length; i++)
+			{
+				sr=new ScheduleReport();
+				sr.setScheduleNo(scheduleNo);
+				sr.setUserId(userId);
+				sr.setContent(reportContent[i]);
+				sr.setTitle(reportTitle[i]);
+				sr.setReportDay(day[i]);
+				list.add(sr);
+				
+//				System.out.println("리스트에 담긴 내용입니다 : "+list.get(i).getContent());
+//				System.out.println("리스트에 담긴 아이디 : "+list.get(i).getUserId());
+			}
 		}
 		
-		mv.setViewName("schedule/scheduleReportView");
+		int result=service.insertScheduleReport(list);
+		
+		Map<String, String> map=service.selectOneScheduleView(scheduleNo);
+		List<TimeTable> tt=service.selectOneTimetableView(scheduleNo);
+		
+		Gson gson=new Gson();
+		String json = gson.toJson(tt);
+
+		
+		//댓글
+		List<Map<String, String>> scheduleReplyList = service.scheduleReplyList(scheduleNo);
+        List<Map<String, String>> scheduleAttList = service.scheduleAttList();
+	      
+	      String msg="";
+	      String loc="/schedule/scheduleView?scheduleNo="+scheduleNo+"&userId="+userId;  
+	      if(result>0)
+	      {
+	         msg="후기 등록 성공";
+	      }
+	      else
+	      {
+	         msg="후기 등록 실패";
+	      }
+	      
+        mv.addObject("msg", msg);
+        mv.addObject("loc",loc);
+        mv.addObject("viewList",map);
+        mv.addObject("tt",json);
+	    mv.addObject("scheduleReplyList",scheduleReplyList);
+	    mv.addObject("scheduleAttList",scheduleAttList);
+		mv.setViewName("common/msg");
 		return mv;
 	}
+
 	
 	@RequestMapping("/schedule/scheduleReport")
 	public ModelAndView scheduleReview(int scheduleNo)
@@ -68,9 +130,10 @@ public class ScheduleController {
 		ModelAndView mv= new ModelAndView();
 		Map<String, String> map=service.selectOneScheduleView(scheduleNo);
 		List<TimeTable> tt=service.selectOneTimetableView(scheduleNo);
-		
+		Gson gson=new Gson();
+		String json = gson.toJson(tt);
 		mv.addObject("viewList",map);
-		mv.addObject("tt",tt);
+		mv.addObject("tt",json);
 		mv.setViewName("schedule/scheduleReportForm");
 		return mv;
 	}
@@ -82,31 +145,48 @@ public class ScheduleController {
 		return "schedule/myPlaceAddForm";
 	}
 	
+	
+	
 	@RequestMapping("/schedule/scheduleView")
-	public ModelAndView ScheduleView(HttpSession session,int scheduleNo)
+	public ModelAndView ScheduleView(HttpSession session,int scheduleNo, String userId)
 	{
 		ModelAndView mv= new ModelAndView();
 		Map<String, String> map=service.selectOneScheduleView(scheduleNo);
 		List<TimeTable> tt=service.selectOneTimetableView(scheduleNo);
-		
+
+
+		List<ScheduleReport> sr=service.selectScheduleReportView(scheduleNo);
+ 
 		
 		Gson gson=new Gson();
 		String json = gson.toJson(tt);
 		mv.addObject("viewList",map);
 		mv.addObject("tt",json);
-
 		
+		if(userId!="") {
 		
+			Schedule schedule = new Schedule();
+			schedule.setScheduleNo(scheduleNo);
+			schedule.setUserId(userId);
+			int goodCheck = service.goodCountCheck(schedule);
+			int bringCheck = service.bringCountCheck(schedule);
+			System.out.println("goodCheck : "  + goodCheck);
+			System.out.println("bringCheck : "  + bringCheck);
+			mv.addObject("goodCheck",goodCheck);
+		    mv.addObject("bringCheck",bringCheck);
+		}
 		//댓글
 		List<Map<String, String>> scheduleReplyList = service.scheduleReplyList(scheduleNo);
         List<Map<String, String>> scheduleAttList = service.scheduleAttList();
 	      
-	      
+	      mv.addObject("reportList",sr);
 	      mv.addObject("scheduleReplyList",scheduleReplyList);
 	      mv.addObject("scheduleAttList",scheduleAttList);
 	      mv.setViewName("schedule/scheduleView");
 		return mv;
 	}
+	
+	
 	
 	@RequestMapping("/schedule/scheduleList")
 	public ModelAndView ScheduleList(@RequestParam(value="cPage",required=false,defaultValue="1") int cPage)
@@ -129,7 +209,6 @@ public class ScheduleController {
 	@RequestMapping("/schedule/scheduleFilter")
 	public ModelAndView ScheduleListFilter(@RequestParam(value="cPage",required=false,defaultValue="1") int cPage, String tripType, String tripPartner, String sort)
 	{
-		
 		ModelAndView mv=new ModelAndView();
 		System.out.println("스케줄 컨트롤러 필터 sort:"+sort);
 		System.out.println("스케줄 컨트롤러 필터 tripType:"+tripType);
@@ -229,6 +308,7 @@ public class ScheduleController {
 	         
 	      }
 	      
+	    
 	      int result=service.insertSchedule(sc,list);
 	      String msg="";
 	      String loc="";
@@ -298,11 +378,11 @@ public class ScheduleController {
 	      String loc="";
 	      if(result>0){
 	         msg="댓글을 등록하였습니다!";
-	         loc="/schedule/scheduleView?scheduleNo="+schedulyReply.getScheduleNo();
+	         loc="/schedule/scheduleView?scheduleNo="+schedulyReply.getScheduleNo()+"&userId="+schedulyReply.getUserId();
 	      }
 	      else{
 	         msg="댓글등록에 실패하였습니다";
-	         loc="/schedule/scheduleView?scheduleNo="+schedulyReply.getScheduleNo();
+	         loc="/schedule/scheduleView?scheduleNo="+schedulyReply.getScheduleNo()+"&userId="+schedulyReply.getUserId();
 	      }
 	      
 	      ModelAndView mv=new ModelAndView();
@@ -321,11 +401,11 @@ public class ScheduleController {
 	      String loc="";
 	      if(result>0){
 	         msg="답글을 등록하였습니다!";
-	         loc="/schedule/scheduleView?scheduleNo="+schedulyReply.getScheduleNo();
+	         loc="/schedule/scheduleView?scheduleNo="+schedulyReply.getScheduleNo()+"&userId="+schedulyReply.getUserId();
 	      }
 	      else{
 	         msg="답글등록에 실패하였습니다";
-	         loc="/schedule/scheduleView?scheduleNo="+schedulyReply.getScheduleNo();
+	         loc="/schedule/scheduleView?scheduleNo="+schedulyReply.getScheduleNo()+"&userId="+schedulyReply.getUserId();
 	      }
 	      
 	      ModelAndView mv=new ModelAndView();
@@ -338,16 +418,16 @@ public class ScheduleController {
 	   
 	   
 	   @RequestMapping("/scheduleReply/scheduleReplyDelete.do")
-	   public ModelAndView scheduleReplyDelete(int replyNo, int scheduleNo) {
+	   public ModelAndView scheduleReplyDelete(int replyNo, int scheduleNo, String userId) {
 	      int result = service.scheduleReplyDelete(replyNo);
 	      String msg="";
 	      String loc="";
 	      if(result>0) {
 	         msg="댓글을 삭제하였습니다!";
-	         loc="/schedule/scheduleView?scheduleNo="+scheduleNo;
+	         loc="/schedule/scheduleView?scheduleNo="+scheduleNo+"&userId="+userId;
 	      }else {
 	         msg="댓글 삭제에 실패하였습니다.";
-	         loc="/schedule/scheduleView?scheduleNo="+scheduleNo;
+	         loc="/schedule/scheduleView?scheduleNo="+scheduleNo+"&userId="+userId;
 	      }
 	      ModelAndView mv=new ModelAndView();
 	      mv.addObject("msg",msg);
@@ -364,7 +444,7 @@ public class ScheduleController {
 	      String loc="";
 	      if(check>0) {
 	         msg="이미 추천하셨습니다.";
-	         loc="/schedule/scheduleView?scheduleNo="+schedulyReply.getScheduleNo();
+	         loc="/schedule/scheduleView?scheduleNo="+schedulyReply.getScheduleNo()+"&userId="+schedulyReply.getUserId();
 	      }else {
 	         
 	         service.insertscheduleReplyGood(schedulyReply);
@@ -373,10 +453,10 @@ public class ScheduleController {
 	         
 	         if(result>0) {
 	            msg="추천을 하였습니다!";
-	            loc="/schedule/scheduleView?scheduleNo="+schedulyReply.getScheduleNo();
+	            loc="/schedule/scheduleView?scheduleNo="+schedulyReply.getScheduleNo()+"&userId="+schedulyReply.getUserId();
 	         }else {
 	            msg="추천에 실패하였습니다.";
-	            loc="/schedule/scheduleView?scheduleNo="+schedulyReply.getScheduleNo();
+	            loc="/schedule/scheduleView?scheduleNo="+schedulyReply.getScheduleNo()+"&userId="+schedulyReply.getUserId();
 	         }
 	      }
 	      ModelAndView mv=new ModelAndView();
@@ -431,7 +511,7 @@ public class ScheduleController {
 	{	
 		User user=(User)session.getAttribute("userLoggedIn");
 		String userId=user.getUserId();
-		List<Place> list=pservice.selectUserSpotList(userId,1,5);
+		List<Place> list=pservice.selectUserSpotList(userId,cPage,5);
 		
 		
 		String html="<a href='#'>관광지</a>|<a href='#'>숙소</a>|<a href='#'>음식점</a><hr>";
@@ -439,11 +519,11 @@ public class ScheduleController {
 		{
 			html+="<div class=' col-md-13 mt-3 justify-content-center' >";
 			html+="<br><p>"+p.getTitle()+"</p>";
-			html+="<button class='btn mb-2 mr-1' value='"+p.toString()+"' onclick='fn_addUPlace(event)'>일정등록</button></div><hr>";
+			html+="<button class='btn mb-2 mr-1' value='"+p.toString()+"' onclick='fn_addUPlace(event)'>일정등록</button></div>";
 			html+="<button class='btn mb-2' value='"+p.toString()+"' onclick='fn_deleteUserPlace(event)'>장소삭제</button></div><hr>";
 		}
-		html+="<br><nav aria-label='Page navigation example'>"+Page.getPageBarSC(cPage, 5, pservice.selectTotalUserCount(userId), 1)+"</nav>";		
-				
+		html+="<br><nav aria-label='Page navigation example'>"+Page.getPageBarSC(cPage, 5, pservice.selectTotalUserCount(userId), 2)+"</nav>";		
+		
 		response.getWriter().println(html);
 				
 	}
@@ -462,7 +542,7 @@ public class ScheduleController {
 			html+="<br><p>"+p.getTitle()+"</p>";
 			html+="<button class='btn mb-2' value='"+p.toString()+"' onclick='fn_add(event)'>일정등록</button></div><hr>";
 		}
-		html+="<br><nav aria-label='Page navigation example'>"+Page.getPageBarSC(cPage, 5, myservice.putPlaceListTotalCount(userId), 1)+"</nav>";		
+		html+="<br><nav aria-label='Page navigation example'>"+Page.getPageBarSC(cPage, 5, myservice.putPlaceListTotalCount(userId), 3)+"</nav>";		
 				
 		response.getWriter().println(html);
 				
@@ -490,7 +570,7 @@ public class ScheduleController {
 	public void userListDelete(ModelAndView mv, int placeno, HttpServletResponse response, HttpSession session) throws Exception
 	{	
 		int result=pservice.deleteSpot(placeno);
-		System.out.println(result);
+		
 		if(result>0)
 		{
 			
@@ -507,7 +587,7 @@ public class ScheduleController {
 				html+="<button class='btn mb-2 mr-1' value='"+p.toString()+"' onclick='fn_addUPlace(event)'>일정등록</button></div>";
 				html+="<button class='btn mb-2' value='"+p.toString()+"' onclick='fn_deleteUserPlace(event)'>장소삭제</button></div><hr>";
 			}
-			html+="<br><nav aria-label='Page navigation example'>"+Page.getPageBarSC(1, 5, pservice.selectTotalUserCount(userId), 1)+"</nav>";		
+			html+="<br><nav aria-label='Page navigation example'>"+Page.getPageBarSC(1, 5, pservice.selectTotalUserCount(userId), 2)+"</nav>";		
 			
 			response.getWriter().println(html);
 		}
@@ -553,7 +633,7 @@ public class ScheduleController {
 	@RequestMapping(value="/schedule/scheduleUpdateEnd", method = RequestMethod.POST)
 	public ModelAndView ScheduleUpdateEnd(int scheduleNo, String partyName2, String title2, String startDate2, String endDate2, int people2, String travelTheme2, int openflag2, int represent, @RequestParam(value="timevalue", required=false) String[] timevalue, @RequestParam(value="placevalue",required=false) String[] placevalue )
 	{
-		System.out.println("여기오나?");
+		
 		ModelAndView mv=new ModelAndView();
 		Schedule sc=new Schedule();
 		sc.setTitle(title2);
@@ -625,97 +705,215 @@ public class ScheduleController {
 	
 	//좋아요 증가및 감소
 		// 뷰 호출할때 int goodCheck를 넘겨 0인지 1인지 구분하고 jsp에서 구분 (0은 추천안함, 1은이미 추천함) 
-		@RequestMapping("/schedul/goodCountUpdate")
-		public ModelAndView goodCountUpdate(Schedule schedule) {
-			ModelAndView mv = new ModelAndView();
+		@RequestMapping("/schedule/goodCountUpdate")
+		public void goodCountUpdate(Schedule schedule,HttpServletResponse response)throws Exception {
+			
 			int goodCheck = service.goodCountCheck(schedule);
-			String msg = "";
-			String loc = "";
 			if(goodCheck==0) {
 				int result2 = service.goodCountUp(schedule);
 				if(result2>0) {
-					msg = "추천이 완료되었습니다.";
-					loc="/schedule/scheduleView?scheduleNo="+schedule.getScheduleNo();
-				}else {
-					msg = "추천에 실패했습니다.";
-					loc="/schedule/scheduleView?scheduleNo="+schedule.getScheduleNo();
+					Map<String, String> map=service.selectOneScheduleView(schedule.getScheduleNo());
+					String goodCount = String.valueOf(map.get("GOODCOUNT"));
+
+					String html="<h6 class='ml-2' style='color:#f19221'>"+goodCount+"</h6>";
+					response.getWriter().println(html);
 				}
 			}else {
 				int result = service.goodCountDown(schedule);
 				if(result >0) {
-					msg = "추천이 취소되었습니다.";
-					loc="/schedule/scheduleView?scheduleNo="+schedule.getScheduleNo();
-				}else {
-					msg = "추천이 취소에 실패했습니다.";
-					loc="/schedule/scheduleView?scheduleNo="+schedule.getScheduleNo();
+					Map<String, String> map=service.selectOneScheduleView(schedule.getScheduleNo());
+					String goodCount = String.valueOf(map.get("GOODCOUNT"));
+			
+					String html="<h6 class='ml-2' style='color:rgb(208, 203, 203);'>"+goodCount+"</h6>";
+					response.getWriter().println(html);
 				}
 			}
-			mv.addObject("msg",msg);
-			mv.addObject("loc", loc);
-			mv.setViewName("common/msg");
-			return mv;
 		}
 		
 		//찜하기 증가및 감소
 		// 뷰 호출할때 int bringCheck를 넘겨 0인지 1인지 구분하고 jsp에서 구분 (0은 찜안함, 1은이미 찜함) 
-		@RequestMapping("/schedul/bringCountUpdate")
-		public ModelAndView bringCountUpdate(Schedule schedule) {
-			ModelAndView mv = new ModelAndView();
+		@RequestMapping("/schedule/bringCountUpdate")
+		public void bringCountUpdate(Schedule schedule,HttpServletResponse response) throws Exception {
+			
+		
 			int bringCheck = service.bringCountCheck(schedule);
-			String msg = "";
-			String loc = "";
 			
 			if(bringCheck==0) {
 				int result = service.bringCountUp(schedule)	;
 				if(result>0) {
-					msg="찜한 목록에 추가되었습니다.";
-					loc="/schedule/scheduleView?scheduleNo="+schedule.getScheduleNo();
-				}else {
-					msg="찜하기에 실패했습니다.";
-					loc="/schedule/scheduleView?scheduleNo="+schedule.getScheduleNo();
+					Map<String, String> map=service.selectOneScheduleView(schedule.getScheduleNo());
+					String jjimCount = String.valueOf(map.get("BRINGCOUNT"));
+
+					String html="<h6 class='ml-2' style='color:#f19221'>"+jjimCount+"</h6>";
+					response.getWriter().println(html);
 				}
 			}else {
 				int result2 = service.bringCountDown(schedule);
 				if(result2>0) {
-					msg="찜하기가 취소되었습니다.";
-					loc="/schedule/scheduleView?scheduleNo="+schedule.getScheduleNo();
-				}else {
-					msg="찜하기취소에 실패했습니다.";
-					loc="/schedule/scheduleView?scheduleNo="+schedule.getScheduleNo();
+					Map<String, String> map=service.selectOneScheduleView(schedule.getScheduleNo());
+					String jjimCount = String.valueOf(map.get("BRINGCOUNT"));
+			
+					String html="<h6 class='ml-2' style='color:rgb(208, 203, 203);'>"+jjimCount+"</h6>";
+					response.getWriter().println(html);
 				}
 			}
 			
-			mv.addObject("msg",msg);
-			mv.addObject("loc", loc);
-			mv.setViewName("common/msg");
-			return mv;
 		}
 	
 	
 	
 
-//	@RequestMapping("/schedule/deleteSchedule")
-//	public ModelAndView deleteSchedule(int scheduleNo,ModelAndView mv)
-//	{
-//		int result=service.deleteSchedule(scheduleNo);
-//		String msg="";
-//		String loc="";
-//		if(result>0)
-//		{
-//			msg="일정 삭제 성공";
-//			loc="/";
-//		}
-//		else
-//		{
-//			msg="일정 삭제 실패";
-//			loc="/";
-//		}
-//		
-//		mv.addObject("msg", msg);
-//		mv.addObject("loc",loc);
-//		mv.setViewName("common/msg");
-//		
-//		return mv;
-//	}
+	@RequestMapping("/schedule/deleteSchedule")
+	public ModelAndView deleteSchedule(int scheduleNo,ModelAndView mv)
+	{
+		int result=service.deleteSchedule(scheduleNo);
+		String msg="";
+		String loc="";
+		if(result>0)
+		{
+			msg="일정 삭제 성공";
+			loc="/";
+		}
+		else
+		{
+			msg="일정 삭제 실패";
+			loc="/";
+		}
+		
+		mv.addObject("msg", msg);
+		mv.addObject("loc",loc);
+		mv.setViewName("common/msg");
+		
+		return mv;
+	}
 
+	@RequestMapping("/schedule/addPlace")
+	public ModelAndView addPlace(ModelAndView mv, String msg, String option)
+	{
+		mv.addObject("msg", msg);
+		mv.addObject("option",option);
+		mv.setViewName("common/msg");
+		
+		return mv;
+	}
+	
+	@RequestMapping("/schedule/bringSchedule")
+	public void bringSchedule(int scheduleNo, HttpSession session,HttpServletResponse response) throws Exception
+	{ 
+		User user=(User)session.getAttribute("userLoggedIn");
+		String userId=user.getUserId();
+		
+		Schedule sc=service.selectScheduleSC(scheduleNo);
+		List<TimeTable> tt=service.selectTimeTableSC(scheduleNo);
+		sc.setUserId(userId);
+		
+		int result=service.insertSchedule(sc,tt);
+		String html;
+		if(result>0)
+		{
+			html="내 일정으로 담기 성공";
+		}
+		else
+		{
+			html="내 일정으로 담기 실패";
+		}
+		response.getWriter().println(html);
+	}
+	
+	
+	
+	@RequestMapping("/schedule/updateReport")
+	public ModelAndView updateReport(ModelAndView mv, int scheduleNo)
+	{
+		Map<String, String> map=service.selectOneScheduleView(scheduleNo);
+		List<TimeTable> tt=service.selectOneTimetableView(scheduleNo);
+		List<ScheduleReport> rList=service.selectScheduleReportView(scheduleNo);
+		
+		for(ScheduleReport r : rList)
+		{
+			System.out.println(r);
+		}
+		Gson gson=new Gson();
+		String json = gson.toJson(tt);
+		mv.addObject("viewList",map);
+        mv.addObject("tt",json);
+        mv.addObject("rList",rList);
+        mv.setViewName("schedule/reportUpdate");
+		return mv;
+	}
+	@RequestMapping("/schedule/reportUpdateEnd")
+	public ModelAndView updateReportEnd(HttpSession session,ModelAndView mv, int scheduleNo,String [] reportTitle, String [] reportContent,int [] day)
+	{
+		User user=(User)session.getAttribute("userLoggedIn");
+		String userId=user.getUserId();
+		List<ScheduleReport> list=new ArrayList<ScheduleReport>();
+		ScheduleReport sr = null;
+		if(day.length==1)
+		{
+			sr=new ScheduleReport();
+			sr.setUserId(userId);
+			sr.setReportDay(day[0]);
+			sr.setContent(reportContent[0]);
+			sr.setTitle(reportTitle[0]);
+			sr.setScheduleNo(scheduleNo);
+			list.add(sr);
+		}else
+		{
+
+			for(int i=0; i<day.length; i++)
+			{
+				sr=new ScheduleReport();
+				sr.setScheduleNo(scheduleNo);
+				sr.setUserId(userId);
+				sr.setContent(reportContent[i]);
+				sr.setTitle(reportTitle[i]);
+				sr.setReportDay(day[i]);
+				list.add(sr);
+				
+
+			}
+		}
+		int result=service.updateReport(list,scheduleNo);
+		String msg="";
+	    String loc="/schedule/scheduleView?scheduleNo="+scheduleNo+"&userId="+userId;  
+	      if(result>0)
+	      {
+	         msg="후기 수정 성공";
+	      }
+	      else
+	      {
+	         msg="후기 수정 실패";
+	      }
+	      mv.addObject("msg",msg);
+	      mv.addObject("loc",loc);
+	      mv.setViewName("common/msg");
+		return mv;
+	}
+	
+	@RequestMapping("/schedule/deleteReport")
+	public ModelAndView scheduleReportDelete(int scheduleNo,HttpSession session)
+	{
+		User user=(User)session.getAttribute("userLoggedIn");
+		String userId=user.getUserId();
+		ModelAndView mv = new ModelAndView();
+		int result=service.deleteReport(scheduleNo);
+		String msg="";
+		String loc="/schedule/scheduleView?scheduleNo="+scheduleNo+"&userId="+userId; 
+		if(result>0)
+		{
+			msg="후기 삭제 성공";
+			
+		}
+		else
+		{
+			msg="후기 삭제 실패";
+			
+		}
+		
+		mv.addObject("msg", msg);
+		mv.addObject("loc",loc);
+		mv.setViewName("common/msg");
+		
+		return mv;
+	}
 }

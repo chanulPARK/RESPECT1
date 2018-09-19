@@ -190,7 +190,7 @@
         <div class="row">
         	<c:forEach items="${myScheduleReport }" var="msr">
         		<div class="col-md-3 col-sm-6 portfolio-item mt-3" id="card_list">
-                <a class="portfolio-link"  href="#portfolioModal1" style="text-decoration:none !important">
+                <a class="portfolio-link"  href="${path }/schedule/scheduleView?scheduleNo=${msr.SCHEDULENO }&userId=${userLoggedIn.userId}" style="text-decoration:none !important">
                     <div class="portfolio-hover mt-3">
                       <div class="portfolio-hover-content">
                         
@@ -230,5 +230,7 @@
             <button  id='load' type="button" class="btn w-50">더보기</button>
           </div>
     </div>
+
+<div class="mb-5"></div>
 
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>

@@ -110,7 +110,7 @@ public class NoticeController {
 		
 		ModelAndView mv = new ModelAndView();
 		
-		String saveDir=request.getSession().getServletContext().getRealPath("/resoure/upload/notice");
+		String saveDir=request.getSession().getServletContext().getRealPath("/resources/upload/notice");
 		List<Attachment> attList = new ArrayList();
 		
 		File dir = new File(saveDir);
@@ -176,7 +176,7 @@ public class NoticeController {
 		BufferedInputStream bis = null;
 		ServletOutputStream sos = null;
 		
-		String saveDir=request.getSession().getServletContext().getRealPath("/resoure/upload/notice");
+		String saveDir=request.getSession().getServletContext().getRealPath("/resources/upload/notice");
 		File saveFile=new File(saveDir+"/"+rName);
 		try {
 			
@@ -245,6 +245,22 @@ public class NoticeController {
 		
 		return mv;
 	}
+	@RequestMapping("/notice/noticeSearch")
+	public ModelAndView noticeSearch(ModelAndView mv, String searchText, @RequestParam(value="cPage", required=false, defaultValue="1") int cPage) {
+		
+		
+		int numPerPage = 10;
+		List<Map<String, String>> list = service.searchList(cPage, numPerPage, searchText);
+		int totalCount=service.selectTotalCount();
+		String pageBar=Page.getPage(cPage, numPerPage, totalCount, "notice-board.do");
+		mv.addObject("list", list);
+		mv.addObject("totalContents", totalCount);
+		mv.addObject("pageBar",pageBar);
+		mv.setViewName("notice/notice-board");
+		return mv;
+		
+	}
+	
 	
 	@RequestMapping("/notice/traffic-board.do")
 	public String trafficView() {
@@ -252,4 +268,6 @@ public class NoticeController {
 		return "traffic/traffic-view";
 		
 	}
+	
+	
 }

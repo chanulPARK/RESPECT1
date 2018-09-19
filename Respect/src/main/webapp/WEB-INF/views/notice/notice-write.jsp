@@ -28,7 +28,7 @@
                     <input type="submit" value="등록" class="btn btn-warning"/>
                 </div>
                 <div class="col">
-                    <input type="reset" value="취소" class="btn btn-warning"/>
+                    <a class="btn btn-warning" href="${path}/notice/notice-board.do">취소</a>
                 </div>
             </div> 
         </form>
