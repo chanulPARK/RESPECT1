@@ -52,16 +52,20 @@ public interface ScheduleDao {
    List<Map<String, String>> scheduleAttList(SqlSessionTemplate session);
 
 	Map selectSchedule(SqlSessionTemplate session,int scheduleNo);
+	int insertScheduleReport(SqlSessionTemplate session, ScheduleReport sr);
 
 	
 	List<Map> selectTimeTableList(SqlSessionTemplate session,int scheduleNo);
 	int updateSchedule(SqlSessionTemplate session, Schedule sc);
 	int deleteTimeTable(SqlSessionTemplate session, int scheduleNo);
+//	int deleteSchedule(SqlSessionTemplate session, int scheduleNo);
+	List<ScheduleReport> selectScheduleReportView(SqlSessionTemplate session,int scheduleNo);
+	int updateScheduleReportFlag(SqlSessionTemplate session, int scheduleNo);
+	int deleteScheduleReport(SqlSessionTemplate session, int scheduleNo);
+
 	int deleteSchedule(SqlSessionTemplate session, int scheduleNo);
 	Schedule selectScheduleSC(SqlSessionTemplate session,int scheduleNo);
 	List<TimeTable> selectTimeTableSC(SqlSessionTemplate session,int scheduleNo);
-	int insertScheduleReport(SqlSessionTemplate session, ScheduleReport sr);
 	
-	List<ScheduleReport> selectScheduleReportView(SqlSessionTemplate session,int scheduleNo);
 	int deleteReport(SqlSessionTemplate session, int scheduleNo);
 }

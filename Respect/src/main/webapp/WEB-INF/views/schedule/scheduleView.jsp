@@ -196,15 +196,6 @@ function btn_replySee(a){
 		alert(scheduleNo);
 		location.href="${path}/schedule/scheduleReport?scheduleNo="+scheduleNo;
 	}
-	function fn_like()
-	{
-		alert("좋아요 반응 펑션");
-	}
-	
-	function fn_zzim()
-	{
-		alert("찜하기 반응 펑션");
-	};
 	function fn_bring(scheduleNo)
 	{
 		$.ajax({
@@ -257,7 +248,9 @@ function btn_replySee(a){
                             <c:if test="${userLoggedIn != null and viewList.USERID == userLoggedIn.userId}">
 	                             <input class="btn btn-sm" type="button" value="일정 수정" onclick="fn_update(${viewList.SCHEDULENO})">
 	                             <input class="btn btn-sm" type="button" value="일정 삭제" onclick="fn_delete(${viewList.SCHEDULENO})">
+	                             <c:if test="${viewList.REPORTFLAG==0 }">
 	                           	 <input class="btn btn-sm" type="button" value="후기 등록" onclick="fn_review(${viewList.SCHEDULENO})">
+	                           	 </c:if>
                             </c:if>
                             <c:if test="${userLoggedIn != null and viewList.USERID != userLoggedIn.userId}">
                             <input class="btn btn-outline-warning" type="button" value="내일정으로 만들기" onclick="fn_bring(${viewList.SCHEDULENO});">
@@ -487,6 +480,7 @@ function btn_replySee(a){
                             </div>  
                             
                             
+
                             <div class="tabe-pane fade" id="Review">
                          
                         <br>  

@@ -63,12 +63,18 @@ public interface ScheduleService {
 	List<Map> selectTimeTableList(int scheduleNo);
 	
 	int updateSchedule(Schedule sc, List<TimeTable> list);
+
+
+	int insertScheduleReport(List<ScheduleReport> list);
+
+
+	List<ScheduleReport> selectScheduleReportView(int scheduleNo);
+
+
 	
 	int deleteSchedule(int scheduleNo);
 	int deleteReport(int scheduleNo);
 	Schedule selectScheduleSC(int scheduleNo);
 	List<TimeTable> selectTimeTableSC(int scheduleNo);
-	int insertScheduleReport(List<ScheduleReport> list);
-	List<ScheduleReport> selectScheduleReportView(int scheduleNo);
 	int updateReport(List<ScheduleReport> list,int scheduleNo);
 }

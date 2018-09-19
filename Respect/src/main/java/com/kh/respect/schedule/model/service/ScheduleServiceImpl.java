@@ -190,8 +190,6 @@ public class ScheduleServiceImpl implements ScheduleService {
 				
 				for(TimeTable tt: list)
 				{
-					
-					
 					result=dao.insertTimeTable(session,tt);
 					System.out.println("인서트중");
 				}
@@ -199,7 +197,33 @@ public class ScheduleServiceImpl implements ScheduleService {
 		}
 		return result;
 	}
+	
+	@Override
+	public int insertScheduleReport(List<ScheduleReport> list) {
 
+		int result=0;
+		int result2=0;
+		for(ScheduleReport sr: list)
+		{ 
+			System.out.println("insert ing!!!");
+			result=dao.insertScheduleReport(session,sr);
+		}
+		if(result>0)
+		{
+			int scheduleNo=list.get(0).getScheduleNo();
+			result2=dao.updateScheduleReportFlag(session,scheduleNo);
+		}
+		return result2; 
+		
+	}
+	
+	
+	
+	
+//	@Override
+//	public int deleteSchedule(int scheduleNo) {
+//		return dao.deleteSchedule(session, scheduleNo);
+//	}
 	@Override
 	public int deleteSchedule(int scheduleNo) {
 		return dao.deleteSchedule(session, scheduleNo);
@@ -211,6 +235,10 @@ public class ScheduleServiceImpl implements ScheduleService {
 	
 	
 	//추천수정수정
+
+	
+
+	
 
 		@Override
 		public int goodCountCheck(Schedule schedule) {
@@ -251,7 +279,7 @@ public class ScheduleServiceImpl implements ScheduleService {
 			return dao.bringCountDown(session,schedule);
 		}
 
-		@Override
+		
 		public Schedule selectScheduleSC(int scheduleNo) {
 			return dao.selectScheduleSC(session, scheduleNo);
 		}
@@ -261,18 +289,6 @@ public class ScheduleServiceImpl implements ScheduleService {
 			return dao.selectTimeTableSC(session,scheduleNo);
 		}
 	
-		@Override
-		public int insertScheduleReport(List<ScheduleReport> list) {
-
-			int result=0;
-			for(ScheduleReport sr: list)
-			{ 
-				System.out.println("insert ing!!!");
-				result=dao.insertScheduleReport(session,sr);
-			}
-			return result; 
-			
-		}
 		@Override
 		public List<ScheduleReport> selectScheduleReportView(int scheduleNo) {
 			return dao.selectScheduleReportView(session,scheduleNo);

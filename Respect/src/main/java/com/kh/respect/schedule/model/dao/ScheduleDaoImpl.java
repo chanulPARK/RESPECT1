@@ -34,6 +34,16 @@ public class ScheduleDaoImpl implements ScheduleDao {
 	//추천수정수정
 	
 		@Override
+	public int deleteScheduleReport(SqlSessionTemplate session, int scheduleNo) {
+		return session.delete("schedule.deleteScheduleReport",scheduleNo);
+	}
+
+		@Override
+	public int updateScheduleReportFlag(SqlSessionTemplate session, int scheduleNo) {
+		return session.update("schedule.updateReportFlag",scheduleNo);
+	}
+
+		@Override
 		public int goodCountCheck(SqlSessionTemplate session, Schedule schedule) {
 			// TODO Auto-generated method stub
 			return session.selectOne("schedule.goodCountCheck", schedule);
@@ -151,6 +161,7 @@ public class ScheduleDaoImpl implements ScheduleDao {
 	public int deleteTimeTable(SqlSessionTemplate session, int scheduleNo) {
 		return session.delete("schedule.deleteTimeTable",scheduleNo);
 	}
+	
 
 	@Override
 	public int deleteSchedule(SqlSessionTemplate session, int scheduleNo) {
@@ -160,6 +171,10 @@ public class ScheduleDaoImpl implements ScheduleDao {
 
 
 	
+
+	
+
+
 	//댓글
 	//스케쥴댓글
 	   @Override

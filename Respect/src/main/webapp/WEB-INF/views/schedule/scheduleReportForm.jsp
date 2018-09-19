@@ -7,10 +7,10 @@
 @media screen and (min-width: 769px) {
    /* 데스크탑에서 사용될 스타일을 여기에 작성합니다. */
 }
-	#map
-	{
-		background:black;	
-	}
+   #map
+   {
+      background:black;   
+   }
     .time1{width:20%;}
     .time2{width:80%;}
     .timeline th{background:black; color:orange;}
@@ -37,72 +37,76 @@
 <!-- 지도 라이브러리  -->
 
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=29d28c77afa06b8d3797cd516b310f0f&libraries=services"></script>
-<link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.css" rel="stylesheet">
+ <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.css" rel="stylesheet"> 
 <script src="${path }/resources/js/summernote.js"></script>
 <script src="${path }/resources/js/summernote.min.js"></script>
-<script src="${path }/resources/js/summernote-ko-KR.js"></script>
+<script src="${path }/resources/js/summernote-ko-KR.js"></script>  
 
 <script>
+
+
+//summernote
 $(document).ready(function() {
-    $('.summernote').summernote({
-    height : 400,                 // set editor height
-    lang : 'ko-KR', // default: 'en-US'
-		callbacks : {
-			onImageUpload : function(files, editor, welEditable){
-				sendFile(files, editor, welEditable);
-			}
-		}
-    });
-});
+	    $('.summernote').summernote({
+        height : 400,                 // set editor height
+        lang : 'ko-KR', // default: 'en-US'
+  		callbacks : {
+  			onImageUpload : function(files, editor, welEditable){
+  				sendFile(files, editor, welEditable);
+  			}
+  		}
+	    });
+	});
 
 function sendFile(file, editor, welEditable){
-data = new FormData();
-console.log(file);
-for(var i=0;i<file.length;i++){
-   data.append("uploadFile", file[i]);
-}
-console.log(data.getAll('uploadFile'));
-$.ajax({
-   data:data,
-   url:"${path}/imageUpload.do",
-   type:"POST",
-   cache:false,
-   contentType:false,
-   processData:false,
-   dataType:"json",
-   success:function(data){
-	  alert(data);
-      console.log(data);
-      for(var i=0;i<data.length;i++)
-      {
-         //$('#test').append('<img src=/resources/uploadImg/'+data.list[i]+'>');
-         $('.summernote').summernote('insertImage', "${path}/resources/uploadImg/"+data[i],data[i]);
-      }
-   },
-   error:function(obj,a,b){
-	   console.log(obj);
-	   console.log(b);
-   }
-});
+    data = new FormData();
+    console.log(file);
+    for(var i=0;i<file.length;i++){
+       data.append("uploadFile", file[i]);
+    }
+    console.log(data.getAll('uploadFile'));
+    $.ajax({
+       data:data,
+       url:"${path}/imageUpload.do",
+       type:"POST",
+       cache:false,
+       contentType:false,
+       processData:false,
+       dataType:"json",
+       success:function(data){
+    	  alert(data);
+          console.log(data);
+          for(var i=0;i<data.length;i++)
+          {
+             //$('#test').append('<img src=/resources/uploadImg/'+data.list[i]+'>');
+             $('.summernote').summernote('insertImage', "${path}/resources/uploadImg/"+data[i],data[i]);
+          }
+       },
+       error:function(obj,a,b){
+    	   console.log(obj);
+    	   console.log(b);
+       }
+    });
 }
 
-	function fn_submit()
-	{
-		$("#reportForm").submit();
-	}
-	function fn_reviewDelete(scheduleNo)
-	{
-		location.href="${path}/schedule/scheduleReportDelete?scheduleNo="+scheduleNo;
-	}
-	
-	function fn_reviewModify(scheduleNo)
-	{
-		location.href="${path}/schedule/scheduleReportModify?scheduleNo="+scheduleNo;
-	}
+
+   function fn_submit()
+   {
+      $("#reportForm").submit();
+   }
+   function fn_reviewDelete(scheduleNo)
+   {
+      location.href="${path}/schedule/scheduleReportDelete?scheduleNo="+scheduleNo;
+   }
+   
+   function fn_reviewModify(scheduleNo)
+   {
+      location.href="${path}/schedule/scheduleReportModify?scheduleNo="+scheduleNo;
+   }
      
      function fn_toggle(ev)
      {
-    	ev.preventDefault();
+       ev.preventDefault();
         var btnId=ev.target.value;
         console.log(btnId);
         $("#content"+btnId).toggle();
@@ -363,30 +367,26 @@ $.ajax({
                               <br>
                               <br>
                                 <div class="btn-group">
-							        <button type="button btn-lg" class="btn btn-outline-warning dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-							          후기 작성
-							        </button>
-							        <div class="dropdown-menu">
-							                <a class="dropdown-item" onclick="fn_submit()">글쓰기</a>
-							                <div class="dropdown-divider"></div>
-							                <a class="dropdown-item" onclick="fn_modify()">수정</a>
-							                <a class="dropdown-item" onclick="fn_delete()">삭제</a>
-							        </div>
-							      </div>
-							      <br>
+		                             <button type="button" class="btn btn-outline-warning" onclick="fn_submit()">
+		                               후기 작성
+		                             </button>
+                           </div>
+                           <br>
                                  
                                 <br>  
-                                 <form name="reportForm" id="reportForm" action="${path }/schedule/scheduleReportInsert" method='post'> 
+                                <form name="reportForm" id="reportForm" action="${path }/schedule/scheduleReportInsert" method='post'> 
                                 <input type="hidden" name="scheduleNo" value="${viewList.SCHEDULENO }">
-                                
+                                <!-- for문 -->
+
                                 <c:forEach var="v" begin='1' end='${endDay - startDay +1}' varStatus="s">
                                 <input type="hidden" name="day" value="${s.count }">
                                
                                 <button class="btn" value="${s.count }" onclick="fn_toggle(event)">${s.count }일차</button><br>
                                 <br>
                                 <div id="content${s.count }"  class="hidetext">
-                                <div class="container">
+                                <div >
                                         
+
                                         <h5 class="col-md-7">제목</h5>
                                         <div class="col-md-7">
                                                 <div class="form-group">
@@ -407,7 +407,6 @@ $.ajax({
                                    </form>   
 
                               </div>
-                              </div>
       
                     <br>
                 </div>
@@ -421,6 +420,7 @@ $.ajax({
               </body>
       
   <script>
+
   var createSeq = function(){
 		var no=0;
 		return function(){
@@ -446,7 +446,7 @@ $.ajax({
 	var map= new daum.maps.Map(container, options);
 	var tableday;
 	var placename;
-	
+
 
 	
 	function fn_move()
