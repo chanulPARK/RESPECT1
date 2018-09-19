@@ -29,8 +29,7 @@
 	<insert id="insertScheduleReport" parameterType="schedulereport">
 		insert into SCHEDULE_REPORT values(seq_schedule_report.nextval,#{scheduleNo},#{userId},#{title},sysdate,#{content},#{reportDay})
 	</insert>
-	
-	
+
   	
   	
 

@@ -197,14 +197,19 @@ function btn_replySee(a){
 		
 		location.href="${path}/schedule/scheduleReport?scheduleNo="+scheduleNo;
 	}
-	function fn_like(scheduleNo)
+
+	function fn_like()
 	{
 		var scheduleNo = ${viewList.SCHEDULENO};
 		var userId = '${userLoggedIn.userId}';
-		if(userId==${viewList.USERID})
-		{
-			return;			
-		}
+		var scheduleID= '${viewList.USERID}';
+		if(userId==scheduleID)
+	      {
+	         alert("본인의 게시물은 좋아요를 누를 수 없습니다.");
+	         return;         
+	      }
+		
+
 		<c:if test="${userLoggedIn == null }">
 			alert("로그인후 이용 가능합니다.");
 			location.href="${path}/user/userLogin.do";
@@ -241,11 +246,12 @@ function btn_replySee(a){
 	{
 		var scheduleNo = ${viewList.SCHEDULENO};
 		var userId = '${userLoggedIn.userId}';
-		if(userId==${viewList.USERID})
-		{
-			alert("본인의 게시물은 찜할수 없습니다.");
-			return;			
-		}
+		var scheduleID= '${viewList.USERID}';
+		if(userId==scheduleID)
+	      {
+	         alert("본인의 게시물은 찜할수 없습니다.");
+	         return;         
+	      }
 		<c:if test="${userLoggedIn == null }">
 			alert("로그인후 이용 가능합니다.");
 			location.href="${path}/user/userLogin.do";
