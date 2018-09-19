@@ -14,6 +14,8 @@ public interface MainService {
 
 	List<Map<String, String>> selectMmpList();
 
+	List<Map<String, String>> selectMnpList();
+
 
 	
 

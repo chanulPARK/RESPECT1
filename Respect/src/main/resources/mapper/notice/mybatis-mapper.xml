@@ -40,5 +40,8 @@
 		delete from notice where noticeno=#{noticeNo}
 	</delete>
 	
+	<select id="searchNoticeList" resultMap="noticeMap" parameterType="string">
+		select A.*,(select count(*) from attachment where noticeno = A.noticeno) filecount from notice A where title like '%'||#{searchText}||'%' or content like '%'||#{searchText}||'%' order by noticeno desc
+	</select>
 	
 </mapper>

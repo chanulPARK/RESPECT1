@@ -24,4 +24,7 @@ public interface NoticeService {
 
 	int deleteNotice(int noticeNo);
 
+	List<Map<String, String>> searchList(int cPage, int numPerPage, String searchText);
+
+
 }
