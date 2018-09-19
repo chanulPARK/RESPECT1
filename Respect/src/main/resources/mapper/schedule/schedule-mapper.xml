@@ -16,6 +16,23 @@
   		insert into timetable values(#{scheduleNo}, #{placeNo}, #{day}, #{time})
   	</insert>
   	
+  	<update id="updateReportFlag" parameterType="_int">
+  		UPDATE SCHEDULE SET REPORTFLAG = 1 WHERE SCHEDULENO=#{scheduleNo}
+  	</update>
+  	
+  	<delete id="deleteScheduleReport" parameterType="_int">
+  		delete from schedule_report where scheduleno=#{scheduleNo}
+  	</delete>
+  	
+	<insert id="insertScheduleReport" parameterType="schedulereport">
+		insert into SCHEDULE_REPORT values(seq_schedule_report.nextval,#{scheduleNo},#{userId},#{title},sysdate,#{content},#{reportDay})
+	</insert>
+	
+	<select id="selectScheduleReportView" parameterType="_int" resultType="schedulereport">
+		select * from schedule_report where scheduleno=#{scheduleNo}
+	</select>
+  	
+  	
 
   		<!-- 추천추천 -->
   	
@@ -70,13 +87,14 @@
   	</select>
   	
   	<select id="selectScheduleList" resultType="map">
-		SELECT * FROM(SELECT S.*,P.THUMBNAIL FROM SCHEDULE S INNER JOIN PLACE P ON(S.PLACENO=P.PLACENO) ORDER BY ROWNUM DESC)
+		SELECT * FROM(SELECT S.*,P.THUMBNAIL FROM SCHEDULE S INNER JOIN PLACE P ON(S.PLACENO=P.PLACENO) ORDER BY ROWNUM DESC) order by writedate desc
   	</select>
   	
   	<select id="selectTotalCount" resultType="_int">
 		select count(*) from schedule
 	</select>
 	
+
 
 	<select id="selectScheduleFilter" parameterType="map" resultMap="ScheduleMap">
 		SELECT * FROM(SELECT S.*,P.THUMBNAIL FROM SCHEDULE S INNER JOIN PLACE P ON(S.PLACENO=P.PLACENO) ORDER BY ROWNUM DESC)

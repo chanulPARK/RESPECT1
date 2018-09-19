@@ -12,6 +12,7 @@ import com.kh.respect.schedule.model.dao.ScheduleDao;
 import com.kh.respect.schedule.model.vo.Schedule;
 import com.kh.respect.schedule.model.vo.ScheduleReply;
 import com.kh.respect.schedule.model.vo.ScheduleReplyAttachment;
+import com.kh.respect.schedule.model.vo.ScheduleReport;
 import com.kh.respect.schedule.model.vo.TimeTable;
 
 
@@ -188,8 +189,6 @@ public class ScheduleServiceImpl implements ScheduleService {
 				
 				for(TimeTable tt: list)
 				{
-					
-					
 					result=dao.insertTimeTable(session,tt);
 					System.out.println("인서트중");
 				}
@@ -197,7 +196,33 @@ public class ScheduleServiceImpl implements ScheduleService {
 		}
 		return result;
 	}
+	
+	@Override
+	public int insertScheduleReport(List<ScheduleReport> list) {
 
+		int result=0;
+		int result2=0;
+		for(ScheduleReport sr: list)
+		{ 
+			System.out.println("insert ing!!!");
+			result=dao.insertScheduleReport(session,sr);
+		}
+		if(result>0)
+		{
+			int scheduleNo=list.get(0).getScheduleNo();
+			result2=dao.updateScheduleReportFlag(session,scheduleNo);
+		}
+		return result2; 
+		
+	}
+	
+	@Override
+	public List<ScheduleReport> selectScheduleReportView(int scheduleNo) {
+		return dao.selectScheduleReportView(session,scheduleNo);
+	}
+	
+	
+	
 //	@Override
 //	public int deleteSchedule(int scheduleNo) {
 //		return dao.deleteSchedule(session, scheduleNo);
@@ -209,6 +234,10 @@ public class ScheduleServiceImpl implements ScheduleService {
 	
 	
 	//추천수정수정
+
+	
+
+	
 
 		@Override
 		public int goodCountCheck(Schedule schedule) {
@@ -247,6 +276,11 @@ public class ScheduleServiceImpl implements ScheduleService {
 		public int bringCountDown(Schedule schedule) {
 			dao.deleteBringDownCount(session,schedule);
 			return dao.bringCountDown(session,schedule);
+		}
+
+		@Override
+		public int deleteScheduleReport(int scheduleNo) {
+			return dao.deleteScheduleReport(session,scheduleNo);
 		}
 	
 	

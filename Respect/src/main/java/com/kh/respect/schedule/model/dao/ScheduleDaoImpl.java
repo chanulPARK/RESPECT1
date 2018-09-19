@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import com.kh.respect.schedule.model.vo.Schedule;
 import com.kh.respect.schedule.model.vo.ScheduleReply;
 import com.kh.respect.schedule.model.vo.ScheduleReplyAttachment;
+import com.kh.respect.schedule.model.vo.ScheduleReport;
 import com.kh.respect.schedule.model.vo.TimeTable;
 
 @Repository
@@ -32,6 +33,16 @@ public class ScheduleDaoImpl implements ScheduleDao {
 	
 	//추천수정수정
 	
+		@Override
+	public int deleteScheduleReport(SqlSessionTemplate session, int scheduleNo) {
+		return session.delete("schedule.deleteScheduleReport",scheduleNo);
+	}
+
+		@Override
+	public int updateScheduleReportFlag(SqlSessionTemplate session, int scheduleNo) {
+		return session.update("schedule.updateReportFlag",scheduleNo);
+	}
+
 		@Override
 		public int goodCountCheck(SqlSessionTemplate session, Schedule schedule) {
 			// TODO Auto-generated method stub
@@ -150,6 +161,11 @@ public class ScheduleDaoImpl implements ScheduleDao {
 	public int deleteTimeTable(SqlSessionTemplate session, int scheduleNo) {
 		return session.delete("schedule.deleteTimeTable",scheduleNo);
 	}
+	
+	@Override
+	public List<ScheduleReport> selectScheduleReportView(SqlSessionTemplate session,int scheduleNo) {
+		return session.selectList("schedule.selectScheduleReportView",scheduleNo);
+	}
 
 //	@Override
 //	public int deleteSchedule(SqlSessionTemplate session, int scheduleNo) {
@@ -159,6 +175,15 @@ public class ScheduleDaoImpl implements ScheduleDao {
 
 
 	
+
+	
+
+	@Override
+	public int insertScheduleReport(SqlSessionTemplate session, ScheduleReport sr) {
+		
+		return session.insert("schedule.insertScheduleReport",sr);
+	}
+
 	//댓글
 	//스케쥴댓글
 	   @Override

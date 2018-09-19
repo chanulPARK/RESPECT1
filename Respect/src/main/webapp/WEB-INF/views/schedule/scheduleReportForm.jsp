@@ -7,10 +7,10 @@
 @media screen and (min-width: 769px) {
    /* 데스크탑에서 사용될 스타일을 여기에 작성합니다. */
 }
-	#map
-	{
-		background:black;	
-	}
+   #map
+   {
+      background:black;   
+   }
     .time1{width:20%;}
     .time2{width:80%;}
     .timeline th{background:black; color:orange;}
@@ -37,45 +37,76 @@
 <!-- 지도 라이브러리  -->
 
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=29d28c77afa06b8d3797cd516b310f0f&libraries=services"></script>
+ <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.css" rel="stylesheet"> 
+<script src="${path }/resources/js/summernote.js"></script>
+<script src="${path }/resources/js/summernote.min.js"></script>
+<script src="${path }/resources/js/summernote-ko-KR.js"></script>  
 
 <script>
-	function fn_submit(scheduleNo,daySize)
-	{
-		
-		for(var i=1; i<=daySize; i++)
-		{
-			var title=$("input[name='reportTitle"+i+"']").val();
-			var content=$("textarea[name='reportContent"+i+"']").val();
-			/* console.log(title);
-			console.log(content); 잘나옴 체크함*/
-			/* 배열값으로 여러개를 어떻게 보내는지 */
-			
-			reportForm.scheduleNo.value=scheduleNo;
-			reportForm.reportTitle.value=title[i];
-			reportForm.reportContent.value=content[i];
-			
-			
-		/* 	$("#reportId input[name='reportTitle"+i+"']").val(title);
-			$("#reportId textarea[name='reportContent"+i+"']").val(content); */
-			var url="${path}/schedule/scheduleReportInsert";
-			reportForm.action=url;
-			reportForm.method="get";
-		}
-			reportForm.submit();
-	}
-	
-	function fn_reviewDelete(scheduleNo)
-	{
-		location.href="${path}/schedule/scheduleReportDelete?scheduleNo="+scheduleNo;
-	}
-	
-	function fn_reviewModify(scheduleNo)
-	{
-		location.href="${path}/schedule/scheduleReportModify?scheduleNo="+scheduleNo;
-	}
+
+
+//summernote
+$(document).ready(function() {
+	    $('.summernote').summernote({
+        height : 400,                 // set editor height
+        lang : 'ko-KR', // default: 'en-US'
+  		callbacks : {
+  			onImageUpload : function(files, editor, welEditable){
+  				sendFile(files, editor, welEditable);
+  			}
+  		}
+	    });
+	});
+
+function sendFile(file, editor, welEditable){
+    data = new FormData();
+    console.log(file);
+    for(var i=0;i<file.length;i++){
+       data.append("uploadFile", file[i]);
+    }
+    console.log(data.getAll('uploadFile'));
+    $.ajax({
+       data:data,
+       url:"${path}/imageUpload.do",
+       type:"POST",
+       cache:false,
+       contentType:false,
+       processData:false,
+       dataType:"json",
+       success:function(data){
+    	  alert(data);
+          console.log(data);
+          for(var i=0;i<data.length;i++)
+          {
+             //$('#test').append('<img src=/resources/uploadImg/'+data.list[i]+'>');
+             $('.summernote').summernote('insertImage', "${path}/resources/uploadImg/"+data[i],data[i]);
+          }
+       },
+       error:function(obj,a,b){
+    	   console.log(obj);
+    	   console.log(b);
+       }
+    });
+}
+
+
+   function fn_submit()
+   {
+      $("#reportForm").submit();
+   }
+   function fn_reviewDelete(scheduleNo)
+   {
+      location.href="${path}/schedule/scheduleReportDelete?scheduleNo="+scheduleNo;
+   }
+   
+   function fn_reviewModify(scheduleNo)
+   {
+      location.href="${path}/schedule/scheduleReportModify?scheduleNo="+scheduleNo;
+   }
      
      function fn_toggle(ev)
      {
+       ev.preventDefault();
         var btnId=ev.target.value;
         console.log(btnId);
         $("#content"+btnId).toggle();
@@ -129,33 +160,33 @@
                                 <div class="mt-4" id="map" style=" width:100%; height:353px; border-radius:0;"></div> 
                                 <p id="timetableList"></p>
                                 <fmt:parseDate value="${viewList.STARTDATE }" var="startDate" pattern="yyyy-MM-dd"/>
-								<fmt:parseNumber value="${startDate.time / (1000*60*60*24)}" integerOnly="true" var="startDay"></fmt:parseNumber>
-								<fmt:parseDate value="${viewList.ENDDATE }" var="endDate" pattern="yyyy-MM-dd"/>
-								<fmt:parseNumber value="${endDate.time / (1000*60*60*24)}" integerOnly="true" var="endDay"></fmt:parseNumber>
+                        <fmt:parseNumber value="${startDate.time / (1000*60*60*24)}" integerOnly="true" var="startDay"></fmt:parseNumber>
+                        <fmt:parseDate value="${viewList.ENDDATE }" var="endDate" pattern="yyyy-MM-dd"/>
+                        <fmt:parseNumber value="${endDate.time / (1000*60*60*24)}" integerOnly="true" var="endDay"></fmt:parseNumber>
                                 <div id="demo" class="carousel slide" style="width: 100%;" data-ride="carousel" data-interval="false">
                                       <!-- The slideshow -->
                                       <div class="carousel-inner">
                                       <c:forEach var="v" begin='1' end='${endDay - startDay +1}' varStatus="s">
-		                            <c:choose>
-		                              <c:when test="${s.index==1}">
-		                              	<div class="carousel-item active">
-		                              </c:when>
-		                              	<c:otherwise>
-		                              		<div class="carousel-item">
-		                              	</c:otherwise>
-		                              </c:choose>
+                                  <c:choose>
+                                    <c:when test="${s.index==1}">
+                                       <div class="carousel-item active">
+                                    </c:when>
+                                       <c:otherwise>
+                                          <div class="carousel-item">
+                                       </c:otherwise>
+                                    </c:choose>
                                                 <div class="day">
                                             <table id='${s.count }' class="table-bordered timeline">
                                                     <tr>
                                                         <th class="time1">TIME</th>
                                                         <th class="time2">
                                                                 <a class="float-left" href="#demo" data-slide="prev">&lt;</a>
-                                                                	DAY ${s.count }
+                                                                   DAY ${s.count }
                                                                 <a class="float-right" href="#demo" data-slide="next">&gt;</a>
                                                         </th>
                                                     </tr>
                                                     <tr>
-                                                     		<td class="time1">06:00</td>
+                                                           <td class="time1">06:00</td>
                                                             <td id='06' class="place"></td>
                                                     </tr>
                                                     <tr>
@@ -240,44 +271,43 @@
                               <br>
                               <br>
                                 <div class="btn-group">
-							        <button type="button btn-lg" class="btn btn-outline-warning dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-							          후기 작성
-							        </button>
-							        <div class="dropdown-menu">
-							                <a class="dropdown-item" onclick="fn_submit('${viewList.SCHEDULENO}','${endDay - startDay +1}')">글쓰기</a>
-							                <div class="dropdown-divider"></div>
-							                <a class="dropdown-item" onclick="fn_s(${viewList.SCHEDULENO})">수정</a>
-							                <a class="dropdown-item" onclick="fn_submit(${viewList.SCHEDULENO})">삭제</a>
-							        </div>
-							      </div>
-							      <br>
+                             <button type="button" class="btn btn-outline-warning" onclick="fn_submit()">
+                               후기 작성
+                             </button>
+                           </div>
+                           <br>
                                  
                                 <br>  
+                                <form name="reportForm" id="reportForm" action="${path }/schedule/scheduleReportInsert" method='post'> 
+                                <input type="hidden" name="scheduleNo" value="${viewList.SCHEDULENO }">
                                 <!-- for문 -->
                                 <c:forEach var="v" begin='1' end='${endDay - startDay +1}' varStatus="s">
+                                <input type="hidden" name="day" value="${s.count }">
+                               
                                 <button class="btn" value="${s.count }" onclick="fn_toggle(event)">${s.count }일차</button><br>
                                 <br>
                                 <div id="content${s.count }"  class="hidetext">
-                                <div class="container">
+                                <div >
                                         
-                                                <h5 class="col-md-8">제목</h5>
-                                                <div class="col-md-8">
-                                                        <div class="form-group">
-                                                        	<input type="text" class="form-control" name="reportTitle${s.count }" autocomplete="off" id="reportTitle" placeholder="title">
-                                                        </div>
+                                        <h5 class="col-md-8">제목</h5>
+                                        <div class="col-md-7">
+                                                <div class="">
+                                                   <input type="text" class="form-control" name="reportTitle" autocomplete="off" id="reportTitle" placeholder="title" required>
                                                 </div>
-                                                <h5 class="col-md-8">내용</h5>
-                                                        <div class="col-md-8">
-                                                        <div class="form-group">
-                                                                <textarea class="form-control textarea" rows="3" name="reportContent${s.count }" id="reportContent" placeholder="content"></textarea>
-                                                        </div>
-                                                        </div>
+                                        </div>
+                                        <br>
+                                        <h5 class="col-md-8">내용</h5>
+                                                <div class="col-md-7">
+                                                <div class="">
+                                                     <textarea class="col-md-7 form-control textarea summernote"  name="reportContent" id="reportContent" placeholder="content"  style="resize: none;" required></textarea>
+                                                </div>
+                                                </div>
                                         <br>
                                         </div>
                                 </div>
                                 <br>
                                 </c:forEach>
-                                       
+                                   </form>   
                               </div>
                               
       
@@ -287,11 +317,9 @@
                 </div>
                 
                 
-                <form name="reportForm" id="reportId">
-                	<input type="hidden" name="scheduleNo">
-                	<input type="hidden" name="reportTitle">
-                	<input type="hidden" name="reportContent">
-                </form>
+                
+                
+                
               </body>
       
   <script>
@@ -301,33 +329,7 @@
   
     
     
-   var clicktarget;
-   function allowDrop(ev) {
-       ev.preventDefault();
-   }
-   
-   function drag(ev) {
-       clicktarget=ev.target.parentElement.parentElement.parentElement;
-       clicktarget.classList.remove("disable");
-       ev.dataTransfer.setData("text", ev.target.parentElement.parentElement.id);
-   }
-   
-   function drop(ev) {
-       ev.preventDefault();
-       var data = ev.dataTransfer.getData("text");
-       var td=$(".active TD[class='place']");
-       
-       if(ev.target.className=="place")
-       {
-           ev.target.classList.add("disable");
-           ev.target.appendChild(document.getElementById(data));
-       }
-       else
-       {
-           clicktarget.classList.add("disable");
-       }
-   
-   }
+  
    var createSeq = function(){
       var no=0;
       return function(){
@@ -351,23 +353,7 @@
    };
    var map= new daum.maps.Map(container, options);
    
-   function fn_add(event)
-   {
-          var place1=event.target.value;
-          
-          var place2=place1.split(",");
-          
-          var seq_no=seq();
-          seq_num=seq_no
-           var html="<div id='data"+seq_no+"'>"+place2[1]+seq_no+"/"+place2[0]+"<input type='hidden' value='"+place1+"' class='placelist'><span class='float-right' class='drag' id='drag"+seq_no+"' draggable='true' ondragstart='drag(event)'> <img src='${path}/resources/img/arrow.png' style='width:50px; height:30px;'></span><button class='float-right' onclick='fn_delete("+seq_no+")'>X</button></div>";
-           var active=$(".active TD[class='place']:first");
-           active[0].classList.add("disable");
-           active.append(html);
-           var loc=place2[2];
-           title=place2[1];
-           console.log(loc);
-           ps.addressSearch(loc,placesSearchCB);
-   }
+  
    
    //장소 검색 완료시 호출되는 콜백 함수
    function placesSearchCB (data, status, pagination)
@@ -434,21 +420,7 @@
    
    
    
-   function fn_delete(num)
-   {
-      for(var i=0; i<markers.length;i++)
-      {
-         if(markers[i].getTitle()==num)
-            {
-               markers[i].setMap(null);
-            }
-      }
-      var targetdiv=document.getElementById("data"+num);
-      
-      targetdiv.parentElement.classList.remove("disable");
-      targetdiv.remove();
-      
-   };
+  
 
    
 

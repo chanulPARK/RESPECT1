@@ -8,6 +8,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import com.kh.respect.schedule.model.vo.Schedule;
 import com.kh.respect.schedule.model.vo.ScheduleReply;
 import com.kh.respect.schedule.model.vo.ScheduleReplyAttachment;
+import com.kh.respect.schedule.model.vo.ScheduleReport;
 import com.kh.respect.schedule.model.vo.TimeTable;
 
 public interface ScheduleDao {
@@ -51,11 +52,15 @@ public interface ScheduleDao {
    List<Map<String, String>> scheduleAttList(SqlSessionTemplate session);
 
 	Map selectSchedule(SqlSessionTemplate session,int scheduleNo);
+	int insertScheduleReport(SqlSessionTemplate session, ScheduleReport sr);
 
 	
 	List<Map> selectTimeTableList(SqlSessionTemplate session,int scheduleNo);
 	int updateSchedule(SqlSessionTemplate session, Schedule sc);
 	int deleteTimeTable(SqlSessionTemplate session, int scheduleNo);
 //	int deleteSchedule(SqlSessionTemplate session, int scheduleNo);
+	List<ScheduleReport> selectScheduleReportView(SqlSessionTemplate session,int scheduleNo);
+	int updateScheduleReportFlag(SqlSessionTemplate session, int scheduleNo);
+	int deleteScheduleReport(SqlSessionTemplate session, int scheduleNo);
 
 }

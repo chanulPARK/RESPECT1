@@ -33,6 +33,7 @@ import com.kh.respect.schedule.model.service.ScheduleService;
 import com.kh.respect.schedule.model.vo.Schedule;
 import com.kh.respect.schedule.model.vo.ScheduleReply;
 import com.kh.respect.schedule.model.vo.ScheduleReplyAttachment;
+import com.kh.respect.schedule.model.vo.ScheduleReport;
 import com.kh.respect.schedule.model.vo.TimeTable;
 import com.kh.respect.user.model.vo.User;
 
@@ -47,18 +48,99 @@ public class ScheduleController {
 	private MyScheduleService myservice;
 	
 	
-	@RequestMapping("/schedule/scheduleReportInsert")
-	public ModelAndView scheduleReview(int scheduleNo,String [] reportTitle, String [] reportContent)
+	@RequestMapping("/schedule/deleteReport")
+	public ModelAndView scheduleReportDelete(int scheduleNo)
 	{
-		ModelAndView mv= new ModelAndView();
-		System.out.println();
-		for(int i=0; i<reportTitle.length; i++)
+		ModelAndView mv = new ModelAndView();
+		int result=service.deleteScheduleReport(scheduleNo);
+		String msg="";
+		String loc="";
+		if(result>0)
 		{
-			System.out.println("제목 배열 :"+reportTitle[i]);
-			System.out.println("내용 배열 :"+reportContent[i]);
+			msg="일정 삭제 성공";
+			loc="/";
+		}
+		else
+		{
+			msg="일정 삭제 실패";
+			loc="/";
 		}
 		
-		mv.setViewName("schedule/scheduleReportView");
+		mv.addObject("msg", msg);
+		mv.addObject("loc",loc);
+		mv.setViewName("common/msg");
+		
+		return mv;
+	}
+	
+	
+	@RequestMapping("/schedule/scheduleReportInsert")
+	public ModelAndView scheduleReview(HttpSession session,int scheduleNo,String [] reportTitle, String [] reportContent,int [] day)
+	{
+		ModelAndView mv= new ModelAndView();
+
+				
+		User user=(User)session.getAttribute("userLoggedIn");
+		String userId=user.getUserId();
+		List<ScheduleReport> list=new ArrayList<ScheduleReport>();
+		ScheduleReport sr = null;
+		if(day.length==1)
+		{
+			sr=new ScheduleReport();
+			sr.setUserId(userId);
+			sr.setReportDay(day[0]);
+			sr.setContent(reportContent[0]);
+			sr.setTitle(reportTitle[0]);
+			sr.setScheduleNo(scheduleNo);
+			list.add(sr);
+		}else
+		{
+
+			for(int i=0; i<day.length; i++)
+			{
+				sr=new ScheduleReport();
+				sr.setScheduleNo(scheduleNo);
+				sr.setUserId(userId);
+				sr.setContent(reportContent[i]);
+				sr.setTitle(reportTitle[i]);
+				sr.setReportDay(day[i]);
+				list.add(sr);
+				
+//				System.out.println("리스트에 담긴 내용입니다 : "+list.get(i).getContent());
+//				System.out.println("리스트에 담긴 아이디 : "+list.get(i).getUserId());
+			}
+		}
+		
+		int result=service.insertScheduleReport(list);
+		
+		Map<String, String> map=service.selectOneScheduleView(scheduleNo);
+		List<TimeTable> tt=service.selectOneTimetableView(scheduleNo);
+		
+		Gson gson=new Gson();
+		String json = gson.toJson(tt);
+
+		
+		//댓글
+		List<Map<String, String>> scheduleReplyList = service.scheduleReplyList(scheduleNo);
+        List<Map<String, String>> scheduleAttList = service.scheduleAttList();
+	      
+	      String msg="";
+	      
+	      if(result>0)
+	      {
+	         msg="후기 등록 성공";
+	      }
+	      else
+	      {
+	         msg="후기 등록 실패";
+	      }
+	      
+        mv.addObject("msg", msg);
+        mv.addObject("viewList",map);
+        mv.addObject("tt",json);
+	    mv.addObject("scheduleReplyList",scheduleReplyList);
+	    mv.addObject("scheduleAttList",scheduleAttList);
+		mv.setViewName("schedule/scheduleView");
 		return mv;
 	}
 	
@@ -82,6 +164,8 @@ public class ScheduleController {
 		return "schedule/myPlaceAddForm";
 	}
 	
+	
+	
 	@RequestMapping("/schedule/scheduleView")
 	public ModelAndView ScheduleView(HttpSession session,int scheduleNo)
 	{
@@ -89,24 +173,28 @@ public class ScheduleController {
 		Map<String, String> map=service.selectOneScheduleView(scheduleNo);
 		List<TimeTable> tt=service.selectOneTimetableView(scheduleNo);
 		
+		List<ScheduleReport> sr=service.selectScheduleReportView(scheduleNo);
+		
 		
 		Gson gson=new Gson();
 		String json = gson.toJson(tt);
 		mv.addObject("viewList",map);
 		mv.addObject("tt",json);
-
+		
 		
 		
 		//댓글
 		List<Map<String, String>> scheduleReplyList = service.scheduleReplyList(scheduleNo);
         List<Map<String, String>> scheduleAttList = service.scheduleAttList();
 	      
-	      
+	      mv.addObject("reportList",sr);
 	      mv.addObject("scheduleReplyList",scheduleReplyList);
 	      mv.addObject("scheduleAttList",scheduleAttList);
 	      mv.setViewName("schedule/scheduleView");
 		return mv;
 	}
+	
+	
 	
 	@RequestMapping("/schedule/scheduleList")
 	public ModelAndView ScheduleList(@RequestParam(value="cPage",required=false,defaultValue="1") int cPage)
