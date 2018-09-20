@@ -32,16 +32,14 @@
 <!-- Popper JS -->
 <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script> -->
 
-
 <!-- Latest compiled JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 
 
+
 <!-- <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet"> -->
 <!-- <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.js"></script> --> 
-<script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
-
-
+<!-- <script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script> -->
 
 
 
@@ -64,9 +62,7 @@
 <link rel="stylesheet" href="${path}/resources/css/styles2.css">
 <link href="https://fonts.googleapis.com/css?family=Do+Hyeon" rel="stylesheet">
 
-
-
-<!-- <script>
+<script>
 $(function(){
 	
 	var latitude="";
@@ -108,20 +104,20 @@ $(function(){
 			
 			
 			switch (skyName) {
-				case '맑음': $(".weather-picture").html("<i class='wi wi-day-sunny'></i>"); break;
-				case '구름조금': $(".weather-picture").html("<i class='wi wi-day-cloudy'></i>"); break;
-				case '구름많음': $(".weather-picture").html("<i class='wi wi-day-cloudy-high'></i>"); break;
-				case '구름많고 비': $(".weather-picture").html("<i class='wi wi-day-rain'></i>"); break;
-				case '구름많고 눈': $(".weather-picture").html("<i class='wi wi-day-snow'></i>"); break;
-				case '구름많고 비 또는 눈': $(".weather-picture").html("<i class='wi wi-day-rain-mix'></i>"); break;
-				case '흐림': $(".weather-picture").html("<i class='wi wi-day-fog'></i>"); break;
-				case '흐리고 비': $(".weather-picture").html("<i class='wi wi-rain'></i>"); break;
-				case '흐리고 눈': $(".weather-picture").html("<i class='wi wi-snow'></i>"); break;
-				case '흐리고 비 또는 눈': $(".weather-picture").html("<i class='wi wi-rain-mix'></i>"); break;
-				case '흐리고 낙뢰': $(".weather-picture").html("<i class='wi wi-lightning'></i>"); break;
-				case '뇌우/비': $(".weather-picture").html("<i class='wi wi-thunderstorm'></i>"); break;
-				case '뇌우/눈': $(".weather-picture").html("<i class='wi wi-storm-showers'></i>"); break;
-				default: $(".weather-picture").html("<i class='wi wi-storm-showers'></i>"); break;
+				case '맑음': $(".weather-picture").html("<i class='wi wi-day-sunny'></i>").css({'font-size':'30px', 'color': '#808080'}); break;
+				case '구름조금': $(".weather-picture").html("<i class='wi wi-day-cloudy'></i>").css({'font-size':'30px', 'color': '#808080'}); break;
+				case '구름많음': $(".weather-picture").html("<i class='wi wi-day-cloudy-high'></i>").css({'font-size':'30px', 'color': '#808080'}); break;
+				case '구름많고 비': $(".weather-picture").html("<i class='wi wi-day-rain'></i>").css({'font-size':'30px', 'color': '#808080'}); break;
+				case '구름많고 눈': $(".weather-picture").html("<i class='wi wi-day-snow'></i>").css({'font-size':'30px', 'color': '#808080'}); break;
+				case '구름많고 비 또는 눈': $(".weather-picture").html("<i class='wi wi-day-rain-mix'></i>").css({'font-size':'30px', 'color': '#808080'}); break;
+				case '흐림': $(".weather-picture").html("<i class='wi wi-day-fog'></i>").css({'font-size':'30px', 'color': '#808080'}); break;
+				case '흐리고 비': $(".weather-picture").html("<i class='wi wi-rain'></i>").css({'font-size':'30px', 'color': '#808080'}); break;
+				case '흐리고 눈': $(".weather-picture").html("<i class='wi wi-snow'></i>").css({'font-size':'30px', 'color': '#808080'}); break;
+				case '흐리고 비 또는 눈': $(".weather-picture").html("<i class='wi wi-rain-mix'></i>").css({'font-size':'30px', 'color': '#808080'}); break;
+				case '흐리고 낙뢰': $(".weather-picture").html("<i class='wi wi-lightning'></i>").css({'font-size':'30px', 'color': '#808080'}); break;
+				case '뇌우/비': $(".weather-picture").html("<i class='wi wi-thunderstorm'></i>").css({'font-size':'30px', 'color': '#808080'}); break;
+				case '뇌우/눈': $(".weather-picture").html("<i class='wi wi-storm-showers'></i>").css({'font-size':'30px', 'color': '#808080'}); break;
+				default: $(".weather-picture").html("<i class='wi wi-storm-showers'></i>").css({'font-size':'30px', 'color': '#808080'}); break;
 			}
 			
 			$("#weather-temp1").children().children().after("<sub>"+temp+" ℃"+"</sub>");
@@ -139,21 +135,15 @@ $(function(){
 		}
 		});
 		
-		
-		
-
-	
+	   $('#message').on('click',function(){
+           window.open('${path}/message/receiveMessageList.do?userId=${userLoggedIn.userId}','message','top=50px, left=100px, height=600px, width=800px, resizable=no');
+      }); 
+	   
+	   	
 });
 
-</script> -->
-
-<script>
-	$(function(){
-		$('#message').on('click',function(){
-		     window.open('${path}/message/receiveMessageList.do?userId=${userLoggedIn.userId}','message','top=50px, left=100px, height=600px, width=800px, resizable=no');
-		}); 
-	});
 </script>
+
 
 </head>
 <body>
@@ -170,7 +160,7 @@ $(function(){
                     <li>
                         <div class="row ml-3 mt-1 pt-2">
                             <div id="weather-temp1" class="mr-4">
-                                <a href="#">
+                                <a href="http://jejutour.ecobrain.net/">
                                     <p>제주시</p>
                                 </a>
                             </div>
@@ -181,9 +171,9 @@ $(function(){
                         </div>
                     </li>
                     <li>
-                        <div class="row ml-3 mt-1 pt-3">
+                        <div class="row ml-3 mt-2 pt-3">
                             <div id="weather-temp2" class="mr-2">
-                                <a href="#">
+                                <a href="http://jejutour.ecobrain.net/">
                                     <p>서귀포시</p>
                                 </a>
                             </div>
