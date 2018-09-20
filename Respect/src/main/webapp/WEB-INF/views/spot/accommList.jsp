@@ -33,17 +33,48 @@
 	}
 </style>
 
+<script type="text/javascript">
+	$(document).ready(function() {
+		var temp = $('#minorcategory').val();
+		if(temp=='리조트') {
+			$('.tag-all').prop('style', 'padding:0;')
+			$('.cate').removeProp('style', 'background: #ffb53c;color: #fff;')
+			$('#c1').prop('style', 'background: #ffb53c;color: #fff;')
+		}
+		if(temp=='호텔') {
+			$('.tag-all').prop('style', 'padding:0;')
+			$('.cate').removeProp('style', 'background: #ffb53c;color: #fff;')
+			$('#c2').prop('style', 'background: #ffb53c;color: #fff;')
+		}
+		if(temp=='모텔/여관') {
+			$('.tag-all').prop('style', 'padding:0;')
+			$('.cate').removeProp('style', 'background: #ffb53c;color: #fff;')
+			$('#c3').prop('style', 'background: #ffb53c;color: #fff;')
+		}
+		if(temp=='펜션/민박') {
+			$('.tag-all').prop('style', 'padding:0;')
+			$('.cate').removeProp('style', 'background: #ffb53c;color: #fff;')
+			$('#c4').prop('style', 'background: #ffb53c;color: #fff;')
+		}
+		if(temp=='게스트하우스') {
+			$('.tag-all').prop('style', 'padding:0;')
+			$('.cate').removeProp('style', 'background: #ffb53c;color: #fff;')
+			$('#c5').prop('style', 'background: #ffb53c;color: #fff;')
+		}
+	});
+</script>
+
 <main class="page landing-page">
-	<input type="hidden" id="minorcategory" name="minorcategory" value="자연" />
+	<input type="hidden" id="minorcategory" name="minorcategory2" value="${minorcategory}" />
 	<input type="hidden" id="page" name="page" value="" />
 	
 	<section class="clean-block slider dark" style="padding:0;margin:0 0 100px;">
-		<img src="${path }/resources/img/spot/3.gif" style="width:100%;">
+		<img src="${path }/resources/img/spot/3.jpg" style="width:100%;">
 	</section>
 	<section id="map-index">
 	    <div class="container">
-	        <h2>제주도 모든 여행지를 한 눈에…<br></h2>
-	        <h5>내가 가본 제주는 어디까지일까? 수많은 제주의 아름다운 여행지를 취향에 맞게 선택해보자. 368개의 크고 작은 오름을 비롯하여 눈 돌리면 어디에서나 마주치는 한라산 그리고 푸른 바다…. 제주의 보석 같은 여행지가 여러분의 선택을 기다린다.<br></h5>
+	        <h2>호텔부터 민박까지 다양한 종류의 숙소<br></h2>
+	        <h5>제주도 숙박시설에는 호텔 , 리조트, 펜션 , 풀빌라 , 독채펜션, 게스트 하우스 , 민박, 모텔까지 다양한 종류의 숙소가 있다. 여행을 함께 하는 구성원 그리고 여행의 목적, 체류기간에 맞춰 숙소를 결정하면 된다. 가족, 연인을 위한 아늑하고 낭만적인 호텔이나 친구와 여행하기에 좀더 편한 펜션이 있고 두 가족 이상의 대가족은 독립적인 공간의 독채 펜션​ 혹은 리조트가 좋을 것이다. 부모님을 모시고 가거나 아이와 함께 간다면 수영장이 있는 제주도 호텔이나 풀빌라를 선택하는 것이 좋다.<br></h5>
 	        	<img src="${path }/resources/img/spot/지도.JPG" class="map">
 	        	<button class="btn btn-outline-warning map-btn" type="button">전체지역</button>
        	</div>
@@ -51,19 +82,21 @@
 	<section id="map-tag">
 	    <div class="container">
 	        <div class="row map-row">
-	            <div class="col-xl-1 tag-all cate cate_click" style="padding:0px;">
-	                <h5 style="padding-top: 35px;">전체</h5>
+	            <div class="col-xl-1 tag-all cate" style="padding:0px;background: #ffb53c;color: #fff;">
+	                <a href="javascript:fn_searchAll()">
+		                <h5 style="padding-top: 35px;">전체</h5>
+		            </a>
 	            </div>
 	            <div class="col">
 	                <a href="javascript:fn_search('리조트')">
-	                <div class="row cate">
+	                <div class="row cate" id="c1">
 	                    <div class="col">
 	                        <h5>리조트</h5>
 	                    </div>
 	                </div>
 	                </a>
 	                <a href="javascript:fn_search('게스트하우스')">
-	                <div class="row cate">
+	                <div class="row cate" id="c5">
 	                    <div class="col">
 	                        <h5>게스트하우스</h5>
 	                    </div>
@@ -72,7 +105,7 @@
 	            </div>
 	            <div class="col">
 	            	<a href="javascript:fn_search('호텔')">
-	                <div class="row cate">
+	                <div class="row cate" id="c2">
 	                    <div class="col">
 	                        <h5>호텔</h5>
 	                    </div>
@@ -86,7 +119,7 @@
 	            </div>
 	            <div class="col">
 	            	<a href="javascript:fn_search('모텔/여관')">
-	                <div class="row cate">
+	                <div class="row cate" id="c3">
 	                    <div class="col">
 	                        <h5>모텔/여관<br></h5>
 	                    </div>
@@ -100,7 +133,7 @@
 	            </div>
 	            <div class="col">
 	            	<a href="javascript:fn_search('펜션/민박')">
-	                <div class="row cate">
+	                <div class="row cate" id="c4">
 	                    <div class="col">
 	                        <h5>펜션/민박</h5>
 	                    </div>
@@ -163,9 +196,9 @@
 		                            <p>찜하기</p>
 		                            <p>${p.bringcount}</p>
 		                        </div>
-		                        <div class="col"><i class="fa fa-check icon" style="font-size: 20px;"></i>
-		                            <p>조회수</p>
-		                            <p>${p.hitscount}</p>
+		                        <div class="col"><i class="fa fa-commenting-o icon" style="font-size: 20px;"></i>
+		                            <p>리뷰</p>
+		                            <p>${p.replycount}</p>
 		                        </div>
 		                    </div>
 		                </div>
@@ -194,14 +227,9 @@
 		location.href="${path}/spot/searchaccommCategoryList.do?minorcategory="+minorcategory;
 	}
 	
-	$(document).ready(function() {
-		$('.cate').click(function() {
-			$('.cate').each(function(){
-				$(this).removeClass('cate_click');
-			});
-			$(this).addClass('cate_click');
-		});
-	});
+	function fn_searchAll() {
+		location.href="${path}/spot/searchaccommCategoryList.do";
+	}
 </script>
 
 	

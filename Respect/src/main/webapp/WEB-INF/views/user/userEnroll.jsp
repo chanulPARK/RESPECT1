@@ -11,12 +11,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+    <title>니가가라 제주도</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
-    
+    <link rel="stylesheet" href="${path }/resources/css/style.css">
+    <link rel="shortcut icon" href="${path }/resources/img/main/favicon.ico">
     <script>
     	$(function(){
     		var idFlag=0;
@@ -214,7 +215,7 @@
     <style>
     body{background: #f1f1f1;}
 
-#logo{color:black; font-family:'Gloria Hallelujah', cursive;  font-size: 30px; }
+#logo{color:black; font-family:'jejuhallasan', cursive;  font-size: 30px; }
 #logo img{width:40px;}
 #contentarea{background:white;}
 a{text-decoration: none;}
@@ -225,7 +226,7 @@ button{background: rgb(200, 152, 152);}
 </head>
 <body>
     <div class="container mt-5 p-5">
-		<div class="p-4"align="center"><label><a id="logo" href="<%=request.getContextPath() %>/index.jsp" ><img src="${path }/resources/img/main/KakaoTalk_20180913_202949683.png"> 니가가라 제주도</a></label></div>
+		<div class="p-4"align="center"><label><a id="logo" href="<%=request.getContextPath() %>/index.jsp" ><img src="${path }/resources/img/main/logo.png"> 니가가라 제주도</a></label></div>
    		<div id="contentarea" class="container col-sm-7 shadow h-100 p-4 rounded" >
 	        <form action="${path }/user/registerEnd" method="post" id="registerForm" enctype="multipart/form-data">
 	          <div class="form-group">

@@ -9,9 +9,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.kh.respect.meet.model.vo.MeetReply;
+import com.kh.respect.meet.model.vo.MeetReplyAttachment;
 import com.kh.respect.place.model.dao.PlaceDao;
 import com.kh.respect.place.model.vo.Place;
 import com.kh.respect.place.model.vo.PlaceGood;
+import com.kh.respect.place.model.vo.PlaceReply;
+import com.kh.respect.place.model.vo.PlaceReplyAttachment;
 import com.kh.respect.place.model.vo.PlaceSpring;
 
 @Service
@@ -146,6 +150,16 @@ public class PlaceServiceImpl implements PlaceService {
 		return dao.categoryTotalCount(sqlSession, minorcategory);
 	}
 	
+	@Override
+	public List<Place> searchAreaList(int cPage, int numPerPage, String area, String major) {
+		return dao.searchAreaList(sqlSession, cPage, numPerPage, area, major);
+	}
+
+	@Override
+	public int areaTotalCount(String area, String major) {
+		return dao.areaTotalCount(sqlSession, area, major);
+	}
+	
 	
 
 //	@Override
@@ -219,6 +233,66 @@ public class PlaceServiceImpl implements PlaceService {
 	@Override
 	public List<String> searchKeyword(String keyword) {
 		return dao.searchKeyword(sqlSession,keyword);
+	}
+	
+	//////////////// 댓글
+	@Override
+	public List<Map<String, String>> placeReplyList(int placeNo) {
+		return dao.placeReplyList(sqlSession, placeNo);
+	}
+
+
+	@Override
+	public List<Map<String, String>> placeAttList() {
+		return dao.placeAttList(sqlSession);
+	}
+
+
+	@Override
+	public int placeReplyWrite(PlaceReply placeReply, List<PlaceReplyAttachment> attList) {
+		int result = 0;
+		int placeNo=0;
+		int replyNo=0;
+		placeNo = placeReply.getPlaceNo();
+		dao.placeReplyCountUpdate(sqlSession,placeNo);
+		result = dao.placeReplyWrite(sqlSession, placeReply);
+		replyNo = placeReply.getReplyNo();
+		if(attList.size()>0) {
+		   for(PlaceReplyAttachment a : attList) {
+		      a.setReplyNo(replyNo);
+		      result= dao.insertPlaceReplyAttach(sqlSession,a);
+		   }
+		}
+		return result;
+	}
+
+	@Override
+	public int placeReplyWrite2(PlaceReply placeReply) {
+		int replyRefNo = placeReply.getReplyRef();
+		int placeNo = placeReply.getPlaceNo();
+		dao.placeReplyReplyCountUpdate(sqlSession, replyRefNo);
+		dao.placeReplyCountUpdate(sqlSession, placeNo);
+		return dao.placeReplyWrite2(sqlSession, placeReply);
+	}
+
+	@Override
+	public int placeReplyDelete(int replyNo) {
+		return dao.placeReplyDelete(sqlSession, replyNo);
+	}
+
+	@Override
+	public int placeReplyGood(int replyNo) {
+		return dao.placeReplyGood(sqlSession, replyNo);
+	}
+
+	@Override
+	public int placeReplyGoodCheck(PlaceReply placeReply) {
+		return dao.placeReplyGoodCheck(sqlSession, placeReply);
+	}
+
+	@Override
+	public void insertplaceReplyGood(PlaceReply placeReply) {
+		dao.insertplaceReplyGood(sqlSession, placeReply);
 	}
 
 	

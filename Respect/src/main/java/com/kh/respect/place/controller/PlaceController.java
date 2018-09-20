@@ -28,9 +28,13 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kh.respect.common.Page;
+import com.kh.respect.meet.model.vo.MeetReply;
+import com.kh.respect.meet.model.vo.MeetReplyAttachment;
 import com.kh.respect.place.model.service.PlaceService;
 import com.kh.respect.place.model.vo.Place;
 import com.kh.respect.place.model.vo.PlaceGood;
+import com.kh.respect.place.model.vo.PlaceReply;
+import com.kh.respect.place.model.vo.PlaceReplyAttachment;
 import com.kh.respect.user.model.vo.User;
 
 
@@ -612,13 +616,31 @@ public class PlaceController {
 		
 		List<Place> list = service.searchCategoryList(cPage, numPerPage, minorcategory);
 		
-		String majorcategory = list.get(0).getMajorcategory();
-		
 		int totalCount = service.categoryTotalCount(minorcategory);
 		
+		mv.addObject("minorcategory", minorcategory);
 		mv.addObject("list", list);
 		mv.addObject("totalContents", totalCount);
 		mv.addObject("pageBar", Page.getPage(cPage, numPerPage, totalCount, "searchCategoryList.do"));
+		mv.setViewName("spot/spotList");
+		
+		return mv;
+	}
+	
+	@RequestMapping("/spot/searchAreaList.do")
+	public ModelAndView searchAreaList(@RequestParam(value="cPage", required=false, defaultValue="1") int cPage, String area, String major) {
+		
+		ModelAndView mv = new ModelAndView();
+		int numPerPage = 6;
+		
+		List<Place> list = service.searchAreaList(cPage, numPerPage, area, major);
+		
+		int totalCount = service.areaTotalCount(area, major);
+		
+		mv.addObject("area", area);
+		mv.addObject("list", list);
+		mv.addObject("totalContents", totalCount);
+		mv.addObject("pageBar", Page.getPage(cPage, numPerPage, totalCount, "searchAreaList.do"));
 		mv.setViewName("spot/spotList");
 		
 		return mv;
@@ -638,6 +660,7 @@ public class PlaceController {
 		
 		int totalCount = service.categoryTotalCount(minorcategory);
 		
+		mv.addObject("minorcategory", minorcategory);
 		mv.addObject("list", list);
 		mv.addObject("totalContents", totalCount);
 		mv.addObject("pageBar", Page.getPage(cPage, numPerPage, totalCount, "searchfoodCategoryList.do"));
@@ -660,6 +683,7 @@ public class PlaceController {
 		
 		int totalCount = service.categoryTotalCount(minorcategory);
 		
+		mv.addObject("minorcategory", minorcategory);
 		mv.addObject("list", list);
 		mv.addObject("totalContents", totalCount);
 		mv.addObject("pageBar", Page.getPage(cPage, numPerPage, totalCount, "searchaccommCategoryList.do"));
@@ -686,7 +710,141 @@ public class PlaceController {
 		return mv;
 	}
 
-
+	   /////////////////// 댓글 /////////////////////////////// 
+	   
+	   @RequestMapping("/place/placeReplyWrite.do")
+	   public ModelAndView placeReplyWrite(PlaceReply placeReply, MultipartFile[] upFile, HttpServletRequest request) {
+	      
+	      String saveDir=request.getSession().getServletContext().getRealPath("/resources/upload/replyPicture");
+	      
+	      List<PlaceReplyAttachment> attList=new ArrayList();
+	      
+	      File dir=new File(saveDir);
+	      //경로가 없으면 경로를 만들어랏!!
+	      if(dir.exists()==false) dir.mkdirs();
+	      
+	      for(MultipartFile f : upFile)
+	      {
+	         if(!f.isEmpty())
+	         {
+	            String originalFilename=f.getOriginalFilename();
+	            //확장자 가져오기
+	            String ext=originalFilename.substring(originalFilename.lastIndexOf(".")+1);
+	            SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMdd_HHmmssSS");
+	            int rndNum=(int)(Math.random()*1000);
+	            String renamedFileName=sdf.format(new Date(System.currentTimeMillis()));
+	            renamedFileName+="_"+rndNum+"."+ext;
+	            try 
+	            {
+	               /*서버의 해당경로에 파일을 저장하는 명령*/
+	               f.transferTo(new File(saveDir+"/"+renamedFileName));
+	            }
+	            catch (Exception e) {
+	               e.printStackTrace();
+	            }
+	            PlaceReplyAttachment attach=new PlaceReplyAttachment();
+	            attach.setOriginName(originalFilename);
+	            attach.setReNamed(renamedFileName);
+	            attList.add(attach);
+	         }
+	      }
+	      //파일업로드 끝~~
+	      
+	      int result=service.placeReplyWrite(placeReply,attList);
+	      
+	      String msg="";
+	      String loc="";
+	      if(result>0){
+	         msg="댓글을 등록하였습니다!";
+	         loc="/spot/spotViewLogin.do?placeNo="+placeReply.getPlaceNo();
+	      }
+	      else{
+	         msg="댓글등록에 실패하였습니다";
+	         loc="/spot/spotViewLogin.do?placeNo="+placeReply.getPlaceNo();
+	      }
+	      
+	      ModelAndView mv=new ModelAndView();
+	      mv.addObject("msg",msg);
+	      mv.addObject("loc", loc);
+	      mv.setViewName("common/msg");
+	      return mv;
+	   }
+	   
+	   
+	   @RequestMapping("/place/placeReplyWrite2.do")
+	   public ModelAndView placeReplyWrite2(PlaceReply placeReply) {
+	      int result = service.placeReplyWrite2(placeReply);
+	      
+	      String msg="";
+	      String loc="";
+	      if(result>0){
+	         msg="답글을 등록하였습니다!";
+	         loc="/spot/spotViewLogin.do?placeNo="+placeReply.getPlaceNo();
+	      }
+	      else{
+	         msg="답글등록에 실패하였습니다";
+	         loc="/spot/spotViewLogin.do?placeNo="+placeReply.getPlaceNo();
+	      }
+	      
+	      ModelAndView mv=new ModelAndView();
+	      mv.addObject("msg",msg);
+	      mv.addObject("loc", loc);
+	      mv.setViewName("common/msg");
+	      return mv;
+	      
+	   }
+	   
+	   
+	   @RequestMapping("/place/placeReplyDelete.do")
+	   public ModelAndView placeReplyDelete(int replyNo, int placeNo) {
+	      int result = service.placeReplyDelete(replyNo);
+	      String msg="";
+	      String loc="";
+	      if(result>0) {
+	         msg="댓글을 삭제하였습니다!";
+	         loc="/spot/spotViewLogin.do?placeNo="+placeNo;
+	      }else {
+	         msg="댓글 삭제에 실패하였습니다.";
+	         loc="/spot/spotViewLogin.do?placeNo="+placeNo;
+	      }
+	      ModelAndView mv=new ModelAndView();
+	      mv.addObject("msg",msg);
+	      mv.addObject("loc", loc);
+	      mv.setViewName("common/msg");
+	      return mv;
+	   }
+	   
+	   @RequestMapping("/place/placeReplyGood.do")
+	   public ModelAndView placeReplyGood(PlaceReply placeReply) {
+	      System.out.println("아이디 : " + placeReply.getUserId());
+	      System.out.println("q버놓번호 : " + placeReply.getPlaceNo());
+	      int check = service.placeReplyGoodCheck(placeReply);
+	      String msg="";
+	      String loc="";
+	      if(check>0) {
+	         msg="이미 추천하셨습니다.";
+	         loc="/spot/spotViewLogin.do?placeNo="+placeReply.getPlaceNo();
+	      }else {
+	         
+	         service.insertplaceReplyGood(placeReply);
+	         
+	         int result = service.placeReplyGood(placeReply.getReplyNo());   
+	         
+	         if(result>0) {
+	            msg="추천을 하였습니다!";
+	            loc="/spot/spotViewLogin.do?placeNo="+placeReply.getPlaceNo();
+	         }else {
+	            msg="추천에 실패하였습니다.";
+	            loc="/spot/spotViewLogin.do?placeNo="+placeReply.getPlaceNo();
+	         }
+	      }
+	      ModelAndView mv=new ModelAndView();
+	      mv.addObject("msg",msg);
+	      mv.addObject("loc", loc);
+	      mv.setViewName("common/msg");
+	      return mv;
+	      
+	   }
 	
 	
 }

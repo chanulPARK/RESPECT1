@@ -30,7 +30,7 @@ public class Page {
 		{
 			if(cPage==pageNo)
 			{
-				pageBar+="<li class='page-item active'>";
+				pageBar+="<li class='page-item disabled'>";
 				pageBar+="<a class='page-link'>"+pageNo+"</a>";
 				pageBar+="</li>";
 			}
@@ -44,7 +44,7 @@ public class Page {
 		}
 		if(pageNo>totalPage)
 		{
-			pageBar+="<li class='page-item'>";
+			pageBar+="<li class='page-item disabled'>";
 			pageBar+="<a class='page-link' href='#'>»</a>";
 			pageBar+="</li>";
 		}

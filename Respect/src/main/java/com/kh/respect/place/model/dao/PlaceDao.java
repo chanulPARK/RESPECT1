@@ -1,11 +1,16 @@
 package com.kh.respect.place.model.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 
+import com.kh.respect.meet.model.vo.MeetReply;
+import com.kh.respect.meet.model.vo.MeetReplyAttachment;
 import com.kh.respect.place.model.vo.Place;
 import com.kh.respect.place.model.vo.PlaceGood;
+import com.kh.respect.place.model.vo.PlaceReply;
+import com.kh.respect.place.model.vo.PlaceReplyAttachment;
 
 public interface PlaceDao {
 	List<String> searchKeyword(SqlSessionTemplate sqlSession,String keyword);
@@ -39,6 +44,8 @@ public interface PlaceDao {
 	int selectPlaceBringcnt(SqlSessionTemplate sqlSession, int placeno);
 	List<Place> searchCategoryList(SqlSessionTemplate sqlSession, int cPage, int numPerPage, String minorcategory);
 	int categoryTotalCount(SqlSessionTemplate sqlSession, String minorcategory);
+	List<Place> searchAreaList(SqlSessionTemplate sqlSession, int cPage, int numPerPage, String area, String major);
+	int areaTotalCount(SqlSessionTemplate sqlSession, String area, String major);
 	
 	
 	int insertMySpot(SqlSessionTemplate sqlSession, Place place);
@@ -46,4 +53,17 @@ public interface PlaceDao {
 	int deleteSpot(SqlSessionTemplate sqlSession,int placeno);
 	int selectSearchCount(SqlSessionTemplate sqlSession,String keyword);
 
+	
+	//댓글
+	int placeReplyWrite(SqlSessionTemplate sqlSession, PlaceReply placeReply);
+	void placeReplyCountUpdate(SqlSessionTemplate sqlSession, int placeNo);
+	int insertPlaceReplyAttach(SqlSessionTemplate sqlSession, PlaceReplyAttachment a);
+	int placeReplyWrite2(SqlSessionTemplate sqlSession, PlaceReply placeReply);
+	void placeReplyReplyCountUpdate(SqlSessionTemplate sqlSession, int replyRefNo);
+	int placeReplyDelete(SqlSessionTemplate sqlSession, int replyNo);
+	int placeReplyGood(SqlSessionTemplate sqlSession, int replyNo);
+	int placeReplyGoodCheck(SqlSessionTemplate sqlSession, PlaceReply placeReply);
+	void insertplaceReplyGood(SqlSessionTemplate sqlSession, PlaceReply placeReply);
+	List<Map<String, String>> placeReplyList(SqlSessionTemplate sqlSession, int placeNo);
+	List<Map<String, String>> placeAttList(SqlSessionTemplate sqlSession);
 }

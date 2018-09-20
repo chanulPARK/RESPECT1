@@ -147,5 +147,59 @@
     <select id="categoryTotalCount" resultType="_int" parameterType="string">
     	SELECT COUNT(*) FROM PLACE WHERE USERID IS NULL AND MINORCATEGORY = #{minorcategory}
     </select>
+    <select id="searchAreaList" resultType="place" parameterType="map">
+		SELECT * FROM PLACE WHERE USERID IS NULL AND AREA = #{area} AND MAJORCATEGORY = #{major}
+	</select>
+    <select id="areaTotalCount" resultType="_int" parameterType="map">
+    	SELECT COUNT(*) FROM PLACE WHERE USERID IS NULL AND AREA = #{area} AND MAJORCATEGORY = #{major}
+    </select>
+    
+    <!-- 댓글 -->
+	<insert id="placeReplyWrite" parameterType="com.kh.respect.place.model.vo.PlaceReply">
+        INSERT INTO PLACE_REPLY VALUES(SEQ_PLACE_REPLY.NEXTVAL, #{placeNo}, NULL, #{userId}, SYSDATE, #{content}, 0, #{placeReplyLevel}, 0)
+       	<selectKey keyProperty="replyNo" resultType="_int" order="AFTER">
+        	SELECT SEQ_PLACE_REPLY.CURRVAL FROM DUAL
+     	</selectKey>
+    </insert>
+     
+     <update id="placeReplyCountUpdate" parameterType="_int">
+        UPDATE PLACE SET REPLYCOUNT = REPLYCOUNT+1 WHERE PLACENO = #{placeNo}
+     </update>
+     
+     <insert id="insertPlaceReplyAttach" parameterType="com.kh.respect.place.model.vo.PlaceReplyAttachment">
+        INSERT INTO PLACE_REPLY_ATTACHMENT VALUES(SEQ_PLACE_REPLY_ATTACHMENT.NEXTVAL,#{replyNo},#{originName},#{reNamed})
+     </insert>
+     
+     <insert id="placeReplyWrite2" parameterType="com.kh.respect.place.model.vo.PlaceReply">
+        INSERT INTO PLACE_REPLY VALUES(SEQ_PLACE_REPLY.NEXTVAL,#{placeNo},#{replyRef},#{userId},SYSDATE,#{content},0,#{placeReplyLevel},0)
+     </insert>
+     
+     <update id="placeReplyReplyCountUpdate" parameterType="_int">
+        UPDATE PLACE_REPLY SET REPLYCOUNT = REPLYCOUNT+1 WHERE REPLYNO=#{replyRefNo}
+     </update>
+     
+     <delete id="placeReplyDelete" parameterType="_int">
+        DELETE FROM PLACE_REPLY WHERE REPLYNO=#{replyNo}
+     </delete>
+     
+     <update id="placeReplyGood" parameterType="_int">
+        UPDATE PLACE_REPLY SET GOODCOUNT = GOODCOUNT+1 WHERE REPLYNO=#{replyNo}
+     </update>
+     
+     <select id="placeReplyGoodCheck" parameterType="com.kh.respect.place.model.vo.PlaceReply" resultType="_int">
+        SELECT COUNT(*) FROM PLACE_REPLY_GOOD WHERE REPLYNO=#{replyNo} AND USERID=#{userId}
+     </select>
+     
+     <insert id="insertplaceReplyGood" parameterType="com.kh.respect.place.model.vo.PlaceReply">
+        INSERT INTO PLACE_REPLY_GOOD VALUES(#{replyNo},#{userId})
+     </insert>
+     
+     <select id="placeReplyList" parameterType="_int" resultType="map">
+        select A.*,P.PICTURE,P.NICKNAME from PLACE_REPLY A INNER JOIN RP_USER P ON(A.USERID = P.USERID) where PLACENO=#{placeNo} start with PLACEREPLYLEVEL=1 connect by prior REPLYNO=REPLYREF order siblings by WRITEDATE asc
+     </select>
+     
+     <select id="placeAttList" resultType="map">
+        select * from PLACE_REPLY_ATTACHMENT
+     </select>
 	
 </mapper>
