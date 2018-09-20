@@ -227,14 +227,26 @@ public class ScheduleController {
 		
 		int numPerPage=8;
 		
-		Map<String,String> map= new HashMap();
-		map.put("tripType", tripType);
-		map.put("partyName", tripPartner);
-		map.put("sort", sort);
+		Map<String,String> map=null;
+		List<Map<String,String>> list=null;
+		
+		if(tripPartner==null&&tripType==null&&sort==null)
+		{
+			list=service.selectScheduleList(cPage,numPerPage);
+		}
+		else
+		{
+			map= new HashMap();
+			map.put("tripType", tripType);
+			map.put("partyName", tripPartner);
+			map.put("sort", sort);
+			list=service.selectScheduleFilter(map,numPerPage,cPage);
+		}
+		
+		
 		
 		
 		int totalCount=service.selectTotalCount();
-		List<Map<String,String>> list=service.selectScheduleFilter(map,numPerPage,cPage);
 		System.out.println("스케줄 컨트롤러 게시물 리스트: "+list);
 		
 		mv.addObject("list",list);
