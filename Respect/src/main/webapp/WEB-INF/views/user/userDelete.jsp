@@ -52,7 +52,7 @@
                 <button id="updatePw" type="button" class="btn btn-outline-warning">비밀번호 변경</button>
                 <button id="updateProfile" type="button" class="btn btn-outline-warning">프로필사진 변경</button>
                 
-	            <button id="deleteMember" type="button" class="btn btn-outline-warning">회원 탈퇴</button>
+	            <button id="deleteMember" type="button" class="btn btn-warning">회원 탈퇴</button>
             </div>
             <div class="p-3 pb-3">
                 <div class="container col-sm-7">

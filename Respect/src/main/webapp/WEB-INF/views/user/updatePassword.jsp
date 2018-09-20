@@ -92,7 +92,7 @@
             
             <div class="btn-group m-2" style="display: inline-block;">
                 <button id="updatePage" type="button" class="btn btn-outline-warning">정보 수정</button>
-                <button id="updatePw" type="button" class="btn btn-outline-warning">비밀번호 변경</button>
+                <button id="updatePw" type="button" class="btn btn-warning">비밀번호 변경</button>
                 <button id="updateProfile" type="button" class="btn btn-outline-warning">프로필사진 변경</button>
                 
                 <button id="deleteMember" type="button" class="btn btn-outline-warning">회원 탈퇴</button>
