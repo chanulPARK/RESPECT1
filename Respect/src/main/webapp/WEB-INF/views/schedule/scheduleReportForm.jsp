@@ -37,11 +37,9 @@
 <!-- 지도 라이브러리  -->
 
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=29d28c77afa06b8d3797cd516b310f0f&libraries=services"></script>
-<!--  <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.css" rel="stylesheet"> --> 
-<link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote-bs4.css" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote-bs4.js"></script>
-<%-- <script src="${path }/resources/js/summernote.js"></script> --%>
-<%-- <script src="${path }/resources/js/summernote.min.js"></script> --%>
+ <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.css" rel="stylesheet"> 
+<script src="${path }/resources/js/summernote.js"></script>
+<script src="${path }/resources/js/summernote.min.js"></script>
 <script src="${path }/resources/js/summernote-ko-KR.js"></script>  
 
 <script>
@@ -382,7 +380,7 @@ function sendFile(file, editor, welEditable){
                                 <c:forEach var="v" begin='1' end='${endDay - startDay +1}' varStatus="s">
                                 <input type="hidden" name="day" value="${s.count }">
                                
-                                <button class="btn btn-outline-dark" value="${s.count }" onclick="fn_toggle(event)">${s.count }일차</button><br>
+                                <button class="btn" value="${s.count }" onclick="fn_toggle(event)">${s.count }일차</button><br>
                                 <br>
                                 <div id="content${s.count }"  class="hidetext">
                                 <div >

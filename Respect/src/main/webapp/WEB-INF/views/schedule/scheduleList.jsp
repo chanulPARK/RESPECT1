@@ -31,11 +31,7 @@
                         <br>
                         <div data-toggle="buttons">
                             <h6>여행 구분</h6>
-                            <div class="btn-group-toggle col-md-12">
-                                   <label class="btn btn-outline-secondary mt-1 ml-1" style="width:99%;  border-radius:0;">
-										<input type="radio" name="tripType" id="tripAll" value='2'> 전체
-									</label>
-                            </div>
+                            
                             
                             <div class="btn-group btn-group-toggle col-md-12">
                                 <label class="btn btn-outline-secondary mt-1 ml-1" style="width:100%; border-radius:0;">
@@ -50,11 +46,7 @@
 						
                        <div data-toggle="buttons">
 							<h6>여행 테마</h6>
-							<div class="btn-group-toggle col-md-12" >
-								<label class="btn btn-outline-secondary mt-1 ml-1" style="width:99%;  border-radius:0;">
-									<input type="radio" name="tripPartner" id="themeAll" value="전체" > 전체
-								</label>
-							</div>
+							
 							<div class="btn-group btn-group-toggle col-md-12">
 								<label class="btn btn-outline-secondary mt-1 ml-1" style="width:100%; border-radius:0;">
 									<input type="radio" name="tripPartner" id="soloTheme" value="혼자"> 나홀로 여행
