@@ -3,6 +3,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <c:set value="${pageContext.request.contextPath}" var="path"/>
+<%@ include file="/WEB-INF/views/common/header.jsp"%>
 <script src="${path}/resources/js/Simple-Slider.js"></script>
 <link rel="stylesheet" href="${path}/resources/css/styles2.css">
 
@@ -377,3 +378,4 @@ $(function(){
     </div>
     <!-- 공지 끝! -->
 
+<%@ include file="/WEB-INF/views/common/footer.jsp"%>

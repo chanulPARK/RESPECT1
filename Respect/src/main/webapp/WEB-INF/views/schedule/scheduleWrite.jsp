@@ -562,26 +562,26 @@ $("#start_date").on("click",function()
 	}
 	
 	function drop(ev) {
-	    ev.preventDefault();
-	    var data = ev.dataTransfer.getData("text");
-	    var td=$(".active TD[class='place']");
-	    
-	    if(ev.target.className=="place")
-	    {
-	        ev.target.classList.add("disable");
-	        ev.target.appendChild(document.getElementById(data));
-	        var dayoftable=ev.target.parentElement.parentElement.parentElement.id;
-	        ev.target.firstChild.childNodes[2].value=dayoftable+","+ev.target.id;
-	        console.log(ev.target.firstChild.childNodes[2]);
-	        console.log(dayoftable);
-	        console.log(ev.target.id);
-	    }
-	    else
-	    {
-	        clicktarget.classList.add("disable");
-	    }
-		
-	}
+	       ev.preventDefault();
+	       var data = ev.dataTransfer.getData("text");
+	       var td=$(".active TD[class='place']");
+	       
+	       if(ev.target.className=="place")
+	       {
+	           ev.target.classList.add("disable");
+	           ev.target.appendChild(document.getElementById(data));
+	           var dayoftable=ev.target.parentElement.parentElement.parentElement.id;
+	           ev.target.firstChild.childNodes[4].value=dayoftable+","+ev.target.id;
+	           console.log(ev.target.firstChild.childNodes[4]);
+	           console.log(dayoftable);
+	           console.log(ev.target.id);
+	       }
+	       else
+	       {
+	           clicktarget.classList.add("disable");
+	       }
+	      
+	   }
 	var createSeq = function(){
 		var no=0;
 		return function(){
