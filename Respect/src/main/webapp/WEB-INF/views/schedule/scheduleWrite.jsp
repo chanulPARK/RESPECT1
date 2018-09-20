@@ -569,6 +569,7 @@ $("#start_date").on("click",function()
 	    }
 		
 	}
+
 	var createSeq = function(){
 		var no=0;
 		return function(){

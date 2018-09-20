@@ -98,9 +98,9 @@ $(function(){
 <body>
         <div class="container mt-3">
                 <h4 style="text-align: center;">${userLoggedIn.nickName}님의 쪽지함</h4>
-	            <button type="button" class="btn btn-outline-dark" id="receiveMessageList">받은쪽지함</button>
-	            <button type="button" class="btn btn-outline-dark" id="writeMessageList">보낸쪽지함</button>
-	            <button type="button" class="btn btn-outline-dark" id="sendMessage">쪽지보내기</button>
+	            <button type="button" class="btn btn-outline-warning" id="receiveMessageList">받은쪽지함</button>
+	            <button type="button" class="btn btn-outline-warning" id="writeMessageList">보낸쪽지함</button>
+	            <button type="button" class="btn btn-warning" id="sendMessage">쪽지보내기</button>
                 <hr/>
                 <h5 style="display: inline-block;" >쪽지보내기</h5>
                 <form action="${path }/message/sendMessageEnd.do" id="sendForm" method="post">

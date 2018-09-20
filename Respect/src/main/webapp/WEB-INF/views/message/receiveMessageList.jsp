@@ -70,18 +70,18 @@
 <body>
         <div class="container mt-3">
             <h4 style="text-align: center;">${userLoggedIn.nickName}님의 쪽지함</h4>
-            <button type="button" class="btn btn-outline-dark" id="receiveMessageList">받은쪽지함</button>
-            <button type="button" class="btn btn-outline-dark" id="writeMessageList">보낸쪽지함</button>
-            <button type="button" class="btn btn-outline-dark" id="sendMessage">쪽지보내기</button>
+            <button type="button" class="btn btn-warning" id="receiveMessageList">받은쪽지함</button>
+            <button type="button" class="btn btn-outline-warning" id="writeMessageList">보낸쪽지함</button>
+            <button type="button" class="btn btn-outline-warning" id="sendMessage">쪽지보내기</button>
             <hr/>
             <h5 style="display: inline-block;">받은 쪽지함</h5> 안읽은 쪽지 : ${userLoggedIn.noReadMessage} , 총 받은쪽지 : ${receiveMessageTotalCount}
             <table class="table table-hover"  style="table-layout:fixed; word-break:break-all;">
                     <tbody>
                         
-                        <tr style="background: rgb(200, 152, 152)">
+                        <tr class="bg-warning btn-sm">
                             <th>
                                 <input type="checkbox" class="mr-2" id="customCheck">
-                                <button class="btn btn-danger" id="receiveMessageDelete">삭제</button>
+                                <button class="btn btn-dark btn-sm" id="receiveMessageDelete">삭제</button>
                             </th>
                             <th>제목</th>
                             <th>보낸이</th>
