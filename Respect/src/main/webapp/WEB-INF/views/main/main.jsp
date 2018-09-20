@@ -5,6 +5,15 @@
 <%@ include file="/WEB-INF/views/common/header.jsp"%>
 <c:set value="${pageContext.request.contextPath}" var="path"/>
 
+
+
+
+
+<!-- Latest compiled JavaScript -->
+<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script> -->
+
+
+
 <script>
 
 $(function(){
@@ -370,4 +379,6 @@ $(function(){
     </div>
     <!-- 공지 끝! -->
 
+
 <%@ include file="/WEB-INF/views/common/footer.jsp"%>
+

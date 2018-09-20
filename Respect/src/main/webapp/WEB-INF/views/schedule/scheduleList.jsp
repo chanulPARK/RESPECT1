@@ -75,7 +75,7 @@
 								</div>
 						 </div>
 								<div>
-									<input class="btn mt-3" type="submit" value="검색하기">
+									<input class="btn btn-outline-warning mt-3" type="submit" value="검색하기">
 								</div>
                         <br>
                         
