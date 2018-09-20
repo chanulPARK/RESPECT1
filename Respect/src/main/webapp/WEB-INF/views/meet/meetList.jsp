@@ -53,7 +53,7 @@
 	<div class="container">
 		<br><br>
 		<div id="map-container" style="width: 100%; height: auto;">
-			<div id="map" style="width: 100%; height: 300px; min-height: 150px;"></div>
+			<div id="map" style="width: 100%; height: 500px; min-height: 150px;"></div>
 		</div>
 		
 		<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=8ff31fd960290fc8b23e2c371566d7a6&libraries=services"></script>
@@ -196,7 +196,7 @@
 			<br>
 			<c:forEach items="${list }" var="meet">
 				<div id="meet-list" class="row" >
-		            <div class="col-lg-7 col-md-7" style="margin-left:-15px;margin-bottom:20px; height:100%;">
+		            <div class="col-lg-7 col-md-7" style="margin-left:-15px; margin-bottom:20px; height:100%;">
 		                <br>
 		                <a href="#" onclick="location.href='${path}/meet/meetView.do?meetNo=${meet.MEETNO }'">
 		                    <img class="img-thumbnail" src="${path }/resources/upload/meet/thumbnail/${meet.THUMBNAIL }" >
@@ -215,7 +215,7 @@
 		                <br>
 		            </div>
 	        	</div>
-				<hr>
+				<br><br>
 			</c:forEach>
 			<br>
 		</div>
