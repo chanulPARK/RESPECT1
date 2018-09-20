@@ -2,24 +2,17 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ include file="/WEB-INF/views/common/header.jsp"%>
 <c:set value="${pageContext.request.contextPath}" var="path"/>
-<script src="${path}/resources/js/Simple-Slider.js"></script>
-<link rel="stylesheet" href="${path}/resources/css/styles2.css">
-
-
-
-<!-- Latest compiled JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
-
 
 <script>
+
 $(function(){
-	
-	
+	$("#myCarousel").carousel({interval: 5000, keyboard:true, pause: false});
 	$('#featured .carousel-item:first').siblings().removeClass('active');
 	$("#featured").carousel({interval: 3000, pause: false});
-	
 });
+
 </script>
 
 <div id="myCarousel" class="carousel slide carousel-fade" data-ride="carousel">
@@ -377,3 +370,4 @@ $(function(){
     </div>
     <!-- 공지 끝! -->
 
+<%@ include file="/WEB-INF/views/common/footer.jsp"%>
