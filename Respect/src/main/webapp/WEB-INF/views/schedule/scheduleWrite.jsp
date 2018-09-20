@@ -39,10 +39,10 @@
 </style>
 
 
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script> -->
 
 <!-- 지도 라이브러리  -->
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=29d28c77afa06b8d3797cd516b310f0f&libraries=services"></script>
@@ -562,26 +562,26 @@ $("#start_date").on("click",function()
 	}
 	
 	function drop(ev) {
-	    ev.preventDefault();
-	    var data = ev.dataTransfer.getData("text");
-	    var td=$(".active TD[class='place']");
-	    
-	    if(ev.target.className=="place")
-	    {
-	        ev.target.classList.add("disable");
-	        ev.target.appendChild(document.getElementById(data));
-	        var dayoftable=ev.target.parentElement.parentElement.parentElement.id;
-	        ev.target.firstChild.childNodes[2].value=dayoftable+","+ev.target.id;
-	        console.log(ev.target.firstChild.childNodes[2]);
-	        console.log(dayoftable);
-	        console.log(ev.target.id);
-	    }
-	    else
-	    {
-	        clicktarget.classList.add("disable");
-	    }
-		
-	}
+	       ev.preventDefault();
+	       var data = ev.dataTransfer.getData("text");
+	       var td=$(".active TD[class='place']");
+	       
+	       if(ev.target.className=="place")
+	       {
+	           ev.target.classList.add("disable");
+	           ev.target.appendChild(document.getElementById(data));
+	           var dayoftable=ev.target.parentElement.parentElement.parentElement.id;
+	           ev.target.firstChild.childNodes[4].value=dayoftable+","+ev.target.id;
+	           console.log(ev.target.firstChild.childNodes[4]);
+	           console.log(dayoftable);
+	           console.log(ev.target.id);
+	       }
+	       else
+	       {
+	           clicktarget.classList.add("disable");
+	       }
+	      
+	   }
 	var createSeq = function(){
 		var no=0;
 		return function(){

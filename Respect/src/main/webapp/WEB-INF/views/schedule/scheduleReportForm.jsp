@@ -37,9 +37,11 @@
 <!-- 지도 라이브러리  -->
 
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=29d28c77afa06b8d3797cd516b310f0f&libraries=services"></script>
- <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.css" rel="stylesheet"> 
-<script src="${path }/resources/js/summernote.js"></script>
-<script src="${path }/resources/js/summernote.min.js"></script>
+<!--  <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.css" rel="stylesheet"> --> 
+<link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote-bs4.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote-bs4.js"></script>
+<%-- <script src="${path }/resources/js/summernote.js"></script> --%>
+<%-- <script src="${path }/resources/js/summernote.min.js"></script> --%>
 <script src="${path }/resources/js/summernote-ko-KR.js"></script>  
 
 <script>

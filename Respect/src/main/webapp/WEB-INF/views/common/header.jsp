@@ -14,14 +14,23 @@
 
 
 
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css">
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
+
+
+
+
+
 <!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"> -->
 
 <!-- jQuery library -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
 <!-- Popper JS -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script> -->
 
 
 <!-- Latest compiled JavaScript -->
@@ -41,7 +50,7 @@
 <%-- <script src="${path }/resources/js/jquery.min.js"></script> --%>
 <%-- <script src="${path }/resources/bootstrap/js/bootstrap.min.js"></script> --%>
 <link rel="stylesheet" href="${path }/resources/css/Footer-Dark.css">
-<link rel="stylesheet" href="${path }/resources/bootstrap/css/bootstrap.min.css">
+<%-- <link rel="stylesheet" href="${path }/resources/bootstrap/css/bootstrap.min.css"> --%>
 <link rel="stylesheet" href="${path }/resources/css/style.css">
 <link rel="stylesheet" href="${path }/resources/fonts/font-awesome.min.css">
 <link rel="stylesheet" href="${path }/resources/fonts/ionicons.min.css">

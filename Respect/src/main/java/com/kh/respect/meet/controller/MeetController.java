@@ -104,6 +104,7 @@ public class MeetController {
 		Meet meet = new Meet(0, userId, null, null, 0, area, title, null, content, meetDate, null, meetTime, address, 0, 0, null);
 		
 		String saveDir = request.getSession().getServletContext().getRealPath("/resources/upload/meet/thumbnail");
+		
 		File dir = new File(saveDir);
 		
 		if(dir.exists()==false) dir.mkdirs();
@@ -264,7 +265,6 @@ public class MeetController {
    public String imageUpload(MultipartFile[] uploadFile, HttpServletRequest request) throws IOException
    {
       System.out.println("uploadFile :: "+uploadFile[0]);
-      ModelAndView mv = new ModelAndView();
       ObjectMapper mapper=new ObjectMapper();
       Map<String,Object> map=new HashMap();
       
@@ -302,7 +302,6 @@ public class MeetController {
          }
       }
       
-      //map.put("list",attList);
       String jsonStr=mapper.writeValueAsString(attList);
       
       return jsonStr;

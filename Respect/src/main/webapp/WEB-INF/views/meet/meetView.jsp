@@ -144,7 +144,7 @@ function btn_replySee(a){
 		</div>
 		<br>
 		<div id="bung-img" class="card mb-4 img-thumbnail" align="center">
-			<img alt="" src="${path }/resources/upload/meet/thumbnail/${meet.thumbnail }">
+			<img alt="thumbnail" src="${path }/resources/upload/meet/thumbnail/${meet.thumbnail }" style="max-width: 800px; max-height: 600px;">
 		</div>
 		<br>
 		
@@ -157,11 +157,18 @@ function btn_replySee(a){
 				       	${meet.nickName }
 				    </div>
 				    <div class="col-sm-3" style="float:right;">
-						<button class="btn btn-success" onclick="sendM()">쪽지보내기</button>
+						<button class="btn btn-outline-warning" onclick="sendM()">쪽지보내기</button>
 				    </div>
 				</div>
 			</div>
-			
+			<div class="card-body">
+				<div class="form-group row">
+				   	<label for="gender" class="col-sm-2 col-form-label">주소</label>
+				   	<div class="col-sm-3">
+				       	${meet.address }
+				    </div>
+				</div>
+			</div>
 			<div class="card-body">
 				<div class="form-group row">
 				   	<label for="gender" class="col-sm-2 col-form-label">성별</label>
@@ -204,9 +211,9 @@ function btn_replySee(a){
 		
 		<c:if test="${userLoggedIn.userId==meet.userId }">
 			<div class="justify-content-center" align="center">
-				<button class="btn btn-outline-primary" onclick="meetUpdate(${meet.meetNo})" value="${meet.meetNo }">수정</button>
+				<button class="btn btn-outline-warning" onclick="meetUpdate(${meet.meetNo})" value="${meet.meetNo }">수정</button>
 				&nbsp;&nbsp;&nbsp;
-				<button class="btn btn-outline-danger" onclick="meetDelete(${meet.meetNo})" value="${meet.meetNo }">삭제</button>
+				<button class="btn btn-danger" onclick="meetDelete(${meet.meetNo})" value="${meet.meetNo }">삭제</button>
 				<button class="btn btn-outline-warning" onclick="goList()" style="float:right;">목록으로</button>
 			</div>
 		</c:if>
