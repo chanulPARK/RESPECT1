@@ -60,7 +60,7 @@
                         
                     </div>
                    <div class="pt-4 ml-2 col col-lg-8" style="margin-top:2px; float:right;" align='right'>
-                    	<button class='btn' onclick="fn_update()">수정하기</button>
+                    	<button class='btn btn-outline-warning' onclick="fn_update()">수정하기</button>
                     </div>
                      
             </div> 
@@ -145,13 +145,11 @@
                             <div class="row mt-2" style="overflow: auto;">
                             	
 		                            <input class="form-control " type="text"  name="keyword" placeholder="검색어 입력" style="width:70%">
-		                               <button class='btn text-center' onclick="fn_search()" style="width:30%">검색</button>
+		                               <button class='btn btn-outline-warning text-center' onclick="fn_search()" style="width:30%">검색</button>
                                
                                <br>
                                <div class='mt-1 col-md-12' id='pList'>  
-                                   <a href="#">관광지</a>|
-                                   <a href="#">숙소</a>|
-                                   <a href="#">음식점</a>
+                                   
                                        <hr>
                                        <c:forEach var="place" items="${list }" >
                                        		
@@ -159,7 +157,7 @@
                                    			
                                                <img class="mb-2" src="${path }/resources/upload/spot/thumbnail/${place.thumbnail}" style="width:85px;" height="60px;">
                                                <br><p>${place.title }</p>
-                                               <button class="btn mb-2" value="${place }" onclick="fn_add(event)">일정등록</button>
+                                               <button class="btn btn-outline-warning btn-sm mb-2" value="${place }" onclick="fn_add(event)">일정등록</button>
                                            </div>
                                            
                                            <hr>
@@ -175,9 +173,7 @@
                         
                         <div class="container tab-pane fade" id="zzim">
                                <div class="mt-2 col-md-13" id="putList">
-                                   <a href="#">관광지</a>|
-                                   <a href="#">숙소</a>|
-                                   <a href="#">음식점</a>
+                                
                                    <hr>
                                    <c:forEach var="pPlace" items="${putList }" >
                                        		
@@ -185,7 +181,7 @@
                                    			
                                                <img class="mb-2" src="${path }/resources/upload/spot/thumbnail/${pPlace.thumbnail}" style="width:85px;" height="60px;">
                                                <br><p>${pPlace.title }</p>
-                                               <button class="btn mb-2" value="${pPlace }" onclick="fn_add(event)">일정등록</button>
+                                               <button class="btn btn-outline-warning btn-sm mb-2" value="${pPlace }" onclick="fn_add(event)">일정등록</button>
                                            </div>
                                            
                                           <hr>
@@ -199,9 +195,7 @@
                             </div>
                              <div class="container tab-pane fade"  align='center' id="myAdd">
                     	<div class='mt-1 col-md-13' id='userList'>  
-                                   <a href="#">관광지</a>|
-                                   <a href="#">숙소</a>|
-                                   <a href="#">음식점</a>
+                                 
                                        <hr>
                                        <c:forEach var="uPlace" items="${userList }" >
                                        		
@@ -210,8 +204,8 @@
                                                
                                                <br><p>${uPlace.title }</p>
                                                <div class='row justify-content-center'>
-                                               <button class="btn mb-2 mr-1" value="${uPlace }" onclick="fn_addUPlace(event)">일정등록</button>
-                                               <button class="btn mb-2" value="${uPlace }" onclick="fn_deleteUserPlace(event)">장소삭제</button>
+                                               <button class="btn btn-outline-warning btn-sm mb-2 mr-1" value="${uPlace }" onclick="fn_addUPlace(event)">일정등록</button>
+                                               <button class="btn btn-outline-warning btn-sm mb-2" value="${uPlace }" onclick="fn_deleteUserPlace(event)">장소삭제</button>
                                                </div>
                                            </div>
                                            
@@ -225,20 +219,8 @@
                                </div>
                              <hr>
                             <br>
-                            <nav aria-label="Page navigation example">
-                                <ul class="pagination justify-content-center">
-                                    <li class="page-item disabled">
-                                    <a class="page-link btn-sm" href="#" tabindex="-1">&lt;</a>
-                                    </li>
-                                    <li class="page-item"><a class="page-link text-muted btn-sm" href="#">1</a></li>
-                                    <li class="page-item"><a class="page-link text-muted btn-sm" href="#">2</a></li>
-                                    <li class="page-item"><a class="page-link text-muted btn-sm" href="#">3</a></li>
-                                    <li class="page-item">
-                                    <a class="page-link text-muted btn-sm" href="#">&gt;</a>
-                                    </li>
-                                </ul>
-                            </nav>
-                            <br>
+                            
+                            
 
                   			 </div>
                            </div>
@@ -774,10 +756,8 @@ $("#start_date").on("click",function()
 	        ev.target.classList.add("disable");
 	        ev.target.appendChild(document.getElementById(data));
 	        var dayoftable=ev.target.parentElement.parentElement.parentElement.id;
-	        ev.target.firstChild.childNodes[2].value=dayoftable+","+ev.target.id;
-	        console.log(ev.target.firstChild.childNodes[2]);
-	        console.log(dayoftable);
-	        console.log(ev.target.id);
+	        ev.target.firstChild.childNodes[4].value=dayoftable+","+ev.target.id;
+	        
 	    }
 	    else
 	    {
@@ -822,7 +802,7 @@ $("#start_date").on("click",function()
 	        active[0].classList.add("disable");
 	      	tableday=active[0].parentElement.parentElement.parentElement.id;
 	      	
-	        var html="<div id='data"+seq_no+"' ><input class='mr-2' type='radio' name='represent' value='"+place2[0]+"'>"+place2[1]+"<input type='hidden' name='timevalue' value='"+tableday+","+active[0].id+"'><input type='hidden' name='placevalue' value='"+place1+","+seq_no+"' class='placelist'><span class='float-right' class='drag' id='drag"+seq_no+"' draggable='true' ondragstart='drag(event)'> <img src='${path}/resources/img/arrow.png' style='width:50px; height:30px;'></span><button class='float-right delbtn' onclick='fn_delete("+seq_no+")'>X</button></div>";
+	        var html="<div id='data"+seq_no+"' ><small style='color:orange'>대표장소선택 </small> <input class='mr-2' type='radio' name='represent' value='"+place2[0]+"'>"+place2[1]+"<input type='hidden' name='timevalue' value='"+tableday+","+active[0].id+"'><input type='hidden' name='placevalue' value='"+place1+","+seq_no+"' class='placelist'><span class='float-right' class='drag' id='drag"+seq_no+"' draggable='true' ondragstart='drag(event)'> <img src='${path}/resources/img/arrow.png' style='width:50px; height:30px;'></span><button class='float-right delbtn' onclick='fn_delete("+seq_no+")'>X</button></div>";
 	        
 	        active.append(html);
 	        var loc=place2[2];
@@ -844,7 +824,7 @@ $("#start_date").on("click",function()
         active[0].classList.add("disable");
       	tableday=active[0].parentElement.parentElement.parentElement.id;
       	
-      	var html="<div id='data"+seq_no+"' >"+place2[1]+"<input type='hidden' name='blank'><input type='hidden' name='timevalue' value='"+tableday+","+active[0].id+"'><input type='hidden' name='placevalue' value='"+place1+","+seq_no+"' class='placelist'><span class='float-right' class='drag' id='drag"+seq_no+"' draggable='true' ondragstart='drag(event)'> <img src='${path}/resources/img/arrow.png' style='width:50px; height:30px;'></span><button class='float-right delbtn' onclick='fn_delete("+seq_no+")'>X</button></div>";
+      	var html="<div id='data"+seq_no+"' >"+place2[1]+"<input type='hidden' name='blank'><input type='hidden' name='blank'><input type='hidden' name='blank'><input type='hidden' name='timevalue' value='"+tableday+","+active[0].id+"'><input type='hidden' name='placevalue' value='"+place1+","+seq_no+"' class='placelist'><span class='float-right' class='drag' id='drag"+seq_no+"' draggable='true' ondragstart='drag(event)'> <img src='${path}/resources/img/arrow.png' style='width:50px; height:30px;'></span><button class='float-right delbtn' onclick='fn_delete("+seq_no+")'>X</button></div>";
         
         active.append(html);
         var loc=place2[2];
@@ -1115,11 +1095,11 @@ $("#start_date").on("click",function()
 		  	var html;
 		  	if(cate=='사용자등록')
 	  		{
-		  		html="<div id='data"+pseq_no+"' ><input type='hidden' name='blank'>"+ptitle+"<input type='hidden' name='timevalue' value='"+pday+","+ptime+"'><input type='hidden' name='placevalue' value='"+pplaceno+","+ptitle+","+paddress+","+pseq_no+"' class='placelist'><span class='float-right' class='drag' id='drag"+pseq_no+"' draggable='true' ondragstart='drag(event)'> <img src='${path}/resources/img/arrow.png' style='width:50px; height:30px;'></span><button class='float-right delbtn' onclick='fn_delete("+pseq_no+")'>X</button></div>";
+		  		html="<div id='data"+pseq_no+"' ><input type='hidden' name='blank'><input type='hidden' name='blank'><input type='hidden' name='blank'>"+ptitle+"<input type='hidden' name='timevalue' value='"+pday+","+ptime+"'><input type='hidden' name='placevalue' value='"+pplaceno+","+ptitle+","+paddress+","+pseq_no+"' class='placelist'><span class='float-right' class='drag' id='drag"+pseq_no+"' draggable='true' ondragstart='drag(event)'> <img src='${path}/resources/img/arrow.png' style='width:50px; height:30px;'></span><button class='float-right delbtn' onclick='fn_delete("+pseq_no+")'>X</button></div>";
 	  		}
 		  	else
 		  	{
-		  		html="<div id='data"+pseq_no+"' ><input class='mr-2' type='radio' name='represent' value='"+pplaceno+"'>"+ptitle+"<input type='hidden' name='timevalue' value='"+pday+","+ptime+"'><input type='hidden' name='placevalue' value='"+pplaceno+","+ptitle+","+paddress+","+pseq_no+"' class='placelist'><span class='float-right' class='drag' id='drag"+pseq_no+"' draggable='true' ondragstart='drag(event)'> <img src='${path}/resources/img/arrow.png' style='width:50px; height:30px;'></span><button class='float-right delbtn' onclick='fn_delete("+pseq_no+")'>X</button></div>";
+		  		html="<div id='data"+pseq_no+"' ><small style='color:orange'>대표장소선택 </small> <input class='mr-2' type='radio' name='represent' value='"+pplaceno+"'>"+ptitle+"<input type='hidden' name='timevalue' value='"+pday+","+ptime+"'><input type='hidden' name='placevalue' value='"+pplaceno+","+ptitle+","+paddress+","+pseq_no+"' class='placelist'><span class='float-right' class='drag' id='drag"+pseq_no+"' draggable='true' ondragstart='drag(event)'> <img src='${path}/resources/img/arrow.png' style='width:50px; height:30px;'></span><button class='float-right delbtn' onclick='fn_delete("+pseq_no+")'>X</button></div>";
 		  	}
 		    
 		    var tables=$("table[class='table-bordered timeline']");

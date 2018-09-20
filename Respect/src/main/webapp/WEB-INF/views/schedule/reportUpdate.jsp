@@ -412,7 +412,7 @@ $.ajax({
                                 <c:forEach items="${rList }"  var="r">
                                 <input type="hidden" name="day" value="${r.reportDay }">
                                
-                                <button class="btn" value="${r.reportDay }" onclick="fn_toggle(event)">${r.reportDay }일차</button><br>
+                                <button class="btn btn-outline-warning" value="${r.reportDay }" onclick="fn_toggle(event)">${r.reportDay }일차</button><br>
                                 <br>
                                 <div id="content${r.reportDay }"  class="hidetext">
                                 <div class="container">

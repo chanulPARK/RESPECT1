@@ -70,13 +70,13 @@ public class PlaceController {
 		List<Place> list=service.selectUserSpotList(userId,1,5);
 		
 		
-		String html="<a href='#'>관광지</a>|<a href='#'>숙소</a>|<a href='#'>음식점</a><hr>";
+		String html="";
 		for(Place p:list)
 		{
 			html+="<div class=' col-md-13 mt-3 justify-content-center' >";
 			html+="<br><p>"+p.getTitle()+"</p>";
-			html+="<button class='btn mb-2 mr-1' value='"+p.toString()+"' onclick='fn_addUPlace(event)'>일정등록</button></div>";
-			html+="<button class='btn mb-2' value='"+p.toString()+"' onclick='fn_deleteUserPlace(event)'>장소삭제</button></div><hr>";
+			html+="<button class='btn btn-sm btn-outline-warning mb-2 mr-1' value='"+p.toString()+"' onclick='fn_addUPlace(event)'>일정등록</button></div>";
+			html+="<button class='btn btn-sm btn-outline-warning mb-2' value='"+p.toString()+"' onclick='fn_deleteUserPlace(event)'>장소삭제</button></div><hr>";
 		}
 		html+="<br><nav aria-label='Page navigation example'>"+Page.getPageBarSC(1, 5, service.selectTotalUserCount(userId), 2)+"</nav>";		
 		
