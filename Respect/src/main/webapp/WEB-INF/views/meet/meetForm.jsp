@@ -9,16 +9,8 @@
 <jsp:include page="/WEB-INF/views/common/header.jsp"></jsp:include>
 
 <head>
-<<<<<<< HEAD
-<%-- <link href="${path }/resources/bootstrap/css/bootstrap.css" rel="stylesheet"> --%>
+<!-- <link href="${path }/resources/bootstrap/css/bootstrap.css" rel="stylesheet"> -->
 <!-- <script src="http://code.jquery.com/jquery-latest.min.js"></script> -->
-=======
-
-<title>Insert title here</title>
-
-<!-- <link href="${path }/resources/bootstrap/css/bootstrap.css" rel="stylesheet">
-<script src="http://code.jquery.com/jquery-latest.min.js"></script> -->
->>>>>>> master
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 <link href="${path }/resources/css/datepicker.css" rel="stylesheet" type="text/css">
