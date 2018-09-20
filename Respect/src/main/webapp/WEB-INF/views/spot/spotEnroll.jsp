@@ -6,10 +6,11 @@
 <c:set var="path" value="{pageContext.request.contextPath}"/>
 
 <%@ include file="/WEB-INF/views/common/header.jsp"%>
-
-<link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.css" rel="stylesheet">
-<script src="${path }/resources/js/summernote.js"></script>
-<script src="${path }/resources/js/summernote.min.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote-bs4.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote-bs4.js"></script>
+<%-- <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.css" rel="stylesheet">
+<script src="${path }/resources/js/summernote.js"></script> --%>
+<%-- <script src="${path }/resources/js/summernote.min.js"></script> --%>
 <script src="${path }/resources/js/summernote-ko-KR.js"></script>
 
 <style>

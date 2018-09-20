@@ -359,10 +359,10 @@ function btn_replySee(a){
                         <br>
                         <div align='center'class='row justify-content-center'>
                             <c:if test="${userLoggedIn != null and viewList.USERID == userLoggedIn.userId}">
-	                             <input class="btn btn-sm" type="button" value="일정 수정" onclick="fn_update(${viewList.SCHEDULENO})">
-	                             <input class="btn btn-sm" type="button" value="일정 삭제" onclick="fn_delete(${viewList.SCHEDULENO})">
+	                             <input class="btn btn-outline-warning btn-sm mr-1" type="button" value="일정 수정" onclick="fn_update(${viewList.SCHEDULENO})">
+	                             <input class="btn btn-outline-warning btn-sm " type="button" value="일정 삭제" onclick="fn_delete(${viewList.SCHEDULENO})">
 	                             <c:if test="${viewList.REPORTFLAG==0 }">
-	                           	 <input class="btn btn-sm" type="button" value="후기 등록" onclick="fn_review(${viewList.SCHEDULENO})">
+	                           	 <input class="btn btn-outline-warning btn-sm ml-1" type="button" value="후기 등록" onclick="fn_review(${viewList.SCHEDULENO})">
 	                           	 </c:if>
                             </c:if>
                             <c:if test="${userLoggedIn != null and viewList.USERID != userLoggedIn.userId}">
@@ -382,10 +382,10 @@ function btn_replySee(a){
                            	 <div class="col-md-12 mt-4" align='center'>
             		    <ul class="nav nav-tabs row justify-content-center"  id="myTab">
 			                        <li class="nav-item">
-			                                <a id="timeTable" class="nav-link active" data-toggle="tab" href="#timeTableTab">타임테이블</a>
+			                                <a  class="nav-link active" data-toggle="tab" href="#timeTableTab">타임테이블</a>
 			                        </li>
 			                        <li class="nav-item">
-			                                <a id="sendMessage" class="nav-link" data-toggle="tab" href="#Review">여행후기 </a>
+			                                <a  class="nav-link" data-toggle="tab" href="#Review">여행후기 </a>
 			                        </li>
 			             			   </ul>
            			   <div class="tab-content">
@@ -416,76 +416,76 @@ function btn_replySee(a){
                                                     </tr>
                                                     <tr>
                                                     		<td class='time1'>06:00</td>
-                                                    		<td id='6' class='place' ondrop='drop(event)' ondragover='allowDrop(event)'></td>
+                                                    		<td id='6'></td>
                                                             
                                                     </tr>
                                                     <tr>
                                                            <td class='time1'>07:00</td>
-                                                    		<td id='7' class='place' ondrop='drop(event)' ondragover='allowDrop(event)'></td>
+                                                    		<td id='7'></td>
                                                     </tr>
                                                     <tr>
                                                             <td class='time1'>08:00</td>
-                                                    		<td id='8' class='place' ondrop='drop(event)' ondragover='allowDrop(event)'></td>
+                                                    		<td id='8'></td>
                                                     </tr>
                                                     <tr>
                                                             <td class='time1'>09:00</td>
-                                                    		<td id='9' class='place' ondrop='drop(event)' ondragover='allowDrop(event)'></td>
+                                                    		<td id='9'></td>
                                                     </tr>
                                                     <tr>
                                                             <td class='time1'>10:00</td>
-                                                    		<td id='10' class='place' ondrop='drop(event)' ondragover='allowDrop(event)'></td>
+                                                    		<td id='10'></td>
                                                     </tr>
                                                     <tr>
                                                             <td class='time1'>11:00</td>
-                                                    		<td id='11' class='place' ondrop='drop(event)' ondragover='allowDrop(event)'></td>
+                                                    		<td id='11'></td>
                                                     </tr>
                                                     <tr>
                                                             <td class='time1'>12:00</td>
-                                                    		<td id='12' class='place' ondrop='drop(event)' ondragover='allowDrop(event)'></td>
+                                                    		<td id='12'></td>
                                                     </tr>
                                                     <tr>
                                                             <td class='time1'>13:00</td>
-                                                    		<td id='13' class='place' ondrop='drop(event)' ondragover='allowDrop(event)'></td>
+                                                    		<td id='13'></td>
                                                     </tr>
                                                     <tr>
                                                             <td class='time1'>14:00</td>
-                                                    		<td id='14' class='place' ondrop='drop(event)' ondragover='allowDrop(event)'></td>
+                                                    		<td id='14'></td>
                                                     </tr>
                                                     <tr>
                                                             <td class='time1'>15:00</td>
-                                                    		<td id='15' class='place' ondrop='drop(event)' ondragover='allowDrop(event)'></td>
+                                                    		<td id='15'></td>
                                                     </tr>
                                                     <tr>
                                                             <td class='time1'>16:00</td>
-                                                    		<td id='16' class='place' ondrop='drop(event)' ondragover='allowDrop(event)'></td>
+                                                    		<td id='16'></td>
                                                     </tr>
                                                     <tr>
                                                             <td class='time1'>17:00</td>
-                                                    		<td id='17' class='place' ondrop='drop(event)' ondragover='allowDrop(event)'></td>
+                                                    		<td id='17'></td>
                                                     </tr>
                                                     <tr>
                                                             <td class='time1'>18:00</td>
-                                                    		<td id='18' class='place' ondrop='drop(event)' ondragover='allowDrop(event)'></td>
+                                                    		<td id='18'></td>
                                                     </tr>
                                                     <tr>
                                                             <td class='time1'>19:00</td>
-                                                    		<td id='19' class='place' ondrop='drop(event)' ondragover='allowDrop(event)'></td>
+                                                    		<td id='19'></td>
                                                     </tr>
                                                     <tr>
                                                             <td class='time1'>20:00</td>
-                                                    		<td id='20' class='place' ondrop='drop(event)' ondragover='allowDrop(event)'></td>
+                                                    		<td id='20'></td>
                                                     </tr>
                                                     <tr>
                                                             <td class='time1'>21:00</td>
-                                                    		<td id='21' class='place' ondrop='drop(event)' ondragover='allowDrop(event)'></td>
+                                                    		<td id='21'></td>
                                                     </tr>
                                                     <tr>
                                                             <td class='time1'>22:00</td>
-                                                    		<td id='22' class='place' ondrop='drop(event)' ondragover='allowDrop(event)'></td>
+                                                    		<td id='22'></td>
                                                     </tr>
                                                     <tr>
                                                             <td class='time1'>23:00</td>
-                                                    		<td id='23' class='place' ondrop='drop(event)' ondragover='allowDrop(event)'></td>
+                                                    		<td id='23'></td>
                                                     </tr>
                                             
                                             </table>
@@ -506,76 +506,76 @@ function btn_replySee(a){
                                                     </tr>
                                                     <tr>
                                                     		<td class='time1'>06:00</td>
-                                                    		<td id='6' class='place' ondrop='drop(event)' ondragover='allowDrop(event)'></td>
+                                                    		<td id='6' class='place'></td>
                                                             
                                                     </tr>
                                                     <tr>
                                                            <td class='time1'>07:00</td>
-                                                    		<td id='7' class='place' ondrop='drop(event)' ondragover='allowDrop(event)'></td>
+                                                    		<td id='7' class='place'></td>
                                                     </tr>
                                                     <tr>
                                                             <td class='time1'>08:00</td>
-                                                    		<td id='8' class='place' ondrop='drop(event)' ondragover='allowDrop(event)'></td>
+                                                    		<td id='8' class='place'></td>
                                                     </tr>
                                                     <tr>
                                                             <td class='time1'>09:00</td>
-                                                    		<td id='9' class='place' ondrop='drop(event)' ondragover='allowDrop(event)'></td>
+                                                    		<td id='9' class='place'></td>
                                                     </tr>
                                                     <tr>
                                                             <td class='time1'>10:00</td>
-                                                    		<td id='10' class='place' ondrop='drop(event)' ondragover='allowDrop(event)'></td>
+                                                    		<td id='10' class='place'></td>
                                                     </tr>
                                                     <tr>
                                                             <td class='time1'>11:00</td>
-                                                    		<td id='11' class='place' ondrop='drop(event)' ondragover='allowDrop(event)'></td>
+                                                    		<td id='11' class='place'></td>
                                                     </tr>
                                                     <tr>
                                                             <td class='time1'>12:00</td>
-                                                    		<td id='12' class='place' ondrop='drop(event)' ondragover='allowDrop(event)'></td>
+                                                    		<td id='12' class='place'></td>
                                                     </tr>
                                                     <tr>
                                                             <td class='time1'>13:00</td>
-                                                    		<td id='13' class='place' ondrop='drop(event)' ondragover='allowDrop(event)'></td>
+                                                    		<td id='13' class='place'></td>
                                                     </tr>
                                                     <tr>
                                                             <td class='time1'>14:00</td>
-                                                    		<td id='14' class='place' ondrop='drop(event)' ondragover='allowDrop(event)'></td>
+                                                    		<td id='14' class='place'></td>
                                                     </tr>
                                                     <tr>
                                                             <td class='time1'>15:00</td>
-                                                    		<td id='15' class='place' ondrop='drop(event)' ondragover='allowDrop(event)'></td>
+                                                    		<td id='15' class='place'></td>
                                                     </tr>
                                                     <tr>
                                                             <td class='time1'>16:00</td>
-                                                    		<td id='16' class='place' ondrop='drop(event)' ondragover='allowDrop(event)'></td>
+                                                    		<td id='16' class='place'></td>
                                                     </tr>
                                                     <tr>
                                                             <td class='time1'>17:00</td>
-                                                    		<td id='17' class='place' ondrop='drop(event)' ondragover='allowDrop(event)'></td>
+                                                    		<td id='17' class='place' ></td>
                                                     </tr>
                                                     <tr>
                                                             <td class='time1'>18:00</td>
-                                                    		<td id='18' class='place' ondrop='drop(event)' ondragover='allowDrop(event)'></td>
+                                                    		<td id='18' class='place'></td>
                                                     </tr>
                                                     <tr>
                                                             <td class='time1'>19:00</td>
-                                                    		<td id='19' class='place' ondrop='drop(event)' ondragover='allowDrop(event)'></td>
+                                                    		<td id='19' class='place' ></td>
                                                     </tr>
                                                     <tr>
                                                             <td class='time1'>20:00</td>
-                                                    		<td id='20' class='place' ondrop='drop(event)' ondragover='allowDrop(event)'></td>
+                                                    		<td id='20' class='place' ></td>
                                                     </tr>
                                                     <tr>
                                                             <td class='time1'>21:00</td>
-                                                    		<td id='21' class='place' ondrop='drop(event)' ondragover='allowDrop(event)'></td>
+                                                    		<td id='21' class='place' ></td>
                                                     </tr>
                                                     <tr>
                                                             <td class='time1'>22:00</td>
-                                                    		<td id='22' class='place' ondrop='drop(event)' ondragover='allowDrop(event)'></td>
+                                                    		<td id='22' class='place' ></td>
                                                     </tr>
                                                     <tr>
                                                             <td class='time1'>23:00</td>
-                                                    		<td id='23' class='place' ondrop='drop(event)' ondragover='allowDrop(event)'></td>
+                                                    		<td id='23' class='place'></td>
                                                     </tr>
                                             
                                             </table>
@@ -606,8 +606,9 @@ function btn_replySee(a){
                       		<button type="button" class="btn-outline-warning btn mb-3 mr-3" onclick="fn_updateReport(${viewList.SCHEDULENO})">후기수정</button>
                       		<button type="button" class="btn-outline-warning btn mb-3" onclick="fn_deleteReport(${viewList.SCHEDULENO})">후기삭제</button>
                       		<br>
+                      	</c:if>	
                       		<c:forEach items="${reportList }" var="sr" begin='0' end='${endDay - startDay +1}' varStatus="s">
-	                    <button class="btn" value="${s.count }" onclick="fn_toggle(event)" style="width:200px;">${s.count }일차</button><br>
+	                    <button class="btn btn-outline-dark" value="${s.count }" onclick="fn_toggle(event)" style="width:200px;">${s.count }일차</button><br>
 	                    <br>
 	                    <div id="content${s.count }"  class="hidetext">
 	                    <div class="container">
@@ -633,7 +634,7 @@ function btn_replySee(a){
 	                        </div>
 	                    </div>
                     </c:forEach>
-                      	</c:if>
+                      	
                       	
                       	</c:otherwise>
                       	
@@ -662,7 +663,7 @@ function btn_replySee(a){
         <div class="row">
             <div class="col-md-11">
               <div class="page-header mb-3 mt-5" style="border-bottom: solid 1px black; height: 50px;">
-                <button type="button" class="btn float-right"  style="background: #f19221;" data-toggle="modal" data-target="#replyWriteModal" onclick="return loginCheck()">댓글등록</button>
+                <button type="button" class="btn btn-outline-warning float-right"  style="background: #f19221;" data-toggle="modal" data-target="#replyWriteModal" onclick="return loginCheck()">댓글등록</button>
                 <h4>이 일정에 대한 의견(<span style="color: #f19221">${fn:length(scheduleReplyList)}</span>)</h4>  
               </div> 
                <div class="mb-5">
@@ -679,7 +680,7 @@ function btn_replySee(a){
                             <div class="media-body mb-3">
                                 <span style="color: #1b1b1b; font-size: 17px;" class="mr-2">${reply.NICKNAME}</span>
                                 <span style=" color: #959595; font-size: 16px;">${reply.WRITEDATE}</span>
-                                <button type="button" class="btn float-right p-1 btn-replyGood" value="${reply.REPLYNO }" style="background: white; border: 1px solid #f19221;"><span style="font-size: 12px; color: #f19221;">추천 ${reply.GOODCOUNT }</span></button>
+                                <button type="button" class="btn float-right p-1 btn-outline-warning btn-replyGood" value="${reply.REPLYNO }" style="background: white; border: 1px solid #f19221;"><span style="font-size: 12px; color: #f19221;">추천 ${reply.GOODCOUNT }</span></button>
                                 <br><br>
                                 <span style="font-size: 14.5px;  color: #535353;">${reply.CONTENT }</span>                                   
                                 <br>
@@ -689,12 +690,12 @@ function btn_replySee(a){
                                      </c:if>
                                 </c:forEach>
                                  <br>
-                                <button type="button" class="btn mt-2 p-1  " onclick="btn_replySee(${a})" style="background: white; border: 1px solid #959595; "> <span style="font-size: 12px; color: #959595;">댓글${reply.REPLYCOUNT }</span> </button>
+                                <button type="button" class="btn btn-outline-warning mt-2 p-1  " onclick="btn_replySee(${a})" style="background: white; border: 1px solid #959595; "> <span style="font-size: 12px; color: #959595;">댓글${reply.REPLYCOUNT }</span> </button>
                                    
-                                <button type="button" class="btn mt-2 ml-2 p-1 btn-replyWrite" value="${reply.REPLYNO }"  style="background: white; border: 1px solid #959595;" > <span style="font-size: 12px; color: #959595;">댓글 쓰기</span> </button>
+                                <button type="button" class="btn  btn-outline-warning mt-2 ml-2 p-1 btn-replyWrite" value="${reply.REPLYNO }"  style="background: white; border: 1px solid #959595;" > <span style="font-size: 12px; color: #959595;">댓글 쓰기</span> </button>
                           <c:if test="${userLoggedIn != '' || userLoggedIn ne null }">
                             <c:if test="${reply.USERID eq userLoggedIn.userId || userLoggedIn.userLevel==1 }">
-                                      <button type="button" class="btn mt-2 ml-2 p-1 btn-replyDelte" value="${reply.REPLYNO }" style="background: white; border: solid 1px #ccc;"  > <span style="font-size: 12px; color: #959595;">삭제</span> </button>
+                                      <button type="button" class="btn btn-outline-warning mt-2 ml-2 p-1 btn-replyDelte" value="${reply.REPLYNO }" style="background: white; border: solid 1px #ccc;"  > <span style="font-size: 12px; color: #959595;">삭제</span> </button>
                                    </c:if>
                                 </c:if>
                             </div>
@@ -712,14 +713,14 @@ function btn_replySee(a){
                                      <div class="media-body ml-3 mb-3">
                                            <span style="color: #1b1b1b; font-size: 17px;" class="mr-2">${reply.NICKNAME}</span>
                                            <span style=" color: #959595; font-size: 16px;">${reply.WRITEDATE}</span>
-                                           <button type="button" class="btn float-right p-1 btn-replyGood" value="${reply.REPLYNO }" style="background: white; border: 1px solid #f19221;"><span style="font-size: 12px; color: #f19221;">추천  ${reply.GOODCOUNT }</span></button>
+                                           <button type="button" class="btn btn-outline-warning float-right p-1 btn-replyGood" value="${reply.REPLYNO }" style="background: white; border: 1px solid #f19221;"><span style="font-size: 12px; color: #f19221;">추천  ${reply.GOODCOUNT }</span></button>
                                            <br><br>
                                            <span style="font-size: 14.5px;  color: #535353;">${reply.CONTENT }</span>
                                        
                                            <br>
                                            <c:if test="${userLoggedIn != '' || userLoggedIn ne null }">
                                        <c:if test="${reply.USERID eq userLoggedIn.userId || userLoggedIn.userLevel==1 }">
-                                                 <button type="button" class="btn mt-2 ml-2 p-1 btn-replyDelte" value="${reply.REPLYNO }" style="background: white; border: solid 1px #ccc;"  > <span style="font-size: 12px; color: #959595;">삭제</span> </button>
+                                                 <button type="button" class="btn  btn-outline-warning mt-2 ml-2 p-1 btn-replyDelte" value="${reply.REPLYNO }" style="background: white; border: solid 1px #ccc;"  > <span style="font-size: 12px; color: #959595;">삭제</span> </button>
                                               </c:if>
                                            </c:if>
                                        </div>
@@ -760,7 +761,7 @@ function btn_replySee(a){
                                   </div>
                                 </div>
                               </div>
-                              <button type="button" id="btn_fileSee">파일첨부</button>
+                              <button type="button" id="btn_fileSee" class="btn btn-outline-warning">파일첨부</button>
                               <div class="row" style="display: none" id="fileSee">
                                 
                                 <div class="col-md-12">
@@ -882,6 +883,7 @@ function btn_replySee(a){
 	{
     	
     	var origin=$("div[class='carousel-item active'] table[class='table-bordered timeline']");
+    	console.log(origin);
 		if(markers!=null)
 		{
 			for(var i=0; i<markers.length;i++)
@@ -920,9 +922,8 @@ function btn_replySee(a){
 
 			
 			
-		},1000);
-	};
-
+		},1000)
+	}
 
 	
 	 

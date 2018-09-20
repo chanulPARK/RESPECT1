@@ -53,7 +53,16 @@
 		</interceptor>
 		<interceptor>
 			<mapping path="/schedule/scheduleWrite"/>
-			
+			<mapping path="/mySchedule/allMySchedule"/>
+			<mapping path="/mySchedule/myScheduleList"/>
+			<mapping path="/mySchedule/putScheduleList"/>
+			<mapping path="/mySchedule/putPlaceList"/>
+			<mapping path="/mySchedule/myScheduleReportList"/>
+			<mapping path="/user/userUpdate.do"/>
+			<mapping path="/user/userUpdatePassword.do"/>
+			<mapping path="/user/userUpdateProfile.do"/>
+			<mapping path="/user/userDelete.do"/>
+			<mapping path="/message/receiveMessageList.do"/>
 			<beans:bean id="sessionInterceptor" class="com.kh.respect.common.interceptor.SessionInterceptor"/>
 		</interceptor>
 	</interceptors>

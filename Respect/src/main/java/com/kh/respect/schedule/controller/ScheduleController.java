@@ -322,7 +322,7 @@ public class ScheduleController {
 	    
 	      int result=service.insertSchedule(sc,list);
 	      String msg="";
-	      String loc="";
+	      String loc="mySchedule/myScheduleList.do?userId="+userId+"&sort=all";
 	      if(result>0)
 	      {
 	         msg="일정 등록 성공";
@@ -502,7 +502,7 @@ public class ScheduleController {
 			html+="<div class=' col-md-13 mt-3 justify-content-center' >";
 			html+="<img class='mb-2' src='/respect/resources/upload/spot/thumbnail/"+p.getThumbnail()+"' style='width:85px;' height='60px;'>";
 			html+="<br><p>"+p.getTitle()+"</p>";
-			html+="<button class='btn mb-2' value='"+p.toString()+"' onclick='fn_add(event)'>일정등록</button></div><hr>";
+			html+="<button class='btn btn-outline-warning btn-sm mb-2' value='"+p.toString()+"' onclick='fn_add(event)'>일정등록</button></div><hr>";
 		}
 		if(keyword==null)
 		{
@@ -530,8 +530,8 @@ public class ScheduleController {
 		{
 			html+="<div class=' col-md-13 mt-3 justify-content-center' >";
 			html+="<br><p>"+p.getTitle()+"</p>";
-			html+="<button class='btn mb-2 mr-1' value='"+p.toString()+"' onclick='fn_addUPlace(event)'>일정등록</button></div>";
-			html+="<button class='btn mb-2' value='"+p.toString()+"' onclick='fn_deleteUserPlace(event)'>장소삭제</button></div><hr>";
+			html+="<button class='btn btn-outline-warning btn-sm mb-2 mr-1' value='"+p.toString()+"' onclick='fn_addUPlace(event)'>일정등록</button></div>";
+			html+="<button class='btn btn-outline-warning btn-sm mb-2' value='"+p.toString()+"' onclick='fn_deleteUserPlace(event)'>장소삭제</button></div><hr>";
 		}
 		html+="<br><nav aria-label='Page navigation example'>"+Page.getPageBarSC(cPage, 5, pservice.selectTotalUserCount(userId), 2)+"</nav>";		
 		
@@ -551,7 +551,7 @@ public class ScheduleController {
 			html+="<div class=' col-md-13 mt-3 justify-content-center' >";
 			html+="<img class='mb-2' src='/respect/resources/upload/spot/thumbnail/"+p.getThumbnail()+"' style='width:85px;' height='60px;'>";
 			html+="<br><p>"+p.getTitle()+"</p>";
-			html+="<button class='btn mb-2' value='"+p.toString()+"' onclick='fn_add(event)'>일정등록</button></div><hr>";
+			html+="<button class='btn btn-outline-warning btn-sm  mb-2' value='"+p.toString()+"' onclick='fn_add(event)'>일정등록</button></div><hr>";
 		}
 		html+="<br><nav aria-label='Page navigation example'>"+Page.getPageBarSC(cPage, 5, myservice.putPlaceListTotalCount(userId), 3)+"</nav>";		
 				
@@ -569,7 +569,7 @@ public class ScheduleController {
 			html+="<div class=' col-md-13 mt-3 justify-content-center' >";
 			html+="<img class='mb-2' src='/respect/resources/upload/spot/thumbnail/"+p.getThumbnail()+"' style='width:85px;' height='60px;'>";
 			html+="<br><p>"+p.getTitle()+"</p>";
-			html+="<button class='btn mb-2' value='"+p.toString()+"' onclick='fn_add(event)'>일정등록</button></div><hr>";
+			html+="<button class='btn  btn-outline-warning btn-sm  mb-2' value='"+p.toString()+"' onclick='fn_add(event)'>일정등록</button></div><hr>";
 		}
 		html+="<br><nav aria-label='Page navigation example'>"+Page.getPageBarSC(1, 5, pservice.selectSearchCount(keyword), 1)+"</nav>";		
 				
@@ -595,8 +595,8 @@ public class ScheduleController {
 			{
 				html+="<div class=' col-md-13 mt-3 justify-content-center' >";
 				html+="<br><p>"+p.getTitle()+"</p>";
-				html+="<button class='btn mb-2 mr-1' value='"+p.toString()+"' onclick='fn_addUPlace(event)'>일정등록</button></div>";
-				html+="<button class='btn mb-2' value='"+p.toString()+"' onclick='fn_deleteUserPlace(event)'>장소삭제</button></div><hr>";
+				html+="<button class='btn  btn-outline-warning btn-sm  mb-2 mr-1' value='"+p.toString()+"' onclick='fn_addUPlace(event)'>일정등록</button></div>";
+				html+="<button class='btn  btn-outline-warning btn-sm mb-2' value='"+p.toString()+"' onclick='fn_deleteUserPlace(event)'>장소삭제</button></div><hr>";
 			}
 			html+="<br><nav aria-label='Page navigation example'>"+Page.getPageBarSC(1, 5, pservice.selectTotalUserCount(userId), 2)+"</nav>";		
 			

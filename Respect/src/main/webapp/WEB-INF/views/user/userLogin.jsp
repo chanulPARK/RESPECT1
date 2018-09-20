@@ -29,7 +29,9 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+
     <link rel="stylesheet" href="${path }/resources/css/style.css">
+
     <style>
     #logo{color:black; font-size: 30px; }
     #logo img{width:40px;}
@@ -39,7 +41,9 @@ pre, q, select, table, textarea, ul, tr, td, button{margin:0; padding:0; font-fa
 </head>
 <body style="background: #f1f1f1">
     <div class="container mt-5 p-5">
+
         <div class="p-4 jejuhallasan" align="center"><label><a id="logo" class="navbar-brand" href="<%=request.getContextPath() %>/index.jsp"><img src="${path }/resources/img/main/logo.png" > 니가가라 제주도</a></label></div>
+
         <div class="container col-sm-5 shadow p-4 rounded" style="background:white;">
             <form action="${path }/user/loginEnd" method="post">
                 <div class="form-group">

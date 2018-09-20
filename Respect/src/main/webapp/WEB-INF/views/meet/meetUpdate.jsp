@@ -12,8 +12,7 @@
 
 <title>Insert title here</title>
 
-<link href="${path }/resources/bootstrap/css/bootstrap.css" rel="stylesheet">
-<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 <link href="${path }/resources/css/datepicker.css" rel="stylesheet" type="text/css">
@@ -21,18 +20,11 @@
 <script src="${path }/resources/js/datepicker.min.js"></script>
 <script src="${path }/resources/js/i18n/datepicker.en.js"></script>
 
-<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
-<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
-<script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
-
-
-<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
-<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.js"></script> 
-<script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script> 
-
-<link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote-bs4.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote-bs4.js"></script>
+<%-- <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.css" rel="stylesheet">
 <script src="${path }/resources/js/summernote.js"></script>
-<script src="${path }/resources/js/summernote.min.js"></script>
+<script src="${path }/resources/js/summernote.min.js"></script> --%>
 <script src="${path }/resources/js/summernote-ko-KR.js"></script>
 
 
@@ -98,7 +90,7 @@
 	<br><br><br><br><br><br><br><br><br>
 	<div class="container">
 		<div class="card mb-4">
-	        <div class="card-header bg-white font-weight-bold">번개모집</div>
+	        
 	        <div class="card-body">
 	        
 	            <form action="${path }/meet/meetUpdateEnd.do" enctype="multipart/form-data" method="POST" accept-charset="UTF-8">
@@ -118,7 +110,35 @@
 	                <div class="form-group row">
 	                    <label for="area" class="col-sm-2 col-form-label">주소</label>
 	                    <div class="col-sm-8">
-	                        <input type="text" class="form-control" id="address" name="address" value="${meet.address }" placeholder="상세주소">
+	                        <%-- <input type="text" class="form-control" id="address" name="address" value="${meet.address }" placeholder="상세주소"> --%>
+                        	<select class="form-control" name="area" required>
+	                            <option value="" selected>지역을 선택하세요</option>
+	                            <optgroup label="제주시">
+	                            <option value="제주시내">제주시내</option>
+	                            <option value="조천읍">조천읍</option>
+	                            <option value="구좌읍">구좌읍</option>
+	                            <option value="애월읍">애월읍</option>
+	                            <option value="한림읍">한림읍</option>
+	                            <option value="한경면">한경면</option>
+	                            </optgroup>
+	                            <optgroup label="서귀포시">
+	                            <option value="서귀포시내">서귀포시내</option>
+	                            <option value="남원읍">남원읍</option>
+	                            <option value="표선읍">표선읍</option>
+	                            <option value="성산읍">성산읍</option>
+	                            <option value="중문">중문</option>
+	                            <option value="안덕면">안덕면</option>
+	                            <option value="대정읍">대정읍</option>
+	                            </optgroup>
+	                            <optgroup label="섬속의 섬">
+	                            <option value="추자도">추자도</option>
+	                            <option value="우도">우도</option>
+	                            <option value="차귀도">차귀도</option>
+	                            <option value="가파도">가파도</option>
+	                            <option value="마라도">마라도</option>
+	                            <option value="비양도">비양도</option>
+	                            </optgroup>
+                           	</select>
 	                    </div>
 	                </div>
 	                <div class="form-group row">
@@ -155,7 +175,7 @@
 	                </div>
 	                <div class="justify-content-center" align="center">
 				        <div class="card-footer bg-white" style="align-content:center;">
-				            <button type="submit" class="btn btn-success">확인</button>
+				            <button type="submit" class="btn btn-outline-warning">확인</button>
 				            &nbsp;&nbsp;
 				            <button type="button" onclick="fn_cancel(${meet.meetNo})" class="btn">취소</button>
 				        </div>
