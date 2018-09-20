@@ -1,13 +1,19 @@
 package com.kh.respect.place.model.dao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.kh.respect.meet.model.vo.MeetReply;
+import com.kh.respect.meet.model.vo.MeetReplyAttachment;
 import com.kh.respect.place.model.vo.Place;
 import com.kh.respect.place.model.vo.PlaceGood;
+import com.kh.respect.place.model.vo.PlaceReply;
+import com.kh.respect.place.model.vo.PlaceReplyAttachment;
 import com.kh.respect.place.model.vo.PlaceSpring;
 
 @Repository
@@ -174,6 +180,22 @@ public class PlaceDaoImpl implements PlaceDao {
 		return sqlSession.selectOne("spot.categoryTotalCount", minorcategory);
 	}
 	
+	@Override
+	public List<Place> searchAreaList(SqlSessionTemplate sqlSession, int cPage, int numPerPage, String area, String major) {
+		Map<String,String> m = new HashMap();
+		m.put("area", area);
+		m.put("major", major);
+		return sqlSession.selectList("spot.searchAreaList", m, new RowBounds((cPage-1)*numPerPage, numPerPage));
+	}
+
+	@Override
+	public int areaTotalCount(SqlSessionTemplate sqlSession, String area, String major) {
+		Map<String,String> m = new HashMap();
+		m.put("area", area);
+		m.put("major", major);
+		return sqlSession.selectOne("spot.areaTotalCount", m);
+	}
+	
 	
 	
 	public int selectTotalUserCount(SqlSessionTemplate sqlSession, String userId) {
@@ -200,6 +222,62 @@ public class PlaceDaoImpl implements PlaceDao {
 		return sqlSession.selectList("spot.searchKeyword",keyword);
 	}
 
-
+	/////////////   댓글     ////////////////
+	@Override
+	public List<Map<String, String>> placeReplyList(SqlSessionTemplate sqlSession, int placeNo) {
+	return sqlSession.selectList("spot.placeReplyList", placeNo);
+	}
+	
+	@Override
+	public List<Map<String, String>> placeAttList(SqlSessionTemplate sqlSession) {
+	return sqlSession.selectList("spot.placeAttList");
+	}
+	
+	@Override
+	public int placeReplyWrite(SqlSessionTemplate sqlSession, PlaceReply placeReply) {
+	return sqlSession.insert("spot.placeReplyWrite", placeReply);
+	}
+	
+	@Override
+	public void placeReplyCountUpdate(SqlSessionTemplate sqlSession, int placeNo) {
+	sqlSession.update("spot.placeReplyCountUpdate", placeNo);
+	}
+	
+	@Override
+	public int insertPlaceReplyAttach(SqlSessionTemplate sqlSession, PlaceReplyAttachment a) {
+	// TODO Auto-generated method stub
+	return sqlSession.insert("spot.insertPlaceReplyAttach", a);
+	}
+	
+	@Override
+	public int placeReplyWrite2(SqlSessionTemplate sqlSession, PlaceReply placeReply) {
+	// TODO Auto-generated method stub
+	return sqlSession.insert("spot.placeReplyWrite2",placeReply);
+	}
+	
+	@Override
+	public void placeReplyReplyCountUpdate(SqlSessionTemplate sqlSession, int replyRefNo) {
+	sqlSession.update("spot.placeReplyReplyCountUpdate", replyRefNo);
+	}
+	
+	@Override
+	public int placeReplyDelete(SqlSessionTemplate sqlSession, int replyNo) {
+	return sqlSession.delete("spot.placeReplyDelete",replyNo);
+	}
+	
+	@Override
+	public int placeReplyGood(SqlSessionTemplate sqlSession, int replyNo) {
+	return sqlSession.update("spot.placeReplyGood",replyNo);
+	}
+	
+	@Override
+	public int placeReplyGoodCheck(SqlSessionTemplate sqlSession, PlaceReply placeReply) {
+	return sqlSession.selectOne("spot.placeReplyGoodCheck", placeReply);
+	}
+	
+	@Override
+	public void insertplaceReplyGood(SqlSessionTemplate sqlSession, PlaceReply placeReply) {
+	sqlSession.insert("spot.insertplaceReplyGood", placeReply);
+	}
 
 }

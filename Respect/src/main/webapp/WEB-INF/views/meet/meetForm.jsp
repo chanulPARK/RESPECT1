@@ -9,6 +9,9 @@
 <jsp:include page="/WEB-INF/views/common/header.jsp"></jsp:include>
 
 <head>
+	
+<!-- <link href="${path }/resources/bootstrap/css/bootstrap.css" rel="stylesheet"> -->
+<!-- <script src="http://code.jquery.com/jquery-latest.min.js"></script> -->
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 

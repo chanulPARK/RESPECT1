@@ -28,22 +28,58 @@
 	.map-row {
 		border: 1px solid #e5e5e5;
 	}
-	.cate_click {
-		background: #ffb53c;color: #fff;
-	}
 </style>
-
+<script type="text/javascript">
+	$(document).ready(function() {
+		var temp = $('#minorcategory').val();
+		if(temp=='향토음식') {
+			$('.tag-all').prop('style', 'padding:0;')
+			$('.cate').removeProp('style', 'background: #ffb53c;color: #fff;')
+			$('#c1').prop('style', 'background: #ffb53c;color: #fff;')
+		}
+		if(temp=='한식') {
+			$('.tag-all').prop('style', 'padding:0;')
+			$('.cate').removeProp('style', 'background: #ffb53c;color: #fff;')
+			$('#c2').prop('style', 'background: #ffb53c;color: #fff;')
+		}
+		if(temp=='양식') {
+			$('.tag-all').prop('style', 'padding:0;')
+			$('.cate').removeProp('style', 'background: #ffb53c;color: #fff;')
+			$('#c3').prop('style', 'background: #ffb53c;color: #fff;')
+		}
+		if(temp=='일식') {
+			$('.tag-all').prop('style', 'padding:0;')
+			$('.cate').removeProp('style', 'background: #ffb53c;color: #fff;')
+			$('#c4').prop('style', 'background: #ffb53c;color: #fff;')
+		}
+		if(temp=='중식') {
+			$('.tag-all').prop('style', 'padding:0;')
+			$('.cate').removeProp('style', 'background: #ffb53c;color: #fff;')
+			$('#c5').prop('style', 'background: #ffb53c;color: #fff;')
+		}
+		if(temp=='동남아식') {
+			$('.tag-all').prop('style', 'padding:0;')
+			$('.cate').removeProp('style', 'background: #ffb53c;color: #fff;')
+			$('#c6').prop('style', 'background: #ffb53c;color: #fff;')
+		}
+		if(temp=='카페') {
+			$('.tag-all').prop('style', 'padding:0;')
+			$('.cate').removeProp('style', 'background: #ffb53c;color: #fff;')
+			$('#c7').prop('style', 'background: #ffb53c;color: #fff;')
+		}
+	});
+</script>
 <main class="page landing-page">
-	<input type="hidden" id="minorcategory" name="minorcategory" value="자연" />
+	<input type="hidden" id="minorcategory" name="minorcategory2" value="${minorcategory}" />
 	<input type="hidden" id="page" name="page" value="" />
 	
 	<section class="clean-block slider dark" style="padding:0;margin:0 0 100px;">
-		<img src="${path }/resources/img/spot/2.gif" style="width:100%;">
+		<img src="${path }/resources/img/spot/2.jpg" style="width:100%;">
 	</section>
 	<section id="map-index">
 	    <div class="container">
-	        <h2>제주도 모든 여행지를 한 눈에…<br></h2>
-	        <h5>내가 가본 제주는 어디까지일까? 수많은 제주의 아름다운 여행지를 취향에 맞게 선택해보자. 368개의 크고 작은 오름을 비롯하여 눈 돌리면 어디에서나 마주치는 한라산 그리고 푸른 바다…. 제주의 보석 같은 여행지가 여러분의 선택을 기다린다.<br></h5>
+	        <h2>제주의 전통음식부터 다양한 음식의 천국 제주도<br></h2>
+	        <h5>여행의 즐거움 중 빼놓을 수 없는 것은 단연 음식이다. 제주도는 흑돼지, 말요리 그리고 해산물 등 다양한 음식문화를 접할 수 있다. 제주도의 전통 음식부터 줄을 서서 기다리는 최고 인기의 음식까지 모두 즐겨보자.<br></h5>
 	        	<img src="${path }/resources/img/spot/지도.JPG" class="map">
 	        	<button class="btn btn-outline-warning map-btn" type="button">전체지역</button>
        	</div>
@@ -51,19 +87,21 @@
 	<section id="map-tag">
 	    <div class="container">
 	        <div class="row map-row">
-	            <div class="col-xl-1 tag-all cate cate_click" style="padding:0px;">
-	                <h5 style="padding-top: 35px;">전체</h5>
+	            <div class="col-xl-1 tag-all cate cate_click" style="padding:0px;background: #ffb53c;color: #fff;">
+	                <a href="javascript:fn_searchAll()">
+		                <h5 style="padding-top: 35px;">전체</h5>
+		            </a>
 	            </div>
 	            <div class="col">
 	                <a href="javascript:fn_search('향토음식')">
-	                <div class="row cate">
+	                <div class="row cate" id="c1">
 	                    <div class="col">
 	                        <h5>향토음식</h5>
 	                    </div>
 	                </div>
 	                </a>
 	                <a href="javascript:fn_search('중식')">
-	                <div class="row cate">
+	                <div class="row cate" id="c5">
 	                    <div class="col">
 	                        <h5>중식</h5>
 	                    </div>
@@ -72,14 +110,14 @@
 	            </div>
 	            <div class="col">
 	            	<a href="javascript:fn_search('한식')">
-	                <div class="row cate">
+	                <div class="row cate" id="c2">
 	                    <div class="col">
 	                        <h5>한식</h5>
 	                    </div>
 	                </div>
 	                </a>
 	                <a href="javascript:fn_search('동남아식')">
-	                <div class="row cate">
+	                <div class="row cate" id="c6">
 	                    <div class="col">
 	                        <h5>동남아식</h5>
 	                    </div>
@@ -88,14 +126,14 @@
 	            </div>
 	            <div class="col">
 	            	<a href="javascript:fn_search('양식')">
-	                <div class="row cate">
+	                <div class="row cate" id="c3">
 	                    <div class="col">
 	                        <h5>양식<br></h5>
 	                    </div>
 	                </div>
 	                </a>
 	                <a href="javascript:fn_search('카페')">
-	                <div class="row cate">
+	                <div class="row cate" id="c7">
 	                    <div class="col">
 	                        <h5>카페</h5>
 	                    </div>
@@ -104,7 +142,7 @@
 	            </div>
 	            <div class="col">
 	            	<a href="javascript:fn_search('일식')">
-	                <div class="row cate">
+	                <div class="row cate" id="c4">
 	                    <div class="col">
 	                        <h5>일식</h5>
 	                    </div>
@@ -167,9 +205,9 @@
 		                            <p>찜하기</p>
 		                            <p>${p.bringcount}</p>
 		                        </div>
-		                        <div class="col"><i class="fa fa-check icon" style="font-size: 20px;"></i>
-		                            <p>조회수</p>
-		                            <p>${p.hitscount}</p>
+		                        <div class="col"><i class="fa fa-commenting-o icon" style="font-size: 20px;"></i>
+		                            <p>리뷰</p>
+		                            <p>${p.replycount}</p>
 		                        </div>
 		                    </div>
 		                </div>
@@ -198,14 +236,9 @@
 		location.href="${path}/spot/searchfoodCategoryList.do?minorcategory="+minorcategory;
 	}
 	
-	$(document).ready(function() {
-		$('.cate').click(function() {
-			$('.cate').each(function(){
-				$(this).removeClass('cate_click');
-			});
-			$(this).addClass('cate_click');
-		});
-	});
+	function fn_searchAll() {
+		location.href="${path}/spot/searchfoodCategoryList.do";
+	}
 </script>
 
 	
