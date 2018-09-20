@@ -380,7 +380,7 @@ function sendFile(file, editor, welEditable){
                                 <c:forEach var="v" begin='1' end='${endDay - startDay +1}' varStatus="s">
                                 <input type="hidden" name="day" value="${s.count }">
                                
-                                <button class="btn" value="${s.count }" onclick="fn_toggle(event)">${s.count }일차</button><br>
+                                <button class="btn btn-outline-dark" value="${s.count }" onclick="fn_toggle(event)">${s.count }일차</button><br>
                                 <br>
                                 <div id="content${s.count }"  class="hidetext">
                                 <div >

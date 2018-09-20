@@ -63,7 +63,7 @@
                     <h2 class="pt-4 ml-2">나의 여행 일정</h2>
                     
                    <div class="pt-4 ml-2 col col-lg-8" style="margin-top:2px; float:right;" align='right'>
-                    	<button class='btn' onclick="fn_submit()">등록하기</button>
+                    	<button class='btn btn-outline-warning' onclick="fn_submit()">등록하기</button>
                     </div>
                      
             </div> 
@@ -148,7 +148,7 @@
                             <div class="row mt-2" style="overflow: auto;">
                             	
 		                            <input class="form-control " type="text"  name="keyword" autocomplete="off" placeholder="검색어 입력" style="width:70%" id="searchKeyword">
-		                               <button class='btn text-center' onclick="fn_search()" style="width:30%">검색</button>
+		                               <button class='btn btn-outline-warning text-center' onclick="fn_search()" style="width:30%">검색</button>
                                
                                <br>
                                <div class='mt-1 col-md-12' id='pList'>  
@@ -160,7 +160,7 @@
                                    			
                                                <img class="mb-2" src="${path }/resources/upload/spot/thumbnail/${place.thumbnail}" style="width:85px;" height="60px;">
                                                <br><p>${place.title }</p>
-                                               <button class="btn mb-2" value="${place }" onclick="fn_add(event)">일정등록</button>
+                                               <button class="btn btn-outline-warning btn-sm mb-2" value="${place }" onclick="fn_add(event)">일정등록</button>
                                            </div>
                                            
                                            <hr>
@@ -184,7 +184,7 @@
                                    			
                                                <img class="mb-2" src="${path }/resources/upload/spot/thumbnail/${pPlace.thumbnail}" style="width:85px;" height="60px;">
                                                <br><p>${pPlace.title }</p>
-                                               <button class="btn mb-2" value="${pPlace }" onclick="fn_add(event)">일정등록</button>
+                                               <button class="btn btn-outline-warning btn-sm mb-2" value="${pPlace }" onclick="fn_add(event)">일정등록</button>
                                            </div>
                                            
                                           <hr>
@@ -207,8 +207,8 @@
                                                
                                                <br><p>${uPlace.title }</p>
                                                <div class='row justify-content-center'>
-                                               <button class="btn mb-2 mr-1" value="${uPlace }" onclick="fn_addUPlace(event)">일정등록</button>
-                                               <button class="btn mb-2" value="${uPlace }" onclick="fn_deleteUserPlace(event)">장소삭제</button>
+                                               <button class="btn btn-outline-warning btn-sm mb-2 mr-1" value="${uPlace }" onclick="fn_addUPlace(event)">일정등록</button>
+                                               <button class="btn btn-outline-warning btn-sm mb-2" value="${uPlace }" onclick="fn_deleteUserPlace(event)">장소삭제</button>
                                                </div>
                                            </div>
                                            
@@ -222,20 +222,7 @@
                                </div>
                              <hr>
                             <br>
-                            <nav aria-label="Page navigation example">
-                                <ul class="pagination justify-content-center">
-                                    <li class="page-item disabled">
-                                    <a class="page-link btn-sm" href="#" tabindex="-1">&lt;</a>
-                                    </li>
-                                    <li class="page-item"><a class="page-link text-muted btn-sm" href="#">1</a></li>
-                                    <li class="page-item"><a class="page-link text-muted btn-sm" href="#">2</a></li>
-                                    <li class="page-item"><a class="page-link text-muted btn-sm" href="#">3</a></li>
-                                    <li class="page-item">
-                                    <a class="page-link text-muted btn-sm" href="#">&gt;</a>
-                                    </li>
-                                </ul>
-                            </nav>
-                            <br>
+                            
 
                   			 </div>
                            </div>
@@ -562,26 +549,27 @@ $("#start_date").on("click",function()
 	}
 	
 	function drop(ev) {
-	       ev.preventDefault();
-	       var data = ev.dataTransfer.getData("text");
-	       var td=$(".active TD[class='place']");
-	       
-	       if(ev.target.className=="place")
-	       {
-	           ev.target.classList.add("disable");
-	           ev.target.appendChild(document.getElementById(data));
-	           var dayoftable=ev.target.parentElement.parentElement.parentElement.id;
-	           ev.target.firstChild.childNodes[4].value=dayoftable+","+ev.target.id;
-	           console.log(ev.target.firstChild.childNodes[4]);
-	           console.log(dayoftable);
-	           console.log(ev.target.id);
-	       }
-	       else
-	       {
-	           clicktarget.classList.add("disable");
-	       }
-	      
-	   }
+	    ev.preventDefault();
+	    var data = ev.dataTransfer.getData("text");
+	    var td=$(".active TD[class='place']");
+	    
+	    if(ev.target.className=="place")
+	    {
+	        ev.target.classList.add("disable");
+	        ev.target.appendChild(document.getElementById(data));
+	        var dayoftable=ev.target.parentElement.parentElement.parentElement.id;
+	        ev.target.firstChild.childNodes[4].value=dayoftable+","+ev.target.id;
+	        console.log(ev.target.firstChild.childNodes[4]);
+	        console.log(dayoftable);
+	        console.log(ev.target.id);
+	    }
+	    else
+	    {
+	        clicktarget.classList.add("disable");
+	    }
+		
+	}
+
 	var createSeq = function(){
 		var no=0;
 		return function(){
@@ -642,7 +630,7 @@ $("#start_date").on("click",function()
         active[0].classList.add("disable");
       	tableday=active[0].parentElement.parentElement.parentElement.id;
       	
-        var html="<div id='data"+seq_no+"' >"+place2[1]+"<input type='hidden' name='blank'><input type='hidden' name='timevalue' value='"+tableday+","+active[0].id+"'><input type='hidden' name='placevalue' value='"+place1+","+seq_no+"' class='placelist'><span class='float-right' class='drag' id='drag"+seq_no+"' draggable='true' ondragstart='drag(event)'> <img src='${path}/resources/img/arrow.png' style='width:50px; height:30px;'></span><button class='float-right delbtn' onclick='fn_delete("+seq_no+")'>X</button></div>";
+        var html="<div id='data"+seq_no+"' >"+place2[1]+"<input type='hidden' name='blank'><input type='hidden' name='blank'><input type='hidden' name='blank'><input type='hidden' name='timevalue' value='"+tableday+","+active[0].id+"'><input type='hidden' name='placevalue' value='"+place1+","+seq_no+"' class='placelist'><span class='float-right' class='drag' id='drag"+seq_no+"' draggable='true' ondragstart='drag(event)'> <img src='${path}/resources/img/arrow.png' style='width:50px; height:30px;'></span><button class='float-right delbtn' onclick='fn_delete("+seq_no+")'>X</button></div>";
         
         active.append(html);
         var loc=place2[2];
@@ -857,7 +845,7 @@ $("#start_date").on("click",function()
 	               
 	              
 	               var content = '<div class="ml-3 justify-content-center" style="width:110px; height:50px" align="center"><div class="row mt-2 justify-content-center" align="center" >'+
-     				 '<button type="button" class="btn justify-content-center" onclick = "test3()">내 장소 추가</button>'+
+     				 '<button type="button" class="btn justify-content-center btn-outline-warning" onclick = "test3()">내 장소 추가</button>'+
        				 '</div>';
 	               				 
        				
