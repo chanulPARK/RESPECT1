@@ -28,7 +28,7 @@ $(function(){
             $('#rank-list ol').delay(1000).animate({
                 top: -height * index,
             }, 100, function() {
-                step((index) % count);
+                step((index+1) % count);
             });
         }
     

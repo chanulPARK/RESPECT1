@@ -249,7 +249,6 @@ public class PlaceController {
 		if(result>0) {
 			msg = "등록 성공";
 			loc = "/spot/spotList.do";
-//			loc = "/spot/spotView.do?spotno="+place.getPlaceno();
 		}
 		else {
 			msg = "등록 실패";
@@ -271,6 +270,13 @@ public class PlaceController {
 		service.updateSpotCnt(spotno);
 		
 		Place place = service.selectPlace(spotno);
+		
+		//댓글
+		List<Map<String, String>> placeReplyList = service.placeReplyList(spotno);
+        List<Map<String, String>> placeAttList = service.placeAttList();
+		
+        model.addAttribute("placeReplyList",placeReplyList);
+        model.addAttribute("placeAttList",placeAttList);
 		
 		model.addAttribute("place", place);
 		
@@ -312,6 +318,13 @@ public class PlaceController {
 				bring_ck = true;
 			}
 		}
+		
+		//댓글
+		List<Map<String, String>> placeReplyList = service.placeReplyList(spotno);
+	    List<Map<String, String>> placeAttList = service.placeAttList();
+		
+	    model.addAttribute("placeReplyList",placeReplyList);
+	    model.addAttribute("placeAttList",placeAttList);
 		
 		model.addAttribute("place", place);
 		model.addAttribute("like_ck", like_ck);
@@ -756,11 +769,11 @@ public class PlaceController {
 	      String loc="";
 	      if(result>0){
 	         msg="댓글을 등록하였습니다!";
-	         loc="/spot/spotViewLogin.do?placeNo="+placeReply.getPlaceNo();
+	         loc="/spot/spotViewLogin.do?spotno="+placeReply.getPlaceNo()+"&userid="+placeReply.getUserId();
 	      }
 	      else{
 	         msg="댓글등록에 실패하였습니다";
-	         loc="/spot/spotViewLogin.do?placeNo="+placeReply.getPlaceNo();
+	         loc="/spot/spotViewLogin.do?spotno="+placeReply.getPlaceNo()+"&userid="+placeReply.getUserId();
 	      }
 	      
 	      ModelAndView mv=new ModelAndView();
@@ -779,11 +792,11 @@ public class PlaceController {
 	      String loc="";
 	      if(result>0){
 	         msg="답글을 등록하였습니다!";
-	         loc="/spot/spotViewLogin.do?placeNo="+placeReply.getPlaceNo();
+	         loc="/spot/spotViewLogin.do?spotno="+placeReply.getPlaceNo()+"&userid="+placeReply.getUserId();
 	      }
 	      else{
 	         msg="답글등록에 실패하였습니다";
-	         loc="/spot/spotViewLogin.do?placeNo="+placeReply.getPlaceNo();
+	         loc="/spot/spotViewLogin.do?spotno="+placeReply.getPlaceNo()+"&userid="+placeReply.getUserId();
 	      }
 	      
 	      ModelAndView mv=new ModelAndView();
@@ -802,10 +815,10 @@ public class PlaceController {
 	      String loc="";
 	      if(result>0) {
 	         msg="댓글을 삭제하였습니다!";
-	         loc="/spot/spotViewLogin.do?placeNo="+placeNo;
+	         loc="/spot/spotViewLogin.do?spotno="+placeNo;
 	      }else {
 	         msg="댓글 삭제에 실패하였습니다.";
-	         loc="/spot/spotViewLogin.do?placeNo="+placeNo;
+	         loc="/spot/spotViewLogin.do?spotno="+placeNo;
 	      }
 	      ModelAndView mv=new ModelAndView();
 	      mv.addObject("msg",msg);
@@ -823,7 +836,7 @@ public class PlaceController {
 	      String loc="";
 	      if(check>0) {
 	         msg="이미 추천하셨습니다.";
-	         loc="/spot/spotViewLogin.do?placeNo="+placeReply.getPlaceNo();
+	         loc="/spot/spotViewLogin.do?spotno="+placeReply.getPlaceNo()+"&userid="+placeReply.getUserId();
 	      }else {
 	         
 	         service.insertplaceReplyGood(placeReply);
@@ -832,10 +845,10 @@ public class PlaceController {
 	         
 	         if(result>0) {
 	            msg="추천을 하였습니다!";
-	            loc="/spot/spotViewLogin.do?placeNo="+placeReply.getPlaceNo();
+	            loc="/spot/spotViewLogin.do?spotno="+placeReply.getPlaceNo()+"&userid="+placeReply.getUserId();
 	         }else {
 	            msg="추천에 실패하였습니다.";
-	            loc="/spot/spotViewLogin.do?placeNo="+placeReply.getPlaceNo();
+	            loc="/spot/spotViewLogin.do?spotno="+placeReply.getPlaceNo()+"&userid="+placeReply.getUserId();
 	         }
 	      }
 	      ModelAndView mv=new ModelAndView();

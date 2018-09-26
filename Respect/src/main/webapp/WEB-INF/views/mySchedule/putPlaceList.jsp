@@ -192,7 +192,7 @@
           
              <c:forEach items="${putPlaceList }" var="ppl">
                 <div class="col-md-3 col-sm-6 portfolio-item mt-3">
-                  <a class="portfolio-link"  href="${path }/spot/spotView.do?spotno=${ppl.placeno}" style="text-decoration:none !important">
+                  <a class="portfolio-link"  href="${path }/spot/spotViewLogin.do?spotno=${ppl.placeno}&userid=${userLoggedin.userId}" style="text-decoration:none !important">
                       <div class="portfolio-hover mt-3">
                         <div class="portfolio-hover-content">
                           

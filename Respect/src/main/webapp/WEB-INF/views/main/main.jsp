@@ -74,7 +74,7 @@ $(function(){
                     <c:forEach items="${mlist}" var="ml">
                         <div class="carousel-item active">
                             <div class="card bg-dark text-white">
-                                <img class="card-img img-fluid" src="${ie.imgExtract(ml.CONTENT)}" alt="">
+                                <img class="card-img img-fluid" src="${path }/resources/upload/meet/thumbnail/${ml.THUMBNAIL}" alt="">
                                 <div class="card-img-overlay d-flex linkfeat">
                                     <a href="${path}/meet/meetList.do" class="align-self-end">
                                         <span class="badge">여행친구</span>
@@ -157,7 +157,7 @@ $(function(){
                 <c:forEach items="${mlist}" var="ml" varStatus="v" begin="0" end="3">
                     <div class="col-6 pb-2 mg-${v.count}">
                         <div class="card bg-dark text-white">
-                            <img class="card-img img-fluid" src="${ie.imgExtract(ml.CONTENT)}" alt="" style="max-height: 148.5px;">
+                            <img class="card-img img-fluid" src="${path }/resources/upload/meet/thumbnail/${ml.THUMBNAIL}" alt="" style="max-height: 148.5px;">
                             <div class="card-img-overlay d-flex">
                                 <a href="${path}/meet/meetView.do?meetNo=${ml.MEETNO}" class="align-self-end">
                                 <span class="badge">모임</span> 

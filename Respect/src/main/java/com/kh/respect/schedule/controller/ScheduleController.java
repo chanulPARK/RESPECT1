@@ -3,8 +3,10 @@ package com.kh.respect.schedule.controller;
 
 
 import java.io.File;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -21,10 +23,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
+import com.kh.respect.common.CompareSeqAsc;
 import com.kh.respect.common.Page;
 import com.kh.respect.mySchedule.model.service.MyScheduleService;
 import com.kh.respect.place.model.service.PlaceService;
@@ -165,9 +170,10 @@ public class ScheduleController {
 		Map<String, String> map=service.selectOneScheduleView(scheduleNo);
 		List<TimeTable> tt=service.selectOneTimetableView(scheduleNo);
 
-
+		
 		List<ScheduleReport> sr=service.selectScheduleReportView(scheduleNo);
  
+		Collections.sort(sr, new CompareSeqAsc());
 		
 		Gson gson=new Gson();
 		String json = gson.toJson(tt);
@@ -852,10 +858,8 @@ public class ScheduleController {
 		List<TimeTable> tt=service.selectOneTimetableView(scheduleNo);
 		List<ScheduleReport> rList=service.selectScheduleReportView(scheduleNo);
 		
-		for(ScheduleReport r : rList)
-		{
-			System.out.println(r);
-		}
+		Collections.sort(rList,new CompareSeqAsc());
+		
 		Gson gson=new Gson();
 		String json = gson.toJson(tt);
 		mv.addObject("viewList",map);
@@ -957,4 +961,50 @@ public class ScheduleController {
 		String json = gson.toJson(list);
 		response.getWriter().println(json);
 	}
+	@RequestMapping(value="/imageUpload", method = RequestMethod.POST)
+	   @ResponseBody
+	   public String imageUpload(MultipartFile[] uploadFile, HttpServletRequest request) throws IOException
+	   {
+	      System.out.println("uploadFile :: "+uploadFile[0]);
+	      ObjectMapper mapper=new ObjectMapper();
+	      Map<String,Object> map=new HashMap();
+	      
+	      String saveDir = request.getSession().getServletContext().getRealPath("/resources/uploadImg");
+	      
+	      List<String> attList = new ArrayList();
+	      
+	      File dir = new File(saveDir);
+	      // 폴더가 없을경우 생성
+	      if(dir.exists()==false)
+	      {
+	         dir.mkdirs();
+	      }
+	      
+	      for(MultipartFile f : uploadFile)
+	      {
+	         if(!f.isEmpty())
+	         {
+	            String originName = f.getOriginalFilename();
+	            String ext = originName.substring(originName.lastIndexOf(".")+1);
+	            SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_HHmmssSS");
+	            int rndNum = (int)(Math.random()*10000);
+	            String renamed = sdf.format(new Date(System.currentTimeMillis()));
+	            //String renamed = "meet";
+	            renamed += "_" + rndNum + "." + ext;
+	            try {
+	               // 서버 경로에 파일을 저장
+	               f.transferTo(new File(saveDir+"/"+renamed));
+	            }
+	            catch(Exception e)
+	            {
+	               e.printStackTrace();
+	            }
+	            attList.add(renamed);
+	         }
+	      }
+	      
+	      String jsonStr=mapper.writeValueAsString(attList);
+	      
+	      return jsonStr;
+	   }
 }
