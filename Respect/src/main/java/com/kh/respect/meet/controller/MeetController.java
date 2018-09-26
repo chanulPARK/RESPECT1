@@ -60,8 +60,8 @@ public class MeetController {
 	
 	@RequestMapping("/meet/searchMeet.do")
 	public ModelAndView searchMeet(@RequestParam(value="cPage", required=false, defaultValue="1") int cPage,
-								   @RequestParam(value="daterange") String range,
-							 	   @RequestParam(value="area") String area) throws Exception
+            @RequestParam(value="daterange", required=false, defaultValue="1800/01/01 - 3000/12/31") String range,
+             @RequestParam(value="area") String area) throws Exception
 	{
 		ModelAndView mv = new ModelAndView();
 		System.out.println(range);

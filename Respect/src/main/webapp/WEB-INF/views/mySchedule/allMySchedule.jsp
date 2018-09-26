@@ -423,7 +423,7 @@
             	
             	<c:if test="${fn:length(putPlaceList)==1}">
             		<c:forEach items="${putPlaceList }" var="ppl">
-            			<a class="portfolio-link" href="${path }/spot/spotView.do?spotno=${ppl.PLACENO}" style="text-decoration:none !important">
+            			<a class="portfolio-link" href="${path }/spot/spotViewLogin.do?spotno=${ppl.placeno}&userid=${userLoggedin.userId}" style="text-decoration:none !important">
 				              <div class="portfolio-hover mt-3">
 				                <div class="portfolio-hover-content">
 				                  

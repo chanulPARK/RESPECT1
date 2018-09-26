@@ -67,7 +67,7 @@ function sendFile(file, editor, welEditable){
     console.log(data.getAll('uploadFile'));
     $.ajax({
        data:data,
-       url:"${path}/imageUpload.do",
+       url:"${path}/imageUpload",
        type:"POST",
        cache:false,
        contentType:false,

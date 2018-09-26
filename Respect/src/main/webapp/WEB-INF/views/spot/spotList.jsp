@@ -83,10 +83,6 @@
 
 
 <style>
-
-html, body, blockquote, caption, dl, dd, dt, fieldset, form, frame, h1, h2, h3, h4, h5, h6, hr, iframe, input, legend, li, object, ol, p,
-pre, q, select, table, textarea, ul, tr, td, button{margin:0; padding:0; font-family: "NanumSquare", "Nanum Gothic", "나눔고딕", "맑은 고딕", "Malgun Gothic", "Open Sans", "Dotum", "돋움", arial, sans-serif}
- 
 .layer_map_area {
 	position: relative;
 	margin: 0 auto;
@@ -330,7 +326,6 @@ pre, q, select, table, textarea, ul, tr, td, button{margin:0; padding:0; font-fa
 	    <div class="container">
 	        <h2>제주도 모든 여행지를 한 눈에…<br></h2>
 	        <h5>내가 가본 제주는 어디까지일까? 수많은 제주의 아름다운 여행지를 취향에 맞게 선택해보자. 368개의 크고 작은 오름을 비롯하여 눈 돌리면 어디에서나 마주치는 한라산 그리고 푸른 바다…. 제주의 보석 같은 여행지가 여러분의 선택을 기다린다.<br></h5>
-	        	<%-- <img src="${path }/resources/img/spot/지도.JPG" class="map"> --%>
 	        	
 			<div class="layer_map_area">
 				<div class="layer_map">
@@ -359,7 +354,6 @@ pre, q, select, table, textarea, ul, tr, td, button{margin:0; padding:0; font-fa
 				<button class="btn btn-outline-warning map-btn" type="button" onclick="fn_searchAll()">전체지역</button>
 			</div>
 
-		<!-- <button class="btn btn-outline-warning map-btn" type="button">전체지역</button> -->
        	</div>
 	</section>
 	<section id="map-tag">
@@ -466,18 +460,6 @@ pre, q, select, table, textarea, ul, tr, td, button{margin:0; padding:0; font-fa
 				<h4 style="margin: 10px 0 0 ;">전체&nbsp;<small>${totalContents }</small></h4>
 				
 		        <div class="btn-group">
-		            <!-- <div class="dropdown">
-		            <button class="btn btn-outline-secondary dropdown-toggle" data-toggle="dropdown" aria-expanded="false" type="button">검색기준</button>
-		                <div class="dropdown-menu" role="menu">
-			                <a class="dropdown-item" role="presentation" href="#" style="font-size: .875rem">이름</a>
-			                <a class="dropdown-item" role="presentation" href="#" style="font-size: .875rem">주소</a>
-			                <a class="dropdown-item" role="presentation" href="#" style="font-size: .875rem">테마</a>
-		                </div>
-		            </div>&nbsp;&nbsp;
-		            <select class="form-control" name="minorcategory" required>
-                    	<option value="" selected>카테고리를 선택하세요</option>
-                    	<option value="자연">자연</option>
-                    </select> -->
 		            <input type="text" class="form-control" name="keyword" placeholder="이름 또는 주소">&nbsp;&nbsp;
 		            <button class="btn btn-outline-secondary" type="button" onclick="fn_selectSearch22()">검색</button>
 	            </div>
@@ -533,15 +515,11 @@ $(document).ready(function() {
 		$(this).parent().parent().addClass('jejusi');
 		location.href="${path}/spot/searchAreaList.do?area=제주시내&major=관광지";
 	});
-});
-$(document).ready(function() {
 	$('.aewol').click(function() {
 		$(this).parent().parent().removeAttr('class').attr('class', '');
 		$(this).parent().parent().addClass('aewol');
 		location.href="${path}/spot/searchAreaList.do?area=애월읍&major=관광지";
 	});
-});
-$(document).ready(function() {
 	$('.halim').click(function() {
 		$(this).parent().parent().removeAttr('class').attr('class', '');
 		$(this).parent().parent().addClass('halim');

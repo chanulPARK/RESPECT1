@@ -435,7 +435,7 @@ $(function(){
 							<div id="map" style="width:300px;height:300px;margin-top:10px;display:none"></div>
 							
 							<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
-							<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=8ff31fd960290fc8b23e2c371566d7a6&libraries=services"></script>
+							<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=29d28c77afa06b8d3797cd516b310f0f&libraries=services"></script>
 							<script>
 							    var mapContainer = document.getElementById('map'), // 지도를 표시할 div
 							        mapOption = {

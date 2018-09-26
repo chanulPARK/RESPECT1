@@ -49,7 +49,7 @@
 <%-- <script src="${path }/resources/js/jquery.min.js"></script> --%>
 <%-- <script src="${path }/resources/bootstrap/js/bootstrap.min.js"></script> --%>
 <link rel="stylesheet" href="${path }/resources/css/Footer-Dark.css">
-<%-- <link rel="stylesheet" href="${path }/resources/bootstrap/css/bootstrap.min.css"> --%>
+<link rel="stylesheet" href="${path }/resources/bootstrap/css/bootstrap.min.css">
 <link rel="stylesheet" href="${path }/resources/css/style.css">
 <link rel="stylesheet" href="${path }/resources/fonts/font-awesome.min.css">
 <link rel="stylesheet" href="${path }/resources/fonts/ionicons.min.css">
@@ -64,8 +64,9 @@
 <link href="https://fonts.googleapis.com/css?family=Do+Hyeon" rel="stylesheet">
 
 <script>
+
 $(function(){
-	
+
 	var latitude="";
 	var longitude="";
 	
@@ -81,10 +82,9 @@ $(function(){
 		
 		latitude="33.2541658";
 		longitude="126.5597051";
-	}
+	} 
 	
-	
-	$.ajax({
+	 $.ajax({
 		type : "get",
 		crossDomain:true,
 		url : "https://api2.sktelecom.com/weather/current/minutely",
@@ -95,10 +95,7 @@ $(function(){
 		beforeSend: function(){
 		},
 		success : function(data){
-			//날씨
-			/* alert(data.weather.minutely[0].sky.name); */
-			//온도
-			/* alert(data.weather.minutely[0].temperature.tc); */
+			
 			
 			var skyName=data.weather.minutely[0].sky.name;
 			var temp=data.weather.minutely[0].temperature.tc;
@@ -134,7 +131,7 @@ $(function(){
 	        console.log(textStatus);
 	        console.log(error);
 		}
-		});
+		}); 
 		
 	   $('#message').on('click',function(){
            window.open('${path}/message/receiveMessageList.do?userId=${userLoggedIn.userId}','message','top=50px, left=100px, height=600px, width=800px, resizable=no');
@@ -242,12 +239,10 @@ $(function(){
                         <li class="nav-item mr-3" role="presentation"><a class="nav-link" href="${path}/spot/placeList.do">관광지</a></li>
                         <li class="nav-item mr-3" role="presentation"><a class="nav-link" href="${path}/spot/accommList.do">숙소</a></li>
                         <li class="nav-item mr-3" role="presentation"><a class="nav-link" href="${path}/spot/foodList.do">음식점</a></li>
-                        <li class="dropdown mr-3"><a class="dropdown-toggle nav-link dropdown-toggle" data-toggle="dropdown" aria-expanded="false" href="#">제주이야기 </a>
-                            <div class="dropdown-menu" role="menu">
-                            	<a class="dropdown-item" role="presentation" href="${path}/notice/notice-board.do">공지사항</a>
-                            	<a class="dropdown-item" role="presentation" href="${path}/notice/traffic-board.do">교통</a>
-                          	</div>
-                        </li>
+                        
+                        <li class="nav-item mr-3" role="presentation"><a class="nav-link"  href="${path}/notice/notice-board.do">공지사항</a></li>
+                        <li class="nav-item mr-3" role="presentation"><a class="nav-link"  href="${path}/notice/traffic-board.do">교통</a></li>
+                         
                         <li class="nav-item mr-3" role="presentation"><a class="nav-link" href="${path }/meet/meetList.do">모임</a></li>
                         <li class="nav-item mr-3" role="presentation"><a class="nav-link" href="${path}/schedule/scheduleList">여행일정</a></li>
                         <li class="nav-item mr-3" role="presentation"><a class="nav-link" href="${path}/schedule/scheduleWrite">일정 만들기</a></li>

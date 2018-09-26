@@ -7,7 +7,7 @@
 
 <%@ include file="/WEB-INF/views/common/header.jsp"%>
 
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=8ff31fd960290fc8b23e2c371566d7a6&libraries=services"></script>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=29d28c77afa06b8d3797cd516b310f0f&libraries=services"></script>
 <style>
     .hide {
         display: none;
@@ -182,7 +182,7 @@
                     <!-- 댓글하나시작 -->
                         <div class="media mb-3 " style="border-bottom: rgb(228, 224, 224) solid 1px;">
                             <a class="media-left" href="#">
-                               <img src="${path }/resources/upload/profile/${reply.PICTURE}" alt="위에꺼" width="70px;" height="70px;" class="rounded-circle mr-3">
+                               <img src="${path }/resources/upload/profile/${reply.PICTURE}" alt="이미지가 없습니다." width="70px;" height="70px;" class="rounded-circle mr-3">
                             </a>
                             <div class="media-body mb-3">
                                 <span style="color: #1b1b1b; font-size: 17px;" class="mr-2">${reply.NICKNAME}</span>

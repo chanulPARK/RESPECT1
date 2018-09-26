@@ -156,7 +156,7 @@
     
     <!-- 댓글 -->
 	<insert id="placeReplyWrite" parameterType="com.kh.respect.place.model.vo.PlaceReply">
-        INSERT INTO PLACE_REPLY VALUES(SEQ_PLACE_REPLY.NEXTVAL, #{placeNo}, NULL, #{userId}, SYSDATE, #{content}, 0, #{placeReplyLevel}, 0)
+        INSERT INTO PLACE_REPLY VALUES(SEQ_PLACE_REPLY.NEXTVAL, #{placeNo}, #{userId}, NULL, SYSDATE, #{content}, 0, #{placeReplyLevel}, 0)
        	<selectKey keyProperty="replyNo" resultType="_int" order="AFTER">
         	SELECT SEQ_PLACE_REPLY.CURRVAL FROM DUAL
      	</selectKey>
@@ -167,7 +167,7 @@
      </update>
      
      <insert id="insertPlaceReplyAttach" parameterType="com.kh.respect.place.model.vo.PlaceReplyAttachment">
-        INSERT INTO PLACE_REPLY_ATTACHMENT VALUES(SEQ_PLACE_REPLY_ATTACHMENT.NEXTVAL,#{replyNo},#{originName},#{reNamed})
+        INSERT INTO PLACE_ATTACHMENT VALUES(SEQ_PLACE_ATTACHMENT.NEXTVAL,#{replyNo},#{originName},#{reNamed})
      </insert>
      
      <insert id="placeReplyWrite2" parameterType="com.kh.respect.place.model.vo.PlaceReply">
@@ -199,7 +199,7 @@
      </select>
      
      <select id="placeAttList" resultType="map">
-        select * from PLACE_REPLY_ATTACHMENT
+        select * from PLACE_ATTACHMENT
      </select>
 	
 </mapper>

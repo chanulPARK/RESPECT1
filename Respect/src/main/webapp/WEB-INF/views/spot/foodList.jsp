@@ -69,8 +69,244 @@
 		}
 	});
 </script>
+<style>
+
+/* html, body, blockquote, caption, dl, dd, dt, fieldset, form, frame, h1, h2, h3, h4, h5, h6, hr, iframe, input, legend, li, object, ol, p,
+pre, q, select, table, textarea, ul, tr, td, button{margin:0; padding:0; font-family: "NanumSquare", "Nanum Gothic", "나눔고딕", "맑은 고딕", "Malgun Gothic", "Open Sans", "Dotum", "돋움", arial, sans-serif} */
+ 
+.layer_map_area {
+	position: relative;
+	margin: 0 auto;
+	width: 866px;
+	height: auto;
+	margin-top: 52px;
+}
+
+.layer_map_area .layer_map ul {
+	position: relative;
+	height: 400px;
+	background: url(${path }/resources/img/spot/222.png) no-repeat center 0;
+}
+
+.layer_map_area .layer_map ul li {
+	list-style: none;
+}
+
+.layer_map_area .layer_map a {
+	display: inline-block;
+	margin: 0;
+	padding: 10px 20px;
+	position: absolute;
+	left: 50%;
+	color: transparent;
+	background: transparent
+}
+
+.layer_map_area .layer_map ul.jejusi {
+	background-position: center -400px
+}
+
+.layer_map_area .layer_map ul.jocheon {
+	background-position: center -801px
+}
+
+.layer_map_area .layer_map ul.gujwa {
+	background-position: center -1202px
+}
+
+.layer_map_area .layer_map ul.seongsan {
+	background-position: center -1603px
+}
+
+.layer_map_area .layer_map ul.pyoseon {
+	background-position: center -2004px
+}
+
+.layer_map_area .layer_map ul.namwon {
+	background-position: center -2405px
+}
+
+.layer_map_area .layer_map ul.seogwipo {
+	background-position: center -2806px
+}
+
+.layer_map_area .layer_map ul.jungmun {
+	background-position: center -3207px
+}
+
+.layer_map_area .layer_map ul.andeok {
+	background-position: center -3608px
+}
+
+.layer_map_area .layer_map ul.daejong {
+	background-position: center -4009px
+}
+
+.layer_map_area .layer_map ul.hangyeong {
+	background-position: center -4410px
+}
+
+.layer_map_area .layer_map ul.halim {
+	background-position: center -4810px
+}
+
+.layer_map_area .layer_map ul.aewol {
+	background-position: center -5211px
+}
+
+.layer_map_area .layer_map ul.chusado {
+	background-position: center -5613px
+}
+
+.layer_map_area .layer_map ul.biyangdo {
+	background-position: center -6014px
+}
+
+.layer_map_area .layer_map ul.chagwido {
+	background-position: center -6415px
+}
+
+.layer_map_area .layer_map ul.gapado {
+	background-position: center -6815px
+}
+
+.layer_map_area .layer_map ul.marado {
+	background-position: center -7216px
+}
+
+.layer_map_area .layer_map ul.udo {
+	background-position: center -7615px
+}
+
+.layer_map_area .layer_map a.jejusi {
+	margin-left: -70px;
+    top: 70px;
+    width: 130px;
+    height: 90px;
+}
+
+.layer_map_area .layer_map a.aewol {
+	margin-left: -140px;
+    top: 90px;
+    width: 70px;
+    height: 100px;
+}
+
+.layer_map_area .layer_map a.halim {
+	margin-left: -220px;
+    top: 160px;
+    height: 35px;
+}
+
+.layer_map_area .layer_map a.hangyeong {
+	margin-left: -250px;
+    top: 200px;
+    width: 70px;
+    height: 30px;
+}
+
+.layer_map_area .layer_map a.jocheon {
+	margin-left: 70px;
+    top: 41px;
+    width: 35px;
+    height: 110px;
+}
+
+.layer_map_area .layer_map a.gujwa {
+    margin-left: 120px;
+    top: 19px;
+    width: 90px;
+    height: 110px;
+}
+
+.layer_map_area .layer_map a.seogwipo {
+	margin-left: -10px;
+    top: 200px;
+    height: 80px;
+    width: 50px;
+}
+
+.layer_map_area .layer_map a.daejong {
+    margin-left: -220px;
+    top: 240px;
+    width: 48px;
+    height: 70px;
+}
+
+.layer_map_area .layer_map a.andeok {
+	margin-left: -170px;
+    top: 210px;
+    height: 76px;
+    width: 50px;
+}
+
+.layer_map_area .layer_map a.jungmun {
+	margin-left: -90px;
+    top: 190px;
+    width: 80px;
+    height: 100px;
+}
+
+.layer_map_area .layer_map a.namwon {
+    margin-left: 50px;
+    top: 160px;
+    width: 70px;
+    height: 100px;
+}
+
+.layer_map_area .layer_map a.pyoseon {
+    margin-left: 140px;
+    top: 130px;
+    height: 90px;
+    width: 60px;
+}
+
+.layer_map_area .layer_map a.seongsan {
+    margin-left: 195px;
+    top: 110px;
+    width: 50px;
+    height: 80px;
+}
+
+.layer_map_area .layer_map a.chusado {
+	margin-left: -190px;
+    top: 9px;
+    width: 80px;
+    height: 50px;
+}
+
+.layer_map_area .layer_map a.biyangdo {
+    margin-left: -270px;
+    top: 120px;
+}
+
+.layer_map_area .layer_map a.chagwido {
+	margin-left: -340px;
+    top: 200px;
+    height: 30px;
+}
+
+.layer_map_area .layer_map a.gapado {
+    margin-left: -240px;
+    top: 320px;
+}
+
+.layer_map_area .layer_map a.marado {
+    margin-left: -240px;
+    top: 370px;
+}
+
+.layer_map_area .layer_map a.udo {
+	margin-left: 270px;
+    top: 44px;
+    height: 42px;
+    width: 40px;
+}
+</style>
+
 <main class="page landing-page">
 	<input type="hidden" id="minorcategory" name="minorcategory2" value="${minorcategory}" />
+	<input type="hidden" id="area" name="area2" value="${area}" />
 	<input type="hidden" id="page" name="page" value="" />
 	
 	<section class="clean-block slider dark" style="padding:0;margin:0 0 100px;">
@@ -80,8 +316,34 @@
 	    <div class="container">
 	        <h2>제주의 전통음식부터 다양한 음식의 천국 제주도<br></h2>
 	        <h5>여행의 즐거움 중 빼놓을 수 없는 것은 단연 음식이다. 제주도는 흑돼지, 말요리 그리고 해산물 등 다양한 음식문화를 접할 수 있다. 제주도의 전통 음식부터 줄을 서서 기다리는 최고 인기의 음식까지 모두 즐겨보자.<br></h5>
-	        	<img src="${path }/resources/img/spot/지도.JPG" class="map">
-	        	<button class="btn btn-outline-warning map-btn" type="button">전체지역</button>
+	       	
+	       	<div class="layer_map_area">
+				<div class="layer_map">
+					<ul>
+						<li><a href="javascript:void(0)" class="jejusi">제주시</a></li>
+						<li><a href="javascript:void(0)" class="aewol">애월</a></li>
+						<li><a href="javascript:void(0)" class="halim">한림</a></li>
+						<li><a href="javascript:void(0)" class="hangyeong">한경</a></li>
+						<li><a href="javascript:void(0)" class="jocheon">조천</a></li>
+						<li><a href="javascript:void(0)" class="gujwa">구좌</a></li>
+						<li><a href="javascript:void(0)" class="seogwipo">서귀포</a></li>
+						<li><a href="javascript:void(0)" class="daejong">대정</a></li>
+						<li><a href="javascript:void(0)" class="andeok">안덕</a></li>
+						<li><a href="javascript:void(0)" class="jungmun">중문</a></li>
+						<li><a href="javascript:void(0)" class="namwon">남원</a></li>
+						<li><a href="javascript:void(0)" class="pyoseon">표선</a></li>
+						<li><a href="javascript:void(0)" class="seongsan">성산</a></li>
+						<li><a href="javascript:void(0)" class="udo">우도</a></li>
+						<li><a href="javascript:void(0)" class="chusado">추자도</a></li>
+						<li><a href="javascript:void(0)" class="marado">마라도</a></li>
+						<li><a href="javascript:void(0)" class="biyangdo">비양도</a></li>
+						<li><a href="javascript:void(0)" class="chagwido">차귀도</a></li>
+						<li><a href="javascript:void(0)" class="gapado">가파도</a></li>
+					</ul>
+				</div>
+				<button class="btn btn-outline-warning map-btn" type="button" onclick="fn_searchAll()">전체지역</button>
+			</div>
+	       	
        	</div>
 	</section>
 	<section id="map-tag">
@@ -163,18 +425,6 @@
 				<h4 style="margin: 10px 0 0 ;">전체&nbsp;<small>${totalContents }</small></h4>
 				
 		        <div class="btn-group">
-		            <!-- <div class="dropdown">
-		            <button class="btn btn-outline-secondary dropdown-toggle" data-toggle="dropdown" aria-expanded="false" type="button">검색기준</button>
-		                <div class="dropdown-menu" role="menu">
-			                <a class="dropdown-item" role="presentation" href="#" style="font-size: .875rem">이름</a>
-			                <a class="dropdown-item" role="presentation" href="#" style="font-size: .875rem">주소</a>
-			                <a class="dropdown-item" role="presentation" href="#" style="font-size: .875rem">테마</a>
-		                </div>
-		            </div>&nbsp;&nbsp;
-		            <select class="form-control" name="minorcategory" required>
-                    	<option value="" selected>카테고리를 선택하세요</option>
-                    	<option value="자연">자연</option>
-                    </select> -->
 		            <input type="text" class="form-control" name="keyword" placeholder="이름 또는 주소">&nbsp;&nbsp;
 		            <button class="btn btn-outline-secondary" type="button" onclick="fn_selectSearch22()">검색</button>
 	            </div>
@@ -224,6 +474,106 @@
 </main>
 	
 <script>
+
+$(document).ready(function() {
+	$('.jejusi').click(function() {
+		$(this).parent().parent().removeAttr('class').attr('class', '');
+		$(this).parent().parent().addClass('jejusi');
+		location.href="${path}/spot/searchAreaList.do?area=제주시내&major=음식점";
+	});
+	$('.aewol').click(function() {
+		$(this).parent().parent().removeAttr('class').attr('class', '');
+		$(this).parent().parent().addClass('aewol');
+		location.href="${path}/spot/searchAreaList.do?area=애월읍&major=음식점";
+	});
+	$('.halim').click(function() {
+		$(this).parent().parent().removeAttr('class').attr('class', '');
+		$(this).parent().parent().addClass('halim');
+		location.href="${path}/spot/searchAreaList.do?area=한림읍&major=음식점";
+	});
+	$('.hangyeong').click(function() {
+		$(this).parent().parent().removeAttr('class').attr('class', '');
+		$(this).parent().parent().addClass('hangyeong');
+		location.href="${path}/spot/searchAreaList.do?area=한경면&major=음식점";
+	});
+	$('.jocheon').click(function() {
+		$(this).parent().parent().removeAttr('class').attr('class', '');
+		$(this).parent().parent().addClass('jocheon');
+		location.href="${path}/spot/searchAreaList.do?area=조천읍&major=음식점";
+	});
+	$('.gujwa').click(function() {
+		$(this).parent().parent().removeAttr('class').attr('class', '');
+		$(this).parent().parent().addClass('gujwa');
+		location.href="${path}/spot/searchAreaList.do?area=구좌읍&major=음식점";
+	});
+	$('.seogwipo').click(function() {
+		$(this).parent().parent().removeAttr('class').attr('class', '');
+		$(this).parent().parent().addClass('seogwipo');
+		location.href="${path}/spot/searchAreaList.do?area=서귀포시내&major=음식점";
+	});
+	$('.daejong').click(function() {
+		$(this).parent().parent().removeAttr('class').attr('class', '');
+		$(this).parent().parent().addClass('daejong');
+		location.href="${path}/spot/searchAreaList.do?area=대정읍&major=음식점";
+	});
+	$('.andeok').click(function() {
+		$(this).parent().parent().removeAttr('class').attr('class', '');
+		$(this).parent().parent().addClass('andeok');
+		location.href="${path}/spot/searchAreaList.do?area=안덕면&major=음식점";
+	});
+	$('.jungmun').click(function() {
+		$(this).parent().parent().removeAttr('class').attr('class', '');
+		$(this).parent().parent().addClass('jungmun');
+		location.href="${path}/spot/searchAreaList.do?area=중문&major=음식점";
+	});
+	$('.namwon').click(function() {
+		$(this).parent().parent().removeAttr('class').attr('class', '');
+		$(this).parent().parent().addClass('namwon');
+		location.href="${path}/spot/searchAreaList.do?area=남원읍&major=음식점";
+	});
+	$('.pyoseon').click(function() {
+		$(this).parent().parent().removeAttr('class').attr('class', '');
+		$(this).parent().parent().addClass('pyoseon');
+		location.href="${path}/spot/searchAreaList.do?area=표선읍&major=음식점";
+	});
+	$('.seongsan').click(function() {
+		$(this).parent().parent().removeAttr('class').attr('class', '');
+		$(this).parent().parent().addClass('seongsan');
+		location.href="${path}/spot/searchAreaList.do?area=성산읍&major=음식점";
+	});
+	$('.udo').click(function() {
+		$(this).parent().parent().removeAttr('class').attr('class', '');
+		$(this).parent().parent().addClass('udo');
+		location.href="${path}/spot/searchAreaList.do?area=우도&major=음식점";
+	});
+	$('.chusado').click(function() {
+		$(this).parent().parent().removeAttr('class').attr('class', '');
+		$(this).parent().parent().addClass('chusado');
+		location.href="${path}/spot/searchAreaList.do?area=추자도&major=음식점";
+	});
+	$('.marado').click(function() {
+		$(this).parent().parent().removeAttr('class').attr('class', '');
+		$(this).parent().parent().addClass('marado');
+		location.href="${path}/spot/searchAreaList.do?area=마라도&major=음식점";
+	});
+	$('.biyangdo').click(function() {
+		$(this).parent().parent().removeAttr('class').attr('class', '');
+		$(this).parent().parent().addClass('biyangdo');
+		location.href="${path}/spot/searchAreaList.do?area=비양도&major=음식점";
+	});
+	$('.chagwido').click(function() {
+		$(this).parent().parent().removeAttr('class').attr('class', '');
+		$(this).parent().parent().addClass('chagwido');
+		location.href="${path}/spot/searchAreaList.do?area=차귀도&major=음식점";
+	});
+	$('.gapado').click(function() {
+		$(this).parent().parent().removeAttr('class').attr('class', '');
+		$(this).parent().parent().addClass('gapado');
+		location.href="${path}/spot/searchAreaList.do?area=가파도&major=음식점";
+	});
+});
+
+
 	function fn_selectSearch22() {
 		location.href="${path}/spot/selectSearchList.do?keyword="+$('input[name=keyword]').val();
 	}
@@ -241,6 +591,68 @@
 	}
 </script>
 
+<script type="text/javascript">
+	$(document).ready(function() {
+		var temp2 = $('#area').val();
+		if(temp2=='제주시내') {
+			$('.jejusi').parent().parent().addClass('jejusi');
+		}
+		if(temp2=='조천읍') {
+			$('.jocheon').parent().parent().addClass('jocheon');
+		}
+		if(temp2=='구좌읍') {
+			$('.gujwa').parent().parent().addClass('gujwa');
+		}
+		if(temp2=='애월읍') {
+			$('.aewol').parent().parent().addClass('aewol');
+		}
+		if(temp2=='한림읍') {
+			$('.halim').parent().parent().addClass('halim');
+		}
+		if(temp2=='한경면') {
+			$('.hangyeong').parent().parent().addClass('hangyeong');
+		}
+		if(temp2=='서귀포시내') {
+			$('.seogwipo').parent().parent().addClass('seogwipo');
+		}
+		if(temp2=='남원읍') {
+			$('.namwon').parent().parent().addClass('namwon');
+		}
+		if(temp2=='표선읍') {
+			$('.pyoseon').parent().parent().addClass('pyoseon');
+		}
+		if(temp2=='성산읍') {
+			$('.seongsan').parent().parent().addClass('seongsan');
+		}
+		if(temp2=='중문') {
+			$('.jungmun').parent().parent().addClass('jungmun');
+		}
+		if(temp2=='안덕면') {
+			$('.andeok').parent().parent().addClass('andeok');
+		}
+		if(temp2=='대정읍') {
+			$('.daejong').parent().parent().addClass('daejong');
+		}
+		if(temp2=='추자도') {
+			$('.chusado').parent().parent().addClass('chusado');
+		}
+		if(temp2=='우도') {
+			$('.udo').parent().parent().addClass('udo');
+		}
+		if(temp2=='차귀도') {
+			$('.chagwido').parent().parent().addClass('chagwido');
+		}
+		if(temp2=='가파도') {
+			$('.gapado').parent().parent().addClass('gapado');
+		}
+		if(temp2=='마라도') {
+			$('.marado').parent().parent().addClass('marado');
+		}
+		if(temp2=='비양도') {
+			$('.biyangdo').parent().parent().addClass('biyangdo');
+		}
+	});
+</script>
 	
 	
 <%@ include file="/WEB-INF/views/common/footer.jsp"%>
